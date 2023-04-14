@@ -44,7 +44,7 @@ halt
 
 * `luciancicd` - Tests repositories with change modification dates. Run before committing changes. Tests should be in `cicd.txt` file in each repository and be in form `[["","a.pl",(a(B),B=1)]]`, i.e. `[[Subfolder,Filename,Test], Other tests]`.
 
-* Note: Until changed, dependencies are in `luciancicd/lppm_registry.txt`, in form ``[[User,Repository,Dependencies], etc]`. 
+* Note: Until changed, dependencies are in `luciancicd/lppm_registry.txt`, in form `[[User,Repository,Dependencies], etc]`. 
 
 # Authors
 
