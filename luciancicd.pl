@@ -71,7 +71,7 @@ modification_dates(Mod_times2),
 string_concat(Path1,".txt",Path),
 string_concat("../private2/luciancicd-data/mod_times_",Repository1,Path1),
 %trace,
-find_all_dependended_luciancicd(LPPM_registry_term1,Repository1,[],Dependencies3)),Dependencies4),
+find_all_depended_luciancicd(LPPM_registry_term1,Repository1,[],Dependencies3)),Dependencies4),
 flatten(Dependencies4,Dependencies41),
 sort(Dependencies41,Dependencies5),
 
@@ -209,12 +209,12 @@ foldr(append,Mod_time6,Mod_time61)),
 !.
 
 
-	%find_all_dependended_luciancicd(LPPM_registry_term1,Repository1,Dependencies,Dependencies) :- !.
-	find_all_dependended_luciancicd(LPPM_registry_term1,Repository1,Dependencies7,Dependencies72) :-
+	%find_all_depended_luciancicd(LPPM_registry_term1,Repository1,Dependencies,Dependencies) :- !.
+	find_all_depended_luciancicd(LPPM_registry_term1,Repository1,Dependencies7,Dependencies72) :-
 (member([User1,Repository1,_Description,_Dependencies1],LPPM_registry_term1)->
 (findall(Dependencies5,(member([User1,Repository2,_Description,Dependencies2],LPPM_registry_term1),
 member([User1,Repository1],Dependencies2),
-find_all_dependended_luciancicd(LPPM_registry_term1,Repository2,[],Dependencies4),
+find_all_depended_luciancicd(LPPM_registry_term1,Repository2,[],Dependencies4),
 foldr(append,[Dependencies4],Dependencies5)
 
 ),Dependencies3),
