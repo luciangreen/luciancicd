@@ -101,13 +101,15 @@ foldr(string_concat,["../private2/luciancicd-testing/",Repository1,"/cicd.txt"],
 (catch(open_file_s(Test_script_path,Tests),_,
 (writeln(["Cannot find",Test_script_path]),abort))->
 
+(working_directory(A,A),
 findall(Result,(member([Go_path,File,Command],Tests),
-((working_directory(_,Go_path),
+((working_directory(_,A),
+working_directory(_,Go_path),
 
 % *** Change path to swipl if necessary
 
 term_to_atom(Command,Command1),
-foldr(string_concat,["#!/opt/homebrew/bin/swipl -q\n\n:- initialization main.\n:-include('",File,"').\nmain :-\n    ",Command1,", nl,\n    halt.\n"],String),
+foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n:- initialization main.\n:-include('",File,"').\nmain :-\n    ",Command1,", nl,\n    halt.\nmain :- halt(1).\n"],String),
 %trace,
 foldr(string_concat,["../private2/luciancicd-testing/",Repository1,"/testcicd.pl"],GP),
 %string_concat(Go_path,"testcicd.pl",GP),
@@ -115,11 +117,12 @@ open_s(GP,write,S1),
 write(S1,String),close(S1),
 foldr(string_concat,["chmod +x ",GP,"\nswipl -f -q ./",GP],S3)%,
 ,catch(bash_command(S3,_), _, (concat_list(["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
-	],Text4),writeln1(Text4),abort
+	],_Text4),%writeln1(Text4),
+	fail%abort
  	))
 %Command
 )->Result=success;Result=fail),
-writeln([Go_path,File,Command,Result])),_Results)
+writeln([Go_path,File,Command,Result])),_Results))
 ;
 true)),_)))),!.
 
