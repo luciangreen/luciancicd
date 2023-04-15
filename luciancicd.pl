@@ -47,6 +47,10 @@ luciancicd :-
 
 	lppm_get_registry_luciancicd(LPPM_registry_term1),
 
+(exists_directory('../private2')->true;make_directory('../private2')),
+
+(exists_directory('../private2/luciancicd-data')->true;make_directory('../private2/luciancicd-data')),
+
 directory_files('../private2/luciancicd-data/',F),
 	delete_invisibles_etc(F,G),
 
@@ -79,7 +83,7 @@ sort(Dependencies41,Dependencies5),
 (findall(_,(member(Repository1,Dependencies5),
 
 
-(exists_directory('../private2/luciancicd-testing')->true;make_directory('../private2/')),
+(exists_directory('../private2/luciancicd-testing')->true;make_directory('../private2/luciancicd-testing')),
 
 	concat_list(["rm -rf ../private2/luciancicd-testing/"],Command3),
  	catch(bash_command(Command3,_), _, (concat_list(["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
