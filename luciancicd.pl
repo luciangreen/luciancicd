@@ -160,7 +160,7 @@ foldr(string_concat,["chmod +x ",GP,"\n","swipl -f -q ./",GP],S3)%,
  	))
 %Command
 )->Result=success;Result=fail),
-writeln1([Go_path,File,Command,Result])),_Results))
+writeln1([Go_path1,File,Command,Result])),_Results))
 ;
 true),
 
