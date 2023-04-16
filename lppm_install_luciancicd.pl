@@ -1,17 +1,21 @@
 lppm_install_luciancicd(LPPM_registry_term1,User1,Repository1) :-
+	
+	%(Repository1="b"->trace;true),
 	%%lppm_get_manifest(User1,Repository1,_Description,Dependencies1),
 	%lppm_get_registry(LPPM_registry_term1),
-	member([User1,Repository1,_Description1,Dependencies1],LPPM_registry_term1),
+	member([User1,Repository1,_Description1,_Dependencies1],LPPM_registry_term1),
 	(%%repeat,
-	concat_list(["Please enter path to install ",User1,"/",Repository1," to: (e.g. ../ to install at the same level as List Prolog Package Manager)."],_Text2),
+	foldr(string_concat,["Please enter path to install ",User1,"/",Repository1," to: (e.g. ../ to install at the same level as List Prolog Package Manager)."],_Text2),
 	%writeln1(Text2),%read_string(user_input, "\n", "\r", _, Path1),
 	
 	Path1="../private2/luciancicd-testing/",
 	%(working_directory(_,Path1)->true;(concat_list(["Warning: ",Path1," doesn't exist."],Text3),writeln1(Text3),fail))),
 	
 	%catch((true, call_with_time_limit(1,
+		%trace,
 		find_all_dependencies(LPPM_registry_term1,%[[User1,Repository1]],%%,Description,Dependencies1
-	Dependencies1,[],Dependencies1a)
+	[[User1,Repository1]%|Dependencies1
+	],[],Dependencies1a)
 		,
 		%)),
  %         time_limit_exceeded,
@@ -29,7 +33,7 @@ lppm_install_luciancicd(LPPM_registry_term1,User1,Repository1) :-
 	%concat_list(["git clone https://github.com/",User3,"/",Repository3,".git"],Command3),
 	%trace,
 	repositories_paths([K]),
-	concat_list(["scp -pr ",K,Repository3," ",Path1,Repository3],Command3),
- 	catch((bash_command(Command3,_),!), _, (concat_list(["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	foldr(string_concat,["scp -pr ",K,Repository3," ",Path1,Repository3],Command3),
+ 	catch((bash_command(Command3,_)), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
  	],Text4),writeln1(Text4)%%,abort
  	))),_)),!.
