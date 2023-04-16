@@ -61,6 +61,7 @@ term_to_atom(Mod_times1,Mod_times12)),Mod_times11),
 
 modification_dates(Mod_times2),
 
+
     %msort(Mod_times11, Sorted1),
     %msort(Mod_times2, Sorted2),
     subtract(Mod_times2,Mod_times11,New),
@@ -71,7 +72,21 @@ modification_dates(Mod_times2),
 
 % if 
 
-(findall(Dependencies3,(member([Path,_],New),
+(
+
+	concat_list(["rm -rf ../private2/luciancicd-data/"],Command31),
+ 	catch(bash_command(Command31,_), _, (concat_list(["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],Text41),writeln1(Text41),abort
+ 	)),
+
+(exists_directory('../private2/luciancicd-data')->true;make_directory('../private2/luciancicd-data')),
+
+findall(_,(member([K21,Mod_time521],Mod_times2),
+open_s(K21,write,S21),
+write(S21,Mod_time521),close(S21)
+),_),
+
+findall(Dependencies3,(member([Path,_],New),
 string_concat(Path1,".txt",Path),
 string_concat("../private2/luciancicd-data/mod_times_",Repository1,Path1),
 %trace,
@@ -109,13 +124,13 @@ working_directory(_,Go_path),
 % *** Change path to swipl if necessary
 
 term_to_atom(Command,Command1),
-foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n:- initialization main.\n:-include('",File,"').\nmain :-\n    ",Command1,", nl,\n    halt.\nmain :- halt(1).\n"],String),
+foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n:- initialization main.\n:-include('",File,"').\n","main :-\n    ",Command1,", nl,\n    halt.\n","main :- halt(1).\n"],String),
 %trace,
 foldr(string_concat,["../private2/luciancicd-testing/",Repository1,"/testcicd.pl"],GP),
 %string_concat(Go_path,"testcicd.pl",GP),
 open_s(GP,write,S1),
 write(S1,String),close(S1),
-foldr(string_concat,["chmod +x ",GP,"\nswipl -f -q ./",GP],S3)%,
+foldr(string_concat,["chmod +x ",GP,"\n","swipl -f -q ./",GP],S3)%,
 ,catch(bash_command(S3,_), _, (concat_list(["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text4),%writeln1(Text4),
 	fail%abort
