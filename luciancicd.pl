@@ -164,9 +164,8 @@ repositories_paths(Paths) :-
 omit_paths(Paths) :-
  omit_paths1(Paths1),
  findall(Paths2,(member(Paths3,Paths1),
- ((string_concat(_Paths4,"/",Paths3),
- Paths2=Paths3)->true;
- string_concat(Paths3,"/",Paths2))),Paths),!.
+ ((string_concat(Paths2,"/",Paths3))->true;
+ (Paths3=Paths2))),Paths),!.
  
 repositories_paths1([
 %"../../GitHub/"
