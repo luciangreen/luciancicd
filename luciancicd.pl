@@ -95,40 +95,38 @@ string_concat(Path1,".txt",Path),
 string_concat("../private2/luciancicd-data/mod_times_",Repository1,Path1)),Repositories),
 %trace,
 findall([Repository1,Dependencies5],(member(Repository1,Repositories),
-find_all_depended_luciancicd(LPPM_registry_term1,Repository1,[],Dependencies42),
-flatten(Dependencies42,Dependencies41),
-sort(Dependencies41,Dependencies5)
+%trace,
+find_all_depending_luciancicd(LPPM_registry_term1,Repository1,[],Dependencies5)
+%flatten(Dependencies42,Dependencies41),
+%sort(Dependencies41,Dependencies5)
 ),Dependencies6),
+
+findall(Dependencies5,(member([Repository1,Dependencies5],Dependencies6)),Dependencies8),
+flatten(Dependencies8,Dependencies83),
+sort(Dependencies83,Dependencies9),
 
 working_directory(A1,A1),
 %trace,
-(findall(_,(member(Repository1,Repositories),
+(findall(_,(member(Repository1,Dependencies9),
 
 nl,writeln("**********"),
 writeln(["Installing",Repository1]),
 %(Repository1="b"->trace;true),
 working_directory(_,A1),
 
-
 (exists_directory('../private2/luciancicd-testing')->true;make_directory('../private2/luciancicd-testing')),
 
-	foldr(string_concat,["rm -rf ../private2/luciancicd-testing/"],Command3),
- 	catch(bash_command(Command3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
-	],Text4),writeln1(Text4),abort
- 	)),
-
-(exists_directory('../private2/luciancicd-testing')->true;make_directory('../private2/luciancicd-testing')),
-
-member([Repository1,Dependencies7],Dependencies6),
-findall(_,(member(Repository2,Dependencies7),
-writeln(["Installing required repository",Repository2]),
-lppm_install_luciancicd(LPPM_registry_term1,"luciangreen",Repository2)),_),
+%member([Repository1,Dependencies7],Dependencies6),
+%findall(_,(member(Repository1,Dependencies7),
+%writeln(["Installing required repository",Repository1]),
+lppm_install_luciancicd(LPPM_registry_term1,"luciangreen",Repository1),%),_),
 
 %trace,
 %pwd,
 %notrace,
 % test non-interactive algorithms
 %trace,
+writeln(["Running tests"]),
 foldr(string_concat,["../private2/luciancicd-testing/",Repository1,"/cicd.txt"],Test_script_path),
 (catch(open_file_s(Test_script_path,Tests),_,
 (writeln(["Cannot find",Test_script_path]),abort))->
@@ -156,7 +154,14 @@ foldr(string_concat,["chmod +x ",GP,"\n","swipl -f -q ./",GP],S3)%,
 )->Result=success;Result=fail),
 writeln1([Go_path,File,Command,Result])),_Results))
 ;
-true)),_)))),!.
+true),
+
+	foldr(string_concat,["rm -rf ../private2/luciancicd-testing/"],Command3),
+ 	catch(bash_command(Command3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],Text4),writeln1(Text4),abort
+ 	))
+
+),_)))),!.
 
 
 repositories_paths(Paths) :-
@@ -299,12 +304,12 @@ foldr(append,Mod_time6,Mod_time61)),
 !.
 
 
-	%find_all_depended_luciancicd(LPPM_registry_term1,Repository1,Dependencies,Dependencies) :- !.
-	find_all_depended_luciancicd(LPPM_registry_term1,Repository1,Dependencies7,Dependencies72) :-
+	%find_all_depending_luciancicd(LPPM_registry_term1,Repository1,Dependencies,Dependencies) :- !.
+	find_all_depending_luciancicd(LPPM_registry_term1,Repository1,Dependencies7,Dependencies72) :-
 (member([User1,Repository1,_Description1,_Dependencies1],LPPM_registry_term1)->
 (findall(Dependencies5,(member([User1,Repository2,_Description,Dependencies2],LPPM_registry_term1),
 member([User1,Repository1],Dependencies2),
-find_all_depended_luciancicd(LPPM_registry_term1,Repository2,[],Dependencies4),
+find_all_depending_luciancicd(LPPM_registry_term1,Repository2,[],Dependencies4),
 foldr(append,[Dependencies7,Dependencies4],Dependencies5)
 
 ),Dependencies3),

@@ -30,6 +30,7 @@ lppm_install_luciancicd(LPPM_registry_term1,User1,Repository1) :-
 	%trace,
 	%writeln(Dependencies2b),
 	findall(_,(member(Dependency2,Dependencies2b),Dependency2=[_User3,Repository3],
+	writeln(["Installing dependency",Repository3]),
 	%concat_list(["git clone https://github.com/",User3,"/",Repository3,".git"],Command3),
 	%trace,
 	repositories_paths([K]),
