@@ -90,19 +90,22 @@ open_s(K21,write,S21),
 write(S21,Mod_time521),close(S21)
 ),_),
 
-findall(Dependencies3,(member([Path,_],New),
+findall(Repository1,(member([Path,_],New),
 string_concat(Path1,".txt",Path),
-string_concat("../private2/luciancicd-data/mod_times_",Repository1,Path1),
+string_concat("../private2/luciancicd-data/mod_times_",Repository1,Path1)),Repositories),
 %trace,
-find_all_depended_luciancicd(LPPM_registry_term1,Repository1,[],Dependencies3)),Dependencies4),
-flatten(Dependencies4,Dependencies41),
-sort(Dependencies41,Dependencies5),
+findall([Repository1,Dependencies5],(member(Repository1,Repositories),
+find_all_depended_luciancicd(LPPM_registry_term1,Repository1,[],Dependencies42),
+flatten(Dependencies42,Dependencies41),
+sort(Dependencies41,Dependencies5)
+),Dependencies6),
 
 working_directory(A1,A1),
 %trace,
-(findall(_,(member(Repository1,Dependencies5),
+(findall(_,(member(Repository1,Repositories),
 
-nl,writeln(["Installing and testing",Repository1]),
+nl,writeln("**********"),
+writeln(["Installing",Repository1]),
 %(Repository1="b"->trace;true),
 working_directory(_,A1),
 
@@ -116,8 +119,10 @@ working_directory(_,A1),
 
 (exists_directory('../private2/luciancicd-testing')->true;make_directory('../private2/luciancicd-testing')),
 
-
-lppm_install_luciancicd(LPPM_registry_term1,"luciangreen",Repository1),
+member([Repository1,Dependencies7],Dependencies6),
+findall(_,(member(Repository2,Dependencies7),
+writeln(["Installing required repository",Repository2]),
+lppm_install_luciancicd(LPPM_registry_term1,"luciangreen",Repository2)),_),
 
 %trace,
 %pwd,
