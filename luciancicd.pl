@@ -114,6 +114,11 @@ writeln(["Installing",Repository1]),
 %(Repository1="b"->trace;true),
 working_directory(_,A1),
 
+	foldr(string_concat,["rm -rf ../private2/luciancicd-testing/"],Command312),
+ 	catch(bash_command(Command312,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],Text412),writeln1(Text412),abort
+ 	)),
+
 (exists_directory('../private2/luciancicd-testing')->true;make_directory('../private2/luciancicd-testing')),
 
 %member([Repository1,Dependencies7],Dependencies6),
@@ -131,8 +136,10 @@ foldr(string_concat,["../private2/luciancicd-testing/",Repository1,"/cicd.txt"],
 (catch(open_file_s(Test_script_path,Tests),_,
 (writeln(["Cannot find",Test_script_path]),abort))->
 
-(working_directory(A,A),
-findall(Result,(member([Go_path,File,Command],Tests),
+(%trace,
+working_directory(A,A),
+findall(Result,(member([Go_path1,File,Command],Tests),
+foldr(string_concat,["../private2/luciancicd-testing/",Repository1,"/",Go_path1],Go_path),
 ((working_directory(_,A),
 working_directory(_,Go_path),
 
@@ -141,6 +148,7 @@ working_directory(_,Go_path),
 term_to_atom(Command,Command1),
 foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n:- initialization main.\n:-include('",File,"').\n","main :-\n    ",Command1,", nl,\n    halt.\n","main :- halt(1).\n"],String),
 %trace,
+working_directory(_,A),
 foldr(string_concat,["../private2/luciancicd-testing/",Repository1,"/testcicd.pl"],GP),
 %string_concat(Go_path,"testcicd.pl",GP),
 open_s(GP,write,S1),
