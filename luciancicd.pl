@@ -105,14 +105,14 @@ findall(Dependencies5,(member([Repository1,Dependencies5],Dependencies6)),Depend
 flatten(Dependencies8,Dependencies83),
 sort(Dependencies83,Dependencies9),
 
-working_directory(A1,A1),
+working_directory1(A1,A1),
 %trace,
 (findall(_,(member(Repository1,Dependencies9),
 
 nl,writeln("**********"),
 writeln(["Installing",Repository1]),
 %(Repository1="b"->trace;true),
-working_directory(_,A1),
+working_directory1(_,A1),
 
 	foldr(string_concat,["rm -rf ../private2/luciancicd-testing/"],Command312),
  	catch(bash_command(Command312,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
@@ -137,18 +137,18 @@ foldr(string_concat,["../private2/luciancicd-testing/",Repository1,"/cicd.txt"],
 (writeln(["Cannot find",Test_script_path]),abort))->
 
 (%trace,
-working_directory(A,A),
+working_directory1(A,A),
 findall(Result,(member([Go_path1,File,Command],Tests),
 foldr(string_concat,["../private2/luciancicd-testing/",Repository1,"/",Go_path1],Go_path),
-((working_directory(_,A),
-working_directory(_,Go_path),
+((working_directory1(_,A),
+working_directory1(_,Go_path),
 
 % *** Change path to swipl if necessary
 
 term_to_atom(Command,Command1),
 foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n:- initialization main.\n:-include('",File,"').\n","main :-\n    ",Command1,", nl,\n    halt.\n","main :- halt(1).\n"],String),
 %trace,
-working_directory(_,A),
+working_directory1(_,A),
 foldr(string_concat,["../private2/luciancicd-testing/",Repository1,"/testcicd.pl"],GP),
 %string_concat(Go_path,"testcicd.pl",GP),
 open_s(GP,write,S1),
@@ -199,7 +199,7 @@ omit_paths1([
 
 modification_dates(Mod_time) :-
 
-working_directory(A,A),
+working_directory1(A,A),
 
 (exists_directory('../private2/luciancicd-data')->true;make_directory('../private2/luciancicd-data')),
 
@@ -222,13 +222,13 @@ findall(G3,(member(G2,G1),string_concat(G2,"/",G3)),G4)
 %trace,
 %foldr(append,K0,K01),
 
-working_directory(Old_D,Old_D),
+working_directory1(Old_D,Old_D),
 
 findall(Mod_time1,(member([D,K31],K01),
 
-working_directory(_,Old_D),
+working_directory1(_,Old_D),
 
-working_directory(_,D),
+working_directory1(_,D),
 
 %member(K2,K31),
 
@@ -241,7 +241,7 @@ process_directory(K31,%_G,
  ),Mod_time2),
  foldr(append,Mod_time2,Mod_time),
  
- working_directory(_,A)
+ working_directory1(_,A)
 
  ,!.
 
@@ -332,3 +332,9 @@ lppm_get_registry_luciancicd(LPPM_registry_term1) :-
 	catch(phrase_from_file_s(string(LPPM_registry_string), "lppm_registry.txt"),_,(writeln1("Error: Cannot find lppm_registry.txt"),abort)),
 
 term_to_atom(LPPM_registry_term1,LPPM_registry_string).
+
+working_directory1(A,B) :-
+ term_to_atom(working_directory(A,B),Atom),
+ 	catch(working_directory(A,B), _, (foldr(string_concat,["Error on ",Atom%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],Text41),writeln1(Text41),abort
+ 	)).

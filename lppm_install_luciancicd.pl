@@ -9,7 +9,7 @@ lppm_install_luciancicd(LPPM_registry_term1,User1,Repository1) :-
 	%writeln1(Text2),%read_string(user_input, "\n", "\r", _, Path1),
 	
 	Path1="../private2/luciancicd-testing/",
-	%(working_directory(_,Path1)->true;(concat_list(["Warning: ",Path1," doesn't exist."],Text3),writeln1(Text3),fail))),
+	%(working_directory1(_,Path1)->true;(concat_list(["Warning: ",Path1," doesn't exist."],Text3),writeln1(Text3),fail))),
 	
 	%catch((true, call_with_time_limit(1,
 		%trace,
