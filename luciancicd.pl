@@ -154,14 +154,27 @@ writeln1([Go_path,File,Command,Result])),_Results))
 true)),_)))),!.
 
 
-
-repositories_paths([
+repositories_paths(Paths) :-
+ repositories_paths1(Paths1),
+ findall(Paths2,(member(Paths3,Paths1),
+ ((string_concat(_Paths4,"/",Paths3),
+ Paths2=Paths3)->true;
+ string_concat(Paths3,"/",Paths2))),Paths),!.
+ 
+omit_paths(Paths) :-
+ omit_paths1(Paths1),
+ findall(Paths2,(member(Paths3,Paths1),
+ ((string_concat(_Paths4,"/",Paths3),
+ Paths2=Paths3)->true;
+ string_concat(Paths3,"/",Paths2))),Paths),!.
+ 
+repositories_paths1([
 %"../../GitHub/"
 "reps/"
 %"e/"
 ]).
 
-omit_paths([
+omit_paths1([
 %"private2"
 "b" % omits a/b/
 ]).
