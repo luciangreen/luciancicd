@@ -34,7 +34,7 @@ lppm_install_luciancicd(LPPM_registry_term1,User1,Repository1) :-
 	%concat_list(["git clone https://github.com/",User3,"/",Repository3,".git"],Command3),
 	%trace,
 	repositories_paths([K]),
-	foldr(string_concat,["scp -pr ",K,Repository3," ",Path1,Repository3],Command3),
+	foldr(string_concat,["rsync -av --exclude=\".*\" ",K,Repository3,"/ ",Path1,Repository3],Command3),
  	catch((bash_command(Command3,_)), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
  	],Text4),writeln1(Text4)%%,abort
  	))),_)),!.
