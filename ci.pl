@@ -19,6 +19,12 @@ C = [[1, 2, 4, 3], [1, 2, 3]].
 diff_combos([1,2,3],[1,3],C).
 C = [[1, 2, 3], [1, 3]].
 
+diff_combos([1,2,3],[1,5,2,4,3],C).
+C = [[1, 5, 2, 4, 3], [1, 5, 2, 3], [1, 2, 4, 3], [1, 2, 3]].
+
+diff_combos([1,2,3,4,5],[1,3,5],C).
+C = [[1, 2, 3, 4, 5], [1, 2, 3, 5], [1, 3, 4, 5], [1, 3, 5]].
+
 */
 
 diff_combos(Before,After,Combos4) :-
@@ -27,7 +33,8 @@ diff_combos(Before,After,Combos4) :-
  replace12(Before,After2,Deletions,[],After3),
  findall(Combos,find_combos1(Insertions,Deletions,Combos),Combos2),
  findall(Combos1,(member(Combos3,Combos2),
- find_combos3(After3,Combos3,[],Combos1)),Combos4),!.
+ find_combos3(After3,Combos3,[],Combos1)),Combos41),
+ sort(Combos41,Combos4),!.
 
 replace11([],_Insertions,After,After) :- !.
 replace11(After,Insertions,After2,After3) :-
