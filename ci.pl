@@ -12,7 +12,66 @@ detect changed preds
 convert to pl, test
 copy to build folder if passes
 
+*/
 
+:-include('../Prolog-to-List-Prolog/p2lpconverter.pl').
+:-include('../List-Prolog-to-Prolog-Converter/lp2pconverter.pl').
+:-include('luciancicd.pl').
+:-dynamic term_to_numbers1/1.
+
+/*cicd(Path) :-
+ merge(Path),
+ build_and_test.
+*/
+
+set_up_merge(Type,File1) :-
+ p2lpconverter([Type,File1],S1),
+ pp0(S1,S2),S2=S3,%term_to_atom(S2,S3),
+ open_s("test.lp",write,S21),
+ write(S21,S3),close(S21).
+
+merge(Type,File1) :-
+ p2lpconverter([Type,File1],S1),
+ pp0(S1,S2),S2=S3,%term_to_atom(S2,S3),
+ open_file_s("test.lp",Old_S1),
+ (S1=Old_S1->
+ (writeln("Files are identical"),abort);
+ (open_s("test.lp",write,S21),
+ write(S21,S3),close(S21),
+ retractall(term_to_numbers1(_)),
+ assertz(term_to_numbers1(1)),
+ term_to_numbers(Old_S1,[],Corr,[],N1),
+ term_to_numbers(S1,Corr,Corr2,[],N2),
+ diff_combos(N1,N2,C),
+ findall(T,(member(C1,C),numbers_to_term(C1,Corr2,[],T0),
+ lp2p1(T0,T)),T1),
+ delete(T1,[],T3),
+ T3=[T4|_],
+ open_s("test.pl",write,S22),
+ write(S22,T4),close(S22))).
+
+term_to_numbers([],C,C,N,N) :- !.
+term_to_numbers(S,C1,C2,N1,N2) :-
+ S=[S1|S2],
+ (member([S1,N],C1)->
+ C1=C3;
+ (term_to_numbers1(N),
+ retractall(term_to_numbers1(_)),
+ N4 is N+1,
+ assertz(term_to_numbers1(N4)),
+ append(C1,[[S1,N]],C3))),
+ append(N1,[N],N3),
+ term_to_numbers(S2,C3,C2,N3,N2),!.
+
+numbers_to_term([],_,T,T) :- !.
+numbers_to_term(SN,C1,T1,T2) :-
+ SN=[SN1|SN2],
+ member([S1,SN1],C1),
+ append(T1,[S1],T3),
+ numbers_to_term(SN2,C1,T3,T2),!.
+
+ 
+/*
 diff_combos([1,2,3],[1,2,4,3],C).
 C = [[1, 2, 4, 3], [1, 2, 3]].
 
@@ -39,6 +98,7 @@ C = [[4, 5], [5]].
 
 */
 
+diff_combos(A,A,[]) :- !.
 diff_combos(Before,After,Combos4) :-
  find_insertions_and_deletions(Before,After,Insertions,Deletions),
  replace11(After,Insertions,[],After2),
