@@ -322,16 +322,20 @@ foldr(append,Mod_time6,Mod_time61)),
 
 	%find_all_depending_luciancicd(LPPM_registry_term1,Repository1,Dependencies,Dependencies) :- !.
 	find_all_depending_luciancicd(LPPM_registry_term1,Repository1,Dependencies7,Dependencies72) :-
-(member([User1,Repository1,_Description1,_Dependencies1],LPPM_registry_term1)->
+	find_all_depending_luciancicd(LPPM_registry_term1,Repository1,Dependencies7,[],Dependencies72),!.
+	find_all_depending_luciancicd(LPPM_registry_term1,Repository1,Dependencies7,D,Dependencies72) :-
+((member([User1,Repository1,_Description1,_Dependencies1],LPPM_registry_term1),
+not(member(Repository1,D)))->
 (findall(Dependencies5,(member([User1,Repository2,_Description,Dependencies2],LPPM_registry_term1),
 member([User1,Repository1],Dependencies2),
-find_all_depending_luciancicd(LPPM_registry_term1,Repository2,[],Dependencies4),
+append(D,[Repository1],D2),
+find_all_depending_luciancicd(LPPM_registry_term1,Repository2,[],D2,Dependencies4),
 foldr(append,[Dependencies7,Dependencies4],Dependencies5)
 
 ),Dependencies3),
 append([Repository1],Dependencies3,Dependencies6),
 flatten(Dependencies6,Dependencies72));
-true),
+Dependencies72=[]),
 %flatten(Dependencies71,Dependencies72),
 !.
 
