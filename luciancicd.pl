@@ -159,8 +159,10 @@ true),
 ),Results1)))),
 %trace,
 flatten(Results1,Results2),
-findall(Result4,(member(Result4,Results2),not(var(Result4))),Results21),
-((forall(member(Result3,Results21),Result3=success),not(Results21=[]))->
+Results2=Results21,
+%findall(Result4,(member(Result4,Results2),not(var(Result4))),Results21),
+((forall(member(Result3,Results21),(not(var(Result3)),Result3=success))%,not(Results21=[])
+)->
 
 % Only save mod times if all tests passed
 (
