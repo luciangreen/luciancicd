@@ -44,11 +44,11 @@ halt
 ['luciancicd.pl'].
 ```
 
-* `set_up_luciancicd.` - Records time modified of repositories in `repositories_paths1//1` in `luciancicd.pl`. (Until changed, repositories folders must be in `luciancicd/reps` folder).
+* `set_up_luciancicd.` - Records time modified of repositories in `repositories_paths1//1` in `luciancicd.pl`.
 
 * `luciancicd.` - Tests repositories with change modification dates. Run before committing changes. Tests should be in `cicd.txt` file in each repository and be in form `[["","a.pl",(a(B),B=1)]]`, i.e. `[[Subfolder,Filename,Test], Other tests]`. where `Subfolder` = `""` or `"subfolder"`.
 
-* Note: Until changed, dependencies are in `luciancicd/lppm_registry.txt`, in form `[[User,Repository,Dependencies], etc]`. 
+* Note: Dependencies are in `List-Prolog-Package-Manager/lppm_registry.txt`, in form `[[User,Repository,Dependencies], etc]`. 
 
 # Authors
 
