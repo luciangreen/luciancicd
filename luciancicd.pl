@@ -118,7 +118,7 @@ lppm_install_luciancicd(LPPM_registry_term1,"luciangreen",Repository1),%),_),
 % test non-interactive algorithms
 %trace,
 writeln(["Running tests"]),
-foldr(string_concat,["../private2/luciancicd-testing/",Repository1,"/cicd.txt"],Test_script_path),
+foldr(string_concat,["../private2/luciancicd-cicd-tests/tests_",Repository1,".txt"],Test_script_path),
 (catch(open_file_s(Test_script_path,Tests),_,
 (writeln(["Cannot find",Test_script_path]),fail%,abort
 ))->
@@ -126,7 +126,9 @@ foldr(string_concat,["../private2/luciancicd-testing/",Repository1,"/cicd.txt"],
 (%trace,
 working_directory1(A,A),
 findall(Result,(member([Go_path1,File,Command],Tests),
-foldr(string_concat,["../private2/luciancicd-testing/",Repository1,"/",Go_path1],Go_path),
+foldr(string_concat,["../private2/luciancicd-testing/",%Repository1,
+%"/",
+Go_path1],Go_path),
 ((working_directory1(_,A),
 working_directory1(_,Go_path),
 
@@ -201,6 +203,7 @@ omit_paths(Paths) :-
  
 repositories_paths1([
 "../../GitHub/"
+%"../../GitHub2/"
 %"reps/"
 %"e/"
 ]).
