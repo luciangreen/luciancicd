@@ -50,7 +50,7 @@ halt
 
 ```
 % remove_and_find_item_number([a,b,c],2,c,N2).
-% N2 = 2
+% N2 = 2.
 % remove_and_find_item_number([a,b,b,c],2,c,N2).
 % N2 = 3.
 ```
