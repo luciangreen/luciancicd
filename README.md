@@ -46,8 +46,16 @@ halt
 
 * `['find_tests_from_repos.pl'].` - Finds tests in comments in repositories.
 
-* If necessary, modify tests in `../private2/luciancicd-cicd-tests/`.
-Test files are named after each repository and are in the form `[["","a.pl",(a(B),B=1)]]`, i.e. `[[Subfolder,Filename,Test], Other tests]`. where `Subfolder` = `""` or `"subfolder"`.
+* If necessary, modify tests in the source files in the repositories, for example:
+
+```
+% remove_and_find_item_number([a,b,c],2,c,N2).
+% N2 = 2
+% remove_and_find_item_number([a,b,b,c],2,c,N2).
+% N2 = 3.
+```
+
+* Please ensure that each test's file loads the necessary files.
 
 * `set_up_luciancicd.` - Records time modified of repositories in `repositories_paths1//1` in `luciancicd.pl`.
 
