@@ -44,9 +44,14 @@ halt
 ['luciancicd.pl'].
 ```
 
+* `['find_tests_from_repos.pl'].` - Finds tests in comments in repositories.
+
+* If necessary, modify tests in `../private2/luciancicd-cicd-tests/`.
+Test files are named after each repository and are in the form `[["","a.pl",(a(B),B=1)]]`, i.e. `[[Subfolder,Filename,Test], Other tests]`. where `Subfolder` = `""` or `"subfolder"`.
+
 * `set_up_luciancicd.` - Records time modified of repositories in `repositories_paths1//1` in `luciancicd.pl`.
 
-* `luciancicd.` - Tests repositories with change modification dates. Run before committing changes. Tests should be in `cicd.txt` file in each repository and be in form `[["","a.pl",(a(B),B=1)]]`, i.e. `[[Subfolder,Filename,Test], Other tests]`. where `Subfolder` = `""` or `"subfolder"`.
+* `luciancicd.` - Tests repositories with change modification dates. Run before committing changes.
 
 * Note: Dependencies are in `List-Prolog-Package-Manager/lppm_registry.txt`, in form `[[User,Repository,Dependencies], etc]`. 
 
