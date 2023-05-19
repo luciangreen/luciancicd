@@ -4,7 +4,7 @@
 
 * Image of different coloured pipes
 
-* Single-user continuous integration and continuous deployment
+* Single-user continuous integration and continuous deployment.  Integrates (merges changed repositories from combinations of changes), builds repositories that depend on these repositories and tests predicates implicated, where tests are in comments before each predicate.
 
 # Getting Started
 
