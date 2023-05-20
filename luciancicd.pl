@@ -27,10 +27,13 @@ Later:
 
 % - records modification date for each file
 
-:-include('../listprologinterpreter/listprolog.pl').
+:-include('../SSI/ssi.pl').
 :-include('../listprologinterpreter/la_files.pl').
 :-include('../List-Prolog-Package-Manager/lppm.pl').
 :-include('lppm_install_luciancicd.pl').
+:-include('find_tests_from_repos.pl').
+:-include('ci.pl').
+:-include('ci3.pl').
 
 set_up_luciancicd :-
 
@@ -39,10 +42,14 @@ modification_dates(Mod_times),
 findall(_,(member([K2,Mod_time52],Mod_times),
 open_s(K2,write,S),
 write(S,Mod_time52),close(S)
-),_),!.
+),_),!
+
+,ci.
 
 luciancicd :-
-
+	
+	retractall(success(_)),assertz(success(0)),
+	
 	lppm_get_registry_luciancicd(LPPM_registry_term1),
 
 (exists_directory('../private2')->true;make_directory('../private2')),
@@ -72,7 +79,7 @@ modification_dates(Mod_times2),
 
 (
 
-
+ci,
 %trace,
 
 
@@ -89,15 +96,28 @@ find_all_depending_luciancicd(LPPM_registry_term1,Repository1,[],Dependencies5)
 
 findall(Dependencies5,(member([Repository1,Dependencies5],Dependencies6)),Dependencies8),
 flatten(Dependencies8,Dependencies83),
-sort(Dependencies83,Dependencies9),
+
+
+  sort(Dependencies83,Dependencies9),
+
 
 working_directory1(A1,A1),
 %trace,
-(findall(Results,(member(Repository1,Dependencies9),
+ 
+%(findall(Results%[Repository1,T4]
 
-nl,writeln("**********"),
-writeln(["Installing",Repository1]),
-%(Repository1="b"->trace;true),
+ %BD='../../Github_lc/build',
+%(exists_directory(BD)->true;make_directory(BD)),
+
+%working_directory1(BD,BD),
+
+
+
+
+findall(Results
+,(member(Repository1,Dependencies9),
+
+
 working_directory1(_,A1),
 
 	foldr(string_concat,["rm -rf ../private2/luciancicd-testing/"],Command312),
@@ -105,18 +125,162 @@ working_directory1(_,A1),
 	],Text412),writeln1(Text412),abort
  	)),
 
-(exists_directory('../private2/luciancicd-testing')->true;make_directory('../private2/luciancicd-testing')),
+LCTD="../private2/luciancicd-testing",
+(exists_directory_s(LCTD)->true;make_directory_s(LCTD)),
+
+
+
+User1="luciangreen",
+
+find_all_dependencies(LPPM_registry_term1,%[[User1,Repository1]],%%,Description,Dependencies1
+	[[User1,Repository1]%|Dependencies1
+	],[],Dependencies1a)
+		,
+		%)),
+ %         time_limit_exceeded,
+  %        (concat_list(["Error: Cycle in lppm_registry.txt: ",Dependencies1],Note_a),writeln(Note_a),abort)),
+  
+	append([[User1,Repository1%%,Description,Dependencies1
+	]],Dependencies1a,Dependencies2),
+
+findall(D21,member([_,D21],Dependencies2),D22),
+append(Dependencies9,D22,D23),
+  sort(D23,Dependencies99),
+
+%trace,
+((
+findall([Tokens2,Tokens1]
+,(member(Repository1a,Dependencies99),
+ %trace,
+ working_directory1(_,A1),
+
+foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
+%trace,
+ open_file_s(%file,
+ K211,File2A1),
+ %File2A1=[_,Content1],
+ %findall(*,(member([P,Tokens_i,Tokens_f],File2A1),
+ File2A1=[Tokens2,Tokens1]),Tokens3),
+ %trace,
+ findall([AT2,",\n"],(member([AT2,_],Tokens3)),AT22),flatten(AT22,AT2x),%)),AT22),
+ append(AT24,[_],AT2x),
+ foldr(string_concat,AT24,AT235),
+ foldr(string_concat,["[",AT235,"]"],AT232),
+ term_to_atom(AT231,AT232),
+ foldr(append,AT231,AT233),
+ %trace,
+ pp0(AT233,AT234),
+ split_string(AT234,"\n","\n",AT23),
+
+%trace,
+ %trace,
+ findall([AT1,",\n"],(member([_,AT1],Tokens3)),AT12),flatten(AT12,AT1x),%)),AT12),
+ append(AT14,[_],AT1x),
+ foldr(string_concat,AT14,AT135),
+ foldr(string_concat,["[",AT135,"]"],AT132),
+ term_to_atom(AT131,AT132),
+ foldr(append,AT131,AT133),
+ %trace,
+ pp0(AT133,AT134),
+ split_string(AT134,"\n","\n",AT13)
+ %,trace
+ )->true;(writeln("fault",fail))),
+
+%trace,
+% 
+%writeln(merge2(AT23,AT13,T4)),
+ merge2(AT23,AT13,T4),%),T5),
+ %writeln(merge2(AT23,AT13,T4)),
+%trace,
+% get all files, choose ones that are deps of a rep
+
+	foldr(string_concat,["rm -rf ../private2/luciancicd-testing/"],Command3),
+ 	catch(bash_command(Command3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],Text4),writeln1(Text4),abort
+ 	)),
+
+ (success(1)->fail;true),
+ % find deps
+ %trace,
+nl,writeln("**********"),
+writeln(["Installing Combination"]),
+
+ findall(_%Results%[PZ,FZ,T10]
+ ,(
+ %writeln(member(T44,T4)),
+ member(T44,T4),
+  %writeln(member(T44,T4)),
+
+ findall([T51,"\n"],member(T51,T44),T522),%append(T522,[_],T52),
+ flatten(T522,T53),
+ foldr(string_concat,T53,T5),
+ term_to_atom(T7,T5),split_into_lp_files(T7,T8),
+ 
+
+ findall(_,(member([[[n, comment], ["File delimiter", PZ, FZ]]|T10],T8),
+
+  (success(1)->fail;true),
+
+ nl,%writeln("**********"),
+writeln(["Installing",PZ, FZ%Repository1
+]),
+
+ %pwd,
+  working_directory1(_,A1),
+%pwd,
+
+ 	%writeln(["Installing dependency path",PZ,"file"%dependency"
+ 	%,FZ]),
+
+ % path
+ 
+ string_concat("../../Github_lc/",PZ1,PZ),
+ foldr(string_concat,[LCTD,"/",PZ1%,"/"
+ ],K212),
+
+ % only want some reps files
+ (exists_directory_s(LCTD)->true;make_directory_s(LCTD)),
+ (exists_directory_s(K212)->true;make_directory_s(K212)),
+
+ %trace,
+
+ working_directory1(_,K212),
+ %trace,
+ % clear dir ***
+ pp_lp2p0(T10,T11),
+ %findall(_,(member([K2,Mod_time52],Mod_times),
+open_s(FZ,write,S0),
+write(S0,T11),close(S0)
+%),_),!.
+
+ ),_%T6
+ ),
+ 
+ %),_),
+ 
+ % take apart, save repos
+ % delete build/rep afterwards
+
+%get needed reps
+%findall(Results,(member(Repository1,Dependencies9),
+
+%(Repository1="b"->trace;true),
 
 %member([Repository1,Dependencies7],Dependencies6),
 %findall(_,(member(Repository1,Dependencies7),
 %writeln(["Installing required repository",Repository1]),
-lppm_install_luciancicd(LPPM_registry_term1,"luciangreen",Repository1),%),_),
+
+%lppm_install_luciancicd(LPPM_registry_term1,"luciangreen",Repository1),%),_),
 
 %trace,
 %pwd,
 %notrace,
 % test non-interactive algorithms
 %trace,
+working_directory1(_,A1),
+
+ (success(1)->fail;true),
+ 
 writeln(["Running tests"]),
 foldr(string_concat,["../private2/luciancicd-cicd-tests/tests_",Repository1,".txt"],Test_script_path),
 (catch(open_file_s(Test_script_path,Tests),_,
@@ -124,6 +288,7 @@ foldr(string_concat,["../private2/luciancicd-cicd-tests/tests_",Repository1,".tx
 ))->
 
 (%trace,
+%working_directory1(_,A1), %***
 working_directory1(A,A),
 findall(Result,(member([Go_path1,File,Command],Tests),
 foldr(string_concat,["../private2/luciancicd-testing/",%Repository1,
@@ -135,7 +300,7 @@ working_directory1(_,Go_path),
 % *** Change path to swipl if necessary
 
 term_to_atom(Command,Command1),
-foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n:- initialization main.\n:-include('",File,"').\n","main :-\n    ",Command1,", nl,\n    halt.\n","main :- halt(1).\n"],String),
+foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n",":-include('",File,"').\n",":- initialization(catch(main, Err, handle_error(Err))).\n\nhandle_error(_Err):-\n  halt(1).\n","main :-\n    ",Command1,", nl,\n    halt.\n","main :- halt(1).\n"],String),
 %trace,
 working_directory1(_,A),
 foldr(string_concat,["../private2/luciancicd-testing/",Repository1,"/testcicd.pl"],GP),
@@ -148,17 +313,13 @@ foldr(string_concat,["chmod +x ",GP,"\n","swipl -f -q ./",GP],S3)%,
 	fail%abort
  	))
 %Command
-)->Result=success;Result=fail),
+)->(Result=success,retractall(success(_)),assertz(success(1)));Result=fail),
 writeln1([Go_path1,File,Command,Result])),Results))
 ;
-true),
+true)
 
-	foldr(string_concat,["rm -rf ../private2/luciancicd-testing/"],Command3),
- 	catch(bash_command(Command3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
-	],Text4),writeln1(Text4),abort
- 	))
-
-),Results1)))),
+),_)
+),Results1),
 %trace,
 flatten(Results1,Results2),
 Results2=Results21,
@@ -168,13 +329,14 @@ Results2=Results21,
 
 % Only save mod times if all tests passed
 (
+/*
 	foldr(string_concat,["rm -rf ../private2/luciancicd-data/"],Command31),
  	catch(bash_command(Command31,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],Text41),writeln1(Text41),abort
  	)),
 
 (exists_directory('../private2/luciancicd-data')->true;make_directory('../private2/luciancicd-data')),
-
+*/
 findall(_,(member([K21,Mod_time521],Mod_times2),
 open_s(K21,write,S21),
 write(S21,Mod_time521),close(S21)
@@ -184,8 +346,7 @@ writeln("All tests were sucessful.")
 )
 ;((true%not(Results21=[])
 ->writeln("1 or more tests failed.");true))
-),
-!.
+))).
 
 
 repositories_paths(Paths) :-
@@ -202,8 +363,8 @@ omit_paths(Paths) :-
  (Paths3=Paths2))),Paths),!.
  
 repositories_paths1([
-"../../GitHub/"
-%"../../GitHub2/"
+%"../../GitHub/"
+"../../GitHub2/"
 %"reps/"
 %"e/"
 ]).
@@ -354,8 +515,29 @@ lppm_get_registry_luciancicd(LPPM_registry_term1) :-
 
 term_to_atom(LPPM_registry_term1,LPPM_registry_string).
 
-working_directory1(A,B) :-
+working_directory1(A1,B1) :-
+ (string(A1)->atom_string(A,A1);A=A1),
+ (string(B1)->atom_string(B,B1);B=B1),
  term_to_atom(working_directory(A,B),Atom),
  	catch(working_directory(A,B), _, (foldr(string_concat,["Error on ",Atom%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],Text41),writeln1(Text41),abort
  	)).
+ 	
+split_into_lp_files(T7,T10) :-
+ split_into_lp_files(T7,[],_T8,[],T9),
+ delete(T9,[],T10),!.
+ 
+split_into_lp_files([],B1,_B2,C1,C2) :-
+ append(C1,[B1],C2),!.
+split_into_lp_files(A,B,C,B1,C1) :-
+ A=[D|E],
+ not(D=[[n,comment],["File delimiter",_P,_F1]]),
+ append(B,[D],F),
+ split_into_lp_files(E,F,C,B1,C1),!.
+split_into_lp_files(A,B,C,B1,C1) :-
+ A=[D|E],
+ D=[[n,comment],["File delimiter",_P,_F1]],
+ append(B1,[B],B2),
+ split_into_lp_files(E,[D],C,B2,C1),!.
+
+

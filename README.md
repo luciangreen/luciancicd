@@ -44,7 +44,7 @@ halt
 ['luciancicd.pl'].
 ```
 
-* `['find_tests_from_repos.pl'].` - Finds tests in comments in repositories.
+* `find_tests_from_repos.pl.` - Finds tests in comments in repositories.
 
 * If necessary, modify tests in the source files in the repositories, for example:
 
@@ -62,6 +62,10 @@ halt
 * `luciancicd.` - Tests repositories with change modification dates. Run before committing changes.
 
 * Note: Dependencies are in `List-Prolog-Package-Manager/lppm_registry.txt`, in form `[[User,Repository,Dependencies], etc]`. 
+
+* Warning: The program is experimental and "eats" some comments apart from inter-predicate comments.
+
+* Note: Once a test is successful, manually move the files into the repository to commit them.
 
 # Authors
 

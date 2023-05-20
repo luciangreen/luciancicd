@@ -32,8 +32,8 @@ or
 
 :- use_module(library(date)).
 
-:-include('luciancicd.pl').
-:-include('../Prolog-to-List-Prolog/p2lpconverter.pl').
+%:-include('luciancicd.pl').
+%:-include('../Prolog-to-List-Prolog/p2lpconverter.pl').
 
 find_tests_from_repos :-
 
@@ -189,10 +189,6 @@ Tests6=Tests61;
 foldr(append,Tests6,Tests61)),
 
 !.
-
-string_strings(S,S1) :-
-	string_chars(S,S2),
-	findall(S3,(member(S4,S2),atom_string(S4,S3)),S1),!.
 	
 test_a(Tests) :-
 
