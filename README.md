@@ -65,7 +65,7 @@ halt
 
 * Warning: The program is experimental and "eats" some comments apart from inter-predicate comments.
 
-* Note: Once a test is successful, manually move the files into the repository to commit them.
+* Note: Once a test is successful, manually move the files in `../private2/luciancicd-testing/` into the repository to commit them.
 
 # Authors
 

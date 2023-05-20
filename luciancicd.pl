@@ -120,6 +120,8 @@ findall(Results
 
 working_directory1(_,A1),
 
+ (success(1)->fail;true),
+
 	foldr(string_concat,["rm -rf ../private2/luciancicd-testing/"],Command312),
  	catch(bash_command(Command312,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],Text412),writeln1(Text412),abort
@@ -194,12 +196,13 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
 %trace,
 % get all files, choose ones that are deps of a rep
 
+ (success(1)->fail;true),
+
 	foldr(string_concat,["rm -rf ../private2/luciancicd-testing/"],Command3),
  	catch(bash_command(Command3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],Text4),writeln1(Text4),abort
  	)),
 
- (success(1)->fail;true),
  % find deps
  %trace,
 nl,writeln("**********"),
@@ -319,13 +322,13 @@ writeln1([Go_path1,File,Command,Result])),Results))
 true)
 
 ),_)
-),Results1),
+),_Results1),
 %trace,
-flatten(Results1,Results2),
-Results2=Results21,
+%flatten(Results1,Results2),
+%Results2=Results21,
 %findall(Result4,(member(Result4,Results2),not(var(Result4))),Results21),
-((forall(member(Result3,Results21),(not(var(Result3)),Result3=success))%,not(Results21=[])
-)->
+(success(1)%(forall(member(Result3,Results21),(not(var(Result3)),Result3=success))%,not(Results21=[])
+->
 
 % Only save mod times if all tests passed
 (
