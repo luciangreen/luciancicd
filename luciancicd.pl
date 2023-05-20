@@ -205,8 +205,6 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
 
  % find deps
  %trace,
-nl,writeln("**********"),
-writeln(["Installing Combination"]),
 
  findall(_%Results%[PZ,FZ,T10]
  ,(
@@ -219,10 +217,16 @@ writeln(["Installing Combination"]),
  foldr(string_concat,T53,T5),
  term_to_atom(T7,T5),split_into_lp_files(T7,T8),
  
+   (success(1)->fail;true),
+
+ nl,writeln("**********"),
+writeln(["Installing Combination"]),
+
 
  findall(_,(member([[[n, comment], ["File delimiter", PZ, FZ]]|T10],T8),
 
   (success(1)->fail;true),
+
 
  nl,%writeln("**********"),
 writeln(["Installing",PZ, FZ%Repository1
