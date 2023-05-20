@@ -44,7 +44,7 @@ halt
 ['luciancicd.pl'].
 ```
 
-* `find_tests_from_repos.pl.` - Finds tests in comments in repositories.
+* `find_tests_from_repos.` - Finds tests in comments in repositories.
 
 * If necessary, modify tests in the source files in the repositories, for example:
 
