@@ -22,7 +22,7 @@ Please read the following instructions on how to install the project on your com
 
 # 2. Or Install from List Prolog Package Manager (LPPM)
 
-* Download the <a href="https://github.com/luciangreen/luciancicd">Lucian CI/CD</a>:
+* Download <a href="https://github.com/luciangreen/luciancicd">Lucian CI/CD</a>:
 
 ```
 git clone https://github.com/luciangreen/List-Prolog-Package-Manager.git
