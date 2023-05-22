@@ -44,23 +44,50 @@ set_up_merge(Type,File1) :-
 % build saves over gh (which is moved to lc) with a command
 
 merge(K11,File1,Path1,Tests) :-
-%trace,
+%writeln(merge(K11,File1,Path1,Tests)),
+%trace,%trace,
 %%%%%%%%%*****Change gh2 to gh
  %foldr(string_concat,["../../Github2/",K11,"/",File1],Path11),
  get_file(file,Path1,S1),
  %p2lpconverter([Type,File1],S1),
  %pp0(S1,S2),S2=S3,%term_to_atom(S2,S3),
- foldr(string_concat,["../../Github_lc/",K11,"/",File1],File2),
- get_file(file,File2,Old_S1),
+ 
+
+ working_directory1(A2,A2),
+
+ home_dir(A1),
+
+ working_directory1(_,A1),
+
+
+ %working_directory1(_,"../../Github_lc/"),
+foldr(string_concat,["../../Github_lc/tests_",K11,".txt"%"/",File1
+ ],File2),
+ open_file_s(File2,[_,Old_S11]),
+ 
+ %findall([AT1,",\n"],(member(AT1,Old_S11)),AT12),flatten(AT12,AT1x),%)),AT12),
+ %append(AT14,[_],AT1x),
+ foldr(string_concat,Old_S11,AT135),
+ %foldr(string_concat,["[",AT135,"]"],AT132),
+ term_to_atom(AT134,AT135),
+ %foldr(append,AT131,AT133),
+ %trace,
+ %pp0(AT133,AT134),
+ AT134=[_|Old_S1],
+ %split_string(AT134,"\n","\n",AT13)
+ %,trace 
+  working_directory1(_,A2),
+
+ 
  %open_file_s(File2,Old_S1),
  (S1=Old_S1->
  (%trace,
- writeln(["Files Github/",K11,"/",File1,"and",File2,"are identical"]),
- Tests=[]%fail%abort
+ writeln(["Files Github/",K11,"/",File1,"and",File2,"are identical"])
+ %Tests=[]%fail%abort
  %Tests=[[K11,File1,Old_S1,S1]]%fail%abort
- );(%trace,
+ );(true)),%trace,
  foldr(string_concat,["../../Github_lc/",K11],K12),
- Tests=[[K12,File1,Old_S1,S1]])),!.
+ Tests=[[K12,File1,Old_S1,S1]],!.
  
 merge2(Old_S1,S1,T3) :-
  %open_s("test.lp",write,S21),

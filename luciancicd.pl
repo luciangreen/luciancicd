@@ -35,6 +35,8 @@ Later:
 :-include('ci.pl').
 :-include('ci3.pl').
 
+:-dynamic home_dir/1.
+
 set_up_luciancicd :-
 
 modification_dates(Mod_times),
@@ -42,7 +44,10 @@ modification_dates(Mod_times),
 findall(_,(member([K2,Mod_time52],Mod_times),
 open_s(K2,write,S),
 write(S,Mod_time52),close(S)
-),_),!
+),_),!,
+
+
+	retractall(home_dir(_)),assertz(home_dir(_))
 
 ,ci.
 
@@ -79,6 +84,11 @@ modification_dates(Mod_times2),
 
 (
 
+
+working_directory1(A1,A1),
+
+	retractall(home_dir(_)),assertz(home_dir(A1)),
+
 ci,
 %trace,
 
@@ -101,7 +111,6 @@ flatten(Dependencies8,Dependencies83),
   sort(Dependencies83,Dependencies9),
 
 
-working_directory1(A1,A1),
 %trace,
  
 %(findall(Results%[Repository1,T4]
