@@ -100,7 +100,7 @@ findall(_,(member([K21,Tests521],Tests),
 open_s(K21,write,S21),
 write(S21,Tests521),close(S21)
 ),_),
-%writeln("All tests were sucessful."),
+%writeln("All tests were successful."),
 
 !.
 

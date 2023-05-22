@@ -132,7 +132,7 @@ term_to_atom(Tests521,Tests522),
 open_s(K21,write,S21),
 write(S21,Tests522),close(S21)
 ),_),
-%writeln("All tests were sucessful."),
+%writeln("All tests were successful."),
 
 !.
 

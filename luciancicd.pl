@@ -357,7 +357,7 @@ findall(_,(member([K21,Mod_time521],Mod_times2),
 open_s(K21,write,S21),
 write(S21,Mod_time521),close(S21)
 ),_),
-writeln("All tests were sucessful.")
+writeln("All tests were successful.")
 
 )
 ;((true%not(Results21=[])
