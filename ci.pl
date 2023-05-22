@@ -82,7 +82,7 @@ foldr(string_concat,["../../Github_lc/tests_",K11,".txt"%"/",File1
  %open_file_s(File2,Old_S1),
  (S1=Old_S1->
  (%trace,
- writeln(["Files Github/",K11,"/",File1,"and",File2,"are identical"])
+ writeln(["Files",K11,"/",File1,"and in",File2,"are identical"])
  %Tests=[]%fail%abort
  %Tests=[[K11,File1,Old_S1,S1]]%fail%abort
  );(true)),%trace,
