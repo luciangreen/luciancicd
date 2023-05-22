@@ -173,7 +173,7 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
  %findall(*,(member([P,Tokens_i,Tokens_f],File2A1),
  File2A1=[Tokens2,Tokens1]),Tokens3),
  %trace,
- findall([AT2,",\n"],(member([AT2,_],Tokens3)),AT22),flatten(AT22,AT2x),%)),AT22),
+ findall([AT2,",\n"],(member([_,AT2],Tokens3)),AT22),flatten(AT22,AT2x),%)),AT22),
  append(AT24,[_],AT2x),
  foldr(string_concat,AT24,AT235),
  foldr(string_concat,["[",AT235,"]"],AT232),
@@ -185,7 +185,7 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
 
 %trace,
  %trace,
- findall([AT1,",\n"],(member([_,AT1],Tokens3)),AT12),flatten(AT12,AT1x),%)),AT12),
+ findall([AT1,",\n"],(member([AT1,_],Tokens3)),AT12),flatten(AT12,AT1x),%)),AT12),
  append(AT14,[_],AT1x),
  foldr(string_concat,AT14,AT135),
  foldr(string_concat,["[",AT135,"]"],AT132),
@@ -293,12 +293,15 @@ write(S0,T11),close(S0)
 %notrace,
 % test non-interactive algorithms
 %trace,
-working_directory1(_,A1),
 
  (success(1)->fail;true),
+
+findall(_,(member(Repository1b,Dependencies99),
+
+working_directory1(_,A1),
  
 writeln(["Running tests"]),
-foldr(string_concat,["../private2/luciancicd-cicd-tests/tests_",Repository1,".txt"],Test_script_path),
+foldr(string_concat,["../private2/luciancicd-cicd-tests/tests_",Repository1b,".txt"],Test_script_path),
 (catch(open_file_s(Test_script_path,Tests),_,
 (writeln(["Cannot find",Test_script_path]),fail%,abort
 ))->
@@ -319,7 +322,7 @@ term_to_atom(Command,Command1),
 foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n",":-include('",File,"').\n",":- initialization(catch(main, Err, handle_error(Err))).\n\nhandle_error(_Err):-\n  halt(1).\n","main :-\n    ",Command1,", nl,\n    halt.\n","main :- halt(1).\n"],String),
 %trace,
 working_directory1(_,A),
-foldr(string_concat,["../private2/luciancicd-testing/",Repository1,"/testcicd.pl"],GP),
+foldr(string_concat,["../private2/luciancicd-testing/",Repository1b,"/testcicd.pl"],GP),
 %string_concat(Go_path,"testcicd.pl",GP),
 open_s(GP,write,S1),
 write(S1,String),close(S1),
@@ -329,11 +332,16 @@ foldr(string_concat,["chmod +x ",GP,"\n","swipl -f -q ./",GP],S3)%,
 	fail%abort
  	))
 %Command
-)->(Result=success,retractall(success(_)),assertz(success(1)));Result=fail),
-writeln1([Go_path1,File,Command,Result])),Results))
+)->(Result=success);Result=fail),
+writeln1([Go_path1,File,Command,Result])),Results),
+
+(forall(member(Result,Results),Result=success)->(retractall(success(_)),assertz(success(1)));true)
+
+)
 ;
 true)
 
+),_)
 ),_)
 ),_Results1),
 %trace,

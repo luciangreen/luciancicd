@@ -63,8 +63,6 @@ halt
 
 * Note: Dependencies are in `List-Prolog-Package-Manager/lppm_registry.txt`, in form `[[User,Repository,Dependencies], etc]`. 
 
-* Warning: The program is experimental and "eats" some comments apart from inter-predicate comments.
-
 * Note: Once a test is successful, manually move the files in `../private2/luciancicd-testing/` into the repository to commit them.
 
 # Authors
