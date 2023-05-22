@@ -296,11 +296,12 @@ write(S0,T11),close(S0)
 
  (success(1)->fail;true),
 
+writeln(["Running tests"]),
+
 findall(_,(member(Repository1b,Dependencies99),
 
 working_directory1(_,A1),
  
-writeln(["Running tests"]),
 foldr(string_concat,["../private2/luciancicd-cicd-tests/tests_",Repository1b,".txt"],Test_script_path),
 (catch(open_file_s(Test_script_path,Tests),_,
 (writeln(["Cannot find",Test_script_path]),fail%,abort
