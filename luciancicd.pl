@@ -302,8 +302,8 @@ write(S0,T11),close(S0)
  (success(1)->fail;true),
 
 writeln(["Running tests"]),
-
-findall(_,(member(Repository1b,Dependencies99),
+%trace,
+findall(Results2,(member(Repository1b,Dependencies99),
 
 working_directory1(_,A1),
  
@@ -339,15 +339,17 @@ foldr(string_concat,["chmod +x ",GP,"\n","swipl -f -q ./",GP],S3)%,
  	))
 %Command
 )->(Result=success);Result=fail),
-writeln1([Go_path1,File,Command,Result])),Results),
+writeln1([Go_path1,File,Command,Result])),Results2)
 
-(forall(member(Result,Results),Result=success)->(retractall(success(_)),assertz(success(1)));true)
 
 )
 ;
 true)
 
-),_)
+),Results3)
+
+,flatten(Results3,Results3a),(forall(member(Result,Results3a),Result=success)->(retractall(success(_)),assertz(success(1)));true)
+
 %),_)
 ),_Results1),
 %trace,

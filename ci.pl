@@ -162,8 +162,13 @@ term_to_numbers(term_to_numbers1,S,C1,C2,N1,N2) :-
  append(C1,[[S1,N2AA]],C3),
  foldr(string_concat,[N2AA,".",0,"x"],N2A)
  )),
+ %trace,
+ %(member(N2A,N1)->(%trace,
+ %get_token_number(N1,N2A,N2A,N2A2));N2A2=N2A),
  append(N1,[N2A],N3),
  term_to_numbers(term_to_numbers1,S2,C3,C2,N3,N2),!.
+
+
  /*
 term_to_numbers(term_to_numbers2,S,C1,C2,N1,N2) :-
  S=[S1|S2],
