@@ -120,10 +120,11 @@ flatten(Dependencies8,Dependencies83),
 
 %working_directory1(BD,BD),
 
+LCTD="../private2/luciancicd-testing",
 
 
-
-findall(Results
+%trace,
+findall(Dependencies990%Results
 ,(member(Repository1,Dependencies9),
 
 
@@ -136,7 +137,6 @@ working_directory1(_,A1),
 	],Text412),writeln1(Text412),abort
  	)),
 
-LCTD="../private2/luciancicd-testing",
 (exists_directory_s(LCTD)->true;make_directory_s(LCTD)),
 
 
@@ -156,8 +156,13 @@ find_all_dependencies(LPPM_registry_term1,%[[User1,Repository1]],%%,Description,
 
 findall(D21,member([_,D21],Dependencies2),D22),
 append(Dependencies9,D22,D23),
-  sort(D23,Dependencies99),
-
+  sort(D23,Dependencies990)
+  
+  ),Dependencies991),
+  
+  flatten(Dependencies991,Dependencies992),
+  sort(Dependencies992,Dependencies99),
+  
 %trace,
 ((
 findall([Tokens2,Tokens1]
@@ -206,7 +211,7 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
 % get all files, choose ones that are deps of a rep
 
  (success(1)->fail;true),
-
+%trace,
 	foldr(string_concat,["rm -rf ../private2/luciancicd-testing/"],Command3),
  	catch(bash_command(Command3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],Text4),writeln1(Text4),abort
@@ -249,7 +254,7 @@ writeln(["Installing",PZ, FZ%Repository1
  	%,FZ]),
 
  % path
- 
+ %trace,
  string_concat("../../Github_lc/",PZ1,PZ),
  foldr(string_concat,[LCTD,"/",PZ1%,"/"
  ],K212),
@@ -343,7 +348,7 @@ writeln1([Go_path1,File,Command,Result])),Results),
 true)
 
 ),_)
-),_)
+%),_)
 ),_Results1),
 %trace,
 %flatten(Results1,Results2),
