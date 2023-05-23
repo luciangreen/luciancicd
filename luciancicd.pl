@@ -80,7 +80,7 @@ modification_dates(Mod_times2),
 
 (    %Sorted1=Sorted2
 	New=[]
-->writeln("There are no new modifications to repositories to test.");
+->writeln("There are no modifications to repositories to test.");
 
 % if 
 
