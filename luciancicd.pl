@@ -38,9 +38,13 @@ Later:
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
+:-dynamic ci_fail/1.
 
 set_up_luciancicd :-
 
+working_directory1(A1,A1),
+
+	
 modification_dates(Mod_times),
 
 findall(_,(member([K2,Mod_time52],Mod_times),
@@ -49,13 +53,24 @@ write(S,Mod_time52),close(S)
 ),_),!,
 
 
-	retractall(home_dir(_)),assertz(home_dir(_))
 
-,ci.
+%A1="../../Github_lc/", %working_directory1(_,"../../Github_lc/"),
+
+	%working_directory1(_,A1),
+
+
+	retractall(home_dir(_)),assertz(home_dir(A1)),
+%retractall(home_dir(_)),assertz(home_dir(_))
+
+ci,
+ci_end,
+working_directory1(_,A1)
+.
 
 luciancicd :-
 	
 	retractall(success(_)),assertz(success(0)),
+	retractall(ci_fail(_)),assertz(ci_fail(0)),
 	
 	lppm_get_registry_luciancicd(LPPM_registry_term1),
 
@@ -77,9 +92,16 @@ modification_dates(Mod_times2),
     %msort(Mod_times11, Sorted1),
     %msort(Mod_times2, Sorted2),
     subtract(Mod_times2,Mod_times11,New),
+    
+    working_directory1(A1,A1),
+
+	retractall(home_dir(_)),assertz(home_dir(A1)),
+
+ci,
+working_directory1(_,A1),
 
 (    %Sorted1=Sorted2
-	New=[]
+	(New=[],ci_fail(0))
 ->writeln("There are no modifications to repositories to test.");
 
 % if 
@@ -87,11 +109,8 @@ modification_dates(Mod_times2),
 (
 
 
-working_directory1(A1,A1),
 
-	retractall(home_dir(_)),assertz(home_dir(A1)),
 
-ci,
 %trace,
 
 
@@ -207,7 +226,7 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
  pp0(AT133,AT134),
  split_string(AT134,"\n","\n",AT13)
  %,trace
- )->true;(writeln("fault",fail))),
+ )->true;(writeln("fault"),fail)),
 
 %trace,
 % 
@@ -383,6 +402,17 @@ write(S21,Mod_time521),close(S21)
 
 
 
+ci_end,
+
+writeln("All tests were successful.")
+
+)
+;((true%not(Results21=[])
+->writeln("1 or more tests failed.");true))
+))).
+
+ci_end:-
+
 
  lc_tests(Tests),
  
@@ -427,15 +457,7 @@ findall(_,(member([K21|Tests521],Tests),
 term_to_atom(Tests521,Tests522),
 open_s(K21,write,S21),
 write(S21,Tests522),close(S21)
-),_),
-
-
-writeln("All tests were successful.")
-
-)
-;((true%not(Results21=[])
-->writeln("1 or more tests failed.");true))
-))).
+),_).
 
 
 repositories_paths(Paths) :-

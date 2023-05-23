@@ -162,10 +162,13 @@ order_preds_bottom_up(1,Functions2a,[],Ordered_pred_nums)
 process_directory_merge(K,%G,
  Top_level,%Tests1,
  Tests61) :-
+working_directory1(A0,A0),
 
 %G=K,
 %/*
-findall(K4,(member(K1,K), %exists_directory(K1),
+findall(K4,(member(K1,K), 
+working_directory1(_,A0),
+%exists_directory(K1),
 directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 %*/

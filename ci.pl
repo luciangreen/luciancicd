@@ -51,8 +51,10 @@ merge(K11,File1,Path1,Tests) :-
  %foldr(string_concat,["../../Github2/",K11,"/",File1],Path11),
  get_file(file,Path1,S1),
  %p2lpconverter([Type,File1],S1),
- %pp0(S1,S2),S2=S3,%term_to_atom(S2,S3),
- 
+ %pp0(S1,S2),S2=S3,%term_to_atom(S2,S3)
+ %trace,
+ split_string(Path1,"/","/",P2),
+ append(_,[P3],P2),
 
  working_directory1(A2,A2),
 
@@ -64,7 +66,9 @@ merge(K11,File1,Path1,Tests) :-
  %working_directory1(_,"../../Github_lc/"),
 foldr(string_concat,["../../Github_lc/tests_",K11,".txt"%"/",File1
  ],File2),
- open_file_s(File2,[_,Old_S11]),
+ 
+ foldr(string_concat,["[[n,comment],[""File delimiter"",""../../Github_lc/",K11,""",""",P3,"""]]"],String0),
+ catch(open_file_s(File2,[_,Old_S11]),_,Old_S11=["[",String0,"]"]),
  
  %findall([AT1,",\n"],(member(AT1,Old_S11)),AT12),flatten(AT12,AT1x),%)),AT12),
  %append(AT14,[_],AT1x),
@@ -83,7 +87,8 @@ foldr(string_concat,["../../Github_lc/tests_",K11,".txt"%"/",File1
  %open_file_s(File2,Old_S1),
  (S1=Old_S1->
  (%trace,
- writeln(["Files",K11,"/",File1,"and in",File2,"are identical"])
+ writeln(["Files",K11,"/",File1,"and in",File2,"are identical"]),
+ assertz(ci_fail(1))
  %Tests=[]%fail%abort
  %Tests=[[K11,File1,Old_S1,S1]]%fail%abort
  );(true)),%trace,
