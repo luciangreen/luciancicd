@@ -91,48 +91,10 @@ process_directory_merge(K31,%_G,
  ),Tests2),
  foldr(append,Tests2,Tests),
  
- working_directory1(_,A),
- 
- (exists_directory('../../Github_lc')->
- 
- (		get_time(TS),stamp_date_time(TS,date(Year,Month,Day,Hour1,Minute1,Seconda,_A,_TZ,_False),local),
-	foldr(string_concat,["../../Github_lc-",Year,Month,Day,Hour1,Minute1,Seconda,"/"],Folder1),
-	%concat_list3(File1,[".txt"],File2),
+ retractall(lc_tests(_)),
+ assertz(lc_tests(Tests))
 
- foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
- "rsync -av --exclude=\".*\"  ../../Github_lc/ ",
- Folder1],Command314),
- 	catch(bash_command(Command314,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
-	],Text41),writeln1(Text41),abort
- 	)));
- 	(
- 	%exists_directory('../../Github_lc')->true;
-%make_directory('../../Github_lc')
-true)),
-
-working_directory1(Old_D1,Old_D1),
-working_directory1(_,"../../Github_lc/"),
-
-
-foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
- "rm -f * */* */*/* */*/*/*"
- %Folder1
- ],Command315),
- 	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
-	],_Text42)%,writeln1(Text42)%,abort
- 	)),
- 	
- 	working_directory1(_,Old_D1),
-
- 	% The modified Prolog programs are saved
-% - reset dirs, make folders x files have been cleaned from folders
-%trace,
-findall(_,(member([K21|Tests521],Tests),
-term_to_atom(Tests521,Tests522),
-open_s(K21,write,S21),
-write(S21,Tests522),close(S21)
-),_),
-%writeln("All tests were successful."),
+,%writeln("All tests were successful."),
 
 !.
 

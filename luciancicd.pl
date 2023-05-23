@@ -36,6 +36,7 @@ Later:
 :-include('ci3.pl').
 :-include('save_diff_html.pl').
 
+:-dynamic lc_tests/1.
 :-dynamic home_dir/1.
 
 set_up_luciancicd :-
@@ -164,6 +165,8 @@ append(Dependencies9,D22,D23),
   flatten(Dependencies991,Dependencies992),
   sort(Dependencies992,Dependencies99),
   
+   lc_tests(Lc_tests),
+
 %trace,
 ((
 findall([Tokens2,Tokens1]
@@ -172,9 +175,12 @@ findall([Tokens2,Tokens1]
  working_directory1(_,A1),
 
 foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
+ 
 %trace,
- open_file_s(%file,
- K211,File2A1),
+ %open_file_s
+ %trace,
+ member(%file,
+ [K211|File2A1],Lc_tests),
  %File2A1=[_,Content1],
  %findall(*,(member([P,Tokens_i,Tokens_f],File2A1),
  File2A1=[Tokens2,Tokens1]),Tokens3),
@@ -374,6 +380,56 @@ findall(_,(member([K21,Mod_time521],Mod_times2),
 open_s(K21,write,S21),
 write(S21,Mod_time521),close(S21)
 ),_),
+
+
+
+
+ lc_tests(Tests),
+ 
+ home_dir(AAA),
+ working_directory1(_,AAA),
+ 
+ (exists_directory('../../Github_lc')->
+ 
+ (		get_time(TS),stamp_date_time(TS,date(Year,Month,Day,Hour1,Minute1,Seconda,_A,_TZ,_False),local),
+	foldr(string_concat,["../../Github_lc-",Year,Month,Day,Hour1,Minute1,Seconda,"/"],Folder1),
+	%concat_list3(File1,[".txt"],File2),
+
+ foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
+ "rsync -av --exclude=\".*\"  ../../Github_lc/ ",
+ Folder1],Command314),
+ 	catch(bash_command(Command314,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],Text41),writeln1(Text41),abort
+ 	)));
+ 	(
+ 	%exists_directory('../../Github_lc')->true;
+%make_directory('../../Github_lc')
+true)),
+
+working_directory1(Old_D1,Old_D1),
+working_directory1(_,"../../Github_lc/"),
+
+
+foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
+ "rm -f * */* */*/* */*/*/*"
+ %Folder1
+ ],Command315),
+ 	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],_Text42)%,writeln1(Text42)%,abort
+ 	)),
+ 	
+ 	working_directory1(_,Old_D1),
+
+ 	% The modified Prolog programs are saved
+% - reset dirs, make folders x files have been cleaned from folders
+%trace,
+findall(_,(member([K21|Tests521],Tests),
+term_to_atom(Tests521,Tests522),
+open_s(K21,write,S21),
+write(S21,Tests522),close(S21)
+),_),
+
+
 writeln("All tests were successful.")
 
 )
