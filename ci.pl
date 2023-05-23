@@ -283,7 +283,7 @@ break_into_tokens(A,B) :-
  
  
 fail_if_greater_than_n_changes(N,After3) :-
-trace,
+%trace,
  findall(A,(member(A,After3),not(string(A))),B),
  length(B,L),L=<N.
 
