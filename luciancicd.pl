@@ -61,6 +61,7 @@ write(S,Mod_time52),close(S)
 
 	retractall(home_dir(_)),assertz(home_dir(A1)),
 %retractall(home_dir(_)),assertz(home_dir(_))
+	retractall(ci_fail(_)),assertz(ci_fail([])),
 
 ci,
 ci_end,
@@ -70,7 +71,7 @@ working_directory1(_,A1)
 luciancicd :-
 	
 	retractall(success(_)),assertz(success(0)),
-	retractall(ci_fail(_)),assertz(ci_fail(0)),
+	retractall(ci_fail(_)),assertz(ci_fail([])),
 	
 	lppm_get_registry_luciancicd(LPPM_registry_term1),
 
@@ -101,7 +102,8 @@ ci,
 working_directory1(_,A1),
 
 (    %Sorted1=Sorted2
-	(New=[],ci_fail(Ci_fail),forall(member(Ci_fail1,Ci_fail),Ci_fail1=0))
+	(%trace,
+	New=[],ci_fail(Ci_fail),forall(member(Ci_fail1,Ci_fail),Ci_fail1=0))
 ->writeln("There are no modifications to repositories to test.");
 
 % if 

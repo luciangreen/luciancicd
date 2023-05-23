@@ -90,6 +90,7 @@ foldr(string_concat,["../../Github_lc/tests_",K11,".txt"%"/",File1
  writeln(["Files",K11,"/",File1,"and in",File2,"are identical"]),
  ci_fail(Ci_fail),
  append(Ci_fail,[1],Ci_fail1),
+ retractall(ci_fail(_)),
  assertz(ci_fail(Ci_fail1))
  %Tests=[]%fail%abort
  %Tests=[[K11,File1,Old_S1,S1]]%fail%abort
