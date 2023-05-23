@@ -20,6 +20,7 @@ copy to build folder if passes
 :-dynamic term_to_numbers1/1.
 :-dynamic term_to_numbers2/1.
 :-dynamic changes/1.
+:-dynamic correspondences/1.
 
 /*cicd(Path) :-
  merge(Path),
@@ -96,6 +97,8 @@ merge2(Old_S1,S1,T3) :-
  assertz(term_to_numbers1(1)),
  term_to_numbers(term_to_numbers1,Old_S1,[],Corr,[],N1),
  term_to_numbers(term_to_numbers1,S1,Corr,Corr2,[],N2),
+ retractall(correspondences(_)),
+ assertz(correspondences(Corr2)),
  diff_group_combos(N1,N2,C),
  findall(T,(member(C1,C),numbers_to_term(C1,Corr2,[],T0)%,lp2p1(T0,T)
  ,T=T0
@@ -279,8 +282,11 @@ break_into_tokens(A,B) :-
  split_on_substring117(A1, `#@~%$?-+*^,()|.:;=_/[]<>{}\n\r\s\t\\"!\``,[],B),!.
  
  
- 
- 
+fail_if_greater_than_n_changes(N,After3) :-
+trace,
+ findall(A,(member(A,After3),not(string(A))),B),
+ length(B,L),L=<N.
+
  
 
 diff_group_combos(A,A,[A]) :- !.
@@ -308,6 +314,9 @@ diff_group_combos(Before,After,Combos4) :-
  replace11(After,Insertions,[],After2),
  replace12(Before,After2,Deletions,[],After31),
  join_and_change(After31,[],After3),
+ %trace,
+ save_diff_html(After3),
+ fail_if_greater_than_n_changes(7,After3),
  %length(After3,L)
  findall([[i,_],I],(member([[i,_NA],I],After3)%,not(number(NA))
  ),Insertions1),

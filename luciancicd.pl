@@ -34,6 +34,7 @@ Later:
 :-include('find_tests_from_repos.pl').
 :-include('ci.pl').
 :-include('ci3.pl').
+:-include('save_diff_html.pl').
 
 :-dynamic home_dir/1.
 
