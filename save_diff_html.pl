@@ -27,5 +27,6 @@ save_diff_html(After3) :-
  	get_time(TS),stamp_date_time(TS,date(Year,Month,Day,Hour1,Minute1,Seconda,_A,_TZ,_False),local),
 	foldr(string_concat,["../../diff_html_",Year,Month,Day,Hour1,Minute1,Seconda,".html"],File1),
 	
- save_file_s(File1,HTML2).
+	string_concat("<b>File Diff HTML</b><br>These are the changes combinations were taken from.<br>",HTML2,HTML3),
+ save_file_s(File1,HTML3).
 
