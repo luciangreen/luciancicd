@@ -406,7 +406,10 @@ write(S21,Mod_time521),close(S21)
 
 ci_end,
 
-writeln("All tests were successful.")
+writeln("All tests were successful."),
+home_dir(HD),
+working_directory1(_,HD)
+
 
 )
 ;((true%not(Results21=[])
