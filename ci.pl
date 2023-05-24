@@ -94,7 +94,12 @@ foldr(string_concat,["../../Github_lc/tests_",K11,".txt"%"/",File1
  assertz(ci_fail(Ci_fail1))
  %Tests=[]%fail%abort
  %Tests=[[K11,File1,Old_S1,S1]]%fail%abort
- );(true)),%trace,
+ );(
+ ci_fail(Ci_fail),
+ append(Ci_fail,[0],Ci_fail1),
+ retractall(ci_fail(_)),
+ assertz(ci_fail(Ci_fail1))
+ )),%trace,
  foldr(string_concat,["../../Github_lc/",K11],K12),
  Tests=[[K12,File1,Old_S1,S1]],!.
  

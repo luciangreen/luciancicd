@@ -103,7 +103,7 @@ working_directory1(_,A1),
 
 (    %Sorted1=Sorted2
 	(%trace,
-	New=[],ci_fail(Ci_fail),forall(member(Ci_fail1,Ci_fail),Ci_fail1=0))
+	New=[],ci_fail(Ci_fail),forall(member(Ci_fail1,Ci_fail),Ci_fail1=1))
 ->writeln("There are no modifications to repositories to test.");
 
 % if 
