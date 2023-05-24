@@ -19,7 +19,7 @@ save_diff_html(After3) :-
  %term_to_atom(Item2a,Item2a1),
  %term_to_atom(Item2b,Item2b1),
  %foldr(string_concat,
- term_to_atom([Item2b," -> ",Item2a],Item2),
+ term_to_atom([Item2b,' -> ',Item2a],Item2),
  Colour="yellow")))))),HTML),
  flatten(HTML,HTML1),
  foldr(string_concat,HTML1,HTML2),
