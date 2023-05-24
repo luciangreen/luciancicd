@@ -1,7 +1,7 @@
 save_diff_html(After3) :-
  correspondences(Corr),
  
- findall(["<table bgcolor=\"",Colour,"\"><tr><td>",Item2,"</td></tr></table><br>"],(member(Item,After3),
+ findall(["<table bgcolor=\"",Colour,"\"><tr><td>",Item2,"</td></tr></table>"],(member(Item,After3),
  (string(Item)->
  (numbers_to_term([Item],Corr,[],Item2),Colour="white");
  ((%trace,
