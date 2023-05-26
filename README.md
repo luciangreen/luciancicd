@@ -61,8 +61,6 @@ halt
 
 * `luciancicd.` - Tests repositories with change modification dates. Run before committing changes.
 
-* NB. To run `luciancicd` splitting on different parts, enter `luciancicd(Mode).`, where `Mode` = `"token"`, `"line"` or `"predicate"`. The default mode is `"line"`.
-
 * Note: Dependencies are in `List-Prolog-Package-Manager/lppm_registry.txt`, in form `[[User,Repository,Dependencies], etc]`. 
 
 * Note: Once all tests are successful, to move the files in `../private2/luciancicd-testing/` into the repository, enter `move_to_repository_or_back.`, then commit them. Re-enter this command to swap the files back. (NB. This is done in `luciancicd.` if tests are successful.)

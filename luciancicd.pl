@@ -72,15 +72,15 @@ working_directory1(_,A1)
 
 % Mode = "token", "line" or "predicate"
 
-luciancicd(Mode) :-
+%luciancicd(Mode) :-
 
-	retractall(lc_mode(_)),assertz(lc_mode(Mode)),
-	luciancicd.
+%	retractall(lc_mode(_)),assertz(lc_mode(Mode)),
+%	luciancicd.
 
 luciancicd :-
 	
-	(lc_mode(_)->true;
-	(retractall(lc_mode(_)),assertz(lc_mode("line")))),
+	%(lc_mode(_)->true;
+	%(retractall(lc_mode(_)),assertz(lc_mode("line")))),
 	
 	working_directory1(A1z,A1z),
 
