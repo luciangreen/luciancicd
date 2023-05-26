@@ -44,7 +44,7 @@ halt
 ['luciancicd.pl'].
 ```
 
-* `find_tests_from_repos.` - Finds tests in comments in repositories.
+* `find_tests_from_repos.` - Finds tests in comments in repositories (NB. this is done at the start of `luciancicd.`).
 
 * If necessary, modify tests in the source files in the repositories, for example:
 
@@ -61,9 +61,11 @@ halt
 
 * `luciancicd.` - Tests repositories with change modification dates. Run before committing changes.
 
+* NB. To run `luciancicd` splitting on different parts, enter `luciancicd(Mode).`, where `Mode` = `"token"`, `"line"` or `"predicate"`. The default mode is `"line"`.
+
 * Note: Dependencies are in `List-Prolog-Package-Manager/lppm_registry.txt`, in form `[[User,Repository,Dependencies], etc]`. 
 
-* Note: Once a test is successful, manually move the files in `../private2/luciancicd-testing/` into the repository to commit them.
+* Note: Once all tests are successful, to move the files in `../private2/luciancicd-testing/` into the repository, enter `move_to_repository_or_back.`, then commit them. Re-enter this command to swap the files back. (NB. This is done in `luciancicd.` if tests are successful.)
 
 # Authors
 

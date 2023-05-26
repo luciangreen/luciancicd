@@ -35,10 +35,12 @@ Later:
 :-include('ci.pl').
 :-include('ci3.pl').
 :-include('save_diff_html.pl').
+:-include('move_to_repository_or_back.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
 :-dynamic ci_fail/1.
+:-dynamic lc_mode/1.
 
 set_up_luciancicd :-
 
@@ -68,8 +70,24 @@ ci_end,
 working_directory1(_,A1)
 .
 
+% Mode = "token", "line" or "predicate"
+
+luciancicd(Mode) :-
+
+	retractall(lc_mode(_)),assertz(lc_mode(Mode)),
+	luciancicd.
+
 luciancicd :-
 	
+	(lc_mode(_)->true;
+	(retractall(lc_mode(_)),assertz(lc_mode("line")))),
+	
+	working_directory1(A1z,A1z),
+
+	find_tests_from_repos,
+	
+	working_directory1(_,A1z),
+
 	retractall(success(_)),assertz(success(0)),
 	retractall(ci_fail(_)),assertz(ci_fail([])),
 	
@@ -205,28 +223,43 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
  %File2A1=[_,Content1],
  %findall(*,(member([P,Tokens_i,Tokens_f],File2A1),
  File2A1=[Tokens2,Tokens1]),Tokens3),
+ 
  %trace,
- findall([AT2,",\n"],(member([AT2,_],Tokens3)),AT22),flatten(AT22,AT2x),%)),AT22),
- append(AT24,[_],AT2x),
- foldr(string_concat,AT24,AT235),
- foldr(string_concat,["[",AT235,"]"],AT232),
- term_to_atom(AT231,AT232),
- foldr(append,AT231,AT233),
+ 
+ findall(%[
+ AT2z%,",\n"]
+ ,(member([AT2,_],Tokens3),foldr(string_concat,AT2,AT2z1),
+ term_to_atom(AT2z,AT2z1%AT232
+ )),AT22),%flatten(AT22,AT2x),%)),AT22),
+ %append(AT24,[_],AT2x),
+ %foldr(string_concat,AT24,AT235),
+ %foldr(string_concat,["[",AT235,"]"],AT232),
+ %term_to_atom(AT231,AT22%AT232
+ %),
+ foldr(append,AT22%AT231
+ ,AT233),
  %trace,
  pp0(AT233,AT234),
  split_string(AT234,"\n","\n",AT23),
 
 %trace,
  %trace,
- findall([AT1,",\n"],(member([_,AT1],Tokens3)),AT12),flatten(AT12,AT1x),%)),AT12),
- append(AT14,[_],AT1x),
- foldr(string_concat,AT14,AT135),
- foldr(string_concat,["[",AT135,"]"],AT132),
- term_to_atom(AT131,AT132),
- foldr(append,AT131,AT133),
+ findall(%[
+ AT1z%,",\n"]
+ ,(member([_,AT1],Tokens3),foldr(string_concat,AT1,AT1z1),
+ term_to_atom(AT1z,AT1z1%AT132
+ )),AT12),%flatten(AT12,AT1x),%)),AT12),
+ %append(AT14,[_],AT1x),
+ %foldr(string_concat,AT14,AT135),
+ %foldr(string_concat,["[",AT135,"]"],AT132),
+ %term_to_atom(AT131,AT12%AT132
+ %),
+ foldr(append,AT12%AT131
+ ,AT133),
  %trace,
  pp0(AT133,AT134),
  split_string(AT134,"\n","\n",AT13)
+
  %,trace
  )->true;(writeln("fault"),fail)),
 
@@ -405,6 +438,8 @@ write(S21,Mod_time521),close(S21)
 
 
 ci_end,
+
+move_to_repository_or_back,
 
 writeln("All tests were successful."),
 home_dir(HD),
