@@ -20,6 +20,10 @@ move_to_repository_or_back :-
  
  rm_lc(LCTD2),
  
+ string_concat(R,"*/testcicd.pl",R1),
+ 
+ rm_lc(R1),
+ 
  working_directory1(_,AAA),!.
 
 
