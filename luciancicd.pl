@@ -30,7 +30,7 @@ Later:
 :-include('../SSI/ssi.pl').
 :-include('../listprologinterpreter/la_files.pl').
 :-include('../List-Prolog-Package-Manager/lppm.pl').
-:-include('lppm_install_luciancicd.pl').
+%:-include('lppm_install_luciancicd.pl').
 :-include('find_tests_from_repos.pl').
 :-include('ci.pl').
 :-include('ci3.pl').
