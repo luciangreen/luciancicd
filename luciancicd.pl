@@ -435,11 +435,14 @@ open_s(K21,write,S21),
 write(S21,Mod_time521),close(S21)
 ),_),
 
-ci,
 
-ci_end,
+
 
 move_to_repository_or_back,
+
+
+ci,
+ci_end,
 
 writeln("All tests were successful."),
 home_dir(HD),
