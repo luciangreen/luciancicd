@@ -65,7 +65,7 @@ halt
 
 * Note: Once all tests are successful, to move the files in `../private2/luciancicd-testing/` into the repository, enter `move_to_repository_or_back.`, then commit them. Re-enter this command to swap the files back. (NB. This is done in `luciancicd.` if tests are successful.)
 
-* Important: So far, Lucian CI/CD might not save comments entered without code. To revert to a previous version just run, run `move_to_repository_or_back.` and `set_up_luciancicd.` to save the files.
+* Important: So far, Lucian CI/CD might not save comments entered without code. To revert to a previous version just run, run `move_to_repository_or_back.` and `set_up_luciancicd.` to save the files. I.e. to keep comments when only comments are added, run `set_up_luciancicd.` instead of `luciancicd.`.
 
 # Authors
 
