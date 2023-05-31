@@ -61,9 +61,9 @@ write(S,Mod_time52),close(S)
 	%working_directory1(_,A1),
 
 
-	retractall(home_dir(_)),assertz(home_dir(A1)),
+	%retractall(home_dir(_)),assertz(home_dir(A1)),
 %retractall(home_dir(_)),assertz(home_dir(_))
-	retractall(ci_fail(_)),assertz(ci_fail([])),
+	%retractall(ci_fail(_)),assertz(ci_fail([])),
 
 ci,
 ci_end,
@@ -203,7 +203,7 @@ append(Dependencies9,D22,D23),
   
   flatten(Dependencies991,Dependencies992),
   sort(Dependencies992,Dependencies99),
-  
+  %trace,
    lc_tests(Lc_tests),
 
 %trace,
@@ -322,7 +322,8 @@ writeln(["Installing",PZ, FZ%Repository1
 
  % only want some reps files
  (exists_directory_s(LCTD)->true;make_directory_s(LCTD)),
- (exists_directory_s(K212)->true;make_directory_s(K212)),
+ %(exists_directory_s(K212)->true;make_directory_s(K212)),
+ make_directory_recursive_s(LCTD,PZ1),
 
  %trace,
 
@@ -381,15 +382,25 @@ foldr(string_concat,["../private2/luciancicd-testing/",%Repository1,
 %"/",
 Go_path1],Go_path),
 ((working_directory1(_,A),
+
+%trace, %***
+
+ make_directory_recursive_s(LCTD,Go_path1),
+
 working_directory1(_,Go_path),
 
 % *** Change path to swipl if necessary
 
 term_to_atom(Command,Command1),
-foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n",":-include('",File,"').\n",":- initialization(catch(main, Err, handle_error(Err))).\n\nhandle_error(_Err):-\n  halt(1).\n","main :-\n    ",Command1,", nl,\n    halt.\n","main :- halt(1).\n"],String),
+
+string_concat(Repository1b,Go_path1a,Go_path1),
+split_string(Go_path1a,"/","/",Go_path3),
+(Go_path3=[_Go_path4]->Go_path5="";(Go_path3=[_|Go_path6],atomic_list_concat(Go_path6,'/',Go_path7),string_concat(Go_path7,"/",Go_path5))),
+foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n",":-include('",Go_path5,File,"').\n",":- initialization(catch(main, Err, handle_error(Err))).\n\nhandle_error(_Err):-\n  halt(1).\n","main :-\n    ",Command1,", nl,\n    halt.\n","main :- halt(1).\n"],String),
 %trace,
-working_directory1(_,A),
-foldr(string_concat,["../private2/luciancicd-testing/",Repository1b,"/testcicd.pl"],GP),
+%working_directory1(_,A),
+foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path5,
+"testcicd.pl"],GP),
 %string_concat(Go_path,"testcicd.pl",GP),
 open_s(GP,write,S1),
 write(S1,String),close(S1),
@@ -453,6 +464,26 @@ working_directory1(_,HD)
 ;((true%not(Results21=[])
 ->writeln("1 or more tests failed.");true))
 ))).
+
+
+make_directory_recursive_s(LCTD,PZ1) :-
+ split_string(PZ1,"/","/",PZ2),
+ delete(PZ2,"",PZ3),
+ make_directory_recursive_s(LCTD,"",%PZ4,
+ PZ3).
+ 
+make_directory_recursive_s(_,_,%_,
+[]) :- !.
+make_directory_recursive_s(LCTD,PZ5,%PZ4,
+PZ) :-
+ PZ=[PZ6|PZ7],
+ foldr(string_concat,[LCTD,"/",PZ5,PZ6%,"/"
+ ],K212),
+ (exists_directory_s(K212)->true;make_directory_s(K212)),
+ foldr(string_concat,[PZ5,"/",PZ6,"/"
+ ],PZ8),
+ make_directory_recursive_s(LCTD,PZ8,%PZ4,
+PZ7),!.
 
 ci_end:-
 

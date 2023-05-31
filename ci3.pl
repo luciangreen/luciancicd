@@ -28,6 +28,9 @@ ci :-
 
 working_directory1(A,A),
 
+	retractall(home_dir(_)),assertz(home_dir(A)),
+	retractall(ci_fail(_)),assertz(ci_fail([])),
+
 (exists_directory('../../Github_lc')->true;make_directory('../../Github_lc')),
 
 repositories_paths(K),
@@ -90,9 +93,11 @@ process_directory_merge(K31,%_G,
  %process_merge_preds()
  ),Tests2),
  foldr(append,Tests2,Tests),
- 
+ %trace,
  retractall(lc_tests(_)),
  assertz(lc_tests(Tests))
+
+ ,working_directory1(_,A)
 
 ,%writeln("All tests were successful."),
 
@@ -105,33 +110,49 @@ prepare_repositories(Tests,T3%,Ordered_pred_nums
 ) :- %* in a separate file.pl, process dirs rec'ly
 %trace,
 
+
 findall([Tests12,Tokens2,Tokens1],
 %findall(Tests143,(
 (member([Tests12,C],Tests),
  %Tests=[[Tests12,C]],
- term_to_atom(Tests142,C),%),Tests142),
- foldr(append,Tests142,Tests14),
+ term_to_atom(Tests14,C),%),Tests142),
+ %foldr(append,Tests142,Tests14),
  
  %findall([[[n,comment],["File delimiter",P,F]],O],=(
- [P,F,O,_N]=Tests14,
- append([[[n,comment],["File delimiter",P,F]]],O,O1),
+ %trace,
+ findall(O1,
+ (
+ member([P,F,O,N],Tests14),
+ %member(A,[1,2]),
+ %(%A= 1->
+ %(
+ append([[[n,comment],["File delimiter",P,F]]],O,O1)
  %[P,F,O,_N],Tests14),N2),
  %foldr(append,O1,Functions2),
  %term_to_atom(Functions2,String2),
  %break_into_tokens(String2,Tokens2),
  %delete(O1,[],Functions21),
- pp0(O1,String2),
+ ),Tokens2a),
+ foldr(append,Tokens2a,O2),
+ pp0(O2,String2),
  split_string(String2,"\n\r","\n\r",Tokens2),
-
+ %),%;
+ %(%A=2,
  %findall([[[n,comment],["File delimiter",P,F]],N],=(
- [P,F,_O,N]=Tests14,
- append([[[n,comment],["File delimiter",P,F]]],N,N1),
+ %[P,F,_O,N]=Tests14,
+ %member([P,F,O,N],Tests14),
+ findall(N1,
+ (
+ member([P,F,O,N],Tests14),
+ append([[[n,comment],["File delimiter",P,F]]],N,N1)
  %[P,F,_O,N],Tests14),N1),
  %foldr(append,N1,Functions1),
  %term_to_atom(Functions1,String1),
  %break_into_tokens(String1,Tokens1)
  %delete(N1,[],Functions11),
- pp0(N1,String1),
+ ),Tokens1a),
+ foldr(append,Tokens1a,N2),
+ pp0(N2,String1),
  split_string(String1,"\n\r","\n\r",Tokens1)
  ),
 T3),!.
@@ -222,14 +243,18 @@ findall([T1,',\n'],(member([T,TT,TTT,TTTT
 foldr(atom_concat,["[","\"",T,"\"",",","\"",TT,"\"",",",TTT1,",",TTTT1,
 "]"],T1)%term_to_atom(T,T1)
 ),T2),
+%trace,
 flatten(T2,TT2),
 foldr(atom_concat,TT2,T21),
-(T2=[]->T6=[];(string_concat(T4,T5,T21),%trace,
-string_length(T5,2),
-foldr(string_concat,["[","\n",T4,"\n","]"],T6))),
+(T2=[]->T6=[];(find_sl_2(T21,T6)%string_concat(T4,T5,T21),%trace,
+%string_length(T5,2),
+%foldr(string_concat,["[","\n",T4,"\n","]"],T6)
+)),
 %term_to_atom(Tests51,Tests52),
+%trace,
 string_concat(K3,"/",K1),
 foldr(string_concat,["../../Github_lc/tests_",K3,".txt"],K2),
+%trace,
 K4=[K2,T6]
 %open_s(K2,write,S),
 %write(S,Tests52),close(S)
@@ -238,17 +263,19 @@ K4=[K2,T6]
 %Tests52]
 %
 );
-K4=[]%Tests51
+(%trace,
+K4=Tests51)
 )
 
 
 
 ),Tests6),
-
+%trace,
 (%not(Omit=[])->
 Top_level=true->
 Tests6=Tests61;
-foldr(append,Tests6,Tests61)),
+(%trace,
+foldr(append,Tests6,Tests61))),
 
 !.
 	
@@ -355,3 +382,10 @@ process_merge_preds(Tests11,Ordered_pred_nums,Tests1) :-
  
  ),_).
 */
+
+find_sl_2(T21,T6) :-
+ find_sl_21(T21,T6),!.
+find_sl_21(T21,T6) :-
+ string_concat(T4,T5,T21),%trace,
+ string_length(T5,2),
+ foldr(string_concat,["[","\n",T4,"\n","]"],T6).

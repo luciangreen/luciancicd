@@ -176,7 +176,8 @@ K4=[K2,T6]
 %Tests52]
 %
 );
-K4=[]%Tests51
+(%trace,
+K4=Tests51)
 )
 
 
@@ -186,10 +187,12 @@ K4=[]%Tests51
 (%not(Omit=[])->
 Top_level=true->
 Tests6=Tests61;
-foldr(append,Tests6,Tests61)),
+(%trace,
+foldr(append,Tests6,Tests61))),
 
 !.
 	
+/*
 test_a(Tests) :-
 
 working_directory1(A,A),
@@ -204,6 +207,7 @@ LP=[[[n, c], ["%r(NA)."]], [[n, c], ["%NA=2."]]%, [[n, c], ["% r([a],N2)."]], [[
 ],
 
 (find_tests2(H,K11,LP,Tests)->true;working_directory1(_,A)).
+*/
 
 find_tests(K1,H,H1,Tests) :-
 
@@ -213,10 +217,14 @@ find_tests(K1,H,H1,Tests) :-
 	p2lpconverter([file,H1],LP),%),_,false),
 	%,writeln1(Result2)
 
-	find_tests2(H,K11,LP,Tests).
+	find_tests2(%H1,
+	H,K11,LP,Tests).
 
-find_tests2(H,K11,LP,Tests) :-
+find_tests2(%H1,
+H,K11,LP,Tests) :-
 
+	%foldr(string_concat,[H1%,"/",K11
+	%],K12),
 	%trace,
 	findall(N1,(member([[n,N]|_],LP),
 	string_strings(N,N1)),Ns),
