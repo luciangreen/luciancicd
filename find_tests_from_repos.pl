@@ -87,10 +87,10 @@ process_directory_tests(K31,%_G,
 	foldr(string_concat,["../private2/luciancicd-cicd-tests-",Year,Month,Day,Hour1,Minute1,Seconda,"/"],Folder1),
 	%concat_list3(File1,[".txt"],File2),
 
- foldr(string_concat,["rsync -av --exclude=\".*\"  ../private2/luciancicd-cicd-tests/ ",Folder1],Command314),
- 	catch(bash_command(Command314,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
-	],Text41),writeln1(Text41),abort
- 	)));
+mv_lc("../private2/luciancicd-cicd-tests/",Folder1)
+ %foldr(string_concat,["rsync -av --exclude=\".*\"  ../private2/luciancicd-cicd-tests/ ",Folder1],Command314),
+ 	%catch(bash_command(Command314,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."],Text41),writeln1(Text41),abort))
+ 	);
  	(
  	%exists_directory('../private2/luciancicd-cicd-tests')->true;
 %make_directory('../private2/luciancicd-cicd-tests')

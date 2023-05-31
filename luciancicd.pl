@@ -468,12 +468,10 @@ ci_end:-
 	foldr(string_concat,["../../Github_lc-",Year,Month,Day,Hour1,Minute1,Seconda,"/"],Folder1),
 	%concat_list3(File1,[".txt"],File2),
 
- foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
- "rsync -av --exclude=\".*\"  ../../Github_lc/ ",
- Folder1],Command314),
- 	catch(bash_command(Command314,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
-	],Text41),writeln1(Text41),abort
- 	)));
+mv_lc("../../Github_lc/",Folder1)
+ %foldr(string_concat,[%"scp -pr ../../Github_lc/ ","rsync -av --exclude=\".*\"  ../../Github_lc/ ",Folder1],Command314),
+ 	%catch(bash_command(Command314,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."],Text41),writeln1(Text41),abort))
+ 	);
  	(
  	%exists_directory('../../Github_lc')->true;
 %make_directory('../../Github_lc')
