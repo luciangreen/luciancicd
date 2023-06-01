@@ -59,6 +59,8 @@ halt
 
 * `set_up_luciancicd.` - Records time modified of repositories in `repositories_paths1//1` in `luciancicd.pl`.
 
+* NB. So far, two more more folders in `repositories_paths1//1` must contain repositories with different names.
+
 * `luciancicd.` - Tests repositories with change modification dates. Run before committing changes.
 
 * Note: Dependencies are in `List-Prolog-Package-Manager/lppm_registry.txt`, in form `[[User,Repository,Description,Dependencies], etc]`. 
