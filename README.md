@@ -59,11 +59,13 @@ halt
 
 * `set_up_luciancicd.` - Records time modified of repositories in `repositories_paths1//1` in `luciancicd.pl`.
 
-* `luciancicd.` - Tests repositories with change modification dates. Run before committing changes.
+* `luciancicd.` - Tests repositories with changed modification dates. Run before committing changes.
 
-* Note: Dependencies are in `List-Prolog-Package-Manager/lppm_registry.txt`, in form `[[User,Repository,Description,Dependencies], etc]`. 
+* Note: Dependencies are in `List-Prolog-Package-Manager/lppm_registry.txt`, in form `[[User,Repository,Description,Dependencies], etc]`.
 
-* Note: Once all tests are successful, to move the files in `../private2/luciancicd-testing/` into the repository, enter `move_to_repository_or_back.`, then commit them. Re-enter this command to swap the files back. (NB. This is done in `luciancicd.` if tests are successful.)
+* For more info, see a <a href="https://dev.to/luciangreen/an-open-source-cicd-for-prolog-29h2">Dev.to article about Lucian CI/CD</a>.
+
+* Note: Once all tests are successful, to move the files in the temporary folder `../private2/luciancicd-testing/` into the repository, enter `move_to_repository_or_back.`, then commit the changes. (NB. This is done in `luciancicd.` if tests are successful.) Re-enter `move_to_repository_or_back.` to swap the files back.
 
 * Important: So far, Lucian CI/CD might not save comments entered without code. To revert to a previous version just run, run `move_to_repository_or_back.` and `set_up_luciancicd.` to save the files. I.e. to keep comments when only comments are added, run `set_up_luciancicd.` instead of `luciancicd.`.
 
