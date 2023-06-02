@@ -31,7 +31,7 @@ get_file(Type,File1,S1) :-
  (Type=file->(exists_file_s(File1)->
  (p2lpconverter([Type,File1],S1)->true;
  open_string_file_s(File1,S10),
- S1=[[[n,comment],[S10]]]));
+ lines_to_comments(S10,S1)));
  p2lpconverter([Type,File1],S1)),!.
 
 /*
@@ -46,7 +46,7 @@ set_up_merge(Type,File1) :-
 % build saves over gh (which is moved to lc) with a command
 
 merge(K11,File1,Path1,Tests) :-
-%writeln(merge(K11,File1,Path1,Tests)),
+%writeln(merge(K11,File1,Path1,Tests)),``
 %trace,%trace,
 %%%%%%%%%*****Change gh2 to gh
  %foldr(string_concat,["../../Github2/",K11,"/",File1],Path11),

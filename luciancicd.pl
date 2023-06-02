@@ -740,7 +740,11 @@ split_into_lp_files(A,B,C,B1,C1) :-
 
 pp0_1(A,B):-
  (pp0(A,B)->true;
- B=[[[n,comment],[A]]]).
+ lines_to_comments(A,B)).
+ 
+lines_to_comments(A,B) :-
+ split_string(A,"\n\r","\n\r",C),
+ findall([[[n,comment],[D]]],member(D,C),B).
  
 clear_mod_dates :-
 
