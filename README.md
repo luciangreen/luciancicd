@@ -46,7 +46,7 @@ halt
 
 * `find_tests_from_repos.` - Finds tests in comments in repositories (NB. this is done at the start of `luciancicd.`).
 
-* If necessary, modify tests in the source files in the repositories, for example:
+* If necessary, modify tests in the Prolog files in the repositories, for example:
 
 ```
 % remove_and_find_item_number([a,b,c],2,c,N2).
@@ -54,6 +54,8 @@ halt
 % remove_and_find_item_number([a,b,b,c],2,c,N2).
 % N2 = 3.
 ```
+
+* Lucian CI/CD works with non-Prolog files, where Prolog files should test the non-Prolog files. In addition, follow the instructions below to keep non-testable changes to comments and non-Prolog (data) files.
 
 * Please ensure that each test's file loads the necessary files.
 
@@ -67,7 +69,7 @@ halt
 
 * Note: Once all tests are successful, to move the files in the temporary folder `../private2/luciancicd-testing/` into the repository, enter `move_to_repository_or_back.`, then commit the changes. (NB. This is done in `luciancicd.` if tests are successful.) Re-enter `move_to_repository_or_back.` to swap the files back.
 
-* Important: So far, Lucian CI/CD might not save comments entered without code or changes to data files. To revert to a previous version just run, run `move_to_repository_or_back.` and `set_up_luciancicd.` to save the files. I.e. to keep comments or data files when only comments are added, run `set_up_luciancicd.` instead of `luciancicd.`.
+* Important: So far, Lucian CI/CD might not save comments entered without code or changes to data files. To revert to a previous version just run, run `move_to_repository_or_back.` and `set_up_luciancicd.` to save the files. I.e. to keep comments when only comments are added or data files, run `set_up_luciancicd.` instead of `luciancicd.`.
 
 * Note: A notification such as `"Cannot find "../private2/luciancicd-cicd-tests/tests_a.txt"` means the repository `a` is connected with a changed file through dependencies but isn't installed.
 
