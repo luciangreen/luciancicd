@@ -69,7 +69,7 @@ halt
 
 * Important: So far, Lucian CI/CD might not save comments entered without code. To revert to a previous version just run, run `move_to_repository_or_back.` and `set_up_luciancicd.` to save the files. I.e. to keep comments when only comments are added, run `set_up_luciancicd.` instead of `luciancicd.`.
 
-* Note: A notification such as `"Cannot find "../private2/luciancicd-testing/luciancicd-cicd-tests/tests_a.txt"` means the repository `a` is connected with a changed file through dependencies but isn't installed.
+* Note: A notification such as `"Cannot find "../private2/luciancicd-cicd-tests/tests_a.txt"` means the repository `a` is connected with a changed file through dependencies but isn't installed.
 
 # Authors
 
