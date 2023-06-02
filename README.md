@@ -67,7 +67,7 @@ halt
 
 * Note: Once all tests are successful, to move the files in the temporary folder `../private2/luciancicd-testing/` into the repository, enter `move_to_repository_or_back.`, then commit the changes. (NB. This is done in `luciancicd.` if tests are successful.) Re-enter `move_to_repository_or_back.` to swap the files back.
 
-* Important: So far, Lucian CI/CD might not save comments entered without code. To revert to a previous version just run, run `move_to_repository_or_back.` and `set_up_luciancicd.` to save the files. I.e. to keep comments when only comments are added, run `set_up_luciancicd.` instead of `luciancicd.`.
+* Important: So far, Lucian CI/CD might not save comments entered without code or changes to data files. To revert to a previous version just run, run `move_to_repository_or_back.` and `set_up_luciancicd.` to save the files. I.e. to keep comments or data files when only comments are added, run `set_up_luciancicd.` instead of `luciancicd.`.
 
 * Note: A notification such as `"Cannot find "../private2/luciancicd-cicd-tests/tests_a.txt"` means the repository `a` is connected with a changed file through dependencies but isn't installed.
 

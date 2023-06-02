@@ -239,7 +239,7 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
  foldr(append,AT22%AT231
  ,AT233),
  %trace,
- pp0(AT233,AT234),
+ pp0_1(AT233,AT234),
  split_string(AT234,"\n","\n",AT23),
 
 %trace,
@@ -257,7 +257,7 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
  foldr(append,AT12%AT131
  ,AT133),
  %trace,
- pp0(AT133,AT134),
+ pp0_1(AT133,AT134),
  split_string(AT134,"\n","\n",AT13)
 
  %,trace
@@ -724,3 +724,6 @@ split_into_lp_files(A,B,C,B1,C1) :-
  split_into_lp_files(E,[D],C,B2,C1),!.
 
 
+pp0_1(A,B):-
+ (pp0(A,B)->true;
+ B=[[[n,comment],[A]]]).

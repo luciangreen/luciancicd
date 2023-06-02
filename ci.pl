@@ -28,9 +28,10 @@ copy to build folder if passes
 */
 
 get_file(Type,File1,S1) :-
- (Type=file->((exists_file_s(File1)->
- p2lpconverter([Type,File1],S1);
- S1=[]));
+ (Type=file->(exists_file_s(File1)->
+ (p2lpconverter([Type,File1],S1)->true;
+ open_string_file_s(File1,S10),
+ S1=[[[n,comment],[S10]]]));
  p2lpconverter([Type,File1],S1)),!.
 
 /*
