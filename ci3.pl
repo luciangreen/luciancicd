@@ -21,8 +21,8 @@ or convert them to lp to see if they are comm, then keep them x they are with th
 %:-include('luciancicd.pl').
 :-include('../Prolog-to-List-Prolog/pretty_print_lp2p.pl').
 %:-include('../Alg_to_Types/find_dependencies.pl').
-:-dynamic merges_files/1.
-:-dynamic merges_preds/1.
+%:-dynamic merges_files/1.
+%:-dynamic merges_preds/1.
 
 ci :-
 
@@ -41,8 +41,8 @@ omit_paths(Omit),
 findall([K1,G4],(member(K1,K), directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 
-retractall(merges_files(_)),
-assertz(merges_files([])),
+%retractall(merges_files(_)),
+%assertz(merges_files([])),
 %retractall(merges_preds(_)),
 %assertz(merges_preds([])),
 % merge_files contains the file data from the repository.

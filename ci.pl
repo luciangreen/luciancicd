@@ -15,10 +15,10 @@ copy to build folder if passes
 */
 
 :-include('../Prolog-to-List-Prolog/p2lpconverter.pl').
-:-include('../List-Prolog-to-Prolog-Converter/lp2pconverter.pl').
+%:-include('../List-Prolog-to-Prolog-Converter/lp2pconverter.pl').
 %:-include('luciancicd.pl').
 :-dynamic term_to_numbers1/1.
-:-dynamic term_to_numbers2/1.
+%:-dynamic term_to_numbers2/1.
 :-dynamic changes/1.
 :-dynamic correspondences/1.
 
@@ -253,6 +253,7 @@ don't worry about 121 131 repeating units, just group
 % use in find_insertions_and_deletions,
 % but need to differentiate same values [1,1] as 1_1 and 1_2
 
+/*
 subtract1(A,B,C) :-
  subtract1(A,B,[],C),!.
   
@@ -276,7 +277,7 @@ subtract2(A,B,C,G) :-
  append(C,[[D,D1]],H));
  (F=B,C=H)),
  subtract2(E,F,H,G),!.
-%*/
+*
 
 differentiate(A,B) :-
  differentiate(A,[],_,[],B),!.
@@ -293,9 +294,9 @@ differentiate(List,Corrs1,Corrs2,Diffs1,Diffs2) :-
 %subtract2(A,B,C) :-
 break_into_tokens(A,B) :-
  string_codes(A,A1),
- split_on_substring117(A1, `#@~%$?-+*^,()|.:;=_/[]<>{}\n\r\s\t\\"!\``,[],B),!.
- 
- 
+ split_on_substring117(A1, `#@~%$?-+*^,()|.:;=_/[]<>{}\n\r\s\t\\"!\``,[],B),!. 
+*/
+
 fail_if_greater_than_n_changes(N,After3) :-
 %trace,
  findall(A,(member(A,After3),not(string(A))),B),

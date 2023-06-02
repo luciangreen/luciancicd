@@ -40,14 +40,18 @@ Later:
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
 :-dynamic ci_fail/1.
-:-dynamic lc_mode/1.
+%:-dynamic lc_mode/1.
 
 set_up_luciancicd :-
+
+check_repositories_paths,
 
 working_directory1(A1,A1),
 
 	
 modification_dates(Mod_times),
+
+clear_mod_dates,
 
 findall(_,(member([K2,Mod_time52],Mod_times),
 open_s(K2,write,S),
@@ -79,6 +83,7 @@ working_directory1(_,A1)
 
 luciancicd :-
 	
+	check_repositories_paths,
 	%(lc_mode(_)->true;
 	%(retractall(lc_mode(_)),assertz(lc_mode("line")))),
 	
@@ -529,7 +534,16 @@ findall(_,(member([K21|Tests521],Tests),
 term_to_atom(Tests521,Tests522),
 open_s(K21,write,S21),
 write(S21,Tests522),close(S21)
-),_).
+),_),
+
+modification_dates(Mod_times),
+
+clear_mod_dates,
+
+findall(_,(member([K2,Mod_time52],Mod_times),
+open_s(K2,write,S),
+write(S,Mod_time52),close(S)
+),_),!.
 
 
 repositories_paths(Paths) :-
@@ -727,3 +741,25 @@ split_into_lp_files(A,B,C,B1,C1) :-
 pp0_1(A,B):-
  (pp0(A,B)->true;
  B=[[[n,comment],[A]]]).
+ 
+clear_mod_dates :-
+
+working_directory1(A1,A1),
+working_directory1(_,"../private2/luciancicd-data/"),
+
+foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
+ "rm -f *"
+ %Folder1
+ ],Command315),
+ 	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],_Text42)%,writeln1(Text42)%,abort
+ 	)),
+ 	
+
+working_directory1(_,A1).
+
+check_repositories_paths :-
+ repositories_paths(Paths),
+ (not(Paths=[_])->
+ (writeln("Only one repository path can be processed at at time."),abort);
+ true),!.
