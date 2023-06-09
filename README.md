@@ -54,9 +54,9 @@ halt
 ```
 
 * Lucian CI/CD works with:
- * Prolog files
- * Other language files
- * Other text data files
+    * Prolog files
+    * Other language files
+    * Other text data files
 
 * So far, Prolog files should test Prolog and other language files.
 * Other text data files and some comments that aren't immediately before or after changed code lines may not necessarily be kept by Lucian CI/CD. To keep them, follow the instructions below on how to keep them.
