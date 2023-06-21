@@ -83,8 +83,8 @@ process_directory_tests(K31,%_G,
  
  (exists_directory('../private2/luciancicd-cicd-tests')->
  
- (		get_time(TS),stamp_date_time(TS,date(Year,Month,Day,Hour1,Minute1,Seconda,_A,_TZ,_False),local),
-	foldr(string_concat,["../private2/luciancicd-cicd-tests-",Year,Month,Day,Hour1,Minute1,Seconda,"/"],Folder1),
+ (		time1(Time),
+	foldr(string_concat,["../private2/luciancicd-cicd-tests",Time,"/"],Folder1),
 	%concat_list3(File1,[".txt"],File2),
 
 mv_lc("../private2/luciancicd-cicd-tests/",Folder1)

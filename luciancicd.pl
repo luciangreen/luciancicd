@@ -36,13 +36,20 @@ Later:
 :-include('ci3.pl').
 :-include('save_diff_html.pl').
 :-include('move_to_repository_or_back.pl').
+:-include('luciancicd_ws.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
 :-dynamic ci_fail/1.
+:-dynamic time1/1.
+:-dynamic log/1.
+
 %:-dynamic lc_mode/1.
 
+
 set_up_luciancicd :-
+
+get_time1,
 
 check_repositories_paths,
 
@@ -81,7 +88,10 @@ working_directory1(_,A1)
 %	retractall(lc_mode(_)),assertz(lc_mode(Mode)),
 %	luciancicd.
 
+
 luciancicd :-
+	
+	get_time1,
 	
 	check_repositories_paths,
 	%(lc_mode(_)->true;
@@ -92,6 +102,8 @@ luciancicd :-
 	find_tests_from_repos,
 	
 	working_directory1(_,A1z),
+
+	retractall(log(_)),assertz(log("")),
 
 	retractall(success(_)),assertz(success(0)),
 	retractall(ci_fail(_)),assertz(ci_fail([])),
@@ -299,8 +311,8 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
  
    (success(1)->fail;true),
 
- nl,writeln("**********"),
-writeln(["Installing Combination"]),
+ writeln2(""),writeln2("**********"),
+writeln2(["Installing Combination"]),
 
 
  findall(_,(member([[[n, comment], ["File delimiter", PZ, FZ]]|T10],T8),
@@ -308,8 +320,8 @@ writeln(["Installing Combination"]),
   (success(1)->fail;true),
 
 
- nl,%writeln("**********"),
-writeln(["Installing",PZ, FZ%Repository1
+ writeln2(""),%writeln("**********"),
+writeln2(["Installing",PZ, FZ%Repository1
 ]),
 
  %pwd,
@@ -368,7 +380,7 @@ write(S0,T11),close(S0)
 
  (success(1)->fail;true),
 
-writeln(["Running tests"]),
+writeln2(["Running tests"]),
 %trace,
 findall(Results2,(member(Repository1b,Dependencies99),
 
@@ -376,7 +388,7 @@ working_directory1(_,A1),
  
 foldr(string_concat,["../private2/luciancicd-cicd-tests/tests_",Repository1b,".txt"],Test_script_path),
 (catch(open_file_s(Test_script_path,Tests),_,
-(writeln(["Cannot find",Test_script_path]),fail%,abort
+(writeln2(["Cannot find",Test_script_path]),fail%,abort
 ))->
 
 (%trace,
@@ -416,7 +428,7 @@ foldr(string_concat,["chmod +x ",GP,"\n","swipl -f -q ./",GP],S3)%,
  	))
 %Command
 )->(Result=success);Result=fail),
-writeln1([Go_path1,File,Command,Result])),Results2)
+writeln12([Go_path1,File,Command,Result])),Results2)
 
 
 )
@@ -460,14 +472,28 @@ move_to_repository_or_back,
 ci,
 ci_end,
 
-writeln("All tests were successful."),
+writeln2("All tests were successful."),
 home_dir(HD),
 working_directory1(_,HD)
 
 
 )
 ;((true%not(Results21=[])
-->writeln("1 or more tests failed.");true))
+->(writeln2("1 or more tests failed."),
+working_directory1(A22,A22),
+
+repositories_paths([Path]),
+working_directory1(_,Path),
+ (exists_directory_s("../lc_logs/")->true;make_directory_s("../lc_logs/")),
+
+log(Log),
+time1(Time),foldr(string_concat,["../lc_logs/log",Time,".txt"],Log_file_name),
+open_s(Log_file_name,write,S21T),
+write(S21T,Log),close(S21T),
+
+working_directory1(_,A22)
+
+);true))
 ))).
 
 
@@ -500,8 +526,9 @@ ci_end:-
  
  (exists_directory('../../Github_lc')->
  
- (		get_time(TS),stamp_date_time(TS,date(Year,Month,Day,Hour1,Minute1,Seconda,_A,_TZ,_False),local),
-	foldr(string_concat,["../../Github_lc-",Year,Month,Day,Hour1,Minute1,Seconda,"/"],Folder1),
+ (		time1(Time),
+ %get_time(TS),stamp_date_time(TS,date(Year,Month,Day,Hour1,Minute1,Seconda,_A,_TZ,_False),local),
+	foldr(string_concat,["../../Github_lc",Time,"/"],Folder1),
 	%concat_list3(File1,[".txt"],File2),
 
 mv_lc("../../Github_lc/",Folder1)
@@ -767,3 +794,23 @@ check_repositories_paths :-
  (not(Paths=[_])->
  (writeln("Only one repository path can be processed at at time."),abort);
  true),!.
+
+get_time1 :-
+
+	get_time(TS),stamp_date_time(TS,date(Year,Month,Day,Hour1,Minute1,Seconda,_A,_TZ,_False),local),
+	foldr(string_concat,["-",Year,"-",Month,"-",Day,"-",Hour1,"-",Minute1,"-",Seconda],Time),
+	
+	retractall(time1(_)),
+	assertz(time1(Time)).
+
+writeln2(A) :- writeln12(A). 
+/*
+log(B),foldr(string_concat,[B,A,"\n"],C),
+	retractall(log(_)),
+	assertz(log(C)).
+*/
+writeln12(A) :- log(B),term_to_atom(A,A1),foldr(string_concat,[B,A1,"\n"],C),
+	retractall(log(_)),
+	assertz(log(C)),
+	writeln1(A).
+

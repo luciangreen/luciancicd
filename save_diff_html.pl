@@ -24,8 +24,11 @@ save_diff_html(After3) :-
  flatten(HTML,HTML1),
  foldr(string_concat,HTML1,HTML2),
  %term_to_atom(HTML1,HTML2),
- 	get_time(TS),stamp_date_time(TS,date(Year,Month,Day,Hour1,Minute1,Seconda,_A,_TZ,_False),local),
-	foldr(string_concat,["../../diff_html_",Year,Month,Day,Hour1,Minute1,Seconda,".html"],File1),
+
+ 	time1(Time),
+	 (exists_directory_s("../../lc_logs/")->true;make_directory_s("../../lc_logs/")),
+	 
+foldr(string_concat,["../../lc_logs/diff_html",Time,".html"],File1),
 	
 	string_concat("<b>Diff output</b><br>These are the changes combinations were taken from.<br><b>Key</b><br><table bgcolor=\"green\"><tr><td>Insertion</td></tr></table><br><table bgcolor=\"yellow\"><tr><td>Change</td></tr></table><br><table bgcolor=\"red\"><tr><td>Deletion</td></tr></table><br>",HTML2,HTML3),
  save_file_s(File1,HTML3).
