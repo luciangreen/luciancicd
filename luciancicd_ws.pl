@@ -13,6 +13,8 @@
 
 %:- include('files/listprolog.pl').
 
+:-dynamic num1/1.
+
 luciancicd_server(Port) :-
         http_server(http_dispatch, [port(Port)]).
 
@@ -26,7 +28,11 @@ retractall(html_api_maker_or_terminal(_)),
 assertz(html_api_maker_or_terminal(html
  %terminal
  )),
+ 
+ retractall(num1(_)),assertz(num1(1)),
 			
+			
+			working_directory(A3,A3),
 			working_directory(_,'../../lc_logs/'),
 																										              format('Content-type: text/html~n~n', []),
 																			
@@ -34,13 +40,19 @@ data(Header,Footer),
 
 format(Header,[]),
 
-writeln("<b>Log</b><br><br>"),
+writeln("<h1 id=\"#Top\">Log</h1><br><br>"),
 directory_files("./",F),
 	delete_invisibles_etc(F,G),
 	
-	findall(_,(member(H,G),foldr(string_concat,[%"<a href=\"",H,"\">",
-	H,%"</a>"
-	"<br><br>"],H1),writeln(H1)),_),
+	findall([N,H,H1,F1],(member(H,G),open_string_file_s(H,F11),atomic_list_concat(A,"\n",F11),atomic_list_concat(A,"<br>",F1),
+	get_num(N),foldr(string_concat,["<a href=\"#",N,"\">",
+	H,"</a>",
+	"<br><br>"],H1)%,writeln(H1)
+	),J),
+	
+	findall(_,(member([_,_,H1,_],J),writeln(H1)),_),
+	
+	findall(_,(member([N,H,_,F1],J),foldr(string_concat,["<h2 id=\"",N,"\">",H,"</h2><a href=\"#Top\">Top</a><br>",F1,"<br><br>"],H2),writeln(H2)),_),
 %Debug=off,
 
 	%test_open_types_cases(4,Query,Types,Modes,Functions),
@@ -57,6 +69,7 @@ directory_files("./",F),
 	%luciancicd_test(List3),
 	%para(List3),
 	%international_lucianpl([lang,"en"],Debug,[[n,luciancicd]],List3,_Result1),
+			working_directory(_,A3),
 
 
 format(Footer,[])
@@ -126,3 +139,5 @@ Footer='</p>
     <br>
   </body>
 </html>'.
+
+get_num(A) :- num1(A),retractall(num1(_)),A1 is A+1,assertz(num1(A1)).
