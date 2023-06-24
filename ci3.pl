@@ -136,6 +136,7 @@ findall([Tests12,Tokens2,Tokens1],
  ),Tokens2a),
  foldr(append,Tokens2a,O2),
  pp0_1(O2,String2),
+ %term_to_atom(String2,String21),
  split_string(String2,"\n\r","\n\r",Tokens2),
  %),%;
  %(%A=2,
@@ -155,6 +156,7 @@ findall([Tests12,Tokens2,Tokens1],
  ),Tokens1a),
  foldr(append,Tokens1a,N2),
  pp0_1(N2,String1),
+ %term_to_atom(String1,String11),
  split_string(String1,"\n\r","\n\r",Tokens1)
  ),
 T3),!.

@@ -257,6 +257,7 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
  ,AT233),
  %trace,
  pp0_1(AT233,AT234),
+ %term_to_atom(AT234,AT2341),
  split_string(AT234,"\n","\n",AT23),
 
 %trace,
@@ -275,6 +276,7 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
  ,AT133),
  %trace,
  pp0_1(AT133,AT134),
+ %term_to_atom(AT134,AT1341),
  split_string(AT134,"\n","\n",AT13)
 
  %,trace
@@ -401,6 +403,7 @@ Go_path1],Go_path),
 ((working_directory1(_,A),
 
 %trace, %***
+ %(exists_directory_s(LCTD)->true;make_directory_s(LCTD)),
 
  make_directory_recursive_s(LCTD,Go_path1),
 
@@ -479,22 +482,27 @@ working_directory1(_,HD)
 
 )
 ;((true%not(Results21=[])
-->(writeln2("1 or more tests failed."),
+->(writeln2("1 or more tests failed.")
+
+);true))
+))),
+
+success(S000),
 working_directory1(A22,A22),
 
 repositories_paths([Path]),
 working_directory1(_,Path),
  (exists_directory_s("../lc_logs/")->true;make_directory_s("../lc_logs/")),
-
+%trace,
 log(Log),
+term_to_atom(Log,Log1),
+%Log1=[Log],
 time1(Time),foldr(string_concat,["../lc_logs/log",Time,".txt"],Log_file_name),
 open_s(Log_file_name,write,S21T),
-write(S21T,Log),close(S21T),
+write(S21T,[S000,Log1]),close(S21T),
 
 working_directory1(_,A22)
-
-);true))
-))).
+.
 
 
 make_directory_recursive_s(LCTD,PZ1) :-
@@ -766,10 +774,13 @@ split_into_lp_files(A,B,C,B1,C1) :-
 
 
 pp0_1(A,B):-
- (pp0(A,B)->true;
+ (%false%
+ pp0(A,B)
+ ->true;
  lines_to_comments(A,B)).
  
 lines_to_comments(A,B) :-
+ %term_to_atom(A,A1),
  split_string(A,"\n\r","\n\r",C),
  findall([[[n,comment],[D]]],member(D,C),B).
  
