@@ -460,7 +460,7 @@ in_or_exiting_loop(Ordered_pred_nums3,P71,In_loop1,In_loop2,Exiting_loop1,Exitin
  %P2),
 %find_groups2(Ordered_pred_nums3,Ordered_pred_nums42,Ordered_pred_nums23,Ordered_pred_nums22)
 
- append(Exiting_loop1,[P1],Exiting_loop2)).%);
+ %append(Exiting_loop1,[P1],Exiting_loop2)).%);
  %(find_groups_replace_loops(P71,P74),
  %append(Rest_of_preds1,[P74%P72|P74
  %],Rest_of_preds2))).
