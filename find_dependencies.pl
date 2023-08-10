@@ -7,6 +7,7 @@
 % modes will help add commands to sm, for conversion to c
 
 :-include('../Philosophy/sub_term_with_address.pl').
+:-include('../SSI/ssi.pl').
 :-dynamic resort_n/1.
 init(Functions2d) :-
 A=[15
