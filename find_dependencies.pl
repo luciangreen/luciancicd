@@ -360,7 +360,10 @@ recursive_reverse(A,B,C) :-
 
 remove_dups_from_loops(A,B) :-
  remove_dups_in_loops_from_rest(A,C),
- remove_dups_in_loops(C,B).
+ remove_dups_in_loops(C,D),
+ %trace,
+ findall(E,(member(F,D),
+ (F=[loop1,[A1]]->E=A1;E=F)),B).
 
 remove_dups_in_loops_from_rest(A,C) :-
  findall(D,member([loop1,D],A),E),
