@@ -8,7 +8,7 @@
 
 :-include('../Philosophy/sub_term_with_address.pl').
 :-include('../SSI/ssi.pl').
-:-dynamic resort_n/1.
+%:-dynamic resort_n/1.
 init(Functions2d) :-
 A=[15
 ],
@@ -75,8 +75,10 @@ append(_,[Max_L],Rest),
 % loop1 denotes a group of predicates that are in a loop, so have to be tested separately, with their own combinations of changes
 %trace,
 find_groups(Ordered_pred_nums0,[1,0],Ordered_pred_nums11,true),
-list_to_set(Ordered_pred_nums11,Ordered_pred_nums12),
-remove_dups_from_loops(Ordered_pred_nums12,Ordered_pred_nums1),
+%reverse(Ordered_pred_nums11,Ordered_pred_nums13),
+list_to_set(Ordered_pred_nums11,Ordered_pred_nums14),
+%reverse(Ordered_pred_nums12,Ordered_pred_nums14),
+remove_dups_from_loops(Ordered_pred_nums14,Ordered_pred_nums1),
 
 %flatten(Ordered_pred_nums0,Ordered_pred_nums1),
 /* bfs:
@@ -212,7 +214,8 @@ find_groups([],Ordered_pred_nums,Ordered_pred_nums,_) :- !.
 find_groups(A,Ordered_pred_nums1,Ordered_pred_nums2,First) :- 
  (number(A)->A=B;(A=[B],number(B))),
  (First=true->Ordered_pred_nums1=Ordered_pred_nums2;
- append([B],Ordered_pred_nums1,Ordered_pred_nums2)),
+ (member(B,Ordered_pred_nums1)->Ordered_pred_nums1=Ordered_pred_nums2;
+ append([B],Ordered_pred_nums1,Ordered_pred_nums2))),
  !.
 
 find_groups(Ordered_pred_nums0,Ordered_pred_nums1,Ordered_pred_nums22,_) :-
@@ -229,7 +232,9 @@ find_groups2(_,A,Ordered_pred_nums1,Ordered_pred_nums2) :-
  (number(A)->A=B;(A=[B],number(B))),
  append([B],Ordered_pred_nums1,Ordered_pred_nums2),!.
 find_groups2(Ordered_pred_nums3,Ordered_pred_nums4,Ordered_pred_nums1,Ordered_pred_nums22) :-
- 
+
+%writeln(find_groups2(Ordered_pred_nums3,Ordered_pred_nums4,Ordered_pred_nums1,Ordered_pred_nums22)),
+
  Ordered_pred_nums4=[Ordered_pred_nums41|Ordered_pred_nums42],
  (contains_loop(Ordered_pred_nums3,Ordered_pred_nums41,[],_)->
  %append(P5,P6,Ordered_pred_nums4),
@@ -241,18 +246,24 @@ find_groups2(Ordered_pred_nums3,Ordered_pred_nums4,Ordered_pred_nums1,Ordered_pr
  Ordered_pred_nums4=Ordered_pred_nums43),
  
  ((Ordered_pred_nums43=[[AN|AN2]|_],number(AN))->
- (find_groups([Ordered_pred_nums3,[AN|AN2]],[],%Ordered_pred_nums24,
+ (find_groups([Ordered_pred_nums3,[AN|AN2]],[]%Ordered_pred_nums1
+ ,%[],%Ordered_pred_nums24,
  Ordered_pred_nums25,true),
+ subtract(Ordered_pred_nums25,Ordered_pred_nums1,Ordered_pred_nums225),
 
-foldr(append,[Ordered_pred_nums25,
+foldr(append,[Ordered_pred_nums225,
 Ordered_pred_nums1],Ordered_pred_nums24))
  
  ;
 
  (%trace,
  %trace,
- in_or_exiting_loop(Ordered_pred_nums3,Ordered_pred_nums43,[],In_loop,[],Exiting_loop%,[],Rest_of_preds
+ %find_groups_replace_loops(%Ordered_pred_nums3,
+ %Ordered_pred_nums1,Ordered_pred_nums1a),%P71,%Ordered_pred_nums1,
+ in_or_exiting_loop(Ordered_pred_nums3,Ordered_pred_nums43,[],In_loop,[],%Ordered_pred_nums1,
+ Exiting_loop%,[],Rest_of_preds
  ),
+ %notrace,
 find_groups_replace_loops(%Ordered_pred_nums3,
  In_loop,%P71,%Ordered_pred_nums1,
  Ordered_pred_nums311),
@@ -264,16 +275,31 @@ find_groups_replace_loops(%Ordered_pred_nums3,
  append(Ordered_pred_nums321,[Ordered_pred_nums3],Ordered_pred_nums323),
 
 %trace,
-
+subtract(Ordered_pred_nums322,Ordered_pred_nums1,Ordered_pred_nums324),
+%subtract(Ordered_pred_nums1,Ordered_pred_nums322,Ordered_pred_nums111),
+%trace,
+insert_loop1([loop1,Ordered_pred_nums323],Ordered_pred_nums1,Ordered_pred_nums1b),
+list_to_set(Ordered_pred_nums1b,Ordered_pred_nums1c),
 foldr(append,[%Rest_of_preds,
-Ordered_pred_nums322,[[loop1,Ordered_pred_nums323]],%P5,
-Ordered_pred_nums1],Ordered_pred_nums24))),
+Ordered_pred_nums324,%[[loop1,Ordered_pred_nums323]],
+Ordered_pred_nums1c%P5,
+],Ordered_pred_nums251),
+%,notrace
+%reverse(Ordered_pred_nums251,Ordered_pred_nums261),
+%list_to_set(Ordered_pred_nums261,Ordered_pred_nums271),
+list_to_set(Ordered_pred_nums251,Ordered_pred_nums24)
+%reverse(Ordered_pred_nums271,Ordered_pred_nums24)
+%,notrace
+)),
 
 find_groups([Ordered_pred_nums3|Ordered_pred_nums42],Ordered_pred_nums24,Ordered_pred_nums22,true)
 
 );
-(%append([Ordered_pred_nums3],Ordered_pred_nums1,Ordered_pred_nums5),
-find_groups(Ordered_pred_nums41,Ordered_pred_nums1,Ordered_pred_nums23,false),
+(%(Ordered_pred_nums3=3->trace;true),%
+(member(Ordered_pred_nums3,Ordered_pred_nums1)->Ordered_pred_nums1=Ordered_pred_nums5;
+append([Ordered_pred_nums3],Ordered_pred_nums1,Ordered_pred_nums5)),
+%notrace,
+find_groups(Ordered_pred_nums41,Ordered_pred_nums5,Ordered_pred_nums23,false),
 find_groups2(Ordered_pred_nums3,Ordered_pred_nums42,Ordered_pred_nums23,Ordered_pred_nums22)
 )).
 /*
@@ -308,10 +334,13 @@ contains_loop(Ordered_pred_nums1,Ordered_pred_nums2,P1,P2) :-
 not_contains_loop(Ordered_pred_nums1,Ordered_pred_nums2,P1,P21) :-
 %trace,
  recursive_reverse(Ordered_pred_nums2,Ordered_pred_nums21),
- not_contains_loop1(Ordered_pred_nums1,Ordered_pred_nums21,P1,P2),
- list_to_set(P2,P21).
+ not_contains_loop1(Ordered_pred_nums1,Ordered_pred_nums21,P1,P21).
+ %reverse(P2,P22),
+ %list_to_set(P22,P23),
+ %reverse(P23,P21).
 
 not_contains_loop1(Ordered_pred_nums1,Ordered_pred_nums2,P1,P21) :-
+%writeln([ordered_pred_nums2,Ordered_pred_nums2]),
  ((Ordered_pred_nums2=[_Ordered_pred_nums1x,loop]%->true;
  %(Ordered_pred_nums2=loop%->true;
  %Ordered_pred_nums2=[loop]
@@ -325,11 +354,13 @@ not_contains_loop1(Ordered_pred_nums1,Ordered_pred_nums2,P1,P21) :-
  not_contains_loop1(Ordered_pred_nums1,Ordered_pred_nums41,[],P3)),P31),
  %retractall(resort_n(_)),
  %assertz(resort_n(1)),
+ %append(P31,[P1],P33),
  resort(P31,P32),
  %reverse(P31,P32),
  %trace,
  foldr(append,[
- P1,P32%[Ordered_pred_nums3
+ %P1,
+ P32%[Ordered_pred_nums3
  ,[Ordered_pred_nums3]],P2),
  %notrace,
  flatten(P2,P21)
@@ -464,7 +495,8 @@ in_or_exiting_loop(Ordered_pred_nums3,P71,In_loop1,In_loop2,Exiting_loop1,Exitin
  %P2),
 %find_groups2(Ordered_pred_nums3,Ordered_pred_nums42,Ordered_pred_nums23,Ordered_pred_nums22)
 
- %append(Exiting_loop1,[P1],Exiting_loop2)).%);
+ append(Exiting_loop1,[P1],Exiting_loop2)
+ ).%);
  %(find_groups_replace_loops(P71,P74),
  %append(Rest_of_preds1,[P74%P72|P74
  %],Rest_of_preds2))).
@@ -605,3 +637,14 @@ alg_to_modes2(Body1,%Body2,
 	*/
 
 	
+insert_loop1([loop1,Ordered_pred_nums323],[],Ordered_pred_nums1b) :-
+ Ordered_pred_nums1b=[[loop1,Ordered_pred_nums323]],!.
+insert_loop1([loop1,Ordered_pred_nums323],Ordered_pred_nums1,Ordered_pred_nums1b) :-
+ append(_,[Index],Ordered_pred_nums323),
+ ((append(A,B,Ordered_pred_nums1),append([[loop1,D]],C,B),
+ append(_,[Index],D))->(%subtract(Ordered_pred_nums1,[[loop1,D]],E),
+ foldr(append,[A,[[loop1,D]],[[loop1,Ordered_pred_nums323]],C],Ordered_pred_nums1b));
+ 
+ ((append(A,B,Ordered_pred_nums1),append([Index],C,B))->(%subtract(Ordered_pred_nums1,[Index],E),
+ foldr(append,[A,[Index],[[loop1,Ordered_pred_nums323]],C],Ordered_pred_nums1b)))),!.
+ 
