@@ -642,9 +642,9 @@ insert_loop1([loop1,Ordered_pred_nums323],[],Ordered_pred_nums1b) :-
 insert_loop1([loop1,Ordered_pred_nums323],Ordered_pred_nums1,Ordered_pred_nums1b) :-
  append(_,[Index],Ordered_pred_nums323),
  ((append(A,B,Ordered_pred_nums1),append([[loop1,D]],C,B),
- append(_,[Index],D))->(%subtract(Ordered_pred_nums1,[[loop1,D]],E),
- foldr(append,[A,[[loop1,D]],[[loop1,Ordered_pred_nums323]],C],Ordered_pred_nums1b));
+ append(_,[Index],D))->(union(D,Ordered_pred_nums323,E),%subtract(Ordered_pred_nums1,[[loop1,D]],E),
+ foldr(append,[A,[[loop1,E]],C],Ordered_pred_nums1b));
  
- ((append(A,B,Ordered_pred_nums1),append([Index],C,B))->(%subtract(Ordered_pred_nums1,[Index],E),
- foldr(append,[A,[Index],[[loop1,Ordered_pred_nums323]],C],Ordered_pred_nums1b)))),!.
+ ((append(A,B,Ordered_pred_nums1),append([Index],C,B))->(union([Index],Ordered_pred_nums323,E),%subtract(Ordered_pred_nums1,[Index],E),
+ foldr(append,[A,[[loop1,E]],C],Ordered_pred_nums1b)))),!.
  
