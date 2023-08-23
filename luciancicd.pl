@@ -782,7 +782,7 @@ pp0_1(A,B):-
 lines_to_comments(A,B) :-
  %term_to_atom(A,A1),
  split_string(A,"\n\r","\n\r",C),
- findall([[[n,comment],[D]]],member(D,C),B).
+ findall([[n,comment],[D]],member(D,C),B).
  
 clear_mod_dates :-
 
