@@ -8,7 +8,7 @@
 
 * Bottom-up Version: Lucian CI/CD can now check sets of repositories bottom-up, which means there are up to seven possible changes to a set of current predicates to find a working combination of. Current predicates are each predicate in depth first, post order, or sets of clauses or predicates involved in loops.
 
-* Other programming languages apart from Prolog aren't fully supported yet (even though the non-bottom-up version does at 28 8 23 called "Reverted to previous version"), and only seven changes are allowed to the whole set of repositories at a time. Over seven changes causes the whole set of repositories to be tested against the old version only.
+* Other programming languages apart from Prolog aren't fully supported yet (even though the <a href="https://github.com/luciangreen/luciancicd/tree/ba8cba7e419e036050cb0ff203e9289b91897169">non-bottom-up version</a> does), and only seven changes are allowed to the whole set of repositories at a time. Over seven changes causes the whole set of repositories to be tested against the old version only.
 
 # Getting Started
 
