@@ -70,7 +70,7 @@ halt
 ] 
 ```
 
-* which contains the current main file in the repository and its possible main predicate names and arities (the number of arguments).
+* which contains the current main file in the repository and its possible main predicate names and arities (the number of arguments). If a repository contains no main files to test, enter `[]` in it.
 
 * Lucian CI/CD works with:
     * Prolog files
