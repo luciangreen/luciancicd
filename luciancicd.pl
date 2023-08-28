@@ -38,6 +38,7 @@ Later:
 :-include('move_to_repository_or_back.pl').
 :-include('luciancicd_ws.pl').
 :-include('find_dependencies.pl').
+:-include('settings.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
@@ -208,8 +209,7 @@ working_directory1(_,A1),
 (exists_directory_s(LCTD)->true;make_directory_s(LCTD)),
 
 
-
-User1="luciangreen",
+user(User1),
 
 find_all_dependencies(LPPM_registry_term1,%[[User1,Repository1]],%%,Description,Dependencies1
 	[[User1,Repository1]%|Dependencies1
@@ -966,19 +966,6 @@ omit_paths(Paths) :-
  findall(Paths2,(member(Paths3,Paths1),
  ((string_concat(Paths2,"/",Paths3))->true;
  (Paths3=Paths2))),Paths),!.
- 
-repositories_paths1([
-%"../../GitHub/"
-"../../GitHub2/"
-%"reps/"
-%"e/"
-]).
-
-omit_paths1([
-"private2"
-%"b" % omits a/b/
-]).
-
 
 modification_dates(Mod_time) :-
 
