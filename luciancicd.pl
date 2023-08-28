@@ -403,7 +403,7 @@ Go_path1],Go_path),
 ((working_directory1(_,A),
 
 %trace, %***
- %(exists_directory_s(LCTD)->true;make_directory_s(LCTD)),
+ (exists_directory_s(LCTD)->true;make_directory_s(LCTD)),
 
  make_directory_recursive_s(LCTD,Go_path1),
 
@@ -461,6 +461,7 @@ true)
 
 (exists_directory('../private2/luciancicd-data')->true;make_directory('../private2/luciancicd-data')),
 */
+working_directory1(_,A1),
 findall(_,(member([K21,Mod_time521],Mod_times2),
 open_s(K21,write,S21),
 write(S21,Mod_time521),close(S21)
