@@ -98,7 +98,7 @@ halt
     * Text data files
 
 * So far, Prolog files should test Prolog and other language files.
-* Other text data files and some comments that aren't in the latest version may not necessarily be kept by Lucian CI/CD. <b>Important:</b> run `set_up_luciancicd.` to prevent tests and comments from being deleted before entering code to test changes in. Also check if main_file.txt contains all main files and main predicats.
+* Other text data files and some comments that aren't in the latest version may not necessarily be kept by Lucian CI/CD. <b>Important:</b> run `set_up_luciancicd.` to prevent tests and comments from being deleted before entering code to test changes in. Also check if main_file.txt contains all main files and main predicates.
 
 * Please ensure that each test's file loads the necessary files.
 
