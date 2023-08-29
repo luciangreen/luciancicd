@@ -61,7 +61,7 @@ halt
 % N2 = 3.
 ```
 
-* Write a main_file.txt in the main folder of each repository, e.g.:
+* Write a `main_file.txt` in the main folder of each repository, e.g.:
 
 ```
 [
@@ -90,7 +90,7 @@ halt
 ]]
 ```
 
-* Lucian CI/CD only returns an overall successful result if all dependencies connected to a repository, their main files and predicates and each level in the bottom-up order successfully pass all tests for each predicate.
+* Lucian CI/CD only returns an overall successful result if all dependencies connected to a repository, their main files and predicates and each level in the bottom-up order successfully passes all tests for each predicate.
 
 * Lucian CI/CD works with:
     * Prolog files
@@ -98,11 +98,11 @@ halt
     * Text data files
 
 * So far, Prolog files should test Prolog and other language files.
-* Other text data files and some comments that aren't in the latest version may not necessarily be kept by Lucian CI/CD. <b>Important:</b> run `set_up_luciancicd.` to prevent tests and comments from being deleted before entering code to test changes in. Also check if main_file.txt contains all main files and main predicates.
+* Other text data files and some comments that aren't in the latest version may not necessarily be kept by Lucian CI/CD. <b>Important:</b> run `set_up_luciancicd.` to prevent tests and comments from being deleted before entering code to test changes in. Also check if `main_file.txt` contains all main files and main predicates.
 
 * Please ensure that each test's file loads the necessary files.
 
-* `set_up_luciancicd.` - Records time modified of repositories in `repositories_paths1//1` in `luciancicd.pl`.
+* `set_up_luciancicd.` - Records time modified of repositories in `repositories_paths1//1` in `settings.pl`.
 
 * `luciancicd.` - Tests repositories with changed modification dates. Run before committing changes.
 
