@@ -7,29 +7,48 @@
 % modes will help add commands to sm, for conversion to c
 
 :-include('../Philosophy/sub_term_with_address.pl').
-:-include('../SSI/ssi.pl').
+%:-include('../SSI/ssi.pl').
 %:-dynamic resort_n/1.
-init(Functions2d) :-
-A=[15
-],
-findall([B,Functions2b],(_Debug=off,member(B,A),test(B,Q,F,_R),query_box(Q,_Query1,F,Functions1),convert_to_grammar_part1(Functions1,[],Functions2,_),add_line_numbers_to_algorithm1(Functions2,Functions2a),find_pred_numbers_to_cut(Functions2a,[],Pred_numbers),find_state_machine1(Functions2a,Functions3,Pred_numbers),
+find_dependencies(Dep99_name,Dep99_arity,F%Functions1
+,Functions2b,Pred_numbers) :-
+%A=[15
+%],
+%findall(%[B,
+%Functions2b%]
+%,(%_Debug=off,member(B,A),
+
+%test(15,Q,F,_R),
+numbers(Dep99_arity,1,[],V2),
+
 %trace,
-a_to_m(Functions3%2a%3
+length(Q4,Dep99_arity),
+Q5=[[n,Dep99_name],Q4|_],
+
+findall([v,V3],(member(V1,V2),atom_concat("a",V1,V3)),V),
+Q=[[n,Dep99_name],V],
+query_box(Q,_Query1,F,Functions1),
+%trace,
+get_n_item(Functions1,Q5,N2),
+N1 is N2-1,
+
+convert_to_grammar_part1(Functions1,[],Functions2,_),add_line_numbers_to_algorithm1(Functions2,Functions2a),find_pred_numbers_to_cut(Functions2a,[],Pred_numbers),find_state_machine1(Functions2a,Functions3,Pred_numbers),
+%trace,
+a_to_m(N1,Functions3%2a%3
 ,Pred_numbers,
-Functions2b)
+Functions2b),!.
 %a_and_m_to_clp(Functions3,Functions2b,Functions2c),
 %lp_to_c(Functions2c,Functions2d)
 
-),Functions2d).%find_pred_numbers_dependencies2(Functions3,Functions2b),lucianpl(Debug,Q,F,R1),Functions2b=[[_|_]|Functions2c],lucianpl(off,Q,Functions2c,R2),(R1=R2->Result=success;Result=fail),writeln([B,Result])),C),sort(C,C1),writeln(C1).
+%),Functions2d).%find_pred_numbers_dependencies2(Functions3,Functions2b),lucianpl(Debug,Q,F,R1),Functions2b=[[_|_]|Functions2c],lucianpl(off,Q,Functions2c,R2),(R1=R2->Result=success;Result=fail),writeln([B,Result])),C),sort(C,C1),writeln(C1).
 
 % could run in lp or compile and run in c (taking alg file as argument)
 
 find_pred_numbers_to_cut(Functions2a,Functions2ab,Pred_numbers) :-
  find_pred_numbers(Functions2a,Functions2ab,Pred_numbers),!.
  
-a_to_m(Functions1,Pred_numbers,
+a_to_m(N1,Functions1,Pred_numbers,
 Ordered_pred_nums1) :-
-
+%trace,
 %find pred nums in sm (done)
 
 % find occurrence of pred calls in preds regardless of clause, for finding modes in bottom-up order
@@ -74,12 +93,21 @@ append(_,[Max_L],Rest),
 % In post order depth-first search, the order of the predicates to test are predicate 1, which calls itself, predicates 2 and 0.
 % loop1 denotes a group of predicates that are in a loop, so have to be tested separately, with their own combinations of changes
 %trace,
-find_groups(Ordered_pred_nums0,[1,0],Ordered_pred_nums11,true),
+find_groups(Ordered_pred_nums0,[N1],Ordered_pred_nums11,true),
 %reverse(Ordered_pred_nums11,Ordered_pred_nums13),
 list_to_set(Ordered_pred_nums11,Ordered_pred_nums14),
 %reverse(Ordered_pred_nums12,Ordered_pred_nums14),
-remove_dups_from_loops(Ordered_pred_nums14,Ordered_pred_nums1),
+remove_dups_from_loops(Ordered_pred_nums14,Ordered_pred_nums15),
 
+%trace,
+findall(Ordered_pred_nums19,(member(Ordered_pred_nums16,Ordered_pred_nums15),
+(Ordered_pred_nums16=[loop1,Ordered_pred_nums17]->(list_to_set(Ordered_pred_nums17,Ordered_pred_nums18),Ordered_pred_nums19=[loop1,Ordered_pred_nums18]);Ordered_pred_nums19=Ordered_pred_nums16
+)),Ordered_pred_nums20),
+
+delete(Ordered_pred_nums20,loop,Ordered_pred_nums21),
+
+ findall(E,(member(F,Ordered_pred_nums21),
+ (F=[loop1,[A1]]->E=A1;E=F)),Ordered_pred_nums1),
 %flatten(Ordered_pred_nums0,Ordered_pred_nums1),
 /* bfs:
 foldr(append,Ordered_pred_nums0,Ordered_pred_nums),
@@ -142,7 +170,7 @@ Deps) :-
 
 /*
 order_preds_bottom_up_post_order_dfs(_L,Functions,Ordered_pred_nums1,Ordered_pred_nums2) :-
-trace,
+%trace,
 Functions=[[N,P]|F],
 
 append(Ordered_pred_nums1,[%[L,
@@ -297,7 +325,11 @@ find_groups([Ordered_pred_nums3|Ordered_pred_nums42],Ordered_pred_nums24,Ordered
 );
 (%(Ordered_pred_nums3=3->trace;true),%
 (member(Ordered_pred_nums3,Ordered_pred_nums1)->Ordered_pred_nums1=Ordered_pred_nums5;
-append([Ordered_pred_nums3],Ordered_pred_nums1,Ordered_pred_nums5)),
+(number(Ordered_pred_nums3)->append([Ordered_pred_nums3],Ordered_pred_nums1,Ordered_pred_nums5);
+(Ordered_pred_nums3=[Ordered_pred_nums31|_]->
+(number(Ordered_pred_nums31)->append([Ordered_pred_nums31],Ordered_pred_nums1,Ordered_pred_nums5);
+Ordered_pred_nums1=Ordered_pred_nums5));
+Ordered_pred_nums1=Ordered_pred_nums5)),
 %notrace,
 find_groups(Ordered_pred_nums41,Ordered_pred_nums5,Ordered_pred_nums23,false),
 find_groups2(Ordered_pred_nums3,Ordered_pred_nums42,Ordered_pred_nums23,Ordered_pred_nums22)
@@ -324,6 +356,9 @@ foldr(append,[Ordered_pred_nums23,[Ordered_pred_nums3],Ordered_pred_nums1],Order
  %Ordered_pred_nums2,Ordered_pred_nums22).
  Ordered_pred_nums2=Ordered_pred_nums22.
  */
+ 
+contains_loop(A, [loop, A], B, C) :- append(B,[A],C),!.
+
 contains_loop(Ordered_pred_nums1,Ordered_pred_nums2,P1,P2) :-
  (Ordered_pred_nums2=[loop,Ordered_pred_nums1]->P1=P2;
  (Ordered_pred_nums2=[Ordered_pred_nums3|Ordered_pred_nums4],
@@ -331,6 +366,8 @@ contains_loop(Ordered_pred_nums1,Ordered_pred_nums2,P1,P2) :-
  append(P1,[Ordered_pred_nums3],P3),
  contains_loop(Ordered_pred_nums1,Ordered_pred_nums41,P3,P2))).
  
+not_contains_loop(A, [loop, A], B, B) :- !.
+
 not_contains_loop(Ordered_pred_nums1,Ordered_pred_nums2,P1,P21) :-
 %trace,
  recursive_reverse(Ordered_pred_nums2,Ordered_pred_nums21),
@@ -392,10 +429,10 @@ recursive_reverse(A,B,C) :-
 
 remove_dups_from_loops(A,B) :-
  remove_dups_in_loops_from_rest(A,C),
- remove_dups_in_loops(C,D),
+ remove_dups_in_loops(C,B).
  %trace,
- findall(E,(member(F,D),
- (F=[loop1,[A1]]->E=A1;E=F)),B).
+ %findall(E,(member(F,D),
+ %(F=[loop1,[A1]]->E=A1;E=F)),B).
 
 remove_dups_in_loops_from_rest(A,C) :-
  findall(D,member([loop1,D],A),E),

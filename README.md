@@ -6,6 +6,10 @@
 
 * Single-user continuous integration and continuous deployment.  Integrates (merges changed repositories from combinations of changes), builds repositories that depend on these repositories and tests predicates implicated, where tests are in comments before each predicate.
 
+* Bottom-up Version: Lucian CI/CD can now check sets of repositories bottom-up, which means there are up to seven possible changes to a set of current predicates to find a working combination of. Current predicates are each predicate in depth first, post order, or sets of clauses or predicates involved in loops.
+
+* Other programming languages apart from Prolog aren't fully supported yet (even though the <a href="https://github.com/luciangreen/luciancicd/tree/ba8cba7e419e036050cb0ff203e9289b91897169">non-bottom-up version</a> does), and only seven changes are allowed to the whole set of repositories at a time. Over seven changes causes the whole set of repositories to be tested against the old version only.
+
 # Getting Started
 
 Please read the following instructions on how to install the project on your computer for automatic testing.
@@ -44,6 +48,10 @@ halt
 ['luciancicd.pl'].
 ```
 
+# Instructions and troubleshooting
+
+* Change the LPPM user (your GitHub username) and the repositories and any omitted folders in `settings.pl`.
+
 * If necessary, modify tests in the Prolog files in the repositories, for example:
 
 ```
@@ -53,13 +61,44 @@ halt
 % N2 = 3.
 ```
 
+* Write a main_file.txt in the main folder of each repository, e.g.:
+
+```
+[
+ ["c.pl",
+  [[c,2],[d,3]]
+ ],
+ ["c1.pl",
+  [[c1,2],[d1,3]]
+ ]
+] 
+```
+
+* which contains the current main file in the repository and its possible main predicate names and arities (the number of arguments). If a repository contains no main files to test, enter `[]` in it.
+
+* Note: Dependencies are in `List-Prolog-Package-Manager/lppm_registry.txt`, (LPPM) in form `[[User,Repository,Description,Dependencies], etc]`, e.g.
+
+```
+["luciangreen","Daily-Regimen","Scripts for daily meditation, bot prep, uni and breasoning.",
+[
+	["luciangreen","listprologinterpreter"],
+	["luciangreen","Languages"],
+	["luciangreen","culturaltranslationtool"],
+	["luciangreen","Algorithm-Writer-with-Lists"],
+	["luciangreen","Text-to-Breasonings"],
+	["luciangreen","mindreader"]
+]]
+```
+
+* Lucian CI/CD only returns an overall successful result if all dependencies connected to a repository, their main files and predicates and each level in the bottom-up order successfully pass all tests for each predicate.
+
 * Lucian CI/CD works with:
     * Prolog files
     * Other language files
     * Text data files
 
 * So far, Prolog files should test Prolog and other language files.
-* Other text data files and some comments that aren't immediately before or after changed code lines may not necessarily be kept by Lucian CI/CD. To keep them, follow the instructions below.
+* Other text data files and some comments that aren't in the latest version may not necessarily be kept by Lucian CI/CD. <b>Important:</b> run `set_up_luciancicd.` to prevent tests and comments from being deleted before entering code to test changes in. Also check if main_file.txt contains all main files and main predicats.
 
 * Please ensure that each test's file loads the necessary files.
 
@@ -67,15 +106,13 @@ halt
 
 * `luciancicd.` - Tests repositories with changed modification dates. Run before committing changes.
 
-* Note: Dependencies are in `List-Prolog-Package-Manager/lppm_registry.txt`, in form `[[User,Repository,Description,Dependencies], etc]`.
-
 * For more info, see a <a href="https://dev.to/luciangreen/an-open-source-cicd-for-prolog-29h2">Dev.to article about Lucian CI/CD</a>.
 
 * Note: Once all tests are successful, the files in the temporary folder `../private2/luciancicd-testing/` are moved into the repository. To undo this, enter `move_to_repository_or_back.`.
 
 * Once the files are in the repository, you can commit the changes.
 
-* Important: So far, Lucian CI/CD might not save comments entered without code or changes to data files. To revert to the previous version just run `move_to_repository_or_back.` and `set_up_luciancicd.` to save the files. I.e. to keep comments or data files when only comments  or data files are added, run `set_up_luciancicd.` instead of `luciancicd.`.
+* Run `set_up_luciancicd.` to save the files without running Lucian CI/CD.
 
 * Note: A notification such as `"Cannot find "../private2/luciancicd-cicd-tests/tests_a.txt"` means the repository `"a"` is connected with a changed file through dependencies but Lucian CI/CD can't install it.
 
