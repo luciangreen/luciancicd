@@ -116,6 +116,8 @@ halt
 
 * Note: A notification such as `"Cannot find "../private2/luciancicd-cicd-tests/tests_a.txt"` means the repository `"a"` is connected with a changed file through dependencies but Lucian CI/CD can't install it.
 
+* <a href="https://www.youtube.com/watch?v=MS240K8TXtM">Lucian Academy - Lucian CI/CD Demo</a>
+
 # Lucian CI/CD Web Service
 
 * To list available logs and diff files, enter `luciancicd_server(8000).`, then go to `http://localhost:8000/luciancicd`.
