@@ -49,6 +49,7 @@ Later:
 :-dynamic pred_list_v/1.
 :-dynamic success/1.
 :-dynamic success_tmp/1.
+:-dynamic test_n/1.
 
 %:-dynamic lc_mode/1.
 
@@ -98,6 +99,9 @@ working_directory1(_,A1)
 
 luciancicd :-
 	
+	retractall(test_n(_)),
+	assertz(test_n(0)),
+
 	retractall(success_tmp(_)),
 	assertz(success_tmp([])),
 
@@ -198,7 +202,7 @@ findall(Dependencies990%Results
 
 working_directory1(_,A1),
 %trace,
- %(success(1)->fail;true),
+ (success(1)->fail;true),
  %success_tmp(Tmp31),(forall(member(Tmp4,Tmp31),Tmp4=1)->true;fail),
 
 	foldr(string_concat,["rm -rf ../private2/luciancicd-testing/"],Command312),
@@ -377,13 +381,14 @@ pred_rest(Arity1,Rest) :-
  (once(member([":-", 1, Includes_pred_ns],Pred_numbers))->true;
  Includes_pred_ns=[]),
 
- append(Comment_pred_ns3,Includes_pred_ns,_Comment_pred_ns),
 % Find new comments
  
  %trace,
 findall(AT133N1,(member(AT133N1,AT333N3),
-get_item_n(AT133,AT133N1,[[n,comment]|_])),Comment_pred_ns2),
- %findall(Comment_pred_n,(member(Comment_pred_n,Comment_pred_ns),(member(Comment_pred_n,AT233N))),Comment_pred_ns2),
+get_item_n(AT133,AT133N1,[[n,comment]|_])),Comment_pred_ns),
+ 
+  append(Comment_pred_ns,Includes_pred_ns,Comment_pred_ns2),
+%findall(Comment_pred_n,(member(Comment_pred_n,Comment_pred_ns),(member(Comment_pred_n,AT233N))),Comment_pred_ns2),
 
  % group into old, new clauses, loops
 
@@ -416,7 +421,6 @@ append([[[old,Old_a],[new,New_a]]],Dependencies7d6,Dependencies7d4)),
 
  findall(_,(
  
- (success(1)->fail;true),
  %success_tmp(Tmp32),(forall(member(Tmp4,Tmp32),Tmp4=1)->true;fail),
  %trace,
  
@@ -425,6 +429,8 @@ append([[[old,Old_a],[new,New_a]]],Dependencies7d6,Dependencies7d4)),
  append(Curr_preds,_,Dependencies7d7%LD21
  ),
  not(Curr_preds=[]),
+
+ (success(1)->fail;true),
  %trace,
 %writeln( append(Curr_preds,_,Dependencies7d7)),
  %trace,
@@ -507,6 +513,7 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
  %,trace
  %)->true;(writeln("fault"),fail)),
 
+
 %trace,
 % 
 %writeln(merge2(AT23,AT13,T4)),
@@ -588,7 +595,17 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
  writeln2(""),writeln2("**********"),
 writeln2(["Installing Combination"]),
 
+	test_n(Test_n),
+	Test_n1 is Test_n+1,
+	retractall(test_n(_)),
+	assertz(test_n(Test_n1)),
+	writeln([test_n1,Test_n1]),
 
+ test_n(Test_n0),
+ %(Test_n0=4->trace;true),
+	
+	%(Test_n1=5->trace;true),
+	
  findall(_,(member([[[n, comment], [["File delimiter", PZ, FZ]]]|T10],T8),
 
   (success(1)->fail;true),
@@ -629,7 +646,10 @@ writeln2(["Installing",PZ, FZ%Repository1
  lp2p1(T10,T11),
  %findall(_,(member([K2,Mod_time52],Mod_times),
 open_s(FZ,write,S0),
-write(S0,T11),close(S0)
+write(S0,T11),close(S0),
+
+writeln([write(FZ,T11)])
+
 %),_),!.
 
  ),_%T6
@@ -670,20 +690,24 @@ findall([Repository1b,Main_file1],member([Repository1b,Main_file1,_,_],H3),H4)),
 foldr(append,H5,H61),
 sort(H61,H6),
 %trace,
-Repository1b=Dep99,
+%Repository1b=Dep99,
 
-findall(Results2,(member([_,Main_file],H6),%member(Repository1b,Dependencies99),
+findall(Results2,(member([_,_Main_file],H6),%member(Repository1b,Dependencies99),
 
 (success(1)->fail;true),
 
 working_directory1(_,A1),
  
-foldr(string_concat,["../private2/luciancicd-cicd-tests/tests_",Repository1b,".txt"],Test_script_path),
-(catch(open_file_s(Test_script_path,Tests),_,
+findall(Tests_a,(member([Repository1b1,_],H6), 
+foldr(string_concat,["../private2/luciancicd-cicd-tests/tests_",Repository1b1,".txt"],Test_script_path),
+(catch(open_file_s(Test_script_path,Tests_a),_,
 (writeln2(["Cannot find",Test_script_path]),fail%,abort
-)),%->
+)))),Tests_b),
+%trace,
+foldr(append,Tests_b,Tests),%->
 
-(%trace,
+((
+%trace,
 %working_directory1(_,A1), %***
 working_directory1(A,A),
 
@@ -692,10 +716,16 @@ working_directory1(A,A),
 
 append(AT2331c,AT1331c,AT3331c),
 
-tests_pred2(Tests,AT3331c,Tests01),
+%tests_pred2(Tests,AT3331c,Tests01),
+%trace,
+Tests=Tests01,
 sort1(Tests01,Tests0),
+writeln([tests0,Tests0]),
+%notrace
+%trace,
 
 findall(Result,(member([Go_path1,File,Command],Tests0),
+Repository1b=Go_path1,
 %trace,
 (true->%tests_pred(AT1331c,Command)->
 (
@@ -726,8 +756,9 @@ working_directory1(_,A),
 
  make_directory_recursive_s(LCTD,Go_path1),
 
+working_directory1(_,LCTD),
 %working_directory1(_,Go_path),
-working_directory1(_,Go_path3),
+working_directory1(_,Go_path1),
 
 % *** Change path to swipl if necessary
 
@@ -739,8 +770,8 @@ split_string(Go_path1a,"/","/",Go_path3),
 (Go_path3=[_Go_path4]->Go_path5="";(Go_path3=[_|Go_path6],atomic_list_concat(Go_path6,'/',Go_path7),string_concat(Go_path7,"/",Go_path5))),
 */
 
-foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n",":-include('",%Go_path5,
-Main_file%File
+foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n",":-include('../",Repository1b,"/",%Go_path5,
+File%File
 ,"').\n",":- initialization(catch(main, Err, handle_error(Err))).\n\nhandle_error(_Err):-\n  halt(1).\n","main :-\n    ",Command1,", nl,\n    halt.\n","main :- halt(1).\n"],String),
 %trace,
 %working_directory1(_,A),
@@ -770,6 +801,9 @@ writeln12([Go_path1,File,Command,Result])
 
 ,flatten(Results2,Results2a),(forall(member(Result,Results2a),Result=success)->(retractall(success(_)),assertz(success(1)));true)
 
+%, (Test_n0=4->trace;true)
+
+
 
 %;
 %true
@@ -798,12 +832,14 @@ writeln12([Go_path1,File,Command,Result])
  ))
  */
  (success(0)->(writeln2("Current predicate set failed."),fail%,abort,working_directory1(_,A1)
- );(retractall(success(_)),assertz(success(0))))
+ );(%trace,
+ true%retractall(success(_)),assertz(success(0))
+ ))
 
-),Result4),
+),Result4)
 
-length(Dependencies7d7,Dependencies7d7L),
-length(Result4,Dependencies7d7L)
+%length(Dependencies7d7,Dependencies7d7L),
+%length(Result4,Dependencies7d7L)
 
 ),Result5),
 
@@ -1112,7 +1148,7 @@ working_directory1(A1,B1) :-
  (string(B1)->atom_string(B,B1);B=B1),
  term_to_atom(working_directory(A,B),Atom),
  	catch(working_directory(A,B), _, (foldr(string_concat,["Error on ",Atom%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
-	],Text41),writeln1(Text41),abort
+	],Text41),writeln1(Text41)%fail%abort
  	)).
  	
 split_into_lp_files(T7,T10) :-

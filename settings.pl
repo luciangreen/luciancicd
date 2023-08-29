@@ -8,6 +8,6 @@ repositories_paths1([
 
 omit_paths1([
 "private2"
-%"b" % omits a/b/
+%"b" % omits GitHub2/b/
 ]).
 
