@@ -96,7 +96,9 @@ halt
 
 * Once the files are in the repository, you can commit the changes.
 
-* To revert to the previous version just run `move_to_repository_or_back.` and `set_up_luciancicd.` to save the files. 
+* To revert to the previous version just run `move_to_repository_or_back.` and `set_up_luciancicd.` to save the files.
+
+* Important: run `set_up_luciancicd.` to prevent tests and comments from being deleted before entering code to test changes in.
 
 * Note: A notification such as `"Cannot find "../private2/luciancicd-cicd-tests/tests_a.txt"` means the repository `"a"` is connected with a changed file through dependencies but Lucian CI/CD can't install it.
 
