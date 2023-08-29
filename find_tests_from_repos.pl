@@ -280,7 +280,7 @@ H,K11,LP,Tests) :-
 	%atom_string(F10,F1),
 	%F2=%F0%
 	%(F0,F10)
-	),Tests1),sort(Tests1,Tests),!.
+	),Tests),!.
 
 	
 	% is K11 just d or gh/d x d

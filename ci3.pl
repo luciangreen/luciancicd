@@ -127,7 +127,7 @@ findall([Tests12,Tokens2,Tokens1],
  %(%A= 1->
  %(
  (O=[]->O1=O;
- append([[[n,comment],[["File delimiter",P,F]]]],O,O1))
+ append([[[n,comment],["File delimiter",P,F]]],O,O1))
  %[P,F,O,_N],Tests14),N2),
  %foldr(append,O1,Functions2),
  %term_to_atom(Functions2,String2),
@@ -147,7 +147,7 @@ findall([Tests12,Tokens2,Tokens1],
  (
  member([P,F,O,N],Tests14),
  (N=[]->N1=N;
- append([[[n,comment],[["File delimiter",P,F]]]],N,N1))
+ append([[[n,comment],["File delimiter",P,F]]],N,N1))
  %[P,F,_O,N],Tests14),N1),
  %foldr(append,N1,Functions1),
  %term_to_atom(Functions1,String1),
@@ -220,7 +220,7 @@ process_directory_merge([H2],%[H],
 ->
 
 (%trace,
-%trace,
+
 find_merge(K1,H,H1,Tests3)
 %p2lpconverter([file,H1],LP),
 
