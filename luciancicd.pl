@@ -50,6 +50,7 @@ Later:
 :-dynamic success/1.
 :-dynamic success_tmp/1.
 :-dynamic test_n/1.
+:-dynamic diff_html_n/1.
 
 %:-dynamic lc_mode/1.
 
@@ -99,6 +100,9 @@ working_directory1(_,A1)
 
 luciancicd :-
 	
+	retractall(diff_html_n(_)),
+	assertz(diff_html_n(1)),
+
 	retractall(test_n(_)),
 	assertz(test_n(0)),
 
