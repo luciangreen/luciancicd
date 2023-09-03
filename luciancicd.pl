@@ -348,6 +348,10 @@ find_dependencies(Dep99_name,Dep99_arity,AT333,Dependencies7d,Pred_numbers0),
  get_item_n(AT333,AT233N1,AT233N2),
  member(AT233N2,AT133)),AT233N),
  
+ findall(AT233N1,(member(AT233N1,AT333N3),
+ get_item_n(AT333,AT233N1,AT233N2),
+ member(AT233N2,AT233)),AT233N_old),
+
  %length(AT233,AT233L)
  %numbers(AT233L,1,[],AT233N),
  /*
@@ -377,8 +381,8 @@ pred_rest(Arity1,Rest) :-
  %trace,
   findall(LD1,(member(Dependencies7d2,Dependencies7d1),
  (Dependencies7d2=[loop1,Loop1a]->
- (findall([ON,CN,PN],(member(Loop1b,Loop1a),Loop1b=[CN,PN],((member(PN,AT233N))->ON=new;ON=old)),Loop1c),LD1=[loop1,Loop1c]);
- (Dependencies7d2=[CN,PN],((member(PN,AT233N))->ON=new;ON=old),LD1=[ON,CN,PN]))),Dependencies7d3),
+ (findall([ON,CN,PN],(member(Loop1b,Loop1a),Loop1b=[CN,PN],(((member(PN,AT233N),member(PN,AT233N_old))->member(ON,[new,old]);(member(PN,AT233N)->ON=new;ON=old)))),Loop1c),LD1=[loop1,Loop1c]);
+ (Dependencies7d2=[CN,PN],(((member(PN,AT233N),member(PN,AT233N_old))->member(ON,[new,old]);(member(PN,AT233N))->ON=new;ON=old),LD1=[ON,CN,PN])))),Dependencies7d3),
  
 %trace,
  (once(member([[n, comment], 1, Comment_pred_ns3],Pred_numbers))->true;Comment_pred_ns3=[]),
@@ -420,8 +424,10 @@ append([[[old,Old_a],[new,New_a]]],Dependencies7d6,Dependencies7d4)),
  findall([new,_,Comment_pred_ns21],member(Comment_pred_ns21,Comment_pred_ns2),Comment_pred_ns22),%*
  
  append(New_a,Comment_pred_ns22,Comment_pred_ns23),
+
+ append(Old_a,Comment_pred_ns22,Comment_pred_ns24),
  
-  append([[[old,Old_a],[new,Comment_pred_ns23]]],Dependencies7d6,Dependencies7d7),
+  append([[[old,Comment_pred_ns24],[new,Comment_pred_ns23]]],Dependencies7d6,Dependencies7d7),
 
 %trace,
 
@@ -484,11 +490,15 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
 
  findall(LD52,(%member(LD51,Old_a%LD4
  %),
- member([_,_,LD5],Old_a1),get_item_n(AT333,LD5,LD52)),AT2331c),
+ member([_,_,LD5],Old_a1),get_item_n(AT333,LD5,LD52)),AT2331c1),
 
  findall(LD52,(%member(LD51,New_a%LD4
  %),
- member([_,_,LD5],New_a1),get_item_n(AT333,LD5,LD52)),AT1331c),
+ member([_,_,LD5],New_a1),get_item_n(AT333,LD5,LD52)),AT1331c1),
+ %trace,
+ list_to_set1(AT2331c1,AT2331c),
+ list_to_set1(AT1331c1,AT1331c),
+ 
 %loop* x
 
 /*
@@ -605,10 +615,10 @@ writeln2(["Installing Combination"]),
 	Test_n1 is Test_n+1,
 	retractall(test_n(_)),
 	assertz(test_n(Test_n1)),
-	%writeln([test_n1,Test_n1]),
+	writeln([test_n1,Test_n1]),
 
- test_n(_Test_n0),
- %(Test_n0=4->trace;true),
+ %test_n(Test_n0),
+ %(Test_n0=1->trace;true),
 	
 	%(Test_n1=5->trace;true),
 	
@@ -776,9 +786,11 @@ split_string(Go_path1a,"/","/",Go_path3),
 (Go_path3=[_Go_path4]->Go_path5="";(Go_path3=[_|Go_path6],atomic_list_concat(Go_path6,'/',Go_path7),string_concat(Go_path7,"/",Go_path5))),
 */
 
-foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n",":-include('../",Repository1b,"/",%Go_path5,
+%:-initialization(catch(call_with_time_limit(1,main),Err,handle_error(Err))).
+
+foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../",Repository1b,"/",%Go_path5,
 File%File
-,"').\n",":- initialization(catch(main, Err, handle_error(Err))).\n\nhandle_error(_Err):-\n  halt(1).\n","main :-\n    ",Command1,", nl,\n    halt.\n","main :- halt(1).\n"],String),
+,"').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch(call_with_time_limit(1,(",Command1,")), Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
 %trace,
 %working_directory1(_,A),
 foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path5,
@@ -786,11 +798,22 @@ foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path
 %string_concat(Go_path,"testcicd.pl",GP),
 open_s(GP,write,S1),
 write(S1,String),close(S1),
-foldr(string_concat,["chmod +x ",GP,"\n","swipl -f -q ./",GP],S3)%,
-,catch(bash_command(S3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main -q ./",GP],S3),%,
+
+ %(Test_n0=5->trace;true),
+
+/*
+catch(call_with_time_limit(7,bash_command(S3,_)),_,(foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text4),%writeln1(Text4),
 	fail%abort
  	))
+*/
+%/*
+catch(bash_command(S3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],_Text4),%writeln1(Text4),
+	fail%abort
+ 	))
+ 	%*/
 %Command
 )->((Result=success,
 %trace,
@@ -924,7 +947,7 @@ make_directory_recursive_s(LCTD,PZ1) :-
  split_string(PZ1,"/","/",PZ2),
  delete(PZ2,"",PZ3),
  make_directory_recursive_s(LCTD,"",%PZ4,
- PZ3).
+ PZ3),!.
  
 make_directory_recursive_s(_,_,%_,
 []) :- !.
@@ -1395,8 +1418,9 @@ merge_files(AT233,AT133,AT3331) :-
  split_into_lp_files(AT133,AT1331),
  merge_files2(AT2331,AT1331,[],AT333),
  foldr(append,AT333,AT3332),
- list_to_set(AT3332,AT3331).
-
+ % keep separate tests (sometimes with duplicates %A=1), remove other dups
+ list_to_set1(AT3332,AT3331).
+ 
 merge_files2([],AT1331,AT333,AT3331) :-
  append(AT333,AT1331,AT3331),!.
 merge_files2(AT2331,AT1331,AT333,AT3331) :-
@@ -1414,15 +1438,18 @@ merge_files3([],AT1331,AT1331%,AT3331
  !.
 merge_files3(AT2331,AT1331,AT333%,AT3331
 ) :-
+%writeln1(merge_files3(AT2331,AT1331,AT333)),
  AT2331=[[Pred_name1|Rest1]|_AT2333],
  pred_rest(Arity1,Rest1,_Lines1),
  findall([Pred_name1|Rest3],(member([Pred_name1|Rest3],AT2331),
  pred_rest(Arity1,Rest3,_Lines3)),Ps),
  subtract(AT2331,Ps,Ps2),
+ %((%trace,
+% append(C2,D2,AT2331),append(Ps,E2,D2),foldr(append,[C2,E2],Ps2))->true;AT2331=Ps2),!,
 
  reverse(AT1331,AT1332),
  ((append(A,B,AT1332),
- append([[Pred_name1|Rest4]],C,B),
+ append([[Pred_name1|Rest4]],C,B),!,
  pred_rest(Arity1,Rest4,_Lines2)
  )->
  (%trace,
@@ -1442,8 +1469,50 @@ put_in_nums(T49,AT333,T491) :- % leave exact comments, includes x
  get_item_n(AT333,AT333N1,AT333Item),
  member(AT333Item,T49)),T491),!.
 
+list_to_set1(A,B) :-
+ list_to_set1(A,[],B),!.
+ 
+list_to_set1([],A,A) :- !.
+list_to_set1(A,B,C) :-
+ A=[D|E],
+ (E=[]->append(B,[D],C);
+ ((D=[[n,comment],[String]],string(String),string_strings(String,C1),contains_assignment(C1))->
+ (E=[E1|E2],
+ ((E1=[[n,comment],[String1]],string(String1),string_strings(String1,C2),contains_assignment(C2))->(append(B,[D],G),list_to_set1(E2,G,C));(append(B,[D],G),list_to_set1(E,G,C))));
+ 
+ (delete(E,D,F),
+ append(B,[D],G),
+ list_to_set1(F,G,C)))),!.
+ 
+contains_assignment(C1) :-
+append(_A1,Bx,C1),append(_E6,Dxx,Bx),append(E61,Dxx1,Dxx),(append(["."],_Exx,Dxx1)),foldr(string_concat,E61,E612),sub_string(E612,_,_,_,"=").
+%subtract1(A,B,C) :-
+% subtract1(A,B,[],C),!.
+
+/*
+subtract1(A,[],A) :- !.
+subtract1(A,B,G) :-
+ B=[D|E],
+ ((append(C2,D2,A),append([D],E2,D2),!)->true;A=E2),subtract1(E2,E,H),foldr(append,[C2,H],G).
+ %subtract1(F,E,G),!.
+*/
+
+/*
+subtract2(A,[],A) :- !.
+subtract2(A,B,G) :-
+ B=[D|E],
+ 
+ (D=[[n,comment]|_]->
+ A=C;%append(A,[D],G);%)(((append(C2,D2,A),append([D],E2,D2),!)->true;(C2=[],A=E2)),subtract2(E2,E,H),foldr(append,[C2,H],G));
+ delete(A,D,C)),subtract2(C,E,G),!.
+ */
+ 
+/*
+sublist(D,A,F) :-
+ append(C2,D2,A),append([D],E2,D2),foldr(append,[C2,E2],F),!.
+*/
 sort1(Tests01,Tests0) :-
- sort1(Tests01,[],Tests0).
+ sort1(Tests01,[],Tests0),!.
 sort1([],B,B) :- !.
 sort1(A,B,C) :-
  A=[D|E],
