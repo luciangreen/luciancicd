@@ -122,6 +122,10 @@ halt
 
 * To list available logs and diff files, enter `luciancicd_server(8000).`, then go to `http://localhost:8000/luciancicd`.
 
+# Caveats
+
+<a href="https://github.com/luciangreen/luciancicd/blob/main/caveats.md">Caveats</a>
+
 # Authors
 
 Lucian Green - Initial programmer - <a href="https://www.lucianacademy.com/">Lucian Academy</a>

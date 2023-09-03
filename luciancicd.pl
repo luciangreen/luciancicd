@@ -419,6 +419,7 @@ get_item_n(AT333,AT133N1,[[n,comment]|_])),Comment_pred_ns),
 
  % Choose predicates to test
 %trace,
+
 (Dependencies7d4=[]->Dependencies7d6=[];
 append([[[old,Old_a],[new,New_a]]],Dependencies7d6,Dependencies7d4)),
  findall([new,_,Comment_pred_ns21],member(Comment_pred_ns21,Comment_pred_ns2),Comment_pred_ns22),%*
@@ -432,7 +433,8 @@ append([[[old,Old_a],[new,New_a]]],Dependencies7d6,Dependencies7d4)),
 %trace,
 
  findall(_,(
- 
+ %trace,
+
  %success_tmp(Tmp32),(forall(member(Tmp4,Tmp32),Tmp4=1)->true;fail),
  %trace,
  
@@ -490,14 +492,14 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
 
  findall(LD52,(%member(LD51,Old_a%LD4
  %),
- member([_,_,LD5],Old_a1),get_item_n(AT333,LD5,LD52)),AT2331c1),
+ member([_,_,LD5],Old_a1),get_item_n(AT333,LD5,LD52)),AT2331c),
 
  findall(LD52,(%member(LD51,New_a%LD4
  %),
- member([_,_,LD5],New_a1),get_item_n(AT333,LD5,LD52)),AT1331c1),
+ member([_,_,LD5],New_a1),get_item_n(AT333,LD5,LD52)),AT1331c),
  %trace,
- list_to_set1(AT2331c1,AT2331c),
- list_to_set1(AT1331c1,AT1331c),
+ %list_to_set1(AT2331c1,AT2331c),
+ %list_to_set1(AT1331c1,AT1331c),
  
 %loop* x
 
@@ -615,7 +617,7 @@ writeln2(["Installing Combination"]),
 	Test_n1 is Test_n+1,
 	retractall(test_n(_)),
 	assertz(test_n(Test_n1)),
-	writeln([test_n1,Test_n1]),
+	%writeln([test_n1,Test_n1]),
 
  %test_n(Test_n0),
  %(Test_n0=1->trace;true),
