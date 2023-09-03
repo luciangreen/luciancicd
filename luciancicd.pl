@@ -564,7 +564,7 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
 
  foldr(string_concat,T44,T451),
 
- term_to_atom(T49,T451),
+ catch(term_to_atom(T49,T451),_,fail),
  %pp0(T49,T47),
 
 
