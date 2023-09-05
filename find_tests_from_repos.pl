@@ -229,8 +229,9 @@ H,K11,LP,Tests) :-
 	findall(N1,(member([[n,N]|_],LP),
 	string_strings(N,N1)),Ns),
 
-	findall([K11,H,F2],(member([[n,comment%c
-	],[Comment]],LP),
+	findall([K11,H,F2],(append(_,LP1,LP),
+	append([[[n,comment%c
+	],[Comment]]],LP2,LP1),
 	string_strings(Comment,C),
 	member(N2,Ns),
 	append(_A,B,C),
@@ -251,8 +252,8 @@ H,K11,LP,Tests) :-
 	%trace,
 	%member(N21,Ns),
 
-	member([[n,comment%c
-	],[Comment1]],LP),
+	append([[[n,comment%c
+	],[Comment1]]],_,LP2),
 	string_strings(Comment1,C1),
 	
 	append(_A1,Bx,C1),
