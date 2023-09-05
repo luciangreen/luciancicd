@@ -51,6 +51,7 @@ Later:
 :-dynamic success_tmp/1.
 :-dynamic test_n/1.
 :-dynamic diff_html_n/1.
+:-dynamic tests_preds3/1.
 
 %:-dynamic lc_mode/1.
 
@@ -1371,6 +1372,7 @@ group_into_old_new(H1,H) :-
  findall([new,A,B],member([new,A,B],H1),H3),
  H=[[old,H2],[new,H3]].
 
+/*
 tests_pred(AT1331c,Command) :-
  member([N|VE],AT1331c),
  N=[_,N1],
@@ -1378,15 +1380,29 @@ tests_pred(AT1331c,Command) :-
  square_to_round(List,Command),
  functor(Item,N1,Arity),
  member(Item,List),!.
+*/
 
 tests_pred2(Tests,AT3331c,Tests0) :-
- findall([Go_path1,File,Command],(member([N|VE],AT3331c),
+ %writeln2(["Contains predicates: "]),
+ retractall(tests_preds3(_)),
+ assertz(tests_preds3([])),
+findall([Go_path1,File,Command],(member([N|VE],AT3331c),
  N=[_,N1],
  ((VE=[V]->true;(VE=[V|_]))->length(V,Arity);Arity=0),
  member([Go_path1,File,Command],Tests),
  square_to_round(List,Command),
  functor(Item,N1,Arity),
- member(Item,List)),Tests0),!.
+ (not(N1=comment)->
+ (tests_preds3(TP),
+ append(TP,[[N1,Arity]],TP1),
+ retractall(tests_preds3(_)),
+ assertz(tests_preds3(TP1)))
+ ;true),
+ member(Item,List)),Tests0),
+ tests_preds3(TP2),
+ sort(TP2,TP3),
+ writeln2(["Contains predicates: ",TP3]),%writeln2(""),
+ !.
 
 
 %find_first_pred(Dep99,H%File,Dep99_name,Dep99_arity
