@@ -1501,7 +1501,11 @@ list_to_set1(A,B,C) :-
  ((E1=[[n,comment],[String1]],string(String1),string_strings(String1,C2),contains_assignment(C2))->(append(B,[D],G),list_to_set1(E2,G,C));(append(B,[D],G),list_to_set1(E,G,C))));
  
  (%E=F,%
- delete(E,D,F),
+ ((append(E3,E4,E),
+ append([D],E5,E4),
+ foldr(append,[E3,E5],F))->true;
+ E=F),
+ %delete(E,D,F),
  append(B,[D],G),
  list_to_set1(F,G,C)))),!.
  
