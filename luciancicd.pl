@@ -301,7 +301,13 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
 
  %append(AT233,AT133,AT333),
 %trace, 
-merge_files(AT233,AT133,AT333),
+ findall(AT233C,(member(AT233A1,AT233),(AT233A1=[[n, comment], [["File delimiter", _, _]]]->AT233C=AT233A1;AT233C=[o,AT233A1])),AT233A),
+ findall(AT133C,(member(AT133A1,AT133),(AT133A1=[[n, comment], [["File delimiter", _, _]]]->AT133C=AT133A1;AT133C=[n,AT133A1])),AT133A),
+
+merge_files(AT233A,AT133A,AT333A),
+%trace,
+findall(AT333C,(member(AT333A1,AT333A),(AT333A1=[[n, comment], [["File delimiter", _, _]]]->AT333C=AT333A1;AT333A1=[_,AT333C])),AT333),
+
  % * merge, copy of new or old from start, into files, place same name, arity preds together
  % put same pred name arity together or at end if new
  % use split into lp files
@@ -346,13 +352,13 @@ find_dependencies(Dep99_name,Dep99_arity,AT333,Dependencies7d,Pred_numbers0),
  length(AT333,AT333L),
  numbers(AT333L,1,[],AT333N3),
  findall(AT233N1,(member(AT233N1,AT333N3),
- get_item_n(AT333,AT233N1,AT233N2),
- member(AT233N2,AT133)),AT233N),
- 
+ get_item_n(AT333A,AT233N1,AT233N2),
+ member(AT233N2,AT133A)),AT233N),
+ %[1, 3, 4, 11, 12, 13, 14, 15, 16]
  findall(AT233N1,(member(AT233N1,AT333N3),
- get_item_n(AT333,AT233N1,AT233N2),
- member(AT233N2,AT233)),AT233N_old),
-
+ get_item_n(AT333A,AT233N1,AT233N2),
+ member(AT233N2,AT233A)),AT233N_old),
+ % [1, 2, 4, 5, 6, 7, 8, 9, 10]
  %length(AT233,AT233L)
  %numbers(AT233L,1,[],AT233N),
  /*
@@ -386,7 +392,7 @@ pred_rest(Arity1,Rest) :-
  (Dependencies7d2=[CN,PN],(((member(PN,AT233N),member(PN,AT233N_old))->member(ON,[new,old]);(member(PN,AT233N))->ON=new;ON=old),LD1=[ON,CN,PN])))),Dependencies7d3),
  
 %trace,
- (once(member([[n, comment], 1, Comment_pred_ns3],Pred_numbers))->true;Comment_pred_ns3=[]),
+ %(once(member([[n, comment], 1, Comment_pred_ns3],Pred_numbers))->true;Comment_pred_ns3=[]),
 
  (once(member([":-", 1, Includes_pred_ns],Pred_numbers))->true;
  Includes_pred_ns=[]),
@@ -395,8 +401,14 @@ pred_rest(Arity1,Rest) :-
 
 %(Test_n1=2->trace;true), 
 
-findall(AT133N1,(member(AT133N1,AT333N3),
-get_item_n(AT333,AT133N1,[[n,comment]|_])),Comment_pred_ns),
+
+%findall(AT133N1,(member(AT133N1,AT333N3),
+%get_item_n(AT333,AT133N1,[[n,comment]|_])),Comment_pred_ns),
+%trace,
+ findall(AT233N1,(member(AT233N1,AT333N3),
+ get_item_n(AT333A,AT233N1,AT233N2),
+ member(AT233N2,AT133A),
+ (AT233N2=[[n,comment]|_]->true;AT233N2=[_,[[n,comment]|_]])),Comment_pred_ns),
  
   append(Comment_pred_ns,Includes_pred_ns,Comment_pred_ns2),
 %findall(Comment_pred_n,(member(Comment_pred_n,Comment_pred_ns),(member(Comment_pred_n,AT233N))),Comment_pred_ns2),
@@ -444,6 +456,9 @@ append([[[old,Old_a],[new,New_a]]],Dependencies7d6,Dependencies7d4)),
  append(Curr_preds,_,Dependencies7d7%LD21
  ),
  not(Curr_preds=[]),
+
+%trace,
+%writeln1(append(Curr_preds,_,Dependencies7d7)),
 
  (success(1)->fail;true),
  %trace,
@@ -568,7 +583,7 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
  catch(term_to_atom(T49,T451),_,fail),
  %pp0(T49,T47),
 
-
+%trace,
  put_in_nums(T49,AT333,T491), % leave exact comments, includes x
 
  append(Pred_list2,T491,T47),
@@ -1200,6 +1215,24 @@ split_into_lp_files(A,B,C,B1,C1) :-
  append(B1,[B],B2),
  split_into_lp_files(E,[D],C,B2,C1),!.
 
+/*
+split_into_lp_files1(T7,T10) :-
+ split_into_lp_files1(T7,[],_T8,[],T9),
+ delete(T9,[],T10),!.
+ 
+split_into_lp_files1([],B1,_B2,C1,C2) :-
+ append(C1,[B1],C2),!.
+split_into_lp_files1(A,B,C,B1,C1) :-
+ A=[D|E],
+ not(D=[[n,comment],[["File delimiter",_P,_F1]]]),
+ append(B,[D],F),
+ split_into_lp_files1(E,F,C,B1,C1),!.
+split_into_lp_files1(A,B,C,B1,C1) :-
+ A=[D|E],
+ D=[[n,comment],[["File delimiter",_P,_F1]]],
+ append(B1,[B],B2),
+ split_into_lp_files1(E,[D],C,B2,C1),!.
+*/
 
 pp0_1(A,B):-
  (%false%
@@ -1439,14 +1472,16 @@ merge_files(AT233,AT133,AT3331) :-
  foldr(append,AT333,AT3332),
  % keep separate tests (sometimes with duplicates %A=1), remove other dups
  %trace,
- list_to_set1(AT3332,AT3331).
+ AT3332=AT3331.
+ %list_to_set1(AT3332,AT3331).
  
 merge_files2([],AT1331,AT333,AT3331) :-
  append(AT333,AT1331,AT3331),!.
 merge_files2(AT2331,AT1331,AT333,AT3331) :-
  AT2331=[[[[n, comment], [["File delimiter", PZ, FZ]]]|T10]|AT2333],
  (member([[[n, comment], [["File delimiter", PZ, FZ]]]|T11],AT1331)->
- (merge_files3(T10,T11,T12),
+ (append(T10,T11,T12),
+ %merge_files3(T10,T11,T12),
  delete(AT1331,[[[n, comment], [["File delimiter", PZ, FZ]]]|T11],AT1333));
  (T12=T10,AT1331=AT1333)),
  append(AT333,[[[[n, comment], [["File delimiter", PZ, FZ]]]|T12]],AT3332),
@@ -1459,9 +1494,9 @@ merge_files3([],AT1331,AT1331%,AT3331
 merge_files3(AT2331,AT1331,AT333%,AT3331
 ) :-
 %writeln1(merge_files3(AT2331,AT1331,AT333)),
- AT2331=[[Pred_name1|Rest1]|_AT2333],
+ AT2331=[[N,[Pred_name1|Rest1]]|_AT2333],
  pred_rest(Arity1,Rest1,_Lines1),
- findall([Pred_name1|Rest3],(member([Pred_name1|Rest3],AT2331),
+ findall([N,[Pred_name1|Rest3]],(member([N,[Pred_name1|Rest3]],AT2331),
  pred_rest(Arity1,Rest3,_Lines3)),Ps),
  subtract(AT2331,Ps,Ps2),
  %((%trace,
@@ -1469,11 +1504,11 @@ merge_files3(AT2331,AT1331,AT333%,AT3331
 
  reverse(AT1331,AT1332),
  ((append(A,B,AT1332),
- append([[Pred_name1|Rest4]],C,B),!,
+ append([N1,[[Pred_name1|Rest4]]],C,B),!,
  pred_rest(Arity1,Rest4,_Lines2)
  )->
  (%trace,
- reverse(A,A1),reverse(C,C1),foldr(append,[C1,[[Pred_name1|Rest4]],Ps,A1],AT1334));
+ reverse(A,A1),reverse(C,C1),foldr(append,[C1,[N1,[[Pred_name1|Rest4]]],Ps,A1],AT1334));
  append(AT1331,Ps,AT1334)),
  merge_files3(Ps2,AT1334,AT333),!.%,AT3331) :-
 
@@ -1483,11 +1518,21 @@ put_in_nums(T49,AT333,T491) :- % leave exact comments, includes x
  get_n_item(AT333,)
  )))
  */
+/* 
  length(AT333,AT333L),
  numbers(AT333L,1,[],AT333N),
  findall([AT333N1,AT333Item],(member(AT333N1,AT333N),
  get_item_n(AT333,AT333N1,AT333Item),
  member(AT333Item,T49)),T491),!.
+*/
+%/*
+ %length(T49,T49L),
+ %numbers(T49L,1,[],T49N),
+ findall([T49N1,T49A],(member(T49A,T49),
+ once(get_n_item(AT333,T49A,T49N1))
+ %member(AT333Item,T49)
+ ),T491),!.
+%*/
 
 list_to_set1(A,B) :-
  list_to_set1(A,[],B),!.
