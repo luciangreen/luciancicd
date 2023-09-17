@@ -584,11 +584,16 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
  %pp0(T49,T47),
 
 %trace,
- put_in_nums(T49,AT333,T491), % leave exact comments, includes x
+ %put_in_nums(T49,AT333,T491), % leave exact comments, includes x
+ findall([_,T4911],member(T4911,T49),T491),
 
  append(Pred_list2,T491,T47),
 
- sort(T47,T471), % leave comments, includes x
+ %put_in_nums2(T472,AT333,T47), % leave exact comments, includes x
+
+ T47=T471,
+ %writeln1([t471,T471]),
+ %sort(T47,T471), % leave comments, includes x
  findall(T472,member([_,T472],T471),T473), % strip nums
  
  pp0(T473,T50),
@@ -1531,7 +1536,8 @@ put_in_nums(T49,AT333,T491) :- % leave exact comments, includes x
  findall([T49N1,T49A],(member(T49A,T49),
  once(get_n_item(AT333,T49A,T49N1))
  %member(AT333Item,T49)
- ),T491),!.
+ ),T491),%sort(T492,T491),
+ !.
 %*/
 
 list_to_set1(A,B) :-
