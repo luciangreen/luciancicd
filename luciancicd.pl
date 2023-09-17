@@ -675,9 +675,9 @@ writeln2(["Installing",PZ, FZ%Repository1
  % clear dir ***
 %<<<<<<< Updated upstream
 %=======
- pp_lp2p0(T10,T11),
+ %pp_lp2p0(T10,T11),
 %>>>>>>> Stashed changes
- %lp2p1(T10,T11),
+ lp2p1(T10,T11),
  %findall(_,(member([K2,Mod_time52],Mod_times),
 open_s(FZ,write,S0),
 write(S0,T11),close(S0)
