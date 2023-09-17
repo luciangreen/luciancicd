@@ -57,8 +57,8 @@ halt
 ```
 % remove_and_find_item_number([a,b,c],2,c,N2).
 % N2 = 2.
-% remove_and_find_item_number([a,b,b,c],2,c,N2).
-% N2 = 3.
+% remove_and_find_item_number([a,b,b,c],2,c,N3).
+% N3 = 3.
 ```
 
 * Write a `main_file.txt` in the main folder of each repository, e.g.:
