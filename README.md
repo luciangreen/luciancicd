@@ -102,7 +102,7 @@ halt
 
 * Please ensure that each test's file loads the necessary files.
 
-* `set_up_luciancicd.` - Records time modified of repositories in `repositories_paths1//1` in `settings.pl`.
+* `set_up_luciancicd.` - Records time modified of repositories in `repositories_paths1//1` in `settings.pl`. I.e. it saves the files without testing them.
 
 * `luciancicd.` - Tests repositories with changed modification dates. Run before committing changes.
 
