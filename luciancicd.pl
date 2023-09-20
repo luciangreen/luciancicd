@@ -303,11 +303,12 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
 %trace, 
  findall(AT233C,(member(AT233A1,AT233),(AT233A1=[[n, comment], [["File delimiter", _, _]]]->AT233C=AT233A1;AT233C=[o,AT233A1])),AT233A),
  findall(AT133C,(member(AT133A1,AT133),(AT133A1=[[n, comment], [["File delimiter", _, _]]]->AT133C=AT133A1;AT133C=[n,AT133A1])),AT133A),
-
+%trace,
 merge_files(AT233A,AT133A,AT333A),
 %trace,
 findall(AT333C,(member(AT333A1,AT333A),(AT333A1=[[n, comment], [["File delimiter", _, _]]]->AT333C=AT333A1;AT333A1=[_,AT333C])),AT333),
-
+%trace,
+get_order(AT333,AT333B),
  % * merge, copy of new or old from start, into files, place same name, arity preds together
  % put same pred name arity together or at end if new
  % use split into lp files
@@ -587,9 +588,9 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
  %put_in_nums(T49,AT333,T491), % leave exact comments, includes x
  findall([_,T4911],member(T4911,T49),T491),
 
- append(Pred_list2,T491,T47),
-
- %put_in_nums2(T472,AT333,T47), % leave exact comments, includes x
+ append(Pred_list2,T491,T4731),
+%trace,
+ put_in_order(T4731,AT333B,T47), % leave exact comments, includes x
 
  T47=T471,
  %writeln1([t471,T471]),
@@ -1539,6 +1540,17 @@ put_in_nums(T49,AT333,T491) :- % leave exact comments, includes x
  ),T491),%sort(T492,T491),
  !.
 %*/
+% leave exact comments, includes x
+
+put_in_order(T472,AT333B,T47) :-
+%trace,
+ findall(B1,(member([_, [[n,B]|C]],T472),
+ ((B=comment,once(member([A,[[n,B]|C]],AT333B)))->B1=[A,[[n,B]|C]];
+ (once(member([A,[[n,B]]],AT333B))->B1=[A,[[n,B]|C]]))),D),
+ findall(E,member([E,_],D),F),
+ sort(F,G),
+ findall([H,J],(member(H,G),member([H,J],D)),T47),!.
+
 
 list_to_set1(A,B) :-
  list_to_set1(A,[],B),!.
@@ -1596,3 +1608,16 @@ sort1(A,B,C) :-
  append(B,[D],G),
  sort1(F,G,C).
 
+get_order(AT333,AT333B) :-
+%trace,
+ findall(AT333C,(member(AT333D,AT333),
+ (AT333D=[[n, comment], _]->
+ AT333C=AT333D;
+ (AT333D=[[n, B]| _]->
+ AT333C=[[n, B]]))),AT333E),
+ %list_to_set(AT333E,AT333F),
+ AT333E=AT333F,
+ length(AT333F,AT333FL),
+ numbers(AT333FL,1,[],AT333FN),
+ findall([N,AT333G],(member(N,AT333FN),
+ get_item_n(AT333F,N,AT333G)),AT333B),!.
