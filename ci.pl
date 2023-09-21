@@ -29,10 +29,14 @@ copy to build folder if passes
 
 get_file(Type,File1,S1) :-
  (Type=file->(exists_file_s(File1)->
- (p2lpconverter([Type,File1],S1)->true;
+ (fastp2lp(File1,S1)
+ %p2lpconverter([Type,File1],S1)
+ ->true;
  open_string_file_s(File1,S10),
  lines_to_comments(S10,S1)));
- p2lpconverter([Type,File1],S1)),!.
+ fastp2lp(File1,S1)
+ %p2lpconverter([Type,File1],S1)
+ ),!.
 
 /*
 set_up_merge(Type,File1) :-
@@ -153,6 +157,51 @@ merge2(Old_S1,S1,T3) :-
  sort_by_length(Combos41,T3),
  
  !.
+ 
+ 
+merge21(Old_S11,S11,T3) :-
+ retractall(term_to_numbers1(_)),
+ assertz(term_to_numbers1(1)),
+
+ findall(A,(member([_,A1],Old_S11),term_to_atom(A1,A)),Old_S1),
+ findall(A,(member([_,A1],S11),term_to_atom(A1,A)),S1),
+ term_to_numbers(term_to_numbers1,Old_S1,[],Corr,[],N1),
+ %trace,
+ term_to_numbers(term_to_numbers1,S1,Corr,Corr2,[],N2),
+ 
+ 
+ length(Old_S11,Old_S11L),
+ numbers(Old_S11L,1,[],Old_S11N),
+ findall([A,C],(member(Old_S11N1,Old_S11N),get_item_n(Old_S11,Old_S11N1,[A1,_]),
+ (A1=[n, comment]->A=_;A=A1),
+ get_item_n(N1,Old_S11N1,C)),N11),
+
+ length(S11,S11L),
+ numbers(S11L,1,[],S11N),
+ findall([A,C],(member(S11N1,S11N),get_item_n(S11,S11N1,[A1,_]),
+  (A1=[n, comment]->A=_;A=A1),get_item_n(N2,S11N1,C)),N21),
+ append(N11,N21,N31),
+ 
+
+ retractall(correspondences(_)),
+ assertz(correspondences(Corr2)),
+ diff_group_combos1(N1,N2,C),
+ %trace,
+ findall([N32,T],(member(C1,C),numbers_to_term([C1],Corr2,[],T0),T0=[T02],
+ term_to_atom(T01,T02),
+ %trace,
+ member([N32,C1],N31),%,lp2p1(T0,T)
+ T=T01,
+ not(T=[])
+ ),T31),
+ sort1(T31,T3),
+ %delete(T1,[],T31),
+ 
+ %sort(T31,Combos41),
+ %subtract(Combos413,[Old_S1],Combos41),
+ %sort_by_length(Combos41,T3),
+ %findall([A3,A2],(member(A1,T32),term_to_atom(A2,A1),member([A3,A2],N31)),T3),
+ !. 
  %T3=[T4|_],
  %open_s("test.pl",write,S22),
  %write(S22,T4),close(S22).
@@ -223,6 +272,7 @@ term_to_numbers(term_to_numbers2,S,C1,C2,N1,N2) :-
 */
 numbers_to_term([],_,T,T) :- !.
 numbers_to_term(SN,C1,T1,T2) :-
+%trace,
  SN=[SN1|SN2],
  get_base_token_number(SN1,SN3),
  member([S1,SN3],C1),
@@ -382,6 +432,35 @@ diff_group_combos(Before,After,Combos4) :-
  !.
 %diff_group_combos(_Before,_After,[]).
 diff_group_combos(_Before,After,[After]).
+
+
+
+diff_group_combos1(A,A,[A]) :- !.
+diff_group_combos1(Before,After,Combos4) :-
+
+ retractall(changes(_)),
+ assertz(changes(1)),
+ %differentiate(Before,Before0),
+ %differentiate(After,After0),
+ find_insertions_and_deletions(Before,After,Insertions,Deletions),
+ 
+
+ 
+ replace11(After,Insertions,[],After2),
+ replace12(Before,After2,Deletions,[],After31),
+ join_and_change(After31,[],After3),
+ %trace,
+
+ findall(A1,(member(A,After3),
+ (string(A)->A1=[A];
+ (A=[[c,_],O,N]->
+ A1=[O,N]))),A2),
+ flatten(A2,Combos4),
+
+ %findall(A,member([[_,_NA],A],After3),Combos4),
+ !.
+%diff_group_combos(_Before,_After,[]).
+diff_group_combos1(_Before,After,[After]).
 
 sort_by_length(A,F) :-
  findall([L,B],(member(B,A),length(B,L)),C),sort(C,D),findall(E,member([_,E],D),F).

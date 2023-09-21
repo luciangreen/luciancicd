@@ -213,13 +213,44 @@ find_tests(K1,H,H1,Tests) :-
 
 	string_concat(K11,"/",K1),
 
+
 %catch(call_with_time_limit(0.005,
-	p2lpconverter([file,H1],LP),%),_,false),
+%trace,	
+%p2lpconverter([file,H1],LP),%),_,false),
+	fastp2lp(H1,LP1),
+%trace,
+	find_tests2(%H1,
+	H,K11,LP1,Tests).
+
+fastp2lp(H1,LP1) :-
+
+
+foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter([file,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
+%trace,
+%working_directory1(_,A),
+foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path5,
+"tmp.pl"],GP),
+%string_concat(Go_path,"testcicd.pl",GP),
+open_s(GP,write,S1),
+write(S1,String),close(S1),
+foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main -q ./",GP],S3),%,
+
+catch(bash_command(S3,LP), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],_Text4),%writeln1(Text4),
+	fail%abort
+ 	)),
+
+foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
+ "rm -f tmp.pl"
+ %Folder1
+ ],Command315),
+ 	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],_Text42)%,writeln1(Text42)%,abort
+ 	)),
 	%,writeln1(Result2)
 
-	find_tests2(%H1,
-	H,K11,LP,Tests).
-
+	term_to_atom(LP1,LP).
+	
 find_tests2(%H1,
 H,K11,LP,Tests) :-
 
@@ -231,7 +262,12 @@ H,K11,LP,Tests) :-
 
 	findall([K11,H,F2],(append(_,LP1,LP),
 	append([[[n,comment%c
-	],[Comment]]],LP2,LP1),
+ 	],[Comment]]],LP2,LP1),
+	
+	%findall([K11,H,F2],(member([[n,comment%c
+	%],[Comment]],LP),
+
+	
 	string_strings(Comment,C),
 	member(N2,Ns),
 	append(_A,B,C),
@@ -254,6 +290,10 @@ H,K11,LP,Tests) :-
 
 	append([[[n,comment%c
 	],[Comment1]]],_,LP2),
+
+	%member([[n,comment%c
+	%],[Comment1]],LP),
+	
 	string_strings(Comment1,C1),
 	
 	append(_A1,Bx,C1),
@@ -288,4 +328,19 @@ H,K11,LP,Tests) :-
 	
 %[K11,H,]	
 %[["d","a.pl",(a(B),B=1)]]
+/*
+find_tests3(H,K11,LP,Tests) :-
 
+findall(B,(member([[n,comment],A]),
+term_to_atom(A1,A),
+((functor(A1,(=),2),arg(1,A1,N),arg(2,A1,Ans),B=[ans,N,=,Ans])->true;
+(functor(A1,N,Ar),numbers(Ar,1,[],ArN),findall(ArN2,(member(ArN1,ArN),arg(ArN1,A1,ArN2),var(ArN2)),ArN3),
+B=[A1,ArN3]))),C),
+findall([K11,H,F2],(member([ans,N,=,Ans],C),
+member([A1,Ans],C),
+F=A1,
+F1=(N=Ans),
+foldr(string_concat,["(",F,",",F1,")"],F2)),Tests),!.
+
+
+*/

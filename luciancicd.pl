@@ -304,9 +304,13 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
  findall(AT233C,(member(AT233A1,AT233),(AT233A1=[[n, comment], [["File delimiter", _, _]]]->AT233C=AT233A1;AT233C=[o,AT233A1])),AT233A),
  findall(AT133C,(member(AT133A1,AT133),(AT133A1=[[n, comment], [["File delimiter", _, _]]]->AT133C=AT133A1;AT133C=[n,AT133A1])),AT133A),
 %trace,
-merge_files(AT233A,AT133A,AT333A),
+%merge_files(AT233A,AT133A,AT333A),
 %trace,
-findall(AT333C,(member(AT333A1,AT333A),(AT333A1=[[n, comment], [["File delimiter", _, _]]]->AT333C=AT333A1;AT333A1=[_,AT333C])),AT333),
+merge21(AT233A,AT133A,AT333A),
+
+%trace,
+findall(AT333C,(member(AT333A1,AT333A),(AT333A1=[[n, comment], [["File delimiter", _, _]]]->AT333C=AT333A1;
+AT333A1=[_,AT333C])),AT333),
 %trace,
 get_order(AT333,AT333B),
  % * merge, copy of new or old from start, into files, place same name, arity preds together
@@ -1241,8 +1245,9 @@ split_into_lp_files1(A,B,C,B1,C1) :-
 */
 
 pp0_1(A,B):-
- (%false%
- pp0(A,B)
+ ((%trace,
+ %false%
+ pp0(A,B))
  ->true;
  lines_to_comments(A,B)).
  
@@ -1621,3 +1626,11 @@ get_order(AT333,AT333B) :-
  numbers(AT333FL,1,[],AT333FN),
  findall([N,AT333G],(member(N,AT333FN),
  get_item_n(AT333F,N,AT333G)),AT333B),!.
+ 
+/*
+get_order2(AT233,AT133,AT333B) :-
+ get_order(AT333,AT2331),
+ get_order(AT133,AT1331),
+ delete(AT1331,[_,[["File delimiter", _, _]]],AT1332),
+ !.
+*/
