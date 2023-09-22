@@ -448,13 +448,16 @@ diff_group_combos1(Before,After,Combos4) :-
  
  replace11(After,Insertions,[],After2),
  replace12(Before,After2,Deletions,[],After31),
+ %trace,
  join_and_change(After31,[],After3),
  %trace,
 
  findall(A1,(member(A,After3),
  (string(A)->A1=[A];
  (A=[[c,_],O,N]->
- A1=[O,N]))),A2),
+ A1=[O,N];
+ A=[[_, _], E]->
+ A1=[E]))),A2),
  flatten(A2,Combos4),
 
  %findall(A,member([[_,_NA],A],After3),Combos4),
