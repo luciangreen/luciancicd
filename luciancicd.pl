@@ -1505,9 +1505,9 @@ merge_files3([],AT1331,AT1331%,AT3331
 merge_files3(AT2331,AT1331,AT333%,AT3331
 ) :-
 %writeln1(merge_files3(AT2331,AT1331,AT333)),
- AT2331=[[N,[Pred_name1|Rest1]]|_AT2333],
+ AT2331=[[_N0,[Pred_name1|Rest1]]|_AT2333],
  pred_rest(Arity1,Rest1,_Lines1),
- findall([N,[Pred_name1|Rest3]],(member([N,[Pred_name1|Rest3]],AT2331),
+ findall([_N,[Pred_name1|Rest3]],(member([_N2,[Pred_name1|Rest3]],AT2331),
  pred_rest(Arity1,Rest3,_Lines3)),Ps),
  subtract(AT2331,Ps,Ps2),
  %((%trace,
@@ -1515,11 +1515,11 @@ merge_files3(AT2331,AT1331,AT333%,AT3331
 
  reverse(AT1331,AT1332),
  ((append(A,B,AT1332),
- append([N1,[[Pred_name1|Rest4]]],C,B),!,
+ append([[N1,[Pred_name1|Rest4]]],C,B),!,
  pred_rest(Arity1,Rest4,_Lines2)
  )->
  (%trace,
- reverse(A,A1),reverse(C,C1),foldr(append,[C1,[N1,[[Pred_name1|Rest4]]],Ps,A1],AT1334));
+ reverse(A,A1),reverse(C,C1),foldr(append,[C1,[[N1,[Pred_name1|Rest4]]],Ps,A1],AT1334));
  append(AT1331,Ps,AT1334)),
  merge_files3(Ps2,AT1334,AT333),!.%,AT3331) :-
 

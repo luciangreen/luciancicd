@@ -160,6 +160,8 @@ merge2(Old_S1,S1,T3) :-
  
  
 merge21(Old_S11,S11,T3) :-
+%writeln1(merge21(Old_S11,S11,T3)),
+%trace,
  retractall(term_to_numbers1(_)),
  assertz(term_to_numbers1(1)),
 
@@ -187,22 +189,37 @@ merge21(Old_S11,S11,T3) :-
  assertz(correspondences(Corr2)),
  diff_group_combos1(N1,N2,C),
  %trace,
- findall([N32,T],(member(C1,C),numbers_to_term([C1],Corr2,[],T0),T0=[T02],
- term_to_atom(T01,T02),
+ findall(T2,(member(C1,C),
+ (string(C1)->
+ (numbers_to_term(C1,Corr2,T),
+ member([N32,C1],N31),
+ not(T=[]),T2=[[N32,T]]
+ );
+ (C1=[[c,_],O,N]->
+ (
+ findall([N32,T],(member(C2,O),
+ numbers_to_term(C2,Corr2,T),
+ member([N32,C2],N31),
+ not(T=[])),O111),
+
+ findall([N32,T],(member(C2,N),
+ numbers_to_term(C2,Corr2,T),
+ member([N32,C2],N31),
+ not(T=[])),N111),
  %trace,
- member([N32,C1],N31),%,lp2p1(T0,T)
- T=T01,
- not(T=[])
- ),T31),
- sort1(T31,T3),
- %delete(T1,[],T31),
+ %writeln1(merge_files3(O111,N111,T2)),
+ merge_files3(O111,N111,T2)
+ )
  
- %sort(T31,Combos41),
- %subtract(Combos413,[Old_S1],Combos41),
- %sort_by_length(Combos41,T3),
- %findall([A3,A2],(member(A1,T32),term_to_atom(A2,A1),member([A3,A2],N31)),T3),
+ ))),T31),
+ foldr(append,T31,T32),
+ sort1(T32,T3),
  !. 
- %T3=[T4|_],
+
+numbers_to_term(C1,Corr2,T01) :-
+numbers_to_term([C1],Corr2,[],T0),T0=[T02],
+ term_to_atom(T01,T02),!.
+  %T3=[T4|_],
  %open_s("test.pl",write,S22),
  %write(S22,T4),close(S22).
 
@@ -349,7 +366,21 @@ subtract2(A,B,C,G) :-
  append(C,[[D,D1]],H));
  (F=B,C=H)),
  subtract2(E,F,H,G),!.
-*
+*/
+
+subtract2(A,B,C) :-
+ subtract2(A,B,[],C),!.
+
+subtract2([],_,B,B) :- !.
+subtract2(A,B,C,G) :-
+ A=[[D,D1]|E],
+ (member([_,D1],B)->
+ (delete(B,[_,D1],F),
+ append(C,[[D,D1]],H));
+ (F=B,C=H)),
+ subtract2(E,F,H,G),!.
+
+/*
 
 differentiate(A,B) :-
  differentiate(A,[],_,[],B),!.
@@ -453,12 +484,12 @@ diff_group_combos1(Before,After,Combos4) :-
  %trace,
 
  findall(A1,(member(A,After3),
- (string(A)->A1=[A];
+ (string(A)->A1=A;
  (A=[[c,_],O,N]->
- A1=[O,N];
+ A1=A;%[O,N];
  A=[[_, _], E]->
- A1=[E]))),A2),
- flatten(A2,Combos4),
+ A1=E))),Combos4),%A2),
+ %flatten(A2,Combos4),
 
  %findall(A,member([[_,_NA],A],After3),Combos4),
  !.
