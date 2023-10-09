@@ -7,17 +7,22 @@
 % modes will help add commands to sm, for conversion to c
 
 :-include('../Philosophy/sub_term_with_address.pl').
-%:-include('../SSI/ssi.pl').
+%:-include('../SSI/ssi.pl'). %XXX
 %:-dynamic resort_n/1.
-find_dependencies(Dep99_name,Dep99_arity,F%Functions1
+find_dependencies(Dep99_name,Dep99_arity,F
 ,Functions2b,Pred_numbers) :-
-%A=[15
-%],
-%findall(%[B,
-%Functions2b%]
-%,(%_Debug=off,member(B,A),
-
-%test(15,Q,F,_R),
+%trace,
+/*
+A=[15
+],
+findall(%[B,
+Functions2b%]
+,(_Debug=off,member(B,A),
+*/
+%trace,
+%test(248%
+%15
+%,Q,F,_R),
 numbers(Dep99_arity,1,[],V2),
 
 %trace,
@@ -28,12 +33,14 @@ findall([v,V3],(member(V1,V2),atom_concat("a",V1,V3)),V),
 Q=[[n,Dep99_name],V],
 query_box(Q,_Query1,F,Functions1),
 %trace,
+%get_n_item(Functions1,Q,N2), x
+%N2=1,%XXX
 get_n_item(Functions1,Q5,N2),
 N1 is N2-1,
 
 convert_to_grammar_part1(Functions1,[],Functions2,_),add_line_numbers_to_algorithm1(Functions2,Functions2a),find_pred_numbers_to_cut(Functions2a,[],Pred_numbers),find_state_machine1(Functions2a,Functions3,Pred_numbers),
 %trace,
-a_to_m(N1,Functions3%2a%3
+a_to_m2(N1,Functions3%2a%3
 ,Pred_numbers,
 Functions2b),!.
 %a_and_m_to_clp(Functions3,Functions2b,Functions2c),
@@ -92,7 +99,7 @@ append(_,[Max_L],Rest),
 
 % In post order depth-first search, the order of the predicates to test are predicate 1, which calls itself, predicates 2 and 0.
 % loop1 denotes a group of predicates that are in a loop, so have to be tested separately, with their own combinations of changes
-%trace,
+trace,
 find_groups(Ordered_pred_nums0,[N1],Ordered_pred_nums11,true),
 %reverse(Ordered_pred_nums11,Ordered_pred_nums13),
 list_to_set(Ordered_pred_nums11,Ordered_pred_nums14),

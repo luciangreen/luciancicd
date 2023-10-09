@@ -187,7 +187,9 @@ merge21(Old_S11,S11,T3) :-
 
  retractall(correspondences(_)),
  assertz(correspondences(Corr2)),
- diff_group_combos1(N1,N2,C),
+ diff_group_combos1(N1,N2,C000),
+ %trace,
+ (C000=[C]->true;C000=C),
  %trace,
  findall(T2,(member(C1,C),
  (string(C1)->

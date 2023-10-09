@@ -38,7 +38,9 @@ Later:
 :-include('move_to_repository_or_back.pl').
 :-include('luciancicd_ws.pl').
 :-include('find_dependencies.pl').
+%:-include('find_dependencies2.pl').
 :-include('settings.pl').
+:-include('find_dependencies2-cgpt1.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
