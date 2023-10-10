@@ -398,8 +398,10 @@ path10(Stop,First,Tree,A0,A1) :-
  path10(Stop1,Second1,Tree,A2,A1)).
 
 
-find_deps(Node,Tree,Deps) :-
- cycle1(Node,Tree,[],Deps1),
+find_deps(Nodes,Tree,Deps) :-
+ findall(Deps2,(member(Node,Nodes),
+ cycle1(Node,Tree,[],Deps2)),Deps1a),
+ foldr(append,Deps1a,Deps1),
  
  
 list_to_set(Deps1,Ordered_pred_nums14),
