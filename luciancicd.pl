@@ -41,6 +41,7 @@ Later:
 %:-include('find_dependencies2.pl').
 :-include('settings.pl').
 :-include('find_dependencies2-cgpt1.pl').
+:-include('ci_vintage.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.

@@ -15,7 +15,7 @@ copy to build folder if passes
 */
 
 :-include('../Prolog-to-List-Prolog/p2lpconverter.pl').
-%:-include('../List-Prolog-to-Prolog-Converter/lp2pconverter.pl').
+:-include('../List-Prolog-to-Prolog-Converter/lp2pconverter.pl').
 %:-include('luciancicd.pl').
 :-dynamic term_to_numbers1/1.
 %:-dynamic term_to_numbers2/1.
@@ -139,7 +139,8 @@ merge2(Old_S1,S1,T3) :-
  term_to_numbers(term_to_numbers1,S1,Corr,Corr2,[],N2),
  retractall(correspondences(_)),
  assertz(correspondences(Corr2)),
- diff_group_combos(N1,N2,C),
+ %diff_group_combos(N1,N2,C),
+ diff_combos_vintage(N1,N2,C),
  findall(T,(member(C1,C),numbers_to_term(C1,Corr2,[],T0)%,lp2p1(T0,T)
  ,T=T0
  ),T1),
