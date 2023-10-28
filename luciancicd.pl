@@ -1209,7 +1209,7 @@ working_directory1(A1,B1) :-
  term_to_atom(working_directory(A,B),Atom),
  	catch(working_directory(A,B), _, (foldr(string_concat,["Error on ",Atom%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],Text41),writeln1(Text41)%fail%abort
- 	)).
+ 	)),!.
  	
 split_into_lp_files(T7,T10) :-
  split_into_lp_files(T7,[],_T8,[],T9),
