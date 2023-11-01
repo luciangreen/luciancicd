@@ -38,6 +38,7 @@ diff_combos_vintage([5],[4,5],C).
 C = [[4, 5], [5]].
 
 */
+diff_combos_vintage(A,A,[A]) :- !.
 
 diff_combos_vintage(Before,After,Combos4) :-
  find_insertions_and_deletions_vintage(Before,After,Insertions,Deletions),

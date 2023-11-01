@@ -8,8 +8,7 @@
 
 * Bottom-up Version: Lucian CI/CD can now check sets of repositories bottom-up, which means there are up to seven possible changes to a set of current predicates to find a working combination of. Current predicates are each predicate in depth first, post order, or sets of clauses or predicates involved in loops.
 
-* Other programming languages apart from Prolog aren't fully supported yet (even though the <a href="https://github.com/luciangreen/luciancicd/tree/ba8cba7e419e036050cb0ff203e9289b91897169">non-bottom-up version</a> does), and only seven changes are allowed to the whole set of repositories at a time. Over seven changes causes the whole set of repositories to be tested against the old version only.
-
+* Other programming languages apart from Prolog aren't fully supported yet (even though the <a href="https://github.com/luciangreen/luciancicd/tree/ba8cba7e419e036050cb0ff203e9289b91897169">non-bottom-up version</a> does).
 # Getting Started
 
 Please read the following instructions on how to install the project on your computer for automatic testing.
@@ -94,10 +93,9 @@ halt
 
 * Lucian CI/CD works with:
     * Prolog files
-    * Other language files
     * Text data files
 
-* So far, Prolog files should test Prolog and other language files.
+* So far, Prolog files should test Prolog.
 * Other text data files and some comments that aren't in the latest version may not necessarily be kept by Lucian CI/CD. <b>Important:</b> run `set_up_luciancicd.` to prevent tests and comments from being deleted before entering code to test changes in. Also check if `main_file.txt` contains all main files and main predicates.
 
 * Please ensure that each test's file loads the necessary files.
