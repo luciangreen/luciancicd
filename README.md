@@ -120,6 +120,14 @@ halt
 
 * To list available logs and diff files, enter `luciancicd_server(8000).`, then go to `http://localhost:8000/luciancicd`.
 
+# Caveats
+
+* Intra and some inter-line comments may currently be lost. Lucian CI/CD keeps only interpredicate comments.
+
+* Writeln and commands that don't produce checkable output are currently lost, but this will be changed.
+
+* Generated code currently loses (newline, etc.) formatting. Lucian CI/CD will pretty print code.
+
 # Authors
 
 Lucian Green - Initial programmer - <a href="https://www.lucianacademy.com/">Lucian Academy</a>
