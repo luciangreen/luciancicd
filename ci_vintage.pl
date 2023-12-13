@@ -139,6 +139,15 @@ replace12_vintage(Before,After,Deletions,After2,After3) :-
 % D = [2].
 
 find_insertions_and_deletions_vintage(Before,After,Insertions,Deletions) :-
+%trace,
+ /*
+ correspondences(Corr),
+ keep(Kept),
+ findall(A1,(member(A1,Before),get_base_token_number(A1,A10),member([Comm,A10],Corr),
+ (string_concat(Comm1,",",Comm)->true;Comm1=Comm),catch(term_to_atom(A2,Comm1),_,fail),A2=[[_,Name],Args],length(Args,Arity),member([Name,Arity],Kept)),Before1),
+ %append(After,Before1,After2),
+ subtract(Before,Before1,Before2),
+ */
  subtract(After,Before,Insertions),
  subtract(Before,After,Deletions).
 

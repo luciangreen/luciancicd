@@ -582,7 +582,7 @@ flatten_except_loops2(A,B,C,First) :-
  
 
 put_sub_term_wa_ae([E,A],B,C) :-
- put_sub_term_wa(A,E,B,C).
+ put_sub_term_wa(A,E,B,C),!.
 
 
 order_preds_bottom_up_bfs(L,Functions,Ordered_pred_nums1,Ordered_pred_nums2) :-

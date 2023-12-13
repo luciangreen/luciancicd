@@ -42,6 +42,8 @@ Later:
 :-include('settings.pl').
 :-include('find_dependencies2-cgpt1.pl').
 :-include('ci_vintage.pl').
+%:-include('keep.pl').
+:-include('check_non_var').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
@@ -809,7 +811,8 @@ working_directory1(_,Go_path1),
 
 % *** Change path to swipl if necessary
 
-term_to_atom(Command,Command1),
+check_non_var(Command,Command1),
+%term_to_atom(Command2,Command1),
 
 /*
 string_concat(Repository1b,Go_path1a,Go_path1),
@@ -855,7 +858,7 @@ assertz(pred_list(T471))
 
 ));(Result=fail%,trace
 )),
-writeln12([Go_path1,File,Command,Result])
+writeln12([Go_path1,File,Command1,Result])
 );Result=fail)
 ),Results2)
 

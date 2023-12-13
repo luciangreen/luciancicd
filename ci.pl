@@ -138,6 +138,7 @@ merge2(Old_S1,S1,T3) :-
  term_to_numbers(term_to_numbers1,Old_S1,[],Corr,[],N1),
  term_to_numbers(term_to_numbers1,S1,Corr,Corr2,[],N2),
  retractall(correspondences(_)),
+ %trace,
  assertz(correspondences(Corr2)),
  %diff_group_combos(N1,N2,C),
  diff_combos_vintage(N1,N2,C),
