@@ -42,7 +42,7 @@ Later:
 :-include('settings.pl').
 :-include('find_dependencies2-cgpt1.pl').
 :-include('ci_vintage.pl').
-%:-include('keep.pl').
+:-include('keep.pl').
 :-include('check_non_var').
 
 :-dynamic lc_tests/1.
@@ -774,6 +774,7 @@ sort1(Tests01,Tests0),
 %trace,
 
 findall(Result,(member([Go_path1,File,Command],Tests0),
+check_non_var(Command,Command1),
 Repository1b=Go_path1,
 %trace,
 (true->%tests_pred(AT1331c,Command)->
@@ -810,8 +811,8 @@ working_directory1(_,LCTD),
 working_directory1(_,Go_path1),
 
 % *** Change path to swipl if necessary
+%trace,
 
-check_non_var(Command,Command1),
 %term_to_atom(Command2,Command1),
 
 /*

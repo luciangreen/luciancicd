@@ -124,7 +124,7 @@ halt
 
 * Intra and some inter-line comments may currently be lost. Lucian CI/CD keeps only interpredicate comments.
 
-* Writeln and commands that don't produce checkable output are currently lost, but this will be changed.
+* Writeln and commands that don't produce checkable output are not kept unless they are in `keep1/1` in the `keep.pl` register.
 
 * Generated code currently loses (newline, etc.) formatting. Lucian CI/CD will pretty print code.
 

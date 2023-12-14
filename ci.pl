@@ -131,6 +131,7 @@ foldr(string_concat,["../../Github_lc/tests_",K11,".txt"%"/",File1
  Tests=[[K12,File1,Old_S10,S10]],!.
  
 merge2(Old_S1,S1,T3) :-
+%trace,
  %open_s("test.lp",write,S21),
  %write(S21,S3),close(S21),
  retractall(term_to_numbers1(_)),
@@ -159,9 +160,14 @@ merge2(Old_S1,S1,T3) :-
  sort_by_length(Combos41,T3),
  
  !.
- 
+
+kept([[n,A1],A1a]) :-
+ keep(A),length(A1a,L),member([A1,L],A),!.
+%kept([_,[[n,A1],A1a]]) :-
+% keep(A),length(A1a,L),member([A1,L],A),!.
  
 merge21(Old_S11,S11,T3) :-
+ %keep(Kept),
 %writeln1(merge21(Old_S11,S11,T3)),
 %trace,
  retractall(term_to_numbers1(_)),
@@ -176,14 +182,16 @@ merge21(Old_S11,S11,T3) :-
  
  length(Old_S11,Old_S11L),
  numbers(Old_S11L,1,[],Old_S11N),
- findall([A,C],(member(Old_S11N1,Old_S11N),get_item_n(Old_S11,Old_S11N1,[A1,_]),
- (A1=[n, comment]->A=_;A=A1),
+ %trace,
+ findall([A,C],(member(Old_S11N1,Old_S11N),get_item_n(Old_S11,Old_S11N1,[A1,A1a]),
+ (kept([A1,A1a])%=[n, Command]
+ ->A=_;A=A1),
  get_item_n(N1,Old_S11N1,C)),N11),
 
  length(S11,S11L),
  numbers(S11L,1,[],S11N),
- findall([A,C],(member(S11N1,S11N),get_item_n(S11,S11N1,[A1,_]),
-  (A1=[n, comment]->A=_;A=A1),get_item_n(N2,S11N1,C)),N21),
+ findall([A,C],(member(S11N1,S11N),get_item_n(S11,S11N1,[A1,A1a]),
+  (kept([A1,A1a])->A=_;A=A1),get_item_n(N2,S11N1,C)),N21),
  append(N11,N21,N31),
  
 
