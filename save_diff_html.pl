@@ -1,19 +1,20 @@
 save_diff_html(After3) :-
  correspondences(Corr),
- 
+ %trace,
  findall(["<table bgcolor=\"",Colour,"\"><tr><td>",Change,Item2,"</td></tr></table>"],(member(Item%[[n,comment],[Item]]
  ,After3),
  (string(Item)->
  (numbers_to_term([Item],Corr,[],Item2),Colour="white",Change="");
  ((%trace,
- Item=[[i,_],[Item3]])->
+ (Item=[I,Item3],(I=i->true;I=p)))->
  (%trace,
  numbers_to_term([Item3],Corr,[],Item2),Colour="green",Change="Insertion: ");
  ((%trace,
- Item=[[d,_],[Item3]])->
+ Item=[d,Item3])->
  (%trace,
- numbers_to_term([Item3],Corr,[],Item2),Colour="red",Change="Deletion: ");
- (Item=[[c,_],Item_a,Item_b]->
+ numbers_to_term([Item3],Corr,[],Item2),Colour="red",Change="Deletion: ")
+ /*;
+ (Item=[c,Item_a,Item_b]->
  (numbers_to_term(Item_a,Corr,[],Item2a),
  numbers_to_term(Item_b,Corr,[],Item2b),
  %trace,
@@ -21,7 +22,9 @@ save_diff_html(After3) :-
  %term_to_atom(Item2b,Item2b1),
  %foldr(string_concat,
  term_to_atom([Item2b,' -> ',Item2a],Item2),
- Colour="yellow",Change="Change: ")))))),HTML),
+ Colour="yellow",Change="Change: "))
+ */
+ )))),HTML),
  flatten(HTML,HTML1),
  foldr(string_concat,HTML1,HTML2),
  %term_to_atom(HTML1,HTML2),
