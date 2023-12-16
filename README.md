@@ -122,7 +122,7 @@ halt
 
 # Caveats
 
-* Causes of the "1 of more tests failed." error include the first entered algorithm after deleting `tests_x.txt` not passing all tests. Programs with uninstantiated variables, etc, also cause the error.
+* Causes of the "1 or more tests failed." error include the first entered algorithm after deleting `tests_x.txt` not passing all tests. Programs with uninstantiated variables, etc, also cause the error.
 
 * Intra and some inter-line comments may currently be lost. Lucian CI/CD keeps only inter-predicate comments.
 
