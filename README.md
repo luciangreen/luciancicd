@@ -112,7 +112,7 @@ halt
 
 * Run `set_up_luciancicd.` to save the files without running Lucian CI/CD.
 
-* Note: A notification such as `"Cannot find "../private2/luciancicd-cicd-tests/tests_a.txt"` means the repository `"a"` is connected with a changed file through dependencies but Lucian CI/CD can't install it.
+* Note: A notification such as `"Cannot find "../private2/luciancicd-cicd-tests/tests_a.txt"` means the repository `"a"` is connected with a changed file through dependencies, but Lucian CI/CD can't install it.
 
 * <a href="https://www.youtube.com/watch?v=MS240K8TXtM">Lucian Academy - Lucian CI/CD Demo</a>
 
@@ -122,13 +122,13 @@ halt
 
 # Caveats
 
-* Causes of "1 of more tests failed." error include the first entered algorithm after deleting `tests_x.txt` not passing all tests. The error is also caused by programs with uninstantiated variables, etc.
+* Causes of the "1 of more tests failed." error include the first entered algorithm after deleting `tests_x.txt` not passing all tests. Programs with uninstantiated variables, etc, also cause the error.
 
-* Intra and some inter-line comments may currently be lost. Lucian CI/CD keeps only interpredicate comments.
+* Intra and some inter-line comments may currently be lost. Lucian CI/CD keeps only inter-predicate comments.
 
 * Writeln and commands that don't produce checkable output are not kept unless they are in `keep1/1` in the `keep.pl` register.
 
-* Generated code currently loses (newline, etc.) formatting. Lucian CI/CD will pretty print code.
+* Generated code currently loses (newline, etc.) formatting. Lucian CI/CD will pretty print the code.
 
 # Authors
 
