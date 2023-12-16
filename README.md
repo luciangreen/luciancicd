@@ -89,7 +89,7 @@ halt
 ]]
 ```
 
-* Lucian CI/CD only returns an overall successful result if all dependencies connected to a repository, their main files and predicates and each level in the bottom-up order successfully passes all tests for each predicate.
+* Lucian CI/CD only returns an overall successful result if all dependencies connected to a repository, their main files and predicates and each level in the bottom-up order successfully pass all tests for each predicate.
 
 * Lucian CI/CD works with:
     * Prolog files
