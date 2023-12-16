@@ -122,6 +122,8 @@ halt
 
 # Caveats
 
+* Causes of "1 of more tests failed." error include the first entered algorithm after deleting `tests_x.txt` not passing all tests. The error is also caused by programs with uninstantiated variables, etc.
+
 * Intra and some inter-line comments may currently be lost. Lucian CI/CD keeps only interpredicate comments.
 
 * Writeln and commands that don't produce checkable output are not kept unless they are in `keep1/1` in the `keep.pl` register.
