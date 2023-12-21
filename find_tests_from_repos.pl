@@ -224,8 +224,26 @@ find_tests(K1,H,H1,Tests) :-
 
 fastp2lp(H1,LP1) :-
 
-
 foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter([file,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
+
+
+	fastp2lp1(String,LP1).
+
+fastp2lp2(H1,LP1) :-
+
+foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter([string,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
+
+working_directory(A,A),
+
+working_directory(_,'../'),
+
+
+	fastp2lp1(String,LP1),
+	
+	working_directory(_,A).
+
+fastp2lp1(String,LP1) :-
+
 %trace,
 %working_directory1(_,A),
 foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path5,
@@ -241,7 +259,7 @@ catch(bash_command(S3,LP), _, (foldr(string_concat,["Warning."%%"Error: Can't cl
  	)),
 
 foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
- "rm -f tmp.pl"
+ "rm -f tmp.pl luciancicd/tmp.pl"
  %Folder1
  ],Command315),
  	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
