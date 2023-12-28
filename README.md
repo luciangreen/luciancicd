@@ -130,7 +130,7 @@ halt
 
 * Generated code currently loses (newline, etc.) formatting. Lucian CI/CD will pretty print the code.
 
-* Please don't delete `\\n% `, inserted at the end of `*.pl` files to make `replace12_vintage` work.
+* Please don't delete `\n% `, inserted at the end of `*.pl` files to make `replace12_vintage` work.
  
 # Authors
 
