@@ -49,6 +49,7 @@ term_to_atom(Tests523,Tests521),
 member([K21,Tests522],Tests523),
 open_s(K21,write,S21),
 write(S21,Tests522),close(S21)
+%set_time_file(K21,[],T)
 ),_),
 %*/
 
@@ -100,7 +101,8 @@ process_directory_remove_end_comment([H2],%[H],
  %foldr(append,Mod_time31,Mod_time3)
  );
 
-((string_concat(_,".pl",H1)->
+(%time_file(H1,T),
+(string_concat(_,".pl",H1)->
 remove_end_comments1(H1,Mod_time4);
 open_string_file_s(H1,Mod_time4)),
 %trace,
