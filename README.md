@@ -129,8 +129,6 @@ halt
 * Writeln and commands that don't produce checkable output are not kept unless they are in `keep1/1` in the `keep.pl` register.
 
 * Generated code currently loses (newline, etc.) formatting. Lucian CI/CD will pretty print the code.
-
-* Please don't delete `\n% `, inserted at the end of `*.pl` files to make `replace12_vintage` work.
  
 # Authors
 

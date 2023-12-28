@@ -223,14 +223,18 @@ find_tests(K1,H,H1,Tests) :-
 	H,K11,LP1,Tests).
 
 fastp2lp(H1,LP1) :-
-
+%trace,
+(string_concat(_,".pl",H1)->
+(
 open_string_file_s(H1,F),
-(string_concat(F1,"\n% ",F)->F2 = F;
-string_concat(F,"\n% ",F2)),
+(string_concat(F1,"\n% ",F)->true;%F2 = F;
+(string_concat(F,"\n% ",F2),
+
 %atomic_list_concat(F3,'\n\n',F2),
 %atomic_list_concat(F3,'',F4),
 
-save_file_s(H1,F2),
+save_file_s(H1,F2))
+));true),
 
 foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter([file,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
 
@@ -265,14 +269,19 @@ open_s(GP,write,S1),
 write(S1,String),close(S1),
 foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main -q ./",GP],S3),%,
 
-catch(bash_command(S3,LP), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+(catch(bash_command(S3,LP), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text4),%writeln1(Text4),
 	fail%abort
- 	)),
-
+ 	))->
+ 	(
 %trace,	working_directory1(A,A),
 %	writeln([*,A]),
 
+delete_tmp,
+	term_to_atom(LP1,LP)
+	);(writeln("Fatal error on converting Prolog to List Prolog."),delete_tmp,fail)).
+	
+delete_tmp:-
 foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
  "rm -f tmp.pl"
  %Folder1
@@ -287,10 +296,8 @@ foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
  ],Command316),
  	catch(bash_command(Command316,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text42)%,writeln1(Text42)%,abort
- 	)),
+ 	)).
 	%,writeln1(Result2)
-
-	term_to_atom(LP1,LP).
 	
 find_tests2(%H1,
 H,K11,LP,Tests) :-

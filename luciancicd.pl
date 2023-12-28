@@ -43,7 +43,8 @@ Later:
 :-include('find_dependencies2-cgpt1.pl').
 :-include('ci_vintage.pl').
 :-include('keep.pl').
-:-include('check_non_var').
+:-include('check_non_var.pl').
+:-include('remove_end_comment.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
@@ -946,6 +947,10 @@ move_to_repository_or_back,
 
 ci,
 ci_end,
+
+%pwd,
+
+remove_end_comment,
 
 writeln2("All tests were successful."),
 home_dir(HD),
