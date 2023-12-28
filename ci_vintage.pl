@@ -45,6 +45,7 @@ diff_combos_vintage(Before,After,Combos4) :-
  find_insertions_and_deletions_vintage(Before,After,Insertions,Deletions,Permanent_insertions),
  
  replace11_vintage(After,Insertions,Permanent_insertions,[],After2),
+ %trace,
  replace12_vintage(Before,After2,Deletions,[],After3),
  save_diff_html(After3),
  findall(Combos,find_combos1_vintage(Insertions,Deletions,Permanent_insertions,Combos),Combos2),
@@ -70,7 +71,10 @@ replace12_vintage(_,After,[],_After1,After) :-
 replace12_vintage(Before,After,Deletions,After2,After3) :-
  %Before=[B|Bs],
  %trace,
+
  After=[[I,A]|As],
+ %writeln([*,A]),
+ %(A="9.0x"->trace;true),
  (I=i->true;I=p),
  append(After2,[[I,A]],After4),
  replace12_vintage(Before,As,Deletions,After4,After3),!.

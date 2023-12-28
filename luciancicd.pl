@@ -774,6 +774,7 @@ sort1(Tests01,Tests0),
 %trace,
 
 findall(Result,(member([Go_path1,File,Command],Tests0),
+working_directory1(_,A),
 check_non_var(Command,Command1),
 Repository1b=Go_path1,
 %trace,
@@ -793,7 +794,7 @@ foldr(string_concat,["../private2/luciancicd-testing/",Repository1b,"/"],_Go_pat
 %(writeln2(["Cannot find",Test_script_path]),(writeln(["Missing main_file.txt in " ,Go_path1,"/"]),abort)%,abort
 %))),
 %trace,
-working_directory1(_,A),
+
 %read_main_file(Repository1b,Main_file1%,_,_
 %),
 

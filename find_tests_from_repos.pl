@@ -224,6 +224,11 @@ find_tests(K1,H,H1,Tests) :-
 
 fastp2lp(H1,LP1) :-
 
+open_string_file_s(H1,F),
+(string_concat(F1,"\n% ",F)->F2 = F;
+string_concat(F,"\n% ",F2)),
+save_file_s(H1,F2),
+
 foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter([file,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
 
 
@@ -231,16 +236,20 @@ foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Pro
 
 fastp2lp2(H1,LP1) :-
 
+%string_concat(H10,"\n%",H1),
+
 foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter([string,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
 
-working_directory(A,A),
+working_directory1(A,A),
 
-working_directory(_,'../'),
+%writeln([*,A]),
+
+working_directory1(_,"../"),
 
 
 	fastp2lp1(String,LP1),
 	
-	working_directory(_,A).
+	working_directory1(_,A).
 
 fastp2lp1(String,LP1) :-
 
