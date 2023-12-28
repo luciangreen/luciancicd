@@ -227,11 +227,14 @@ fastp2lp(H1,LP1) :-
 open_string_file_s(H1,F),
 (string_concat(F1,"\n% ",F)->F2 = F;
 string_concat(F,"\n% ",F2)),
+%atomic_list_concat(F3,'\n\n',F2),
+%atomic_list_concat(F3,'',F4),
+
 save_file_s(H1,F2),
 
 foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter([file,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
 
-
+%trace,
 	fastp2lp1(String,LP1).
 
 fastp2lp2(H1,LP1) :-
@@ -267,11 +270,22 @@ catch(bash_command(S3,LP), _, (foldr(string_concat,["Warning."%%"Error: Can't cl
 	fail%abort
  	)),
 
+%trace,	working_directory1(A,A),
+%	writeln([*,A]),
+
 foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
- "rm -f tmp.pl luciancicd/tmp.pl"
+ "rm -f tmp.pl"
  %Folder1
  ],Command315),
  	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],_Text42)%,writeln1(Text42)%,abort
+ 	)),
+
+foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
+ "rm -f luciancicd/tmp.pl"
+ %Folder1
+ ],Command316),
+ 	catch(bash_command(Command316,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text42)%,writeln1(Text42)%,abort
  	)),
 	%,writeln1(Result2)
