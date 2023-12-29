@@ -280,7 +280,8 @@ foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main -q ./",GP],S3),%,
 
 delete_tmp,
 	term_to_atom(LP1,LP)
-	);(writeln("Fatal error on converting Prolog to List Prolog."),delete_tmp,fail)).
+	);(%writeln("Fatal error on converting Prolog to List Prolog."),
+	delete_tmp,fail)).
 	
 delete_tmp:-
 foldr(string_concat,[%"scp -pr ../../Github_lc/ ",

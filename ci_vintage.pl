@@ -46,7 +46,10 @@ diff_combos_vintage(Before,After,Combos4) :-
  
  replace11_vintage(After,Insertions,Permanent_insertions,[],After2),
  %trace,
+ %append(Before,["*"],Before1),
+ %append(After2,["*"],After21),
  replace12_vintage(Before,After2,Deletions,[],After3),
+ %delete(After31,"*",After3),
  save_diff_html(After3),
  findall(Combos,find_combos1_vintage(Insertions,Deletions,Permanent_insertions,Combos),Combos2),
  findall(Combos1,(member(Combos3,Combos2),
