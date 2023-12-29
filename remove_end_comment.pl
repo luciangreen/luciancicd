@@ -46,10 +46,10 @@ process_directory_remove_end_comment(K31,%_G,
  %trace,
 findall(_,(member([_,Tests521],Mod_time),
 term_to_atom(Tests523,Tests521),
-member([K21,Tests522],Tests523),
+member([K21,Tests522,T],Tests523),
 open_s(K21,write,S21),
 write(S21,Tests522),close(S21)
-%set_time_file(K21,[],T)
+,set_time_file(K21,[],[modified(T)])
 ),_),
 %*/
 
@@ -101,13 +101,13 @@ process_directory_remove_end_comment([H2],%[H],
  %foldr(append,Mod_time31,Mod_time3)
  );
 
-(%time_file(H1,T),
+(time_file(H1,T),
 (string_concat(_,".pl",H1)->
 remove_end_comments1(H1,Mod_time4);
 open_string_file_s(H1,Mod_time4)),
 %trace,
 %append(Mod_time1,[[H1,Mod_time4]],Mod_time3)))
-Mod_time3=[[H1,Mod_time4]]))
+Mod_time3=[[H1,Mod_time4,T]]))
 
 ),Mod_time5),%trace,
 foldr(append,Mod_time5,Mod_time51),

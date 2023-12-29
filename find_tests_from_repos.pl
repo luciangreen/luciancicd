@@ -225,16 +225,17 @@ find_tests(K1,H,H1,Tests) :-
 fastp2lp(H1,LP1) :-
 %trace,
 (string_concat(_,".pl",H1)->
-(
+(time_file(H1,T),
 open_string_file_s(H1,F),
 (string_concat(F1,"\n% ",F)->true;%F2 = F;
 (string_concat(F,"\n% ",F2),
 
 %atomic_list_concat(F3,'\n\n',F2),
 %atomic_list_concat(F3,'',F4),
-%time_file(H1,T),
-save_file_s(H1,F2))
-%set_time_file(H1,[],T))
+
+save_file_s(H1,F2)
+,set_time_file(H1,[],[modified(T)])
+)
 ));true),
 
 foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter([file,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
