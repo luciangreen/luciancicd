@@ -58,6 +58,7 @@ Later:
 :-dynamic test_n/1.
 :-dynamic diff_html_n/1.
 :-dynamic tests_preds3/1.
+%:-dynamic dep99_na/1.
 
 %:-dynamic lc_mode/1.
 
@@ -318,6 +319,10 @@ merge21(AT233A,AT133A,AT333A),
 findall(AT333C,(member(AT333A1,AT333A),(AT333A1=[[n, comment], [["File delimiter", _, _]]]->AT333C=AT333A1;
 AT333A1=[_,AT333C])),AT333),
 %trace,
+%trace,
+%pred_list(PL),
+%writeln(pred_list(PL)),
+%
 get_order(AT333,AT333B),
  % * merge, copy of new or old from start, into files, place same name, arity preds together
  % put same pred name arity together or at end if new
@@ -344,12 +349,22 @@ get_order(AT333,AT333B),
  assertz(pred_list([]%Dependencies7d
  )),
 
+ %retractall(dep99_na(_)),
+ %assertz(dep99_na([])),
+
  %trace,
  findall(_,(
  member([Dep99,_,Dep99_name,Dep99_arity],H3),
 
+ %dep99_na(Dep99_na),
+/*
+ delete_dep99_na([]%Dep99_na
+ ,AT333DA,AT333),
 %trace,
-
+ append(Dep99_na,[[Dep99_name,Dep99_arity]],Dep99_na1),
+ assertz(dep99_na(Dep99_na1%Dependencies7d
+ )),
+*/
 find_dependencies(Dep99_name,Dep99_arity,AT333,Dependencies7d,Pred_numbers0),
 
 %trace, 
@@ -1647,3 +1662,15 @@ get_order2(AT233,AT133,AT333B) :-
  delete(AT1331,[_,[["File delimiter", _, _]]],AT1332),
  !.
 */
+/*
+delete_dep99_na([],AT333,AT333) :- !.
+delete_dep99_na(Dep99_na,AT333DA,AT333) :-
+%trace,
+ Dep99_na=[[N,A]|Dep99_na1],
+ length(Args,A),
+ C=[[n,N],Args|_],
+ delete(AT333DA,C,AT333DA1),
+ delete_dep99_na(Dep99_na1,AT333DA1,AT333),!.
+*/
+ 
+
