@@ -67,5 +67,5 @@ luciancicd(At_start,Start_files,End_files) :-
  msort(End_files1,F1));(%working_directory1(_,A),
  fail)),
  
- ,
+ 
  !.
