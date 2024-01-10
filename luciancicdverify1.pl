@@ -61,8 +61,11 @@ luciancicd(At_start,Start_files,End_files) :-
  (%trace,
  string_concat("./",File_name,File_name1)))),End_files1),
 
- msort(F0,F1),
- msort(End_files1,F1));(working_directory1(_,A),fail)),
- 
  working_directory1(_,A),
+ 
+ msort(F0,F1),
+ msort(End_files1,F1));(%working_directory1(_,A),
+ fail)),
+ 
+ ,
  !.
