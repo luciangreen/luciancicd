@@ -45,6 +45,9 @@ Later:
 :-include('keep.pl').
 :-include('check_non_var.pl').
 :-include('remove_end_comment.pl').
+:-include('luciancicdverify.pl').
+:-include('luciancicdverify1.pl').
+:-include('../gitl/find_files.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
@@ -1027,6 +1030,17 @@ PZ) :-
  make_directory_recursive_s(LCTD,PZ8,%PZ4,
 PZ7),!.
 
+truncate_path(P1,P2,P3) :-
+ string_strings(P1,L1),
+ reverse(L1,L2),
+ append(L3,L4,L2),
+ append(["/"],L5,L4),
+ foldr(append,[["/"],L5],L6),
+ reverse(L6,L7),
+ foldr(string_concat,L7,P2),
+ reverse(L3,L8),
+ foldr(string_concat,L8,P3),!.
+ 
 ci_end:-
 
 
