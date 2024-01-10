@@ -50,7 +50,7 @@ lc_test0(1,true,
 % Start_files
 [["c/c.pl","%c(A).\n%A=1.\nc(1).\n%d(A).\n%A=1.\nd(A):-A=1."],
 ["c/main_file.txt","[[\"c.pl\",[[c,1],[d,1]]]]"]],
-% End_files\n
+% End_files
 [["c/c.pl","%c(A).\n%A=1.\nc(1).\n%d(A).\n%A=1.\nd(A):-A=1."],
 ["c/main_file.txt","[[\"c.pl\",[[c,1],[d,1]]]]"]]
 ).

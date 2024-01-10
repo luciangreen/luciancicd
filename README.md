@@ -130,6 +130,16 @@ halt
 
 * Generated code currently loses (newline, etc.) formatting. Lucian CI/CD will pretty print the code.
  
+# Tests
+
+* Running the tests
+To run all tests, enter:
+`lc_test(NTotal,Score).`
+
+To run a specific test:
+`lc_test1(TestNumber,Passed).`
+where TestNumber is the test number from <a href="luciancicdverify.pl">luciancicdverify.pl</a>.
+
 # Authors
 
 Lucian Green - Initial programmer - <a href="https://www.lucianacademy.com/">Lucian Academy</a>
