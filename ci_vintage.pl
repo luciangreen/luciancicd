@@ -42,20 +42,26 @@ diff_combos_vintage(A,A,[A]) :- !.
 
 diff_combos_vintage(Before,After,Combos4) :-
  %trace,
- find_insertions_and_deletions_vintage(Before,After,Insertions,Deletions,Permanent_insertions),
+ find_insertions_and_deletions_vintage(Before,After,_Insertions,_Deletions,Permanent_insertions),
  
- replace11_vintage(After,Insertions,Permanent_insertions,[],After2),
+diff(Before,After,Insertions,Deletions,Permanent_insertions,[],After3),
+
+ %replace11_vintage(After,Insertions,Permanent_insertions,[],After2),
  %trace,
  %append(Before,["*"],Before1),
  %append(After2,["*"],After21),
- replace12_vintage(Before,After2,Deletions,[],After3),
+ %replace12_vintage(Before,After2,Deletions,[],After3),
  %delete(After31,"*",After3),
  save_diff_html(After3),
- findall(Combos,find_combos1_vintage(Insertions,Deletions,Permanent_insertions,Combos),Combos2),
+ fail_if_greater_than_n_changes(After3),
+  findall(Combos,find_combos1_vintage(Insertions,Deletions,Permanent_insertions,Combos),Combos2),
  findall(Combos1,(member(Combos3,Combos2),
  find_combos3_vintage(After3,Combos3,[],Combos1)),Combos41),
  sort(Combos41,Combos4),!.
+ 
+diff_combos_vintage(_Before,After,[After]) :- !.
 
+/*
 replace11_vintage([],_Insertions,_Permanent_insertions,After,After) :- !.
 replace11_vintage(After,Insertions,Permanent_insertions,After2,After3) :-
  After=[After4|After5],
@@ -143,6 +149,7 @@ replace12_vintage(Before,After,Deletions,After2,After3) :-
  foldr(append,[After2,%After4,
  After7],After6)),
  replace12_vintage(Before52,After52,Deletions,After6,After3).
+*/
 
 % find_insertions_and_deletions_vintage([1,2,3],[1,2,4,3],In,D).
 % In = [4],
@@ -170,10 +177,11 @@ find_insertions_and_deletions_vintage(Before,After,Insertions,Deletions,Permanen
  subtract(After1,Permanent_insertions,Insertions),
  subtract(Before1,Permanent_insertions,Deletions).
 
+/*
 find_insertions_and_deletions_vintage_old(Before,After,Insertions,Deletions) :-
  subtract(After,Before,Insertions),
  subtract(Before,After,Deletions),!.
-
+*/
 
 find_combos1_vintage(Insertions,Deletions,Permanent_insertions,Combos) :-
  findall([i,In],member(In,Insertions),In1),

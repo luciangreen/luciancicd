@@ -9,8 +9,10 @@
 :-include('../Philosophy/sub_term_with_address.pl').
 %:-include('../SSI/ssi.pl'). %XXX
 %:-dynamic resort_n/1.
-find_dependencies(Dep99_name,Dep99_arity,F
-,Functions2b,Pred_numbers) :-
+find_dependencies(Dep99_name,Dep99_arity,F,F2
+,Functions2b,Pred_numbers2) :-
+%trace,
+%writeln1(find_dependencies(Dep99_name,Dep99_arity,F,F2,Functions2b,Pred_numbers2)),
 %trace,
 /*
 A=[15
@@ -42,7 +44,14 @@ convert_to_grammar_part1(Functions1,[],Functions2,_),add_line_numbers_to_algorit
 %trace,
 a_to_m2(N22s,Functions3%2a%3
 ,Pred_numbers,
-Functions2b),!.
+Functions2b),
+
+%trace,
+findall([NF,Arity,PN2],(member(PN1,Functions2b),member([NF,Arity,PN2],Pred_numbers),member(PN1,PN2)),Pred_numbers2),
+
+findall([NF,Args|Rest],(member([NF,Arity,_],Pred_numbers2),
+member([NF,Args|Rest],F),length(Args,Arity)),F2),
+!.
 %a_and_m_to_clp(Functions3,Functions2b,Functions2c),
 %lp_to_c(Functions2c,Functions2d)
 

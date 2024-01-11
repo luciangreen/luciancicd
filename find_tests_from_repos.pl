@@ -61,7 +61,7 @@ findall(G3,(member(G2,G1),string_concat(G2,"/",G3)),G4)
 %foldr(append,K0,K01),
 
 working_directory1(Old_D,Old_D),
-
+%trace,
 findall(Tests1,(member([D,K31],K01),
 
 working_directory1(_,Old_D),
@@ -247,7 +247,7 @@ foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Pro
 fastp2lp2(H1,LP1) :-
 
 %string_concat(H10,"\n%",H1),
-
+%pwd,
 foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter([string,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
 
 working_directory1(A,A),
@@ -302,7 +302,7 @@ foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
 	],_Text42)%,writeln1(Text42)%,abort
  	)).
 	%,writeln1(Result2)
-	
+%/*	
 find_tests2(%H1,
 H,K11,LP,Tests) :-
 
@@ -368,13 +368,21 @@ H,K11,LP,Tests) :-
 	%term_to_atom((F,F1),F00),
 	%term_to_atom(F0,F00),
 	%term_to_atom(F10,F1),
-	foldr(string_concat,["(",F,",",F1,")"],F2)
+
+%trace,
+	foldr(string_concat,["(",F,",",F1,")"],F2),
+	foldr(string_concat,["a:-",F2,"."],F3),
+	working_directory1(WD1,WD1),
+	home_dir1(HD),
+	working_directory1(_,HD),
+	fastp2lp2(F3,_),
+	working_directory1(_,WD1)
 	%atom_string(F0,F),
 	%atom_string(F10,F1),
 	%F2=%F0%
 	%(F0,F10)
 	),Tests1),sort(Tests1,Tests),!.
-
+%*/
 	
 	% is K11 just d or gh/d x d
 	
@@ -383,7 +391,7 @@ H,K11,LP,Tests) :-
 /*
 find_tests3(H,K11,LP,Tests) :-
 
-findall(B,(member([[n,comment],A]),
+findall(B,(member([[n,comment],A],LP),
 term_to_atom(A1,A),
 ((functor(A1,(=),2),arg(1,A1,N),arg(2,A1,Ans),B=[ans,N,=,Ans])->true;
 (functor(A1,N,Ar),numbers(Ar,1,[],ArN),findall(ArN2,(member(ArN1,ArN),arg(ArN1,A1,ArN2),var(ArN2)),ArN3),

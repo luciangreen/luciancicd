@@ -48,15 +48,18 @@ Later:
 :-include('luciancicdverify.pl').
 :-include('luciancicdverify1.pl').
 :-include('../gitl/find_files.pl').
+:-include('diff-cgpt.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
+:-dynamic home_dir1/1.
 :-dynamic ci_fail/1.
 :-dynamic time1/1.
 :-dynamic log/1.
 :-dynamic pred_list/1.
 :-dynamic pred_list_v/1.
 :-dynamic success/1.
+:-dynamic success1/1.
 :-dynamic success_tmp/1.
 :-dynamic test_n/1.
 :-dynamic diff_html_n/1.
@@ -111,6 +114,10 @@ working_directory1(_,A1)
 
 luciancicd :-
 	
+	working_directory1(A1000,A1000),
+
+	retractall(home_dir1(_)),assertz(home_dir1(A1000)),
+
 	retractall(diff_html_n(_)),
 	assertz(diff_html_n(1)),
 
@@ -169,16 +176,9 @@ working_directory1(_,A1),
 	(%trace,
 	(New=[]->true;(ci_fail(Ci_fail),forall(member(Ci_fail1,Ci_fail),Ci_fail1=1))))
 ->writeln2("There are no modifications to repositories to test.");
-
 % if 
-
 (
-
-
-
-
 %trace,
-
 
 findall(Repository1,(member([Path,_],New),
 string_concat(Path1,".txt",Path),
@@ -373,8 +373,8 @@ get_order(AT333AD,AT333B),
  )),
 */
 %trace,
-delete_repeated_preds(AT333AD,AT333),
-find_dependencies(Dep99_name,Dep99_arity,AT333,Dependencies7d,Pred_numbers0),
+delete_repeated_preds(AT333AD,AT333AE),
+find_dependencies(Dep99_name,Dep99_arity,AT333AE,AT333,Dependencies7d,Pred_numbers0),
 
 %trace, 
  %length(AT333,AT333L),
@@ -980,20 +980,21 @@ remove_end_comment,
 writeln2("All tests were successful."),
 home_dir(HD),
 working_directory1(_,HD)
-
+,S001=0,retractall(sucess1(_)),assertz(success1(S001))
 
 )
 ;((true%not(Results21=[])
 ->(remove_end_comment,
 
 writeln2("1 or more tests failed.")
+,S001=1,retractall(sucess1(_)),assertz(success1(S001))
 
 );true))
 ))),
 
 working_directory1(_,A1),
 
-success(S000),
+%success(S000),
 working_directory1(A22,A22),
 
 repositories_paths([Path]),
@@ -1005,7 +1006,7 @@ term_to_atom(Log,Log1),
 %Log1=[Log],
 time1(Time),foldr(string_concat,["../lc_logs/log",Time,".txt"],Log_file_name),
 open_s(Log_file_name,write,S21T),
-write(S21T,[S000,Log1]),close(S21T),
+write(S21T,[S001,Log1]),close(S21T),
 
 working_directory1(_,A22)
 .
@@ -1305,6 +1306,7 @@ pp0_1(A,B):-
  lines_to_comments(A,B))).
  
 %lines_to_comments([],[]) :- !.
+lines_to_comments(A,_) :- member([],A),writeln("Error in main_file.txt, or other."),abort.
 lines_to_comments(A,B) :-
  %term_to_atom(A,A1),
  split_string(A,"\n\r","\n\r",C),
@@ -1603,7 +1605,10 @@ put_in_nums(T49,AT333,T491) :- % leave exact comments, includes x
 
 % leave comments as AT333B, put rest in order
 put_in_order(T4721,AT333B,T47) :-
- findall([A, [[n,comment]|C]],member([A, [[n,comment]|C]],AT333B),AT333BA),
+%trace,
+%writeln1(put_in_order(T4721,AT333B,T47)),
+ findall([A, [N|C]],(member([A, [N|C]],AT333B),
+ (N=[n,comment]->true;N=":-")),AT333BA),
  subtract(T4721,AT333BA,T472),
 %trace,
  findall(B1,(member([_, [[n,B]|C]],T472),
@@ -1620,7 +1625,7 @@ list_to_set1(A,B) :-
  list_to_set1(A,[],B),!.
  
 list_to_set1([],A,A) :- !.
-list_to_set1(A,B,C) :-
+/*list_to_set1(A,B,C) :-
  A=[D|E],
  (E=[]->append(B,[D],C);
  ((D=[[n,comment],[String]],string(String),string_strings(String,C1),contains_assignment(C1))->
@@ -1640,7 +1645,7 @@ contains_assignment(C1) :-
 append(_A1,Bx,C1),append(_E6,Dxx,Bx),append(E61,Dxx1,Dxx),(append(["."],_Exx,Dxx1)),foldr(string_concat,E61,E612),sub_string(E612,_,_,_,"=").
 %subtract1(A,B,C) :-
 % subtract1(A,B,[],C),!.
-
+*/
 /*
 subtract1(A,[],A) :- !.
 subtract1(A,B,G) :-
@@ -1674,8 +1679,9 @@ sort1(A,B,C) :-
 
 get_order(AT333,AT333B) :-
 %trace,
+%writeln1(get_order(AT333,AT333B)),
  findall(AT333C,(member(AT333D,AT333),
- (AT333D=[[n, comment], _]->
+ ((AT333D=[N|_],(N=[n, comment]->true;N=":-"))->
  AT333C=AT333D;
  (AT333D=[[n, B]| _]->
  AT333C=[[n, B]]))),AT333E),

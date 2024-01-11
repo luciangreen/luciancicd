@@ -11,3 +11,4 @@ omit_paths1([
 %"b" % omits GitHub2/b/
 ]).
 
+fail_if_greater_than_n_changes1(7).

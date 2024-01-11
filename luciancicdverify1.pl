@@ -45,7 +45,7 @@ luciancicd(At_start,Start_files,End_files) :-
 
  
  luciancicd,
- (success(0)->
+ (success1(0)->
  (
  
  working_directory1(_,Path),
@@ -63,8 +63,13 @@ luciancicd(At_start,Start_files,End_files) :-
 
  working_directory1(_,A),
  
- msort(F0,F1),
- msort(End_files1,F1));(%working_directory1(_,A),
+ msort(F0,F1A),
+ msort(End_files1,F1B),
+ 
+ writeln1(["Result",F1A]),
+ writeln1(["Correct Result",F1B]),
+ F1A=F1B
+ );(%working_directory1(_,A),
  fail)),
  
  

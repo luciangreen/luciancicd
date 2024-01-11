@@ -9,6 +9,7 @@
 * Bottom-up Version: Lucian CI/CD can now check sets of repositories bottom-up, which means there are up to seven possible changes to a set of current predicates to find a working combination of. Current predicates are each predicate in depth first, post order, or sets of clauses or predicates involved in loops.
 
 * Other programming languages apart from Prolog aren't fully supported yet (even though the <a href="https://github.com/luciangreen/luciancicd/tree/ba8cba7e419e036050cb0ff203e9289b91897169">non-bottom-up version</a> does).
+
 # Getting Started
 
 Please read the following instructions on how to install the project on your computer for automatic testing.
@@ -49,7 +50,7 @@ halt
 
 # Instructions and troubleshooting
 
-* Change the LPPM user (your GitHub username) and the repositories and any omitted folders in `settings.pl`.
+* Change the LPPM user (your GitHub username), the repositories and any omitted folders and `fail_if_greater_than_n_changes1` (used to find more combinations of lines to test) in `settings.pl`.
 
 * If necessary, modify tests in the Prolog files in the repositories, for example:
 
@@ -96,11 +97,11 @@ halt
     * Text data files
 
 * So far, Prolog files should test Prolog.
-* Other text data files and some comments that aren't in the latest version may not necessarily be kept by Lucian CI/CD. <b>Important:</b> run `set_up_luciancicd.` to prevent tests and comments from being deleted before entering code to test changes in. Also check if `main_file.txt` contains all main files and main predicates.
+* Other text data files and some comments that aren't in the latest version may not necessarily be kept by Lucian CI/CD. Check if `main_file.txt` contains all main files (files with main predicates) and main predicates.
 
-* Please ensure that each test's file loads the necessary files.
+* Please ensure that each repository set loads the necessary files.
 
-* `set_up_luciancicd.` - Records time modified of repositories in `repositories_paths1//1` in `settings.pl`. I.e. it saves the files without testing them.
+* `set_up_luciancicd.` - Records time modified of repositories in `repositories_paths1//1` (from `settings.pl`). I.e. it saves the files without testing them.
 
 * `luciancicd.` - Tests repositories with changed modification dates. Run before committing changes.
 
@@ -109,8 +110,6 @@ halt
 * Note: Once all tests are successful, the files in the temporary folder `../private2/luciancicd-testing/` are moved into the repository. To undo this, enter `move_to_repository_or_back.`.
 
 * Once the files are in the repository, you can commit the changes.
-
-* Run `set_up_luciancicd.` to save the files without running Lucian CI/CD.
 
 * Note: A notification such as `"Cannot find "../private2/luciancicd-cicd-tests/tests_a.txt"` means the repository `"a"` is connected with a changed file through dependencies, but Lucian CI/CD can't install it.
 
@@ -122,13 +121,13 @@ halt
 
 # Caveats
 
-* Causes of the "1 or more tests failed." error include the first entered algorithm after deleting `tests_x.txt` not passing all tests. Programs with uninstantiated variables, etc, also cause the error.
+* Causes of the "1 or more tests failed." error include the first entered algorithm after deleting `Github_lc/tests_*x*.txt` not passing all tests. Programs with uninstantiated variables, etc, also cause the error.
 
 * Intra and some inter-line comments may currently be lost. Lucian CI/CD keeps only inter-predicate comments.
 
 * Writeln and commands that don't produce checkable output are not kept unless they are in `keep1/1` in the `keep.pl` register.
 
-* Generated code currently loses (newline, etc.) formatting. Lucian CI/CD will pretty print the code.
+* Generated code currently loses (newline, etc.) formatting. Lucian CI/CD will pretty print the code later.
  
 # Tests
 

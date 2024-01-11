@@ -412,7 +412,8 @@ break_into_tokens(A,B) :-
  split_on_substring117(A1, `#@~%$?-+*^,()|.:;=_/[]<>{}\n\r\s\t\\"!\``,[],B),!. 
 */
 
-fail_if_greater_than_n_changes(N,After3) :-
+fail_if_greater_than_n_changes(After3) :-
+fail_if_greater_than_n_changes1(N),
 %trace,
  findall(A,(member(A,After3),not(string(A))),B),
  length(B,L),L=<N.
@@ -437,16 +438,17 @@ diff_group_combos(Before,After,Combos4) :-
  assertz(changes(1)),
  %differentiate(Before,Before0),
  %differentiate(After,After0),
- find_insertions_and_deletions(Before,After,Insertions,Deletions),
+ %find_insertions_and_deletions(Before,After,Insertions,Deletions),
  
+ diff(Before,After,_,_,[],[],After31),
 
  
- replace11(After,Insertions,[],After2),
- replace12(Before,After2,Deletions,[],After31),
+ %replace11(After,Insertions,[],After2),
+ %replace12(Before,After2,Deletions,[],After31),
  join_and_change(After31,[],After3),
  %trace,
  save_diff_html(After3),
- fail_if_greater_than_n_changes(7,After3),
+ fail_if_greater_than_n_changes(After3),
  %length(After3,L)
  findall([[i,_],I],(member([[i,_NA],I],After3)%,not(number(NA))
  ),Insertions1),
@@ -485,14 +487,16 @@ diff_group_combos1(Before,After,Combos4) :-
  assertz(changes(1)),
  %differentiate(Before,Before0),
  %differentiate(After,After0),
- find_insertions_and_deletions(Before,After,Insertions,Deletions),
+ %find_insertions_and_deletions(Before,After,Insertions,Deletions),
  
+ diff(Before,After,_,_,[],[],After31),
 
- 
- replace11(After,Insertions,[],After2),
- replace12(Before,After2,Deletions,[],After31),
+
+ %replace11(After,Insertions,[],After2),
+ %replace12(Before,After2,Deletions,[],After31),
  %trace,
  join_and_change(After31,[],After3),
+ fail_if_greater_than_n_changes(After3),
  %trace,
 
  findall(A1,(member(A,After3),
@@ -609,6 +613,7 @@ diff_combos(Before,After,Combos4) :-
  sort(Combos41,Combos4),!.
 */
 
+/*
 replace11([],_Insertions,After,After) :- !.
 replace11(After,Insertions,After2,After3) :-
  After=[After4|After5],
@@ -689,6 +694,7 @@ replace12(Before,After,Deletions,After2,After3) :-
  foldr(append,[After2,%After4,
  After7],After6)),
  replace12(Before52,After52,Deletions,After6,After3).
+*/
 
 % find_insertions_and_deletions([1,2,3],[1,2,4,3],In,D).
 % In = [4],
@@ -698,9 +704,11 @@ replace12(Before,After,Deletions,After2,After3) :-
 % In = [],
 % D = [2].
 
+/*
 find_insertions_and_deletions(Before,After,Insertions,Deletions) :-
  subtract(After,Before,Insertions),
  subtract(Before,After,Deletions).
+*/
 
 find_combos1(Insertions,Deletions,%Changes,
 Combos) :-
