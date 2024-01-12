@@ -8,7 +8,7 @@ diff([X|Xs], [X|Ys], Ins, Del, PI, List1, List2) :-
     diff(Xs, Ys, Ins, Del, PI, List3, List2),
     !.
 
-% Case 2: Head elements are different - X is in deletions
+% Case 2: Head elements are different - X is in insertions
 diff([X|Xs], Ys, [X1|Ins], Del, PI, List1, List2) :-
     (member(X,PI)->(append(List1,[[p,X]],List3),
     X1=[]);
@@ -17,7 +17,7 @@ diff([X|Xs], Ys, [X1|Ins], Del, PI, List1, List2) :-
     diff(Xs, Ys, Ins, Del, PI, List3, List2),
     !.
 
-% Case 3: Head elements are different - Y is in insertions
+% Case 3: Head elements are different - Y is in deletions
 diff(Xs, [Y|Ys], Ins, [Y1|Del], PI, List1, List2) :-
     (member(Y,PI)->(append(List1,[[p,Y]],List3),
     Y1=[]);
