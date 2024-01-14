@@ -314,20 +314,27 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
  findall(AT233C,(member(AT233A1,AT233),(AT233A1=[[n, comment], [["File delimiter", _, _]]]->AT233C=AT233A1;AT233C=[o,AT233A1])),AT233A),
  findall(AT133C,(member(AT133A1,AT133),(AT133A1=[[n, comment], [["File delimiter", _, _]]]->AT133C=AT133A1;AT133C=[n,AT133A1])),AT133A),
 %trace,
-%merge_files(AT233A,AT133A,AT333A),
+%merge_files(AT233A,AT133A,AT333AF),
 %trace,
 %merge21(AT233A,AT133A,AT333A),
+%merge_files(AT233A,AT133A,AT333A),
 AT133A=AT333A,
 
 %trace,
 findall(AT333C,(member(AT333A1,AT333A),(AT333A1=[[n, comment], [["File delimiter", _, _]]]->AT333C=AT333A1;
 AT333A1=[_,AT333C])),AT333AD),
+
+
+%trace,
+%findall(AT333C,(member(AT333A1,AT333AF),(AT333A1=[[n, comment], [["File delimiter", _, _]]]->AT333C=AT333A1;
+%AT333A1=[_,AT333C])),AT333AG),
 %trace,
 %trace,
 %pred_list(PL),
 %writeln(pred_list(PL)),
 %
 %trace,
+
 get_order(AT333AD,AT333B),
  % * merge, copy of new or old from start, into files, place same name, arity preds together
  % put same pred name arity together or at end if new
@@ -374,7 +381,9 @@ get_order(AT333AD,AT333B),
 */
 %trace,
 delete_repeated_preds(AT333AD,AT333AE),
+%trace,
 find_dependencies(Dep99_name,Dep99_arity,AT333AE,AT333,Dependencies7d,Pred_numbers0),
+%get_order(AT333,AT333B),
 
 %trace, 
  %length(AT333,AT333L),
@@ -984,7 +993,7 @@ working_directory1(_,HD)
 
 )
 ;((true%not(Results21=[])
-->(remove_end_comment,
+->(working_directory1(_,A1),remove_end_comment,
 
 writeln2("1 or more tests failed.")
 ,S001=1,retractall(sucess1(_)),assertz(success1(S001))
@@ -1541,6 +1550,7 @@ merge_files(AT233,AT133,AT3331) :-
  %trace,
  AT3332=AT3331.
  %list_to_set1(AT3332,AT3331).
+ %list_to_set(AT3332,AT3331).
  
 merge_files2([],AT1331,AT333,AT3331) :-
  append(AT333,AT1331,AT3331),!.
@@ -1554,6 +1564,27 @@ merge_files2(AT2331,AT1331,AT333,AT3331) :-
  append(AT333,[[[[n, comment], [["File delimiter", PZ, FZ]]]|T12]],AT3332),
  merge_files2(AT2333,AT1333,AT3332,AT3331).
 
+/*
+merge_files2([],AT1331,AT333,AT3331) :-
+ append(AT333,AT1331,AT3331),!.
+merge_files2(AT2331,AT1331,AT333,AT3331) :-
+ AT2331=[[[[n, comment], [["File delimiter", PZ, FZ]]]|T10]|AT2333],
+ (member([[[n, comment], [["File delimiter", PZ, FZ]]]|T11],AT1331)->
+ (not(string_concat(_,".pl",FZ))->
+ (delete(AT1331,[[[n, comment], [["File delimiter", PZ, FZ]]]|T10],AT1333),
+ append(AT333,[[[[n, comment], [["File delimiter", PZ, FZ]]]|T12]],AT3332),
+ merge_files2(AT2333,AT1333,AT3332,AT3331));
+ 
+ (append(T10,T11,T12),
+ %merge_files3(T10,T11,T12),
+ delete(AT1331,[[[n, comment], [["File delimiter", PZ, FZ]]]|T11],AT1333),
+ append(AT333,[[[[n, comment], [["File delimiter", PZ, FZ]]]|T12]],AT3332),
+ merge_files2(AT2333,AT1333,AT3332,AT3331)));
+ (T12=T10,AT1331=AT1333,
+ append(AT333,[[[[n, comment], [["File delimiter", PZ, FZ]]]|T12]],AT3332),
+ merge_files2(AT2333,AT1333,AT3332,AT3331)))
+ .*/
+ 
 merge_files3([],AT1331,AT1331%,AT3331
 ) :-
  %append(AT333,AT1331,AT13331),
@@ -1613,7 +1644,28 @@ put_in_order(T4721,AT333B,T47) :-
 %trace,
  findall(B1,(member([_, [[n,B]|C]],T472),
  (%false,B=comment,once(member([A,[[n,B]|C]],AT333B)))->B1=[A,[[n,B]|C]];
- (once(member([A,[[n,B]]],AT333B))->B1=[A,[[n,B]|C]]))),D1),
+ ((once(member([A,[[n,B]|C1]],AT333B)),append(C1,_,C))->B1=[A,[[n,B]|C]]))),D1),
+ /*
+ findall([n,B],member([_, [[n,B]|C]],T472),B2),
+ sort(B2,B3),%length(B3,B3L),
+ %numbers(B3L,1,[],Ns),
+ findall(X,(member(X2,B3),findall(X3,(member(X1,T472)))
+ findall([N1,[[n,B]|C]],(member(N1,Ns),get_item_n(T472,N1,[_, [[n,B]|C]])),B5),
+ %findall(B3,(member([_, [[n,B]|C]],T472),member([n,B])))
+
+ %findall([A,[[n,B]|C]],member([A, [[n,B]|C]],AT333B),B21),
+ findall([n,B],member([A, [[n,B]|C]],AT333B),B21),
+ sort(B21,B31),length(B31,B31L),
+ numbers(B31L,1,[],Ns1),
+ findall([N11,B41],(member(N11,Ns1),get_item_n(AT333B,N11,B41)),B51),
+ %findall(B31,(member([_, [[n,B]|C]],T472),member([n,B])))
+ 
+ findall(B1,(member([N1, [[n,B]|C]],B5),
+(%false,B=comment,once(member([A,[[n,B]|C]],AT333B)))->B1=[A,[[n,B]|C]];
+ ((%trace,
+ once(member([N1,[A,[[n,B]|_C1]]],B51))%,append(C1,_,C)
+ )->B1=[A,[[n,B]|C]]))),D1),
+ */
  append(AT333BA,D1,D),
  findall(E,member([E,_],D),F),
  sort(F,G),
@@ -1683,8 +1735,10 @@ get_order(AT333,AT333B) :-
  findall(AT333C,(member(AT333D,AT333),
  ((AT333D=[N|_],(N=[n, comment]->true;N=":-"))->
  AT333C=AT333D;
- (AT333D=[[n, B]| _]->
- AT333C=[[n, B]]))),AT333E),
+ (AT333D=[[n, B],Args| _]->
+ (((%trace,
+ not(Args=":-"),not(Args=[]))->Args1=[Args];Args1=[]),
+ AT333C=[[n, B]|Args1])))),AT333E),
  %list_to_set(AT333E,AT333F),
  AT333E=AT333F,
  length(AT333F,AT333FL),

@@ -26,26 +26,26 @@ lc_test(NTotal,Score) :-
 lc_test(NTotal,NTotal,Score,Score,List,List) :- !.
 lc_test(NTotal1,NTotal2,Score1,Score2,List1,List2) :-
 	NTotal3 is NTotal1+1,
-	gh2tmp,
+	%gh2tmp,
 	lc_test0(NTotal3,At_start,Start_files,End_files),
 	((luciancicd(At_start,Start_files,End_files)
 	%writeln1([result1,Result1]),
 	%Result=Result1	
 	)->(Score3 is Score1+1,append(List1,[[lc_test,NTotal3,passed]],List3));(Score3=Score1,append(List1,[[lc_test,NTotal3,failed]],List3))),
 	writeln0(""),
-	 tmp2gh,
+	 %tmp2gh,
 	lc_test(NTotal3,NTotal2,Score3,Score2,List3,List2),!.
 
 %% lc_test individual cases, Debug=trace=on or off, N=case number, Passed=output=result
 
 lc_test1(N,Passed) :-
- gh2tmp,
+ %gh2tmp,
 	lc_test0(N,At_start,Start_files,End_files),
 	((luciancicd(At_start,Start_files,End_files)
 	%writeln1([result1,Result1]),
 	%Result=Result1
 	)->(Passed=passed,writeln0([lc_test,N,passed]));(Passed=failed,writeln0([lc_test,N,failed]))),
-	 tmp2gh,
+	 %tmp2gh,
 !.
 
 lc_test0(1,true,
@@ -58,7 +58,7 @@ lc_test0(1,true,
 ).
 
 lc_test0(2,true,
-[["c/c.pl","%a([a,b,c],[],A).\n%A = [a, b, c].\na([],A,A):-!.\na(A,B,C):-\n A=[D|E],\n append(B,[D],F),\n a(E,F,C),!."],
+[["c/c.pl","%a([a,b,c],[],A).\n%A = [a, b, c].\na([],A,A):-!.\na(A,B,C):-A=[D|E],append(B,[D],F),a(E,F,C),!."],
 ["c/main_file.txt","[[\"c.pl\",[[a,3]]]]"]],
 [["c/c.pl","%a([a,b,c],[],A).\n%A = [a, b, c].\na([],A,A):-!.\na(A,B,C):-A=[D|E],append(B,[D],F),a(E,F,C),!."],
 ["c/main_file.txt","[[\"c.pl\",[[a,3]]]]"]]
@@ -99,3 +99,23 @@ lc_test0(6,true,
 [["c/c.pl","%a(0,A).\n%A=1.\n%a(1,A).\n%A=1.\na(1,1) :- !.\na(A,B):-b(A,B).\n%b(0,A).\n%A=1.\nb(A,B):-c(A,B).\n%c(0,A).\n%A=1.\nc(A,B):-C is A+1,a(C,B)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,2]]]]"]]
 ).
+
+lc_test0(7,true,
+[["c/c.pl","%c(A).\n%A=1.\nc(1).\nc(2)."],
+["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]],
+[["c/c.pl","%c(A).\n%A=1.\nc(1)."],
+["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]]
+).
+
+lc_test0(8,true,
+[["c/c.pl","%c(A).\n%A=2.\nc(C):-A=1,B=1,C is A+B."],
+["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]],
+[["c/c.pl","%c(A).\n%A=2.\nc(C):-A=1,B=1,C is A+B."],
+["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]]
+).
+/*lc_test0(9,false,
+[["c/c.pl","%c(A).\n%A=3.\nc(C):-A=2,B=2,C is A+B."],
+["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]],
+[["c/c.pl","%c(A).\n%A=3.\nc(C):-A=1,B=2,C is A+B."],
+["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]]
+).*/

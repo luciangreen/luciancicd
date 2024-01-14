@@ -18,6 +18,9 @@ tmp2gh :-
 
 % rm after
 luciancicd(At_start,Start_files,End_files) :-
+ (At_start=true->
+ % overwrites existing tests_c.txt, leaves the new one behind for bug checking
+ gh2tmp;true),
  working_directory1(A,A),
  repositories_paths1([Path]),
  working_directory1(_,Path),
@@ -45,6 +48,7 @@ luciancicd(At_start,Start_files,End_files) :-
 
  
  luciancicd,
+
  (success1(0)->
  (
  
@@ -63,6 +67,10 @@ luciancicd(At_start,Start_files,End_files) :-
 
  working_directory1(_,A),
  
+ (At_start=true->
+ % overwrites existing tests_c.txt, leaves the new one behind for bug checking
+ tmp2gh;true),
+
  msort(F0,F1A),
  msort(End_files1,F1B),
  
