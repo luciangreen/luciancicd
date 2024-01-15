@@ -49,6 +49,7 @@ Later:
 :-include('luciancicdverify1.pl').
 :-include('../gitl/find_files.pl').
 :-include('diff-cgpt.pl').
+:-include('merge3.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
@@ -311,14 +312,19 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
 
  %append(AT233,AT133,AT333),
 %trace, 
- findall(AT233C,(member(AT233A1,AT233),(AT233A1=[[n, comment], [["File delimiter", _, _]]]->AT233C=AT233A1;AT233C=[o,AT233A1])),AT233A),
+ findall(AT233C,(member(AT233A1,AT233),(AT233A1=[[n, comment], [["File delimiter", _, _]]]->AT233C=AT233A1;
+ ((AT233A1=[N, _],(N=[n, comment]->true;N=":-"))->fail;
+ AT233C=[o,AT233A1]))),AT233A),
  findall(AT133C,(member(AT133A1,AT133),(AT133A1=[[n, comment], [["File delimiter", _, _]]]->AT133C=AT133A1;AT133C=[n,AT133A1])),AT133A),
 %trace,
 %merge_files(AT233A,AT133A,AT333AF),
 %trace,
 %merge21(AT233A,AT133A,AT333A),
 %merge_files(AT233A,AT133A,AT333A),
-AT133A=AT333A,
+%trace,
+merge_files1a(AT233A,AT133A,AT333A),
+%merge3(AT233A,AT133A,AT333A),
+%AT133A=AT333A,
 
 %trace,
 findall(AT333C,(member(AT333A1,AT333A),(AT333A1=[[n, comment], [["File delimiter", _, _]]]->AT333C=AT333A1;
@@ -380,6 +386,7 @@ get_order(AT333AD,AT333B),
  )),
 */
 %trace,
+ %pred_list(PL1),
 delete_repeated_preds(AT333AD,AT333AE),
 %trace,
 find_dependencies(Dep99_name,Dep99_arity,AT333AE,AT333,Dependencies7d,Pred_numbers0),
@@ -390,18 +397,49 @@ find_dependencies(Dep99_name,Dep99_arity,AT333AE,AT333,Dependencies7d,Pred_numbe
  %numbers(AT333L,1,[],AT333N),
  
  % New ones
-  %trace,
-  
-
- length(AT333,AT333L),
+ 
+ (false%PL1=[] % true - t1-8, false - t9
+ ->(AT333AH=AT333A,AT333AH1=AT333,AT333AD1=AT333,AT333AD2=AT333);
+ (AT333AH=AT333A,
+ AT333AH1=AT333A,AT333AD1=AT333AD,AT333AD2=AT333)),
+ 
+ %trace,
+ 
+ length(AT333AH1,AT333L),
  numbers(AT333L,1,[],AT333N3),
+
+%trace,
+ 
  findall(AT233N1,(member(AT233N1,AT333N3),
- get_item_n(AT333A,AT233N1,AT233N2),
- member(AT233N2,AT133A)),AT233N),
+ get_item_n(AT333AH,AT233N1,AT233N2),
+ member(AT233N2,AT133A)),AT233N1a),
  %[1, 3, 4, 11, 12, 13, 14, 15, 16]
+ sort(AT233N1a,AT233N),
+  %
+ %trace,
+
  findall(AT233N1,(member(AT233N1,AT333N3),
- get_item_n(AT333A,AT233N1,AT233N2),
- member(AT233N2,AT233A)),AT233N_old),
+ get_item_n(AT333AH,AT233N1,AT233N2),
+ %not(AT233N2=[[n, comment], [["File delimiter", _, _]]]),
+ 
+ /*
+ ((member(AT233N2,AT133A),
+ %
+ AT233N2=[_,[NZ|_]],
+ %not
+ ((NZ=[n, comment]->true;NZ=":-"%,member([_,[NZ|_]],AT133A)
+ )))->true;%(*/
+ member(AT233N2,AT233A)
+ /*not((member(AT233N2,AT133A),
+ %
+ AT233N2=[_,[NZ|_]],
+ %not
+ ((NZ=[n, comment]->true;NZ=":-"%,member([_,[NZ|_]],AT133A)
+ ))))
+ */
+ ),AT233N_old1a),
+
+ sort(AT233N_old1a,AT233N_old),
  % [1, 2, 4, 5, 6, 7, 8, 9, 10]
  %length(AT233,AT233L)
  %numbers(AT233L,1,[],AT233N),
@@ -450,9 +488,13 @@ pred_rest(Arity1,Rest) :-
 %get_item_n(AT333,AT133N1,[[n,comment]|_])),Comment_pred_ns),
 %trace,
  findall(AT233N1,(member(AT233N1,AT333N3),
- get_item_n(AT333A,AT233N1,AT233N2),
+ get_item_n(AT333AH,AT233N1,AT233N2),
  member(AT233N2,AT133A),
- (AT233N2=[[n,comment]|_]->true;AT233N2=[_,[[n,comment]|_]])),Comment_pred_ns),
+ (AT233N2=[[n,comment]|_]->true;(AT233N2=[_,[[n,comment]|_]]%->true;
+ %AT233N2=[_,[":-"|_]])
+ ))),Comment_pred_ns1),
+ %trace,
+ sort(Comment_pred_ns1,Comment_pred_ns),
  
   append(Comment_pred_ns,Includes_pred_ns,Comment_pred_ns2),
 %findall(Comment_pred_n,(member(Comment_pred_n,Comment_pred_ns),(member(Comment_pred_n,AT233N))),Comment_pred_ns2),
@@ -552,11 +594,11 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
 
  findall(LD52,(%member(LD51,Old_a%LD4
  %),
- member([_,_,LD5],Old_a1),get_item_n(AT333,LD5,LD52)),AT2331c),
-
+ member([_,LD5a,LD5],Old_a1),(var(LD5a)->get_item_n(AT333AD1,LD5,LD52);get_item_n(AT333AD2,LD5a,LD52))),AT2331c),
+%trace,
  findall(LD52,(%member(LD51,New_a%LD4
  %),
- member([_,_,LD5],New_a1),get_item_n(AT333,LD5,LD52)),AT1331c),
+ member([_,LD5a,LD5],New_a1),(var(LD5a)->get_item_n(AT333AD1,LD5,LD52);get_item_n(AT333AD2,LD5a,LD52))),AT1331c),
  %trace,
  %list_to_set1(AT2331c1,AT2331c),
  %list_to_set1(AT1331c1,AT1331c),
@@ -624,7 +666,10 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
 
  foldr(string_concat,T44,T451),
 
- catch(term_to_atom(T49,T451),_,fail),
+ catch(term_to_atom(T49,T451),_,fail),%not(T49=[]),
+ %writeln([*,T49]),
+ %trace,
+ %not((forall(member(XY,T49),(XY=[[n,comment]|_]->true;XY=[":-"|_])))),
  %pp0(T49,T47),
 
 %trace,
@@ -800,7 +845,7 @@ working_directory1(A,A),
 append(AT2331c,AT1331c,AT3331c),
 
 tests_pred2(Tests,AT3331c,Tests01),
-%trace,
+
 %Tests=Tests01,
 sort1(Tests01,Tests0),
 %writeln([tests0,Tests0]),
@@ -894,7 +939,7 @@ assertz(pred_list(T471))
 %)
 
 ));(Result=fail%,trace
-)),
+)),%trace,
 writeln12([Go_path1,File,Command1,Result])
 );Result=fail)
 ),Results2)
@@ -1510,6 +1555,7 @@ findall([Go_path1,File,Command],(member([N|VE],AT3331c),
  member(Item,List)),Tests0),
  tests_preds3(TP2),
  sort(TP2,TP3),
+ %trace,
  writeln2(["Contains predicates: ",TP3]),%writeln2(""),
  !.
 
@@ -1556,12 +1602,14 @@ merge_files2([],AT1331,AT333,AT3331) :-
  append(AT333,AT1331,AT3331),!.
 merge_files2(AT2331,AT1331,AT333,AT3331) :-
  AT2331=[[[[n, comment], [["File delimiter", PZ, FZ]]]|T10]|AT2333],
+ %merge3(T10)
  (member([[[n, comment], [["File delimiter", PZ, FZ]]]|T11],AT1331)->
  (append(T10,T11,T12),
  %merge_files3(T10,T11,T12),
  delete(AT1331,[[[n, comment], [["File delimiter", PZ, FZ]]]|T11],AT1333));
  (T12=T10,AT1331=AT1333)),
  append(AT333,[[[[n, comment], [["File delimiter", PZ, FZ]]]|T12]],AT3332),
+ %*/
  merge_files2(AT2333,AT1333,AT3332,AT3331).
 
 /*

@@ -83,6 +83,18 @@ lc_test0(4,true,
 ).
 
 lc_test0(5,true,
+[["c/a.pl",":-include('b.pl').\n:-include('c.pl').\n%a(A).\n%A=1.\na(1)."],
+["c/b.pl","%b(A).\n%A=1.\nb(1)."],
+["c/c.pl","%c(A).\n%A=1.\nc(1)."],
+["c/main_file.txt","[[\"a.pl\",[[a,1]]],[\"b.pl\",[[b,1]]],[\"c.pl\",[[c,1]]]]"]],
+[["c/a.pl",":-include('b.pl').\n:-include('c.pl').\n%a(A).\n%A=1.\na(1)."],
+["c/b.pl","%b(A).\n%A=1.\nb(1)."],
+["c/c.pl","%c(A).\n%A=1.\nc(1)."],
+["c/main_file.txt","[[\"a.pl\",[[a,1]]],[\"b.pl\",[[b,1]]],[\"c.pl\",[[c,1]]]]"]]
+).
+
+/*
+lc_test0(5,true,
 [["d/d.pl",":-include('../e/e.pl').\n%d(A).\n%A=1.\nd(1)."],
 ["e/e.pl","%e(A).\n%A=1.\ne(A):-d(A)."],
 ["d/main_file.txt","[[\"d.pl\",[[e,1]]]]"],
@@ -92,7 +104,7 @@ lc_test0(5,true,
 ["d/main_file.txt","[[\"d.pl\",[[e,1]]]]"],
 ["e/main_file.txt","[]"]]
 ).
-
+*/
 lc_test0(6,true,
 [["c/c.pl","%a(0,A).\n%A=1.\n%a(1,A).\n%A=1.\na(1,1) :- !.\na(A,B):-b(A,B).\n%b(0,A).\n%A=1.\nb(A,B):-c(A,B).\n%c(0,A).\n%A=1.\nc(A,B):-C is A+1,a(C,B)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,2]]]]"]],
@@ -113,9 +125,11 @@ lc_test0(8,true,
 [["c/c.pl","%c(A).\n%A=2.\nc(C):-A=1,B=1,C is A+B."],
 ["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]]
 ).
-/*lc_test0(9,false,
+/*
+lc_test0(9,false,
 [["c/c.pl","%c(A).\n%A=3.\nc(C):-A=2,B=2,C is A+B."],
 ["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]],
-[["c/c.pl","%c(A).\n%A=3.\nc(C):-A=1,B=2,C is A+B."],
+[["c/c.pl","%c(A).\n%A=3.\nc(C):-A=2,B=1,C is A+B."],
 ["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]]
-).*/
+).
+*/
