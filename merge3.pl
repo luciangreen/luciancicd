@@ -1,33 +1,5 @@
 %abc,ab to aabbc
 
-/*
-merge3([],_,C,C).
-merge3([D|A],B,C1,C2) :-
- subtract(B,[D],E),
- %subtract(E,B,F),
- append(C1,E,C3),
- merge3(A,E,C3,C2).
-*/
-
-/*
-:- use_module(library(pairs)).
-
-sort_atoms_by_n(Atoms, ByOrder) :-
-        %map_list_to_pairs(nth, Atoms, Pairs),
-        keysort(Atoms%Pairs
-        , Sorted),
-        pairs_values(Sorted, ByOrder).
-*/
-
-/*
-concatenate([], L, L).
-concatenate([X|L1], L2, [X|L3]) :-
-    concatenate(L1, L2, L3).
-
-transform_lists(List1, List2, Result) :-
-    concatenate(List1, List2, Result).
-*/
-
 :-dynamic(merge31/1).
 
 % merge3([a,a,b,a],[a,b,c],A).
