@@ -17,7 +17,12 @@ tmp2gh :-
  working_directory1(_,A),!.
 
 % rm after
-luciancicd(At_start,Start_files,End_files) :-
+luciancicd(At_start,Max,CICD,Start_files,End_files) :-
+%trace,
+ retractall(c(_)),
+ assertz(c(CICD)),
+ retractall(fail_if_greater_than_n_changes2(_)),
+ assertz(fail_if_greater_than_n_changes2(Max)),
  (At_start=true->
  % overwrites existing tests_c.txt, leaves the new one behind for bug checking
  gh2tmp;true),
@@ -70,6 +75,8 @@ luciancicd(At_start,Start_files,End_files) :-
  (At_start=true->
  % overwrites existing tests_c.txt, leaves the new one behind for bug checking
  tmp2gh;true),
+ 
+ retractall(fail_if_greater_than_n_changes2(_)),
 
  msort(F0,F1A),
  msort(End_files1,F1B),

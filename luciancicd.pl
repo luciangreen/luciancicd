@@ -65,6 +65,9 @@ Later:
 :-dynamic test_n/1.
 :-dynamic diff_html_n/1.
 :-dynamic tests_preds3/1.
+:-dynamic fail_if_greater_than_n_changes2/1.
+:-dynamic c/1.
+
 %:-dynamic dep99_na/1.
 
 %:-dynamic lc_mode/1.
@@ -420,7 +423,7 @@ find_dependencies(Dep99_name,Dep99_arity,AT333AE,AT333,Dependencies7d,Pred_numbe
 
  findall(AT233N1,(member(AT233N1,AT333N3),
  get_item_n(AT333AH,AT233N1,AT233N2),
- %not(AT233N2=[[n, comment], [["File delimiter", _, _]]]),
+ not(AT233N2=[[n, comment], [["File delimiter", _, _]]]),
  
  /*
  ((member(AT233N2,AT133A),
@@ -591,6 +594,8 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
 
 
 %trace,
+ (c(i)%false%false%true t1-8, false t-T9
+ ->(
 
  findall(LD52,(%member(LD51,Old_a%LD4
  %),
@@ -598,7 +603,17 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
 %trace,
  findall(LD52,(%member(LD51,New_a%LD4
  %),
- member([_,LD5a,LD5],New_a1),(var(LD5a)->get_item_n(AT333AD1,LD5,LD52);get_item_n(AT333AD2,LD5a,LD52))),AT1331c),
+ member([_,LD5a,LD5],New_a1),(var(LD5a)->get_item_n(AT333AD1,LD5,LD52);get_item_n(AT333AD2,LD5a,LD52))),AT1331c)
+ )
+;(
+findall(LD52,(
+ %),
+ member([_,_,LD5],Old_a1),get_item_n(AT333AD,LD5,LD52)),AT2331c),
+%trace,
+ findall(LD52,(%member(LD51,New_a%LD4
+ %),
+ member([_,_,LD5],New_a1),get_item_n(AT333AD,LD5,LD52)),AT1331c)
+ )),
  %trace,
  %list_to_set1(AT2331c1,AT2331c),
  %list_to_set1(AT1331c1,AT1331c),
