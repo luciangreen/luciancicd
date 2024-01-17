@@ -1064,7 +1064,7 @@ working_directory1(_,HD)
 ->(working_directory1(_,A1),remove_end_comment,
 
 writeln2("1 or more tests failed.")
-,S001=1,retractall(sucess1(_)),assertz(success1(S001))
+,S001=1,retractall(success1(_)),assertz(success1(S001))
 
 );true))
 ))),
