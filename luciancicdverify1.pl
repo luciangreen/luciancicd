@@ -4,7 +4,9 @@ gh2tmp :-
  working_directory1(_,Path),
 (exists_directory('../gh2_tmp')->true;make_directory('../gh2_tmp')),
  rm_lc("../gh2_tmp/*"),
+ %trace,
  mv_lc("./","../gh2_tmp/"),
+ %rm_lc("./*"),
  working_directory1(_,A),!.
 
 tmp2gh :- 

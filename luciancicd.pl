@@ -366,7 +366,14 @@ get_order(AT333AD,AT333B),
  
  foldr(append,H1,H2),
  sort(H2,H3),
- 
+ %trace,
+ findall(Tests_a,(member(Repository1b1,Dependencies99), 
+foldr(string_concat,["../private2/luciancicd-cicd-tests/tests_",Repository1b1,".txt"],Test_script_path),
+(catch(open_file_s(Test_script_path,Tests_a),_,
+(writeln2(["Cannot find",Test_script_path]),fail%,abort
+)))),Tests_b),
+foldr(append,Tests_b,Tests),%->
+
  retractall(pred_list(_)),
  assertz(pred_list([]%Dependencies7d
  )),
@@ -660,7 +667,8 @@ findall(LD52,(
  (success(1)->fail;true),
  %success_tmp(Tmp33),(forall(member(Tmp4,Tmp33),Tmp4=1)->true;fail),
 %trace,
-	/*foldr(string_concat,["rm -rf ../private2/luciancicd-testing/"],Command3),
+	/*
+	foldr(string_concat,["rm -rf ../private2/luciancicd-testing/"],Command3),
  	catch(bash_command(Command3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],Text4),writeln1(Text4),abort
  	)),
@@ -841,13 +849,13 @@ findall(Results2,(member([_,_Main_file],H6),%member(Repository1b,Dependencies99)
 
 working_directory1(_,A1),
  
-findall(Tests_a,(member([Repository1b1,_],H6), 
+/*findall(Tests_a,(member([Repository1b1,_],H6), 
 foldr(string_concat,["../private2/luciancicd-cicd-tests/tests_",Repository1b1,".txt"],Test_script_path),
 (catch(open_file_s(Test_script_path,Tests_a),_,
 (writeln2(["Cannot find",Test_script_path]),fail%,abort
-)))),Tests_b),
+)))),Tests_b),*/
 %trace,
-foldr(append,Tests_b,Tests),%->
+%foldr(append,Tests_b,Tests),%->
 
 ((
 %trace,
