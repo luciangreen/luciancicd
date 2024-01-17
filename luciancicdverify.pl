@@ -27,8 +27,8 @@ lc_test(NTotal,NTotal,Score,Score,List,List) :- !.
 lc_test(NTotal1,NTotal2,Score1,Score2,List1,List2) :-
 	NTotal3 is NTotal1+1,
 	%gh2tmp,
-	lc_test0(NTotal3,At_start,Max,CICD,Start_files,End_files),
-	((luciancicd(At_start,Max,CICD,Start_files,End_files)
+	((lc_test0(NTotal3,At_start,Max,CICD,Start_files,End_files),
+	luciancicd(At_start,Max,CICD,Start_files,End_files)
 	%writeln1([result1,Result1]),
 	%Result=Result1	
 	)->(Score3 is Score1+1,append(List1,[[lc_test,NTotal3,passed]],List3));(Score3=Score1,append(List1,[[lc_test,NTotal3,failed]],List3))),
@@ -40,8 +40,8 @@ lc_test(NTotal1,NTotal2,Score1,Score2,List1,List2) :-
 
 lc_test1(N,Passed) :-
  %gh2tmp,
-	lc_test0(N,At_start,Max,CICD,Start_files,End_files),
-	((luciancicd(At_start,Max,CICD,Start_files,End_files)
+	((lc_test0(N,At_start,Max,CICD,Start_files,End_files),
+	luciancicd(At_start,Max,CICD,Start_files,End_files)
 	%writeln1([result1,Result1]),
 	%Result=Result1
 	)->(Passed=passed,writeln0([lc_test,N,passed]));(Passed=failed,writeln0([lc_test,N,failed]))),
