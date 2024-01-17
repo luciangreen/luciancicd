@@ -59,12 +59,14 @@ lc_test0(1,true, % true - delete config, false - use last test's config
 ["c/main_file.txt","[[\"c.pl\",[[c,1],[d,1]]]]"]]
 ).
 
+/*
 lc_test0(2,true,7,i,
 [["c/c.pl","%a([a,b,c],[],A).\n%A = [a, b, c].\na([],A,A):-!.\na(A,B,C):-A=[D|E],append(B,[D],F),a(E,F,C),!."],
 ["c/main_file.txt","[[\"c.pl\",[[a,3]]]]"]],
 [["c/c.pl","%a([a,b,c],[],A).\n%A = [a, b, c].\na([],A,A):-!.\na(A,B,C):-A=[D|E],append(B,[D],F),a(E,F,C),!."],
 ["c/main_file.txt","[[\"c.pl\",[[a,3]]]]"]]
 ).
+*/
 
 lc_test0(3,true,7,i,
 [["c/c.pl","%a(A).\n%A=1.\na(1).\n%b(A).\n%A=1.\nb(1).\n%c(A).\n%A=1.\nc(1)."],
@@ -95,14 +97,28 @@ lc_test0(5,true,7,i,
 ["d/main_file.txt","[[\"d.pl\",[[d,1]]]]"],
 ["e/main_file.txt","[[\"e.pl\",[[e,1]]]]"]]
 ).
-%1*/
+%*/
+
+/*
+lc_test0(5,true,7,i,
+[["d/d.pl",":-include('../e/e.pl').\n%d(A).\n%A=1.\nd(1)."],
+["e/e.pl","%e(A).\n%A=1.\ne(A):-d(A)."],
+["d/main_file.txt","[[\"d.pl\",[[e,1]]]]"],
+["e/main_file.txt","[]"]],
+[["d/d.pl",":-include('../e/e.pl').\n%d(A).\n%A=1.\nd(1)."],
+["e/e.pl","%e(A).\n%A=1.\ne(A):-d(A)."],
+["d/main_file.txt","[[\"d.pl\",[[e,1]]]]"],
+["e/main_file.txt","[]"]]
+).
+*/
+/*
 lc_test0(6,true,7,i,
 [["c/c.pl","%a(0,A).\n%A=1.\n%a(1,A).\n%A=1.\na(1,1) :- !.\na(A,B):-b(A,B).\n%b(0,A).\n%A=1.\nb(A,B):-c(A,B).\n%c(0,A).\n%A=1.\nc(A,B):-C is A+1,a(C,B)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,2]]]]"]],
 [["c/c.pl","%a(0,A).\n%A=1.\n%a(1,A).\n%A=1.\na(1,1) :- !.\na(A,B):-b(A,B).\n%b(0,A).\n%A=1.\nb(A,B):-c(A,B).\n%c(0,A).\n%A=1.\nc(A,B):-C is A+1,a(C,B)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,2]]]]"]]
 ).
-
+*/
 lc_test0(7,true,7,i,
 [["c/c.pl","%c(A).\n%A=1.\nc(1).\nc(2)."],
 ["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]],

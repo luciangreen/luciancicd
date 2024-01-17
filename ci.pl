@@ -418,7 +418,7 @@ fail_if_greater_than_n_changes(After3) :-
 fail_if_greater_than_n_changes1(N)),
 %trace,
  findall(A,(member(A,After3),not(string(A))),B),
- length(B,L),L=<N.
+ length(B,L),(L=<N->true;(writeln(["Increase Max to",L]),fail)).
 
  
 
@@ -441,7 +441,7 @@ diff_group_combos(Before,After,Combos4) :-
  %differentiate(Before,Before0),
  %differentiate(After,After0),
  %find_insertions_and_deletions(Before,After,Insertions,Deletions),
- 
+ %trace,
  diff(Before,After,_,_,[],[],After31),
 
  

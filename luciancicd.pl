@@ -424,6 +424,7 @@ find_dependencies(Dep99_name,Dep99_arity,AT333AE,AT333,Dependencies7d,Pred_numbe
  get_item_n(AT333AH,AT233N1,AT233N2),
  member(AT233N2,AT133A)),AT233N1a),
  %[1, 3, 4, 11, 12, 13, 14, 15, 16]
+ %AT233N1a=AT233N,
  sort(AT233N1a,AT233N),
   %
  %trace,
@@ -448,7 +449,7 @@ find_dependencies(Dep99_name,Dep99_arity,AT333AE,AT333,Dependencies7d,Pred_numbe
  ))))
  */
  ),AT233N_old1a),
-
+ %AT233N_old1a=AT233N_old,
  sort(AT233N_old1a,AT233N_old),
  % [1, 2, 4, 5, 6, 7, 8, 9, 10]
  %length(AT233,AT233L)
@@ -660,6 +661,11 @@ findall(LD52,(
 % 
 %writeln(merge2(AT23,AT13,T4)),
  merge2(AT23,AT13,T4),%),T5),
+ 
+ %findall(XXX,(member(XXX1,T4),foldr(string_concat,XXX1,XXX2),catch(term_to_atom(XXX3,XXX4),_,fail),%pp0(XXX3,XXX4),
+ %lp2p1(XXX4,XXX),nl),XXX3),
+ %writeln(XXX3),
+ %trace,
  %writeln(merge2(AT23,AT13,T4)),
 %trace,
 % get all files, choose ones that are deps of a rep
@@ -1579,6 +1585,7 @@ findall([Go_path1,File,Command],(member([N|VE],AT3331c),
  tests_preds3(TP2),
  sort(TP2,TP3),
  %trace,
+ %(TP3=[]->fail;true),
  writeln2(["Contains predicates: ",TP3]),%writeln2(""),
  !.
 

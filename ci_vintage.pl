@@ -43,7 +43,7 @@ diff_combos_vintage(A,A,[A]) :- !.
 diff_combos_vintage(Before,After,Combos4) :-
  %trace,
  find_insertions_and_deletions_vintage(Before,After,_Insertions,_Deletions,Permanent_insertions),
- 
+ %trace,
 diff(Before,After,Insertions,Deletions,Permanent_insertions,[],After3),
 
  %replace11_vintage(After,Insertions,Permanent_insertions,[],After2),
