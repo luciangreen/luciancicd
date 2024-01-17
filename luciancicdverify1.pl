@@ -86,7 +86,11 @@ luciancicd(At_start,Max,CICD,Start_files,End_files) :-
  writeln1(["Result",F1A]),
  writeln1(["Correct Result",F1B]),
  F1A=F1B
- );(%working_directory1(_,A),
+ );(working_directory1(_,A),
+ (At_start=true->
+ % overwrites existing tests_c.txt, leaves the new one behind for bug checking
+ tmp2gh;true),
+
  fail)),
  
  
