@@ -134,7 +134,7 @@ luciancicd :-
 	retractall(success_tmp(_)),
 	assertz(success_tmp([])),
 
-    (time1(T1)->true;get_time1),
+    (time1(_T1)->true;get_time1),
 	
 	check_repositories_paths,
 	%(lc_mode(_)->true;

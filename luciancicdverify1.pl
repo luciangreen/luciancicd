@@ -1,12 +1,14 @@
 gh2tmp :- 
  working_directory1(A,A),
- (time1(T1)->true;get_time1),
+ (time1(_T1)->true;get_time1),
  repositories_paths1([Path]),
+ %trace,
  working_directory1(_,Path),
+ 
 %(exists_directory('../gh2_tmp')->true;make_directory('../gh2_tmp')),
  (exists_directory('../gh2_tmp')->
- (time1(T),string_concat('../gh2_tmp',T,O2),string_concat(O2,"/",O3),working_directory1(_,Path),mv_lc("./",O3));true),%make_directory_s(O)),
-
+ (time1(T),string_concat('../gh2_tmp',T,O2),string_concat(O2,"/",O3),working_directory1(_,Path),O4=O3);(make_directory('../gh2_tmp'),O4="../gh2_tmp")),%make_directory_s(O)),
+ mv_lc("./",O4),
  %rm_lc("../gh2_tmp/*"),
  %trace,
  %mv_lc("./","../gh2_tmp/"),
