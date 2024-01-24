@@ -67,6 +67,7 @@ Later:
 :-dynamic tests_preds3/1.
 :-dynamic fail_if_greater_than_n_changes2/1.
 :-dynamic c/1.
+:-dynamic ci_end/1.
 
 %:-dynamic dep99_na/1.
 
@@ -102,6 +103,8 @@ write(S,Mod_time52),close(S)
 	%retractall(home_dir(_)),assertz(home_dir(A1)),
 %retractall(home_dir(_)),assertz(home_dir(_))
 	%retractall(ci_fail(_)),assertz(ci_fail([])),
+retractall(ci_end(_)),
+assertz(ci_end(false)),
 
 ci,
 ci_end,
@@ -131,7 +134,7 @@ luciancicd :-
 	retractall(success_tmp(_)),
 	assertz(success_tmp([])),
 
-	get_time1,
+    (time1(T1)->true;get_time1),
 	
 	check_repositories_paths,
 	%(lc_mode(_)->true;
@@ -172,6 +175,8 @@ modification_dates(Mod_times2),
     working_directory1(A1,A1),
 
 	retractall(home_dir(_)),assertz(home_dir(A1)),
+retractall(ci_end(_)),
+assertz(ci_end(false)),
 
 ci,
 working_directory1(_,A1),
@@ -179,7 +184,11 @@ working_directory1(_,A1),
 (    %Sorted1=Sorted2
 	(%trace,
 	(New=[]->true;(ci_fail(Ci_fail),forall(member(Ci_fail1,Ci_fail),Ci_fail1=1))))
-->writeln2("There are no modifications to repositories to test.");
+->( output_path([O]),
+ %rm_lc(O),
+ (exists_directory_s(O)->
+ (time1(T),string_concat(O1,"/",O),string_concat(O1,T,O2),string_concat(O2,"/",O3),mv_lc(O,O3));make_directory_s(O)),
+writeln2("There are no modifications to repositories to test."));
 % if 
 (
 %trace,
@@ -602,7 +611,7 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
 
 
 %trace,
- (c(i)%false%false%true t1-8, false t-T9
+ (true%c(i)%false%false%true t1-8, false t-T9
  ->(
 
  findall(LD52,(%member(LD51,Old_a%LD4
@@ -1052,6 +1061,8 @@ write(S21,Mod_time521),close(S21)
 
 move_to_repository_or_back,
 
+retractall(ci_end(_)),
+assertz(ci_end(true)),
 
 ci,
 ci_end,
@@ -1068,6 +1079,12 @@ working_directory1(_,HD)
 )
 ;((true%not(Results21=[])
 ->(working_directory1(_,A1),remove_end_comment,
+
+ output_path([O]),
+ %rm_lc(O),
+ (exists_directory_s(O)->
+ (time1(T),string_concat(O1,"/",O),string_concat(O1,T,O2),string_concat(O2,"/",O3),mv_lc(O,O3));make_directory_s(O)),
+
 
 writeln2("1 or more tests failed.")
 ,S001=1,retractall(success1(_)),assertz(success1(S001))
@@ -1090,6 +1107,10 @@ term_to_atom(Log,Log1),
 time1(Time),foldr(string_concat,["../lc_logs/log",Time,".txt"],Log_file_name),
 open_s(Log_file_name,write,S21T),
 write(S21T,[S001,Log1]),close(S21T),
+
+	retractall(time1(_)),
+	retractall(ci_end(_)),
+	assertz(ci_end(false)),
 
 working_directory1(_,A22)
 .
@@ -1183,11 +1204,14 @@ write(S,Mod_time52),close(S)
 
 
 repositories_paths(Paths) :-
+ (ci_end(true)->
+ output_path(Paths);
+ (
  repositories_paths1(Paths1),
  findall(Paths2,(member(Paths3,Paths1),
  ((string_concat(_Paths4,"/",Paths3),
  Paths2=Paths3)->true;
- string_concat(Paths3,"/",Paths2))),Paths),!.
+ string_concat(Paths3,"/",Paths2))),Paths))),!.
  
 omit_paths(Paths) :-
  omit_paths1(Paths1),
@@ -1195,6 +1219,13 @@ omit_paths(Paths) :-
  ((string_concat(Paths2,"/",Paths3))->true;
  (Paths3=Paths2))),Paths),!.
 
+output_path(Paths) :-
+ output_path1(Paths1),
+ findall(Paths2,(member(Paths3,Paths1),
+ ((string_concat(_Paths4,"/",Paths3),
+ Paths2=Paths3)->true;
+ string_concat(Paths3,"/",Paths2))),Paths),!.
+ 
 modification_dates(Mod_time) :-
 
 working_directory1(A,A),

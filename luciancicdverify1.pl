@@ -1,22 +1,20 @@
 gh2tmp :- 
  working_directory1(A,A),
+ (time1(T1)->true;get_time1),
  repositories_paths1([Path]),
  working_directory1(_,Path),
-(exists_directory('../gh2_tmp')->true;make_directory('../gh2_tmp')),
- rm_lc("../gh2_tmp/*"),
+%(exists_directory('../gh2_tmp')->true;make_directory('../gh2_tmp')),
+ (exists_directory('../gh2_tmp')->
+ (time1(T),string_concat('../gh2_tmp',T,O2),string_concat(O2,"/",O3),working_directory1(_,Path),mv_lc("./",O3));true),%make_directory_s(O)),
+
+ %rm_lc("../gh2_tmp/*"),
  %trace,
- mv_lc("./","../gh2_tmp/"),
+ %mv_lc("./","../gh2_tmp/"),
  %rm_lc("./*"),
  working_directory1(_,A),!.
 
-tmp2gh :- 
- working_directory1(A,A),
- repositories_paths1([Path]),
- working_directory1(_,Path),
- rm_lc("./*"),
- mv_lc("../gh2_tmp/","./"),
- rm_lc("../gh2_tmp/"),
- working_directory1(_,A),!.
+tmp2gh :- !.
+
 
 % rm after
 luciancicd(At_start,Max,CICD,Start_files,End_files) :-
@@ -58,8 +56,8 @@ luciancicd(At_start,Max,CICD,Start_files,End_files) :-
 
  (success1(0)->
  (
- 
- working_directory1(_,Path),
+ output_path([O]),
+ working_directory1(_,O),
  find_files("./",F),
  
  findall([File_name,Contents1],(member([File_name,Contents],F),

@@ -11,6 +11,11 @@ move_to_repository_or_back :-
  LCTD="../private2/luciancicd-testing/",
  LCTD2="../private2/luciancicd-testing-tmp/",
  repositories_paths(K),
+ output_path([O]),
+ %rm_lc(O),
+ (exists_directory_s(O)->
+ (time1(T),string_concat(O1,"/",O),string_concat(O1,T,O2),string_concat(O2,"/",O3),mv_lc(O,O3));make_directory_s(O)),
+ 
 /* omit_paths(Omit),
 
  (exists_directory_s(LCTD2)->true;make_directory_s(LCTD2)),
@@ -33,10 +38,10 @@ foldr(string_concat,[K1,G2,"/"],K1a),
  mv_lc(LCTD,LCTD2),
 
 findall(_,(member(K1,K),
- mv_lc(K1,LCTD),
- mv_lc(LCTD2,K1),
+ %mv_lc(K1,LCTD),
+ mv_lc(LCTD2,O),
  
- string_concat(K1,"*/testcicd.pl",R1),
+ string_concat(O,"*/testcicd.pl",R1),
  
  rm_lc(R1)
  

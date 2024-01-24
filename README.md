@@ -50,7 +50,7 @@ halt
 
 # Instructions and troubleshooting
 
-* Change the LPPM user (your GitHub username), the repositories and any omitted folders and `fail_if_greater_than_n_changes1` (used to find more combinations of lines to test) in `settings.pl`.
+* Change the LPPM user (your GitHub username), the repositories, any omitted folders, the output folder and `fail_if_greater_than_n_changes1` (used to find more combinations of lines to test) in `settings.pl`.
 
 * If necessary, modify tests in the Prolog files in the repositories, for example:
 
