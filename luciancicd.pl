@@ -616,11 +616,15 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
 
  findall(LD52,(%member(LD51,Old_a%LD4
  %),
- member([_,LD5a,LD5],Old_a1),(var(LD5a)->get_item_n(AT333AD1,LD5,LD52);get_item_n(AT333AD2,LD5a,LD52))),AT2331c),
+ member([_,LD5a,LD5],Old_a1),(true%var(LD5a)
+ ->get_item_n(AT333AD1,LD5,LD52b);get_item_n(AT333AD2,LD5a,LD52b)),((LD52b=[[n,PName]|Rest_x]%,not(PName=comment)
+ )->(foldr(string_concat,["a",LD5,"_",PName],PName2),LD52=[[n,PName2]|Rest_x]);LD52=LD52b)),AT2331c),
 %trace,
  findall(LD52,(%member(LD51,New_a%LD4
  %),
- member([_,LD5a,LD5],New_a1),(var(LD5a)->get_item_n(AT333AD1,LD5,LD52);get_item_n(AT333AD2,LD5a,LD52))),AT1331c)
+ member([_,LD5a,LD5],New_a1),(true%var(LD5a)
+ ->get_item_n(AT333AD1,LD5,LD52b);get_item_n(AT333AD2,LD5a,LD52b)),((LD52b=[[n,PName]|Rest_x]%,not(PName=comment)
+ )->(foldr(string_concat,["a",LD5,"_",PName],PName2),LD52=[[n,PName2]|Rest_x]);LD52=LD52b)),AT1331c)
  )
 ;(
 findall(LD52,(
@@ -712,13 +716,16 @@ findall(LD52,(
 
 %trace,
  %put_in_nums(T49,AT333,T491), % leave exact comments, includes x
- findall([_,T4911],member(T4911,T49),T491),
+%trace,
+ findall([_,T4911],(member(T4911,T49)%,process_subtract([_,T4911],T49112)
+ ),T491),
 
  append(Pred_list2,T491,T4731),
 %trace,
  put_in_order(T4731,AT333B,T47), % leave exact comments, includes x
 
  T47=T471,
+ findall(XXX1,(member([XXX3,[[n,PName]|Rest_x]],T471),foldr(string_concat,["a",XXX3,"_",PName],PName2),XXX1=[_,[[n,PName2]|Rest_x]]),T471A),
  %writeln1([t471,T471]),
  %sort(T47,T471), % leave comments, includes x
  findall(T472,member([_,T472],T471),T473), % strip nums
@@ -857,7 +864,7 @@ foldr(append,H5,H61),
 sort(H61,H6),
 %trace,
 %Repository1b=Dep99,
-
+%trace,
 findall(Results2,(member([_,_Main_file],H6),%member(Repository1b,Dependencies99),
 
 (success(1)->fail;true),
@@ -878,8 +885,8 @@ foldr(string_concat,["../private2/luciancicd-cicd-tests/tests_",Repository1b1,".
 working_directory1(A,A),
 
 
-
-
+%trace,
+%T473=AT3331c,
 append(AT2331c,AT1331c,AT3331c),
 
 tests_pred2(Tests,AT3331c,Tests01),
@@ -973,7 +980,7 @@ catch(bash_command(S3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clo
 
 retractall(pred_list(_)),
 %trace,
-assertz(pred_list(T471))
+assertz(pred_list(T471A))
 %)
 
 ));(Result=fail%,trace
@@ -1074,7 +1081,7 @@ remove_end_comment,
 writeln2("All tests were successful."),
 home_dir(HD),
 working_directory1(_,HD)
-,S001=0,retractall(sucess1(_)),assertz(success1(S001))
+,S001=0,retractall(success1(_)),assertz(success1(S001))
 
 )
 ;((true%not(Results21=[])
@@ -1596,7 +1603,8 @@ tests_pred(AT1331c,Command) :-
  member(Item,List),!.
 */
 
-tests_pred2(Tests,AT3331c,Tests0) :-
+tests_pred2(Tests,AT3331ca,Tests0) :-
+ findall(X,(member(X1,AT3331ca),process_subtract([_,X1],[_,X])),AT3331c),
  %writeln2(["Contains predicates: "]),
  retractall(tests_preds3(_)),
  assertz(tests_preds3([])),
@@ -1741,6 +1749,41 @@ put_in_nums(T49,AT333,T491) :- % leave exact comments, includes x
  ),T491),%sort(T492,T491),
  !.
 %*/
+
+%/*
+subtract1([],_,B,B) :- !.
+subtract1(A,A1,B,C) :-
+ A=[D|E],
+ process_subtract(D,D4),
+ %foldr(string_concat,["a",_D1,"_",D2],D),
+ (member(D4,A1)->
+ (delete(A1,D4,F),
+ B=G);
+ (append(B,[D],G),A1=F)),
+ subtract1(E,F,G,C).
+ 
+process_subtract(D,D4) :-
+ D=[N1, [[n, D0]|D01]],
+ string_strings(D0,D3),
+ append(["a"],D5,D3),
+ append(_D6,D7,D5
+ ),
+ append(["_"],D2,D7),
+ foldr(atom_concat,D2,D41),
+ D4=[N1, [[n, D41]|D01]],!.
+ %*/
+
+
+process_put_in_order(B1,B,Num):-
+ string_strings(B1,D3),
+ append(["a"],D5,D3),
+ append(Num1,D7,D5
+ ),
+ append(["_"],D2,D7),
+ foldr(string_concat,Num1,Num2),
+ number_string(Num,Num2),
+ foldr(atom_concat,D2,B),!.
+ 
 % leave exact comments, includes x
 
 % leave comments as AT333B, put rest in order
@@ -1749,11 +1792,14 @@ put_in_order(T4721,AT333B,T47) :-
 %writeln1(put_in_order(T4721,AT333B,T47)),
  findall([A, [N|C]],(member([A, [N|C]],AT333B),
  (N=[n,comment]->true;N=":-")),AT333BA),
- subtract(T4721,AT333BA,T472),
-%trace,
- findall(B1,(member([_, [[n,B]|C]],T472),
+ subtract1(T4721,AT333BA,[],T472),
+
+ findall(B1,(member([_, [[n,B12]|C]],T472),
+
+process_put_in_order(B12,B,Num),
  (%false,B=comment,once(member([A,[[n,B]|C]],AT333B)))->B1=[A,[[n,B]|C]];
- ((once(member([A,[[n,B]|C1]],AT333B)),append(C1,_,C))->B1=[A,[[n,B]|C]]))),D1),
+ ((once(member([Num,[[n,B]|_C1]],AT333B))%,append(C1,_,C)
+ )->B1=[Num,[[n,B]|C]]))),D1),
  /*
  findall([n,B],member([_, [[n,B]|C]],T472),B2),
  sort(B2,B3),%length(B3,B3L),
@@ -1877,6 +1923,7 @@ delete_dep99_na(Dep99_na,AT333DA,AT333) :-
 delete_repeated_preds(AT333,AT333AB) :-
 %trace,
  pred_list(PL),
+
  (PL=[]->AT333=AT333AB;
  (findall(PL1,member([_,PL1],PL),PL2),
  subtract(AT333,PL2,AT333A),
