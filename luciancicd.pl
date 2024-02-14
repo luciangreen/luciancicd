@@ -123,7 +123,8 @@ luciancicd :-
 	
 	working_directory1(A1000,A1000),
 
-	retractall(home_dir1(_)),assertz(home_dir1(A1000)),
+	
+	retractall(success1(_)),assertz(success1(_)),retractall(home_dir1(_)),assertz(home_dir1(A1000)),
 
 	retractall(diff_html_n(_)),
 	assertz(diff_html_n(1)),
