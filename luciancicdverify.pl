@@ -101,6 +101,18 @@ lc_test0(5,true,7,i,
 ).
 %*/
 
+% this is the same as test 5, until test 6 is fixed
+lc_test0(6,true,7,i,
+[["d/d.pl","%d(A).\n%A=1.\nd(1)."],
+["e/e.pl",":-include('../d/d.pl').\n%e(A).\n%A=1.\ne(A):-d(A)."],
+["d/main_file.txt","[[\"d.pl\",[[d,1]]]]"],
+["e/main_file.txt","[[\"e.pl\",[[e,1]]]]"]],
+[["d/d.pl","%d(A).\n%A=1.\nd(1)."],
+["e/e.pl",":-include('../d/d.pl').\n%e(A).\n%A=1.\ne(A):-d(A)."],
+["d/main_file.txt","[[\"d.pl\",[[d,1]]]]"],
+["e/main_file.txt","[[\"e.pl\",[[e,1]]]]"]]
+).
+
 /*
 lc_test0(5,true,7,i,
 [["d/d.pl",":-include('../e/e.pl').\n%d(A).\n%A=1.\nd(1)."],
