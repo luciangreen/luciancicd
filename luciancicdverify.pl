@@ -29,6 +29,8 @@ lc_test(NTotal1,NTotal2,Score1,Score2,List1,List2) :-
 	NTotal3 is NTotal1+1,
 	%gh2tmp,
 	((lc_test0(NTotal3,At_start,Max,CICD,Start_files,End_files),
+	%writeln(***),pwd,
+ %gh_init(At_start),
 	luciancicd(At_start,Max,CICD,Start_files,End_files)
 	%writeln1([result1,Result1]),
 	%Result=Result1	
@@ -101,6 +103,7 @@ lc_test0(5,true,7,i,
 ).
 %*/
 
+/*
 % this is the same as test 5, until test 6 is fixed
 lc_test0(6,true,7,i,
 [["d/d.pl","%d(A).\n%A=1.\nd(1)."],
@@ -112,7 +115,7 @@ lc_test0(6,true,7,i,
 ["d/main_file.txt","[[\"d.pl\",[[d,1]]]]"],
 ["e/main_file.txt","[[\"e.pl\",[[e,1]]]]"]]
 ).
-
+*/
 /*
 lc_test0(5,true,7,i,
 [["d/d.pl",":-include('../e/e.pl').\n%d(A).\n%A=1.\nd(1)."],
@@ -125,14 +128,14 @@ lc_test0(5,true,7,i,
 ["e/main_file.txt","[]"]]
 ).
 */
-/*
+%/*
 lc_test0(6,true,7,i,
-[["c/c.pl","%a(0,A).\n%A=1.\n%a(1,A).\n%A=1.\na(1,1) :- !.\na(A,B):-b(A,B).\n%b(0,A).\n%A=1.\nb(A,B):-c(A,B).\n%c(0,A).\n%A=1.\nc(A,B):-C is A+1,a(C,B)."],
+[["c/c.pl","%a(0,A).\n%A=1.\n%a(1,A).\n%A=1.\na(1,1):-!.\na(A,B):-b(A,B).\n%b(0,A).\n%A=1.\nb(A,B):-c(A,B).\n%c(0,A).\n%A=1.\nc(A,B):-C is A+1,a(C,B)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,2]]]]"]],
-[["c/c.pl","%a(0,A).\n%A=1.\n%a(1,A).\n%A=1.\na(1,1) :- !.\na(A,B):-b(A,B).\n%b(0,A).\n%A=1.\nb(A,B):-c(A,B).\n%c(0,A).\n%A=1.\nc(A,B):-C is A+1,a(C,B)."],
+[["c/c.pl","%a(0,A).\n%A=1.\n%a(1,A).\n%A=1.\na(1,1):-!.\na(A,B):-b(A,B).\n%b(0,A).\n%A=1.\nb(A,B):-c(A,B).\n%c(0,A).\n%A=1.\nc(A,B):-C is A+1,a(C,B)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,2]]]]"]]
 ).
-*/
+%*/
 lc_test0(7,true,7,i,
 [["c/c.pl","%c(A).\n%A=1.\nc(1).\nc(2)."],
 ["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]],

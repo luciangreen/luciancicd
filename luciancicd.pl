@@ -463,6 +463,7 @@ find_dependencies(Dep99_name,Dep99_arity,AT333AE,AT333,Dependencies7d,Pred_numbe
  sort(AT233N_old1a,AT233N_old),
  % [1, 2, 4, 5, 6, 7, 8, 9, 10]
  %length(AT233,AT233L)
+ %trace,
  %numbers(AT233L,1,[],AT233N),
  /*
 
@@ -522,10 +523,13 @@ pred_rest(Arity1,Rest) :-
 
  % group into old, new clauses, loops
 
- %trace,
+%trace,
  
    findall(LD1A,(member(Dependencies7d2,Dependencies7d3),
- (Dependencies7d2=[loop1,Loop1a]->LD1A=Loop1a;LD1A=Dependencies7d2)),Dependencies7d5),
+ (Dependencies7d2=[loop1,Loop1a]->LD1A=[loop1,Loop1a];LD1A=Dependencies7d2)),Dependencies7d5),
+ %foldr(append,Dependencies7d51,Dependencies7d5),
+
+ %trace,
  group_into_clauses1(Comment_pred_ns2,Dependencies7d5,[],Dependencies7d4),
 
 
@@ -1558,13 +1562,20 @@ move_non_loop_clauses_to_loop2(E,A1,A2,A4) :-
  ),
  move_non_loop_clauses_to_loop2(E,C,A3,A4).
  
+% [[loop1, [[new, 1, 9], [new, 3, 15], [new, 2, 12], [new, 1, 8]]]]
+% [[[old, []], [new, [[new, 1, 9], [new, 3, 15], [new, 2, 12], [new, 1, 8]]]]]
+
 
 %group_into_clauses1(A,B,C):-forall(member(C,A),A=[loop1,_]),append(A,B,C),!.
 group_into_clauses1(_,[],A,A) :- !.
 group_into_clauses1(Comment_pred_ns,A,B,F) :-
  A=[C|D],
- (C=[loop1,E]->(append(D,E,B11),G=D,
- group_into_clauses1(Comment_pred_ns,B11,[],B1));
+ (C=[loop1,E]->(
+ H=[[old,[]],[new,E]],
+ append(B,[H],B1),G=D
+ %append(D,E,B11),G=D,
+ %group_into_clauses1(Comment_pred_ns,B11,[],B1)
+ );
  (C=[_ON,CN,PN],
  (member(PN,Comment_pred_ns)->
  (G=D,H=[[old,[]],[new,[C]]]);

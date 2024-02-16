@@ -3,17 +3,19 @@ gh_init(At_start) :-
  working_directory1(A,A),
  repositories_paths1([Path]),
  working_directory1(_,Path),
+
 foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
- "rm -f ../GitHub2o/*"
+ "rm -rf ../GitHub2o/*"
  %Folder1
  ],Command315),
  	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text42)%,writeln1(Text42)%,abort
  	)),
- 
+
+
  (At_start=true->
  (foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
- "rm -f ../Github_lc/*"
+ "rm -rf ../Github_lc/*"
  %Folder1
  ],Command316),
  	catch(bash_command(Command316,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
