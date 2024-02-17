@@ -47,10 +47,14 @@ a_to_m2(N22s,Functions3%2a%3
 Functions2b),
 
 %trace,
+%/*
 findall([NF,Arity,PN2],(member(PN1,Functions2b),member([NF,Arity,PN2],Pred_numbers),%member(PN1%
 (PN1=[loop1,PN11]->member(PN12,PN11);PN12=PN1),member(PN12
 ,PN2)),Pred_numbers21),%Pred_numbers21=Pred_numbers2,%
 sort(Pred_numbers21,Pred_numbers2),
+%Pred_numbers21=Pred_numbers2,
+%*/
+%Pred_numbers2=Pred_numbers,
 
 findall([NF,Args|Rest],(member([NF,Arity,_],Pred_numbers2),
 member([NF,Args|Rest],F),length(Args,Arity)),F21),%F21=F2,%
