@@ -160,16 +160,8 @@ lc_test0(9,false,15,d,
 %*/
 
 lc_test0(10,true,7,i,
-[["c/c.pl","%c1(A).\n%A=1.\nc1(C):-d(C).\n%c2(C).\n%A=2.\nc(C):-d(C).\n%d(A).\n%A=1.\n%d(A).\n%A=2.\nd(1).\nd(2)."],
-["c/main_file.txt","[[\"c.pl\",[[c1,1],[c2,1]]]]"]],
-[["c/c.pl","%c1(A).\n%A=1.\nc1(C):-d(C).\n%c2(C).\n%A=2.\nc(C):-d(C).\n%d(A).\n%A=1.\n%d(A).\n%A=2.\nd(1).\nd(2)."],
-["c/main_file.txt","[[\"c.pl\",[[c1,1],[c2,1]]]]"]]
-).
-/*
-lc_test0(10,true,7,i,
 [["c/c.pl","%c1(A).\n%A=1.\nc1(C):-d(C).\n%c2(A).\n%A=2.\nc2(C):-d(C).\n%d(A).\n%A=1.\n%d(A).\n%A=2.\nd(1).\nd(2)."],
 ["c/main_file.txt","[[\"c.pl\",[[c1,1],[c2,1]]]]"]],
 [["c/c.pl","%c1(A).\n%A=1.\nc1(C):-d(C).\n%c2(A).\n%A=2.\nc2(C):-d(C).\n%d(A).\n%A=1.\n%d(A).\n%A=2.\nd(1).\nd(2)."],
 ["c/main_file.txt","[[\"c.pl\",[[c1,1],[c2,1]]]]"]]
 ).
-*/
