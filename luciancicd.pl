@@ -127,7 +127,28 @@ luciancicd :-
 	working_directory1(A1000,A1000),
 
 	
-	retractall(success1(_)),assertz(success1(_)),retractall(home_dir1(_)),assertz(home_dir1(A1000)),
+	retractall(success1(_)),assertz(success1(_)),
+	
+	(home_dir1(HD)->true;true),
+
+(var(HD)->(retractall(home_dir1(_)),assertz(home_dir1(A1000)));true),
+
+repositories_paths([RP_1]),
+
+ (exists_directory_s(RP_1)->true;make_directory_s(RP_1)),
+
+working_directory1(_,A1000),
+
+output_path([OP_1]),
+
+ (exists_directory_s(OP_1)->true;make_directory_s(OP_1)),
+
+working_directory1(_,A1000),
+
+ (exists_directory_s("../private2/luciancicd-cicd-tests")->true;make_directory_recursive_s("./","../private2/luciancicd-cicd-tests")),
+
+working_directory1(_,A1000),
+
 
 	retractall(diff_html_n(_)),
 	assertz(diff_html_n(1)),
