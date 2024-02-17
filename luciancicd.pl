@@ -622,13 +622,13 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
  findall(LD52,(%member(LD51,Old_a%LD4
  %),
  member([_,LD5a,LD5],Old_a1),(true%var(LD5a)
- ->get_item_n(AT333AD1,LD5,LD52b);get_item_n(AT333AD2,LD5a,LD52b)),((LD52b=[[n,PName]|Rest_x]%,not(PName=comment)
+ ->get_item_n_catch(AT333AD1,LD5,LD52b);get_item_n_catch(AT333AD2,LD5a,LD52b)),((LD52b=[[n,PName]|Rest_x]%,not(PName=comment)
  )->(foldr(string_concat,["a",LD5,"_",PName],PName2),LD52=[[n,PName2]|Rest_x]);LD52=LD52b)),AT2331c),
 %trace,
  findall(LD52,(%member(LD51,New_a%LD4
  %),
  member([_,LD5a,LD5],New_a1),(true%var(LD5a)
- ->get_item_n(AT333AD1,LD5,LD52b);get_item_n(AT333AD2,LD5a,LD52b)),((LD52b=[[n,PName]|Rest_x]%,not(PName=comment)
+ ->get_item_n_catch(AT333AD1,LD5,LD52b);get_item_n_catch(AT333AD2,LD5a,LD52b)),((LD52b=[[n,PName]|Rest_x]%,not(PName=comment)
  )->(foldr(string_concat,["a",LD5,"_",PName],PName2),LD52=[[n,PName2]|Rest_x]);LD52=LD52b)),AT1331c)
  )
 ;(
@@ -1028,6 +1028,7 @@ writeln12([Go_path1,File,Command1,Result])
  */
  (success(0)->(writeln2("Current predicate set failed."),retractall(success(_)),assertz(success(1)),fail%,abort,working_directory1(_,A1)
  );(writeln2("Current predicate set passed."),%trace,
+ %leash(-all),trace,
  retractall(success(_)),assertz(success(0))
  ))
 
@@ -1940,3 +1941,6 @@ delete_repeated_preds(AT333,AT333AB) :-
  (findall(PL1,member([_,PL1],PL),PL2),
  subtract(AT333,PL2,AT333A),
  delete_dep99_na(PL2,AT333A,AT333AB))),!.
+
+get_item_n_catch(A,B,C) :-
+ catch(get_item_n(A,B,C),_,(writeln1("Instantiation error."),abort)),!.
