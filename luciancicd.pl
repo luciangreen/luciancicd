@@ -129,26 +129,7 @@ luciancicd :-
 	
 	retractall(success1(_)),assertz(success1(_)),
 	
-	(home_dir1(HD)->true;true),
-
-(var(HD)->(retractall(home_dir1(_)),assertz(home_dir1(A1000)));true),
-
-repositories_paths([RP_1]),
-
- (exists_directory_s(RP_1)->true;make_directory_s(RP_1)),
-
-working_directory1(_,A1000),
-
-output_path([OP_1]),
-
- (exists_directory_s(OP_1)->true;make_directory_s(OP_1)),
-
-working_directory1(_,A1000),
-
- (exists_directory_s("../private2/luciancicd-cicd-tests")->true;make_directory_recursive_s("./","../private2/luciancicd-cicd-tests")),
-
-working_directory1(_,A1000),
-
+	gh_init2,
 
 	retractall(diff_html_n(_)),
 	assertz(diff_html_n(1)),
@@ -209,10 +190,7 @@ working_directory1(_,A1),
 (    %Sorted1=Sorted2
 	(%trace,
 	(New=[]->true;(ci_fail(Ci_fail),forall(member(Ci_fail1,Ci_fail),Ci_fail1=1))))
-->( output_path([O]),
- %rm_lc(O),
- (exists_directory_s(O)->
- (time1(T),string_concat(O1,"/",O),string_concat(O1,T,O2),string_concat(O2,"/",O3),mv_lc(O,O3));make_directory_s(O)),
+->( 
 writeln2("There are no modifications to repositories to test."));
 % if 
 (
@@ -1117,11 +1095,6 @@ working_directory1(_,HD)
 ;((true%not(Results21=[])
 ->(working_directory1(_,A1),remove_end_comment,
 
- output_path([O]),
- %rm_lc(O),
- (exists_directory_s(O)->
- (time1(T),string_concat(O1,"/",O),string_concat(O1,T,O2),string_concat(O2,"/",O3),mv_lc(O,O3));make_directory_s(O)),
-
 
 writeln2("1 or more tests failed.")
 ,S001=1,retractall(success1(_)),assertz(success1(S001))
@@ -1193,21 +1166,7 @@ ci_end:-
  home_dir(AAA),
  working_directory1(_,AAA),
  
- (exists_directory('../../Github_lc')->
- 
- (		time1(Time),
- %get_time(TS),stamp_date_time(TS,date(Year,Month,Day,Hour1,Minute1,Seconda,_A,_TZ,_False),local),
-	foldr(string_concat,["../../Github_lc",Time,"/"],Folder1),
-	%concat_list3(File1,[".txt"],File2),
 
-mv_lc("../../Github_lc/",Folder1)
- %foldr(string_concat,[%"scp -pr ../../Github_lc/ ","rsync -av --exclude=\".*\"  ../../Github_lc/ ",Folder1],Command314),
- 	%catch(bash_command(Command314,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."],Text41),writeln1(Text41),abort))
- 	);
- 	(
- 	%exists_directory('../../Github_lc')->true;
-%make_directory('../../Github_lc')
-true)),
 
 working_directory1(Old_D1,Old_D1),
 working_directory1(_,"../../Github_lc/"),

@@ -1,6 +1,7 @@
-gh_init(At_start) :-
+gh_init2 :-
 
-	working_directory1(A1000,A1000),
+working_directory1(A1000,A1000),
+ (time1(_T1)->true;get_time1),
 	
 	(home_dir1(HD)->true;true),
 
@@ -16,7 +17,12 @@ output_path([OP_1]),
 
  (exists_directory_s(OP_1)->true;make_directory_s(OP_1)),
 
-working_directory1(_,A1000),
+working_directory1(_,A1000).
+
+gh_init(At_start) :-
+
+	gh_init2,
+output_path([OP_1]),
 
  (exists_directory_s("../private2/luciancicd-cicd-tests")->true;make_directory_recursive_s("./","../private2/luciancicd-cicd-tests")),
 
@@ -26,8 +32,41 @@ working_directory1(_,A1000),
  repositories_paths1([Path]),
  working_directory1(_,Path),
 
+ (exists_directory('../gh2_tmp2')->
+ (time1(T),string_concat('../gh2_tmp2',T,O2),string_concat(O2,"/",O3),%working_directory1(_,Path),
+ 
+ O4=O3);(make_directory('../gh2_tmp2'),O4="../gh2_tmp2/")),%make_directory_s(O)),
+ %string_concat("../../",Path2,Path),
+ %string_concat(Path3,"/",Path2),
+ string_concat("../../",OP_2,OP_1),
+ string_concat(OP_3,"/",OP_2),
+ foldr(string_concat,[O4,"/",OP_2],PX11),
+ foldr(string_concat,[O4,"/","Github_lc/"],PX21),
+ %mv_lc(PX,O4),
+ 
+ 
+ (exists_directory(PX11)->true;
+ (%trace,
+ make_directory_recursive_s("./",PX11))),
+ (exists_directory(PX21)->true;
+ (%trace,
+ make_directory_recursive_s("./",PX21))),
+  
+  %trace,
+ foldr(string_concat,["scp -r ../",OP_3,"/ ",O4,"",OP_3,"/."],PX1),
+ foldr(string_concat,["scp -r ","../Github_lc/"," ",O4,"","Github_lc/","."],PX2),
+ %mv_lc(PX,O4),
+ 
+ 	catch(bash_command(PX1,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],_Text42)%,writeln1(Text42)%,abort
+ 	)),
+
+ 	catch(bash_command(PX2,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],_Text42)%,writeln1(Text42)%,abort
+ 	)),
+ 
 foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
- "rm -rf ../GitHub2o/*"
+ "rm -rf ../",OP_2,"*"
  %Folder1
  ],Command315),
  	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
