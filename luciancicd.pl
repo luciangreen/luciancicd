@@ -34,7 +34,7 @@ Later:
 :-include('find_tests_from_repos.pl').
 :-include('ci.pl').
 :-include('ci3.pl').
-:-include('save_diff_html.pl').
+%:-include('save_diff_html.pl').
 :-include('move_to_repository_or_back.pl').
 :-include('luciancicd_ws.pl').
 :-include('find_dependencies.pl').
@@ -47,9 +47,12 @@ Later:
 :-include('remove_end_comment.pl').
 :-include('luciancicdverify.pl').
 :-include('luciancicdverify1.pl').
-:-include('../gitl/find_files.pl').
+%:-include('../gitl/find_files.pl').
+:-include('../gitl/gitl.pl').
 :-include('diff-cgpt.pl').
 :-include('merge3.pl').
+:-include('luciancicd_ws1.pl').
+%:-include('../gitl/gitl_ws1.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
@@ -63,7 +66,7 @@ Later:
 :-dynamic success1/1.
 :-dynamic success_tmp/1.
 :-dynamic test_n/1.
-:-dynamic diff_html_n/1.
+%:-dynamic diff_html_n/1.
 :-dynamic tests_preds3/1.
 :-dynamic fail_if_greater_than_n_changes2/1.
 :-dynamic c/1.
@@ -1120,6 +1123,8 @@ term_to_atom(Log,Log1),
 time1(Time),foldr(string_concat,["../lc_logs/log",Time,".txt"],Log_file_name),
 open_s(Log_file_name,write,S21T),
 write(S21T,[S001,Log1]),close(S21T),
+
+luciancicd_ws1,
 
 	retractall(time1(_)),
 	retractall(ci_end(_)),

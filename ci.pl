@@ -449,7 +449,7 @@ diff_group_combos(Before,After,Combos4) :-
  %replace12(Before,After2,Deletions,[],After31),
  join_and_change(After31,[],After3),
  %trace,
- save_diff_html(After3),
+ %save_diff_html(After3),
  fail_if_greater_than_n_changes(After3),
  %length(After3,L)
  findall([[i,_],I],(member([[i,_NA],I],After3)%,not(number(NA))
