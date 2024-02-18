@@ -49,7 +49,8 @@ foldr(string_concat,["../lc_logs/diff_html",Time,%"-",Diff_html_n,
 	%assertz(diff_html_n(Diff_html_n1)),
 
 	
-	string_concat("<b>Diff output</b><br>These are the changes.<br><b>Key</b><br><table bgcolor=\"green\"><tr><td>Insertion</td></tr></table><br><table bgcolor=\"red\"><tr><td>Deletion</td></tr></table><br>",HTML1,HTML3),
+	string_concat("<b>Diff output</b><br>These are the changes.<br><b>"%Key</b><br><table bgcolor=\"green\"><tr><td>Insertion</td></tr></table><br><table bgcolor=\"red\"><tr><td>Deletion</td></tr></table><br>"
+	,HTML1,HTML3),
  save_file_s(File1,HTML3),
  
  working_directory1(_,A1),
