@@ -133,7 +133,7 @@ halt
  
 * Increase N to 11 in `fail_if_greater_than_n_changes1(N).` in `settings.pl` to improve results in test 9.
 
-* On startup, Lucian CI/CD backs up `GitHub2o` and `Github_lc` in `gh2_tmp2` and `GitHub2` in `gh2_tmp` (at the same level as `GitHub`).
+* Before testing, Lucian CI/CD backs up `GitHub2o` and `Github_lc` in `gh2_tmp2` and `GitHub2` in `gh2_tmp` (at the same level as `GitHub`).
 
 # Tests
 
