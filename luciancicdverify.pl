@@ -179,3 +179,11 @@ lc_test0(12,true,7,i,
 [["c/c.pl","%c(A).\n%A=1.\nc(1):-writeln(1),writeln(1)."],
 ["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]]
 ).
+
+lc_test0(13,true,7,i,
+[["c/c.pl","%c1(1,A).\n%A=1.\n%c1(2,A).\n%A=2.\nc1(A,A)."],
+["c/main_file.txt","[[\"c.pl\",[[c1,2]]]]"]],
+[["c/c.pl","%c1(1,A).\n%A=1.\n%c1(2,A).\n%A=2.\nc1(A,A)."],
+["c/main_file.txt","[[\"c.pl\",[[c1,2]]]]"]]
+).
+
