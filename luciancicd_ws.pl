@@ -44,12 +44,12 @@ writeln("<h1 id=\"#Top\">Lucian CI/CD</h1><br><br>"),
 directory_files("./",F),
 	delete_invisibles_etc(F,G),
 	
-	findall([T,N,H,H1,F1],(member(H,G),open_string_file_s(H,F11),
+	findall([T,N,H,H1,F1],(member(H,G),once((open_string_file_s(H,F11),
 (string_concat("log",_,H)->(term_to_atom(F111,F11),F111=[Success,F12],(Success= 0->Success1="<font color=\"green\">PASSED</font>";Success1="<font color=\"red\">FAILED</font>"),foldr(string_concat,["<b>",Success1,"</b> - "],Success2));(F11=F12,Success2="")),	time_file(H,T),atomic_list_concat(A,"\n",F12),atomic_list_concat(A,"<br>",F1),
 	get_num(N),foldr(string_concat,[Success2,"<a href=\"#",N,"\">",
 	H,"</a>",
 	"<br><br>"],H1)%,writeln(H1)
-	),J0),
+	))),J0),
 	
 	sort(J0,J1),
 	reverse(J1,J),
