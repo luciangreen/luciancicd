@@ -1118,11 +1118,14 @@ time1(Time),foldr(string_concat,["../lc_logs/log",Time,".txt"],Log_file_name),
 open_s(Log_file_name,write,S21T),
 write(S21T,[S001,Log1]),close(S21T),
 
+
+
+	retractall(ci_end(_)),
+	assertz(ci_end(false)),
+
 luciancicd_ws1,
 
 	retractall(time1(_)),
-	retractall(ci_end(_)),
-	assertz(ci_end(false)),
 
 working_directory1(_,A22)
 .
