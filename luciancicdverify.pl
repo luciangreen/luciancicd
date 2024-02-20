@@ -161,3 +161,13 @@ lc_test0(13,true,7,i,
 ).
 
 
+lc_test0(14,true,7,i,
+[["d/d.pl",":-include('../e/e.pl').\n%d(A).\n%A=1.\nd(A):-e(A)."],
+["e/e.pl","%e(A).\n%A=1.\ne(A):-f(A).\n%f(A).\n%A=1.\nf(1)."],
+["d/main_file.txt","[[\"d.pl\",[[d,1]]]]"],
+["e/main_file.txt","[]"]],
+[["d/d.pl",":-include('../e/e.pl').\n%d(A).\n%A=1.\nd(A):-e(A)."],
+["e/e.pl","%e(A).\n%A=1.\ne(A):-f(A).\n%f(A).\n%A=1.\nf(1)."],
+["d/main_file.txt","[[\"d.pl\",[[d,1]]]]"],
+["e/main_file.txt","[]"]]
+).
