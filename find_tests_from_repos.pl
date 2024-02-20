@@ -224,7 +224,8 @@ find_tests(K1,H,H1,Tests) :-
 
 fastp2lp(H1,LP1) :-
 %trace,
-(string_concat(_,".pl",H1)->
+(string_concat(_,".pl",H1)
+->
 (time_file(H1,T),
 open_string_file_s(H1,F),
 remove_end_comments1(H1,F2),

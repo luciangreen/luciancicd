@@ -47,12 +47,13 @@ Later:
 :-include('remove_end_comment.pl').
 :-include('luciancicdverify.pl').
 :-include('luciancicdverify1.pl').
-%:-include('../gitl/find_files.pl').
-:-include('../gitl/gitl.pl').
+:-include('../gitl/find_files.pl').
+%:-include('../gitl/gitl.pl').
 :-include('diff-cgpt.pl').
 :-include('merge3.pl').
 :-include('luciancicd_ws1.pl').
-%:-include('../gitl/gitl_ws1.pl').
+:-include('../gitl/gitl_ws1.pl').
+%:-include('../gitl/diff.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
@@ -1124,6 +1125,8 @@ write(S21T,[S001,Log1]),close(S21T),
 	assertz(ci_end(false)),
 
 luciancicd_ws1,
+
+
 
 	retractall(time1(_)),
 
