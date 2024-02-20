@@ -1123,7 +1123,7 @@ write(S21T,[S001,Log1]),close(S21T),
 
 	retractall(ci_end(_)),
 	assertz(ci_end(false)),
-
+%trace,
 luciancicd_ws1,
 
 

@@ -51,10 +51,10 @@ foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main -q ./",GP],S3),%,
 ((catch(bash_command(S3,HTML), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text4),%writeln1(Text4),
 	fail%abort
- 	)),delete_tmp,term_to_atom(HTML2,HTML))%sd2(R110,Tests1,RTests,R1,To_m_1,Repository_root_path,Repository,Gitl_data_path1,N,R1,N_path,To,HTML)
+ 	)),term_to_atom(HTML2,HTML))%sd2(R110,Tests1,RTests,R1,To_m_1,Repository_root_path,Repository,Gitl_data_path1,N,R1,N_path,To,HTML)
  ->HTML1=HTML2;
  HTML1="Identical"),
-
+delete_tmp,
  working_directory1(_,A),
 
  	time1(Time),
