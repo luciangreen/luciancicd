@@ -1559,8 +1559,14 @@ move_non_loop_clauses_to_loop2(E,A1,A2,A4) :-
 
 
 %group_into_clauses1(A,B,C):-forall(member(C,A),A=[loop1,_]),append(A,B,C),!.
-group_into_clauses1(_,[],A,A) :- !.
 group_into_clauses1(Comment_pred_ns,A,B,F) :-
+%trace,
+ reverse(A,A1),
+ group_into_clauses10(Comment_pred_ns,A1,B,F1),
+ reverse(F1,F).
+
+group_into_clauses10(_,[],A,A) :- !.
+group_into_clauses10(Comment_pred_ns,A,B,F) :-
  A=[C|D],
  (C=[loop1,E]->(
  H=[[old,[]],[new,E]],
@@ -1577,7 +1583,7 @@ group_into_clauses1(Comment_pred_ns,A,B,F) :-
  , H1),
  group_into_old_new(H1,H))),
  append(B,[H],B1))),
- group_into_clauses1(Comment_pred_ns,G,B1,F).
+ group_into_clauses10(Comment_pred_ns,G,B1,F).
 
 group_into_clauses(_,[],
 NDs1,NDs1,NDs2,NDs2) :- !.
