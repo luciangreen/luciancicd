@@ -20,6 +20,7 @@ output_path([OP_1]),
 working_directory1(_,A1000).
 
 gh_init(At_start) :-
+working_directory1(A1000,A1000),
 
 	gh_init2,
 output_path([OP_1]),
@@ -40,8 +41,10 @@ working_directory1(_,A1000),
  %string_concat(Path3,"/",Path2),
  string_concat("../../",OP_2,OP_1),
  string_concat(OP_3,"/",OP_2),
- foldr(string_concat,[O4,"/",OP_2],PX11),
- foldr(string_concat,[O4,"/","Github_lc/"],PX21),
+ foldr(string_concat,[O4,%"/",
+ OP_2],PX11),
+ foldr(string_concat,[O4,%"/",
+ "Github_lc/"],PX21),
  %mv_lc(PX,O4),
  
  
@@ -86,16 +89,40 @@ foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
  	!.
  
 gh2tmp :- 
+%trace,
  working_directory1(A,A),
  (time1(_T1)->true;get_time1),
  repositories_paths1([Path]),
  %trace,
  working_directory1(_,Path),
- 
+ %trace,
+ %pwd,
 %(exists_directory('../gh2_tmp')->true;make_directory('../gh2_tmp')),
  (exists_directory('../gh2_tmp')->
- (time1(T),string_concat('../gh2_tmp',T,O2),string_concat(O2,"/",O3),working_directory1(_,Path),O4=O3);(make_directory('../gh2_tmp'),O4="../gh2_tmp")),%make_directory_s(O)),
- mv_lc("./",O4),
+ %trace,
+ (time1(T),string_concat('../gh2_tmp',T,O2),string_concat(O2,"/",O3),%working_directory1(_,Path),
+ O4=O3,make_directory(O4));(%trace,
+ O4="../gh2_tmp/"),make_directory_s(O4)),%(O)),
+ %trace,
+ foldr(string_concat, ["scp -pr ./ ",O4,"."],O41),
+ 
+ catch(bash_command(O41, O42), _, (foldr(string_concat, ["Warning."], _), writeln1("Couldn't back up repositories."), abort)),
+
+%trace,
+
+ string_concat("../",Path1,Path),
+ string_concat("../",Path2,Path1),
+ working_directory1(_,"../"),
+
+ foldr(string_concat, ["rm -rf ",Path2],O43),
+ 
+ catch(bash_command(O43, O44), _, (foldr(string_concat, ["Warning."], _), writeln1("Couldn't back up repositories."), abort)),
+%trace,
+%pwd,
+ foldr(string_concat, ["mkdir ",Path2],O45),
+ 
+ catch(bash_command(O45, O46), _, (foldr(string_concat, ["Warning."], _), writeln1("Couldn't back up repositories."), abort)),
+ %mv_lc("./",O4),
  %rm_lc("../gh2_tmp/*"),
  %trace,
  %mv_lc("./","../gh2_tmp/"),

@@ -681,6 +681,7 @@ findall(LD52,(
 %trace,
 % 
 %writeln(merge2(AT23,AT13,T4)),
+%trace,
  merge2(AT23,AT13,T4),%),T5),
  
  %findall(XXX,(member(XXX1,T4),foldr(string_concat,XXX1,XXX2),catch(term_to_atom(XXX3,XXX4),_,fail),%pp0(XXX3,XXX4),
@@ -707,7 +708,7 @@ findall(LD52,(
  ,(
  %writeln(member(T44,T4)),
  member(T44,T4),
-
+%trace,writeln([*,T44]),
  (success(1)->fail;true),
 %trace,
  % (Curr_preds_L=2->trace;true),
@@ -738,7 +739,7 @@ findall(LD52,(
  %sort(T47,T471), % leave comments, includes x
  findall(T472,member([_,T472],T471),T473), % strip nums
  
- pp0(T473,T50),
+ pp0_3(T473,T50),
 
  
  %pp0_1(T46,T47),
@@ -1031,7 +1032,8 @@ writeln12([Go_path1,File,Command1,Result])
  */
  (success(0)->(writeln2("Current predicate set failed."),retractall(success(_)),assertz(success(1)),fail%,abort,working_directory1(_,A1)
  );(writeln2("Current predicate set passed."),%trace,
- %leash(-all),trace,
+ %leash(-all),
+ %trace,sleep(0.5)
  retractall(success(_)),assertz(success(0))
  ))
 
@@ -1179,7 +1181,7 @@ working_directory1(_,"../../Github_lc/"),
 
 
 foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
- "rm -f * */* */*/* */*/*/*"
+ "rm -f ../Github_lc/* ../Github_lc/*/* ../Github_lc/*/*/* ../Github_lc/*/*/*/*"
  %Folder1
  ],Command315),
  	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
@@ -1417,7 +1419,7 @@ split_into_lp_files1(A,B,C,B1,C1) :-
 pp0_1(A,B):-
  ((%trace,
  %false%
- pp0(A,B))
+ pp0_2(A,B))
  ->true;
  (%trace,
  %delete(A,[],A1),
@@ -1436,7 +1438,7 @@ working_directory1(A1,A1),
 working_directory1(_,"../private2/luciancicd-data/"),
 
 foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
- "rm -f *"
+ "rm -f ../luciancicd-data/*"
  %Folder1
  ],Command315),
  	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."

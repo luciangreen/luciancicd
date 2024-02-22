@@ -131,9 +131,11 @@ halt
 
 * Generated code currently loses (newline, etc.) formatting. Lucian CI/CD will pretty print the code later.
  
-* Increase N to 11 in `fail_if_greater_than_n_changes1(N).` in `settings.pl` to improve results in test 9.
+* Increase N to a higher number in `fail_if_greater_than_n_changes1(N).` in `settings.pl` (or the `fail_if_greater_than_n_changes1 overrider` value in `luciancicdverify.pl` to N in `[Increase Max to,N]` in the log in tests) to improve performance.
 
 * Before testing, Lucian CI/CD backs up `GitHub2o` and `Github_lc` in `gh2_tmp2` and `GitHub2` in `gh2_tmp` (at the same level as `GitHub`, see `settings.pl`).
+
+* If there are problems with testing, remove the contents from `GitHub2`, `GitHub_lc` and `GitHub2o`.
 
 # Tests
 

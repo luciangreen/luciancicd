@@ -16,5 +16,5 @@ output_path1([
 ]).
 
 fail_if_greater_than_n_changes1(%7
-15
+20
 ).

@@ -136,6 +136,7 @@ merge2(Old_S1,S1,T3) :-
  %write(S21,S3),close(S21),
  retractall(term_to_numbers1(_)),
  assertz(term_to_numbers1(1)),
+ %trace,
  term_to_numbers(term_to_numbers1,Old_S1,[],Corr,[],N1),
  term_to_numbers(term_to_numbers1,S1,Corr,Corr2,[],N2),
  retractall(correspondences(_)),
@@ -250,16 +251,23 @@ merge2a(Old_S1,S1,T3) :-
  delete(T1,[],T3),!.
 */
 
-get_token_number(N1,S1,N,N2) :-
+get_token_number(_N1,S1,C1,_N,N2) :-
 %writeln(get_token_number(N1,S1,N,N2)),
  %trace,
  %findall(*,(member(AAA,N1),))
- findall(S1xx,(member(S1x,N1),(number(S1x)->number_string(S1x,S1xx);%S1x=S1xx),
+ findall([SI,N3],member([S1,N3],C1),B),
+ (catch((append(_,[[_S2,N4]],B),
+ get_base_token_number(N4,N)),_,false)->true;N="0"),%)),S2),
+
+/*
+findall(S1xx,(member(S1x,N1),(number(S1x)->number_string(S1x,S1xx);%S1x=S1xx),
  get_base_token_number(S1x,S1xx))),S2),
  (number(S1)->number_string(S1,S1xxx);%S1x=S1xx),
- get_base_token_number(S1,S1xxx)),
+ (trace,get_base_token_number(S1,S1xxx))),
  findall(S2,member(S1xxx,S2),S3),
- length(S3,L),
+ */
+ length(B,L),
+ %N=N2,!.
  foldr(string_concat,[N,".",L,"x"],N2),!.
 
 get_base_token_number(S1x,S1) :-
@@ -268,15 +276,19 @@ get_base_token_number(S1x,S1) :-
 term_to_numbers(_,[],C,C,N,N) :- !.
 term_to_numbers(term_to_numbers1,S,C1,C2,N1,N2) :-
  S=[S1|S2],
+ %trace,
  (member([S1,N],C1)->
- (C1=C3,
- get_token_number(N1,S1,N,N2A));
+ (%C1=C3,
+ %N=N2A);
+ get_token_number(_N1,S1,C1,_N,N2A),
+ append(C1,[[S1,N2A]],C3));
  (term_to_numbers1(N2A1),
  retractall(term_to_numbers1(_)),
  N4 is N2A1+1,
  assertz(term_to_numbers1(N4)),
  number_string(N2A1,N2AA),
  append(C1,[[S1,N2AA]],C3),
+ %N2AA=N2A
  foldr(string_concat,[N2AA,".",0,"x"],N2A)
  )),
  %trace,
@@ -303,6 +315,7 @@ numbers_to_term([],_,T,T) :- !.
 numbers_to_term(SN,C1,T1,T2) :-
 %trace,
  SN=[SN1|SN2],
+ %SN1=SN3,
  get_base_token_number(SN1,SN3),
  member([S1,SN3],C1),
  append(T1,[S1],T3),
