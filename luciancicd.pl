@@ -666,11 +666,12 @@ findall(LD52,(
  %pwd,
  %trace,
  %trace,
- pp0_1(AT2331c,AT234),
+ writeln(here1),
+ time(pp0_1(AT2331c,AT234)),
  %term_to_atom(AT234,AT2341),
  split_string(AT234,"\n","\n",AT23),
 
- pp0_1(AT1331c,AT134),
+ time(pp0_1(AT1331c,AT134)),
  %term_to_atom(AT134,AT1341),
  split_string(AT134,"\n","\n",AT13),
 
@@ -682,7 +683,8 @@ findall(LD52,(
 % 
 %writeln(merge2(AT23,AT13,T4)),
 %trace,
- merge2(AT23,AT13,T4),%),T5),
+writeln(here1a),
+ time(merge2(AT23,AT13,T4)),%),T5),
  
  %findall(XXX,(member(XXX1,T4),foldr(string_concat,XXX1,XXX2),catch(term_to_atom(XXX3,XXX4),_,fail),%pp0(XXX3,XXX4),
  %lp2p1(XXX4,XXX),nl),XXX3),
@@ -739,7 +741,34 @@ findall(LD52,(
  %sort(T47,T471), % leave comments, includes x
  findall(T472,member([_,T472],T471),T473), % strip nums
  
- pp0_3(T473,T50),
+ writeln(here2),
+ %trace,
+ working_directory1(Here2,Here2),
+
+ home_dir(Here2a),
+ working_directory1(_,Here2a),
+ 
+ time((term_to_atom(T473,T4731a),
+ foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((pp0_3(",T4731a,",T501),term_to_atom(T501,T50), write(T50)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String_pp0_3),
+
+foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path5,
+"tmp.pl"],GP_pp0_3),
+%string_concat(Go_path,"testcicd.pl",GP),
+open_s(GP_pp0_3,write,S1_pp0_3),
+write(S1_pp0_3,String_pp0_3),close(S1_pp0_3),
+foldr(string_concat,["chmod +x ",GP_pp0_3,"\n","swipl -g main -q ./",GP_pp0_3],S3_pp0_3),%,
+
+((catch(bash_command(S3_pp0_3,T502), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],_),%writeln1(Text4),
+	fail%abort
+ 	)),term_to_atom(T503,T502))%sd2(R110,Tests1,RTests,R1,To_m_1,Repository_root_path,Repository,Gitl_data_path1,N,R1,N_path,To,HTML)
+ ->T50=T503;
+ writeln("Couldn't run pp0_3."),fail),%HTML1="Identical"),
+delete_tmp
+)),
+ working_directory1(_,Here2),
+
+ %time(pp0_3(T473,T50)),
 
  
  %pp0_1(T46,T47),
