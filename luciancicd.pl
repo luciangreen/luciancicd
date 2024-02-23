@@ -54,6 +54,7 @@ Later:
 :-include('luciancicd_ws1.pl').
 :-include('../gitl/gitl_ws1.pl').
 %:-include('../gitl/diff.pl').
+:-include('main.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
@@ -77,8 +78,6 @@ Later:
 
 %:-dynamic lc_mode/1.
 
-
-main:-time((lc_test1(8,A),sleep(1),lc_test1(9,B))),!.
 
 set_up_luciancicd :-
 

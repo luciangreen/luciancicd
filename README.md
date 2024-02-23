@@ -137,6 +137,14 @@ halt
 
 * If there are problems with testing, remove the contents from `GitHub2`, `GitHub_lc` and `GitHub2o`.
 
+# Compiling Lucian CI/CD for better performance
+
+* Enter the command, e.g. `luciancicd` after `main:-` in `main.pl`.
+
+* In bash, compile Lucian CI/CD with `swipl --goal=main --stand_alone=true -o luciancicd -c luciancicd.pl`.
+
+* In bash, run with `./luciancicd`.
+
 # Tests
 
 * Running the tests
