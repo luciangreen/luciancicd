@@ -163,7 +163,7 @@ luciancicd :-
 
 (exists_directory('../private2')->true;make_directory('../private2')),
 
-(exists_directory('../private2/luciancicd-data')->true;make_directory_recursive_s("./","../private2/luciancicd-data")),
+(exists_directory('../private2/luciancicd-data')->true;make_directory('../private2/luciancicd-data')),
 
 directory_files('../private2/luciancicd-data/',F),
 	delete_invisibles_etc(F,G),
@@ -1097,7 +1097,7 @@ length(Result5,H3L))
 	],Text41),writeln1(Text41),abort
  	)),
 
-(exists_directory('../private2/luciancicd-data')->true;make_directory_recursive_s("./","../private2/luciancicd-data")),
+(exists_directory('../private2/luciancicd-data')->true;make_directory('../private2/luciancicd-data')),
 */
 findall(_,(member([K21,Mod_time521],Mod_times2),
 open_s(K21,write,S21),
@@ -1266,7 +1266,7 @@ modification_dates(Mod_time) :-
 
 working_directory1(A,A),
 
-(exists_directory('../private2/luciancicd-data')->true;make_directory_recursive_s("./","../private2/luciancicd-data")),
+(exists_directory('../private2/luciancicd-data')->true;make_directory('../private2/luciancicd-data')),
 
 repositories_paths(K),
 

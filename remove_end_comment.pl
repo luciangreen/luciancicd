@@ -2,7 +2,7 @@ remove_end_comment :-
 
 working_directory1(A,A),
 
-%(exists_directory('../private2/luciancicd-data')->true;make_directory_recursive_s("./","../private2/luciancicd-data")),
+%(exists_directory('../private2/luciancicd-data')->true;make_directory('../private2/luciancicd-data')),
 
 repositories_paths(K),
 

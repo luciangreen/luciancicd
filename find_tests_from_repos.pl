@@ -39,7 +39,7 @@ find_tests_from_repos :-
 
 working_directory1(A,A),
 
-(exists_directory('../private2/luciancicd-cicd-tests')->true;make_directory_recursive_s("./","../private2/luciancicd-cicd-tests")),
+(exists_directory('../private2/luciancicd-cicd-tests')->true;make_directory('../private2/luciancicd-cicd-tests')),
 
 repositories_paths(K),
 
@@ -93,7 +93,7 @@ mv_lc("../private2/luciancicd-cicd-tests/",Folder1)
  	);
  	(
  	%exists_directory('../private2/luciancicd-cicd-tests')->true;
-%make_directory_recursive_s("./","../private2/luciancicd-cicd-tests")
+%make_directory('../private2/luciancicd-cicd-tests')
 true)),
 
 findall(_,(member([K21,Tests521],Tests),
