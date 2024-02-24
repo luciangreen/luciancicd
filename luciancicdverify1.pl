@@ -17,6 +17,9 @@ output_path([OP_1]),
 
  (exists_directory_s(OP_1)->true;make_directory_s(OP_1)),
 
+(exists_directory_s("../private2/")->true;make_directory_recursive_s("./","../private2")),
+
+
 working_directory1(_,A1000).
 
 gh_init(At_start) :-
