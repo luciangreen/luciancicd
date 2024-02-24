@@ -67,9 +67,12 @@ findall(_,(member(K1,K),
  
 mv_lc(From,To) :-
  foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
- "rsync -av --ignore-existing --remove-source-files --exclude=\".*\"  ",From,%"../../Github_lc/ ",
+ "scp -pr "
+ %"rsync -av --ignore-existing --remove-source-files --exclude=\".*\"  "
+ ,From,%"../../Github_lc/ ",
  " ",
- To," && \\","\n","rsync -av --delete `mktemp -d`/ ",From],Command314),
+ To,%," && \\","\n","rsync -av --delete `mktemp -d`/ ",From
+ "\n","rm -rf ",From,"*"],Command314),
  	catch(bash_command(Command314,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],Text41),writeln1(Text41),abort
  	)),!. 

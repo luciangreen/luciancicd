@@ -32,7 +32,7 @@ lc_test(NTotal1,NTotal2,Score1,Score2,List1,List2) :-
 	%writeln(***),pwd,
  %gh_init(At_start),
 	luciancicd(At_start,Max,CICD,Start_files,End_files),
-	sleep(1)
+	sleep(2)
 	%writeln1([result1,Result1]),
 	%Result=Result1	
 	)->(Score3 is Score1+1,append(List1,[[lc_test,NTotal3,passed]],List3));(Score3=Score1,append(List1,[[lc_test,NTotal3,failed]],List3))),
