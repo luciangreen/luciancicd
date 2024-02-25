@@ -202,3 +202,17 @@ lc_test0(18,true,7,i,
 [["c/c.pl","%d(1).\nd(1)."],
 ["c/main_file.txt","[[\"c.pl\",[[d,1]]]]"]]
 ).
+
+lc_test0(19,true,7,i,
+[["c/c.pl","%not(d).\nd:-false."],
+["c/main_file.txt","[[\"c.pl\",[[d,0]]]]"]],
+[["c/c.pl","%not(d)."],
+["c/main_file.txt","[[\"c.pl\",[[d,0]]]]"]]
+).
+
+lc_test0(20,true,7,i,
+[["c/c.pl","%a.\na:-d1(1).\na:-not(d2(1)).\n%d1(A).\n%A=1.\nd1(1).\n%not(d2(1)).\nd2(1):-false."],
+["c/main_file.txt","[[\"c.pl\",[[a,0]]]]"]],
+[["c/c.pl","%a.\na:-d1(1).\na:-not((d2(1))).\n%d1(A).\n%A=1.\nd1(1).\n%not(d2(1))."],
+["c/main_file.txt","[[\"c.pl\",[[a,0]]]]"]]
+).

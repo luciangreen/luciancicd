@@ -40,7 +40,7 @@ query_box(Q,_Query1,F,Functions1),
 %trace,
 %get_n_item(Functions1,Q,N2), x
 %N2=1,%XXX
-findall(N2,get_n_item(Functions1,Q5,N2),N2s),
+findall(N2,(Q5=[NG],Q51=[NG|_],get_n_item(Functions1,Q51,N2)),N2s),
 findall(N22,(member(N21,N2s),N22 is N21-1),N22s),%*N1 is N2-1,
 
 convert_to_grammar_part1(Functions1,[],Functions2,_),add_line_numbers_to_algorithm1(Functions2,Functions2a),find_pred_numbers_to_cut(Functions2a,[],Pred_numbers),find_state_machine1(Functions2a,Functions3,Pred_numbers),

@@ -1654,7 +1654,7 @@ tests_pred2(Tests,AT3331ca,Tests0) :-
  assertz(tests_preds3([])),
 findall([Go_path1,File,Command],(member([N|VE],AT3331c),
  N=[_,N1],
- ((VE=[V]->true;(VE=[V|_]))->length(V,Arity);Arity=0),
+ ((VE=[V]->true;(VE=[V|_],not(V=":-")))->length(V,Arity);Arity=0),
  member([Go_path1,File,Command],Tests),
  square_to_round(List,Command),
  functor(Item,N1,Arity),
@@ -1934,7 +1934,8 @@ get_order(AT333,AT333B) :-
  findall(AT333C,(member(AT333D,AT333),
  ((AT333D=[N|_],(N=[n, comment]->true;N=":-"))->
  AT333C=AT333D;
- ((AT333D=[[n, B],Args| _]->true;(AT333D=[[n, B]| _],Args=[]))->
+ (((%trace,
+ AT333D=[[n, B],Args| _],not(var(Args1)),(not(Args1=":-")))->true;(AT333D=[[n, B]| _],Args=[]))->
  (((%trace,
  not(Args=":-"),not(Args=[]))->Args1=[Args];Args1=[]),
  AT333C=[[n, B]|Args1])))),AT333E),

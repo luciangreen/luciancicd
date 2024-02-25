@@ -412,8 +412,9 @@ truncate_full_stop(A13,A14),
 reverse(A14,A15),
 foldr(string_concat,A15,A16),
 %term_to_atom(A1,A16),
-
-((not(member("(",A12))->true;no_vars(A16))->
+%trace,
+((not(member("(",A12))->true;(no_vars(A16)->true;
+string_concat("not",_,A16)))->
 foldr(string_concat,[%"(",
 A16],A1);
 (
