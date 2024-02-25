@@ -55,6 +55,7 @@ Later:
 :-include('../gitl/gitl_ws1.pl').
 %:-include('../gitl/diff.pl').
 :-include('main.pl').
+:-include('check_non_var0.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
@@ -927,7 +928,7 @@ working_directory1(A,A),
 %trace,
 %T473=AT3331c,
 append(AT2331c,AT1331c,AT3331c),
-
+%trace,
 tests_pred2(Tests,AT3331c,Tests01),
 
 %Tests=Tests01,
@@ -938,6 +939,7 @@ sort1(Tests01,Tests0),
 
 findall(Result,(member([Go_path1,File,Command],Tests0),
 working_directory1(_,A),
+%trace,
 check_non_var(Command,Command1),
 Repository1b=Go_path1,
 %trace,

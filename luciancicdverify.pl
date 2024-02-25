@@ -181,3 +181,10 @@ lc_test0(15,true,7,i,
 ["d/main_file.txt","[[\"d.pl\",[[d,1]]]]"],
 ["e/main_file.txt","[]"]]
 ).
+
+lc_test0(16,true,7,i,
+[["c/c.pl","%d(1,A,2,B).\n%A=1,B=2.\nd(A,A,B,B)."],
+["c/main_file.txt","[[\"d.pl\",[[d,4]]]]"]],
+[["c/c.pl","%d(1,A,2,B).\n%A=1,B=2.\nd(A,A,B,B)."],
+["c/main_file.txt","[[\"d.pl\",[[d,4]]]]"]]
+).

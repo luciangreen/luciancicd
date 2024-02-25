@@ -303,8 +303,9 @@ foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
 	],_Text42)%,writeln1(Text42)%,abort
  	)).
 	%,writeln1(Result2)
-%/*	
-find_tests2(%H1,
+
+/*	
+find_tests21(%H1,
 H,K11,LP,Tests) :-
 
 	%foldr(string_concat,[H1%,"/",K11
@@ -383,17 +384,68 @@ H,K11,LP,Tests) :-
 	%F2=%F0%
 	%(F0,F10)
 	),Tests1),sort(Tests1,Tests),!.
-%*/
+*/
 	
 	% is K11 just d or gh/d x d
 	
 %[K11,H,]	
 %[["d","a.pl",(a(B),B=1)]]
-/*
-find_tests3(H,K11,LP,Tests) :-
+%/*
+find_tests2(H,K11,LP,Tests) :-
 
-findall(B,(member([[n,comment],A],LP),
-term_to_atom(A1,A),
+	%findall(N1,(member([[n,N]|_],LP),
+	%string_strings(N,N1)),Ns),
+	working_directory1(BHD,BHD),
+home_dir1(HD),
+	working_directory1(_,HD),
+
+	findall([K11,H,F2],(append(_,LP1,LP),
+	append([[[n,comment%c
+ 	],[Comment]]],LP2,LP1),
+
+%findall(Tests1,(member([[n,comment],[A]],LP),
+string_strings(Comment,A12),
+not(member("=",A12)),
+truncate_comment(A12,A11),
+reverse(A11,A13),
+truncate_full_stop(A13,A14),
+reverse(A14,A15),
+foldr(string_concat,A15,A16),
+%term_to_atom(A1,A16),
+
+	append([[[n,comment%c
+	],[Comment1]]],_,LP2),
+
+string_strings(Comment1,A121),
+member("=",A121),
+truncate_comment(A121,A111),
+reverse(A111,A131),
+truncate_full_stop(A131,A141),
+reverse(A141,A151),
+foldr(string_concat,A151,A161),
+%term_to_atom(A110,A161),
+
+foldr(string_concat,[%"(",
+A16,",",A161
+%,")"
+],A1),
+check_non_var0(A1,F21),
+foldr(string_concat,["(",
+F21,")"],F2)
+),Tests1),sort(Tests1,Tests),
+	working_directory1(_,BHD),
+!.
+
+/*
+findall(B,(member([[n,comment],[A]],LP),
+string_strings(A,A12),
+truncate_comment(A12,A11),
+reverse(A11,A13),
+truncate_full_stop(A13,A14),
+reverse(A14,A15),
+foldr(string_concat,A15,A16),
+term_to_atom(A1,A16),
+*/
 ((functor(A1,(=),2),arg(1,A1,N),arg(2,A1,Ans),B=[ans,N,=,Ans])->true;
 (functor(A1,N,Ar),numbers(Ar,1,[],ArN),findall(ArN2,(member(ArN1,ArN),arg(ArN1,A1,ArN2),var(ArN2)),ArN3),
 B=[A1,ArN3]))),C),
@@ -402,6 +454,20 @@ member([A1,Ans],C),
 F=A1,
 F1=(N=Ans),
 foldr(string_concat,["(",F,",",F1,")"],F2)),Tests),!.
+%*/
+truncate_comment(["%"|A13],A11) :-
+ truncate_comment(A13,A11),!.
+truncate_comment([" "|A13],A11) :-
+ truncate_comment(A13,A11),!.
+truncate_comment(A14,A14) :-
+ A14=[A12|A13],
+ not(A12="%"),not(A12=" "),!. 
 
-
-*/
+truncate_full_stop(["."|A13],A11) :-
+ truncate_full_stop(A13,A11),!.
+truncate_full_stop([" "|A13],A11) :-
+ truncate_full_stop(A13,A11),!.
+truncate_full_stop(A14,A14) :-
+ A14=[A12|A13],
+ not(A12="."),not(A12=" "),!. 
+%*/
