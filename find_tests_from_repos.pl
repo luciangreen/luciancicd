@@ -413,6 +413,10 @@ reverse(A14,A15),
 foldr(string_concat,A15,A16),
 %term_to_atom(A1,A16),
 
+((not(member("(",A12))->true;no_vars(A16))->
+foldr(string_concat,[%"(",
+A16],A1);
+(
 	append([[[n,comment%c
 	],[Comment1]]],_,LP2),
 
@@ -428,7 +432,7 @@ foldr(string_concat,A151,A161),
 foldr(string_concat,[%"(",
 A16,",",A161
 %,")"
-],A1),
+],A1))),
 check_non_var0(A1,F21),
 foldr(string_concat,["(",
 F21,")"],F2)

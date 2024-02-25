@@ -358,7 +358,7 @@ AT333A1=[_,AT333C])),AT333AD),
 %writeln(pred_list(PL)),
 %
 %trace,
-
+%trace,
 get_order(AT333AD,AT333B),
  % * merge, copy of new or old from start, into files, place same name, arity preds together
  % put same pred name arity together or at end if new
@@ -1934,7 +1934,7 @@ get_order(AT333,AT333B) :-
  findall(AT333C,(member(AT333D,AT333),
  ((AT333D=[N|_],(N=[n, comment]->true;N=":-"))->
  AT333C=AT333D;
- (AT333D=[[n, B],Args| _]->
+ ((AT333D=[[n, B],Args| _]->true;(AT333D=[[n, B]| _],Args=[]))->
  (((%trace,
  not(Args=":-"),not(Args=[]))->Args1=[Args];Args1=[]),
  AT333C=[[n, B]|Args1])))),AT333E),

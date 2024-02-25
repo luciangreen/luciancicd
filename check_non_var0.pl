@@ -16,6 +16,14 @@ lp2p1_a(A,B) :-
  %square_to_round([B2],B),
  !.
 */
+
+no_vars(A16) :-
+
+ foldr(string_concat,["a:-",A16,"."],C111),
+ fastp2lp2(C111,C112),
+ C112=[[[n, a], ":-", [[[n, _],V]]]],
+ not(member([v,_],V)),!.
+
 % (c(1,A),A=5)
 % -> (c(1,A),not(var(A)),A=5)
 check_non_var0(C1,C2) :-
@@ -46,6 +54,9 @@ check_non_var0(C1,C2) :-
  %functor(C12,Name,Arity),
  %numbers(Arity,1,[],Ns),
 
+ (C12=[Name]->
+ C23=C12;
+ (
  C12=[Name, Args],
  %length(Args,Arity),
  
@@ -107,14 +118,15 @@ CC5=[],
  %foldr(string_concat,Ns21,CC6),
  %string_concat(CC7,",",CC6),
  C21=[[CC4],CC5,CC7],
- foldr(append,C21,C23),
+ foldr(append,C21,C23)
+ ),
 
  lp2p1([[[n, a], ":-", C23]],C),
  string_concat("a:-",B1,C),
  string_concat(C2,".\n",B1)
  %foldr(string_concat,["(",C22,")"],C2)
  %square_to_round([C22],C2)
- )),
+ ))),
  %square_to_round(C111,C2),
  !.
  

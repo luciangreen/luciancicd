@@ -27,12 +27,15 @@ Functions2b%]
 %,Q,F,_R),
 numbers(Dep99_arity,1,[],V2),
 
-%trace,
+
 length(Q4,Dep99_arity),
-Q5=[[n,Dep99_name],Q4|_],
+(Q4=[]->Q5=[[n,Dep99_name]];
+Q5=[[n,Dep99_name],Q4|_]),
 
 findall([v,V3],(member(V1,V2),atom_concat("a",V1,V3)),V),
-Q=[[n,Dep99_name],V],
+%trace,
+(V=[]->Q=[[n,Dep99_name]];
+Q=[[n,Dep99_name],V]),
 query_box(Q,_Query1,F,Functions1),
 %trace,
 %get_n_item(Functions1,Q,N2), x
@@ -55,9 +58,11 @@ sort(Pred_numbers21,Pred_numbers2),
 %Pred_numbers21=Pred_numbers2,
 %*/
 %Pred_numbers2=Pred_numbers,
+%trace,
 
-findall([NF,Args|Rest],(member([NF,Arity,_],Pred_numbers2),
-member([NF,Args|Rest],F),length(Args,Arity)),F21),%F21=F2,%
+findall(NFAR,(member([NF,Arity,_],Pred_numbers2),
+(Args=[]->NFAR=[NF|Rest];NFAR=[NF,Args|Rest]),
+member(NFAR,F),length(Args,Arity)),F21),%F21=F2,%
 sort(F21,F2),
 !.
 %a_and_m_to_clp(Functions3,Functions2b,Functions2c),
