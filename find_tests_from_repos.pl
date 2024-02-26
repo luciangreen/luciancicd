@@ -450,7 +450,7 @@ truncate_full_stop(A13,A14),
 reverse(A14,A15),
 foldr(string_concat,A15,A16),
 term_to_atom(A1,A16),
-*/
+
 ((functor(A1,(=),2),arg(1,A1,N),arg(2,A1,Ans),B=[ans,N,=,Ans])->true;
 (functor(A1,N,Ar),numbers(Ar,1,[],ArN),findall(ArN2,(member(ArN1,ArN),arg(ArN1,A1,ArN2),var(ArN2)),ArN3),
 B=[A1,ArN3]))),C),
