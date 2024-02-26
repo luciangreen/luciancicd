@@ -219,11 +219,11 @@ lc_test0(20,true,7,i,
 ).
 %*/
 
-/*
-lc_test0(20,true,7,i,
+%/*
+lc_test0(21,true,7,i,
 [["c/c.pl","%a.\na:-d1(1).\na:-not(d2(1)).\n%d1(A).\n%A=1.\nd1(1).\n%not(d2(1)).\nd2(1):-false."],
 ["c/main_file.txt","[[\"c.pl\",[[a,0]]]]"]],
-[["c/c.pl","%a.\na:-d1(1).\na:-not((d2(1))).\n%d1(A).\n%A=1.\nd1(1).\n%not(d2(1))."],
+[["c/c.pl","%a.\na:-d1(1).\na:-not((d2(1))).\n%d1(A).\n%A=1.\nd1(1).\n%not(d2(1)).\nd2(1):-false."],
 ["c/main_file.txt","[[\"c.pl\",[[a,0]]]]"]]
 ).
-*/
+%*/
