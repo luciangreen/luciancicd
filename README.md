@@ -98,8 +98,7 @@ halt
     * Prolog files
     * Text data files
 
-* So far, Prolog files should test Prolog.
-* Other text data files and some comments that aren't in the latest version may not necessarily be kept by Lucian CI/CD. Check if `main_file.txt` contains all main files (files with main predicates) and main predicates.
+* Check if `main_file.txt` contains all main files (files with main predicates) and main predicates.
 
 * Please ensure that each repository set loads the necessary files.
 
