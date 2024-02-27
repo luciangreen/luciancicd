@@ -431,7 +431,7 @@ fail_if_greater_than_n_changes(After3) :-
 fail_if_greater_than_n_changes1(N)),
 %trace,
  findall(A,(member(A,After3),not(string(A))),B),
- length(B,L),(L=<N->true;(writeln(["Increase Max to",L]),fail)).
+ length(B,L),(L=<N->true;(writeln2(["Increase Max to",L]),fail)).
 
  
 
