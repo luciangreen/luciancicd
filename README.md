@@ -124,8 +124,6 @@ halt
 
 * Causes of the "1 or more tests failed." error include the first entered algorithm after deleting `Github_lc/tests_*x*.txt` not passing all tests. Programs with uninstantiated variables, etc, also cause the error.
 
-* Intra and some inter-line comments may currently be lost. Lucian CI/CD keeps only inter-predicate comments.
-
 * Writeln and commands that don't produce checkable output are not kept unless they are in `keep1/1` in the `keep.pl` register.
 
 * Generated code currently loses (newline, etc.) formatting. Lucian CI/CD will pretty print the code later.
