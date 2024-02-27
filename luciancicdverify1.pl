@@ -1,6 +1,6 @@
 gh_init2 :-
 
- (exists_file_s("luciancicd.pl")->true;(writeln("Error: Please quit Prolog, reload and run luciancicd."),abort)),
+ (exists_file_s("luciancicd.pl")->true;(writeln("Error: Please quit Prolog, reload and run luciancicd in its folder."),abort)),
 
 working_directory1(A1000,A1000),
  (time1(_T1)->true;get_time1),
