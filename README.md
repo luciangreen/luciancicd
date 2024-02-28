@@ -6,13 +6,13 @@
 
 * Single-user continuous integration and continuous deployment.  Integrates (merges changed repositories from combinations of changes), builds repositories that depend on these repositories and tests predicates implicated, where tests are in comments before each predicate.
 
-* Bottom-up Version: Lucian CI/CD can now check sets of repositories bottom-up, which means there are up to seven possible changes to a set of current predicates to find a working combination of. Current predicates are each predicate in depth first, post order, or sets of clauses or predicates involved in loops.
+* Bottom-up Version: Lucian CI/CD can now check sets of repositories bottom-up, which means there are up to seven possible changes to a set of current predicates to find a working combination. Current predicates are each in depth-first, post-order, or sets of clauses or predicates involved in loops.
 
 * Other programming languages apart from Prolog aren't fully supported yet (even though the <a href="https://github.com/luciangreen/luciancicd/tree/ba8cba7e419e036050cb0ff203e9289b91897169">non-bottom-up version</a> does).
 
 # Getting Started
 
-Please read the following instructions on how to install the project on your computer for automatic testing.
+Please read the following instructions on installing the project on your computer for automatic testing.
 
 # Prerequisites
 
