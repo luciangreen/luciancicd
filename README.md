@@ -6,13 +6,13 @@
 
 * Single-user continuous integration and continuous deployment.  Integrates (merges changed repositories from combinations of changes), builds repositories that depend on these repositories and tests predicates implicated, where tests are in comments before each predicate.
 
-* Bottom-up Version: Lucian CI/CD can now check sets of repositories bottom-up, which means there are up to seven possible changes to a set of current predicates to find a working combination of. Current predicates are each predicate in depth first, post order, or sets of clauses or predicates involved in loops.
+* Bottom-up Version: Lucian CI/CD can now check sets of repositories bottom-up, which means there are up to seven possible changes to a set of current predicates to find a working combination. Current predicates are each in depth-first, post-order, or sets of clauses or predicates involved in loops.
 
 * Other programming languages apart from Prolog aren't fully supported yet (even though the <a href="https://github.com/luciangreen/luciancicd/tree/ba8cba7e419e036050cb0ff203e9289b91897169">non-bottom-up version</a> does).
 
 # Getting Started
 
-Please read the following instructions on how to install the project on your computer for automatic testing.
+Please read the following instructions on installing the project on your computer for automatic testing.
 
 # Prerequisites
 
@@ -52,6 +52,10 @@ halt
 
 # Instructions and troubleshooting
 
+* In the folder `GitHub2` (specified in `settings.pl`, not to be confused with `GitHub` or the folder's name housing your GitHub repositories), store your repositories, e.g. `b`. These folders contain Prolog (`*.pl`) and other files.
+
+* Learn Prolog with <a href="https://lucianpedia.fandom.com/wiki/Prolog_Primer_with_family.pl">family.pl</a> and search for Prolog tutorials. Examine the examples in `luciancicdverify.pl` and write examples to help test and debug algorithms. The following instructions will guide you to use Lucian CI/CD more easily.
+
 * Change the LPPM user (your GitHub username), the repositories, any omitted folders, the output folder and `fail_if_greater_than_n_changes1` (used to find more combinations of lines to test) in `settings.pl`.
 
 * If necessary, modify tests in the Prolog files in the repositories, for example:
@@ -76,9 +80,9 @@ halt
 ] 
 ```
 
-* which contains the current main file in the repository and its possible main predicate names and arities (the number of arguments). If a repository contains no main files to test, enter `[]` in it.
+* contains the current main file in the repository and its possible main predicate names and arities (the number of arguments). Suppose a repository contains no main files to test; enter `[]`.
 
-* Note: Dependencies are in `List-Prolog-Package-Manager/lppm_registry.txt`, (LPPM) in form `[[User,Repository,Description,Dependencies], etc]`, e.g.
+* Note: Dependencies are in `List-Prolog-Package-Manager/lppm_registry.txt` (LPPM) in the form `[[User,Repository,Description,Dependencies], etc]`, e.g.
 
 ```
 ["luciangreen","Daily-Regimen","Scripts for daily meditation, bot prep, uni and breasoning.",
