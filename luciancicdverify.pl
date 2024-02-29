@@ -236,8 +236,8 @@ lc_test0(22,true,7,i,
 ).
 
 lc_test0(23,false,15,d,
-[["c/c.pl","%a(A).\n%A=[1,2].\na(A):-findall(B,b(B),A).\n%b(A).\n%A=1.\n%b(A).\n%A=2.\nb(2)."],
+[["c/c.pl","%a(A).\n%A=[2,1].\na(A):-findall(B,b(B),A).\n%b(A).\n%A=1.\n%b(A).\n%A=2.\nb(2)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,1]]]]"]],
-[["c/c.pl","%a(A).\n%A=[1,2].\na(A):-findall(B,b(B),A).\n%b(A).\n%A=1.\n%b(A).\n%A=2.\nb(2).\nb(1)."],
+[["c/c.pl","%a(A).\n%A=[2,1].\na(A):-findall(B,b(B),A).\n%b(A).\n%A=1.\n%b(A).\n%A=2.\nb(2).\nb(1)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,1]]]]"]]
 ).

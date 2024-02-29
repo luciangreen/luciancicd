@@ -78,7 +78,9 @@ check_non_var(C1,C2) :-
  member([Arg,CNV8],CNV9), %trace,
  not((%not(var(Arg)),
  % [[n, =], [[v, '_449476'], 1]]
- member([[n, =],[Arg,B2]],C13),B2=[v,_]
+ (member([[n, =],[Arg,B2]],C13)->true;
+ member([[n, equals4],[Arg,B2]],C13)),
+ B2=[v,_]
  %append(CNV1,[not(var(Arg))],CNV2)%retractall(cnv(_)),
  %assertz(cnv(CNV2))
  ))),CC5),
@@ -87,7 +89,8 @@ check_non_var(C1,C2) :-
 
  %cnv(CNV3),
  findall([[n, =],[[v,CNV10],Num1]],(%member(Arg,C13),%N,Ns),arg(N,C13,CNV11=Num),% 
- member([[n, =],[CNV11,Num]],C13),
+ (member([[n, =],[CNV11,Num]],C13)->true;
+ member([[n, equals4],[CNV11,Num]],C13)),
 %copy_term(Arg,Arg1),
  %var(Arg),%cnv(CNV1),
  member([CNV11,CNV10],CNV9),

@@ -102,7 +102,8 @@ check_non_var0(C1,C2) :-
 CC5=[],
  %cnv(CNV3),
  findall([[n, =],[[v,CNV10],Num1]],(%member(Arg,C13),%N,Ns),arg(N,C13,CNV11=Num),% 
- member([[n, =],[CNV11,Num]],C13),
+ (member([[n, =],[CNV11,Num]],C13)->true;
+ member([[n, equals4],[CNV11,Num]],C13)),
 %copy_term(Arg,Arg1),
  %var(Arg),%cnv(CNV1),
  member([CNV11,CNV10],CNV9),
