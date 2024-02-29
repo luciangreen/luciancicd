@@ -24,6 +24,7 @@ luciancicd_server(Port) :-
 	   */
 
 	   luciancicd_web_form(_Request) :-
+	   html_api_maker_or_terminal(HAMOT),
 retractall(html_api_maker_or_terminal(_)),
 assertz(html_api_maker_or_terminal(html
  %terminal
@@ -76,9 +77,13 @@ directory_files("./",F),
 			working_directory(_,A3),
 
 
-format(Footer,[])
+format(Footer,[]),
 
-																								      .
+retractall(html_api_maker_or_terminal(_)),
+assertz(html_api_maker_or_terminal(HAMOT
+ %terminal
+ ))
+																						      .
 
 						%term_to_atom(Debug2,'off'),
 %term_to_atom(Query2,Query1),
