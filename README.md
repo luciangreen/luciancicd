@@ -54,7 +54,7 @@ halt
 
 * In the folder `GitHub2` (specified in `settings.pl`, not to be confused with `GitHub` or the folder's name housing your GitHub repositories), store your repositories, e.g. `b`. These folders contain Prolog (`*.pl`) and other files.
 
-* Learn Prolog with <a href="https://lucianpedia.fandom.com/wiki/Prolog_Primer_with_family.pl">family.pl</a> and search for Prolog tutorials. Examine the examples in `luciancicdverify.pl` and write examples to help test and debug algorithms. The following instructions will guide you to use Lucian CI/CD more easily.
+* Learn Prolog with <a href="https://lucianpedia.fandom.com/wiki/Prolog_Primer_with_family.pl">family.pl</a> and search for Prolog tutorials. Examine the examples in <a href="https://github.com/luciangreen/luciancicd/blob/main/luciancicdverify.pl">luciancicdverify.pl</a> and write examples to help test and debug algorithms. The following instructions will guide you to use Lucian CI/CD more easily.
 
 * Change the LPPM user (your GitHub username), the repositories, any omitted folders, the output folder and `fail_if_greater_than_n_changes1` (used to find more combinations of lines to test) in `settings.pl`.
 
