@@ -498,7 +498,7 @@ pred_rest(Arity1,Rest) :-
   findall(LD1,(member(Dependencies7d2,Dependencies7d1),
  (Dependencies7d2=[loop1,Loop1a]->
  (findall([ON,CN,PN],(member(Loop1b,Loop1a),Loop1b=[CN,PN],(((member(PN,AT233N),member(PN,AT233N_old))->member(ON,[new,old]);(member(PN,AT233N)->ON=new;ON=old)))),Loop1c),LD1=[loop1,Loop1c]);
- (Dependencies7d2=[CN,PN],(((member(PN,AT233N),member(PN,AT233N_old))->member(ON,[new,old]);(member(PN,AT233N))->ON=new;ON=old),LD1=[ON,CN,PN])))),Dependencies7d3),
+ (Dependencies7d2=[CN,PN],(((member(PN,AT233N),member(PN,AT233N_old))->member(ON,[new,old]);(member(PN,AT233N))->ON=new;ON=old),LD1=[ON,CN,PN])))),Dependencies7d5),
  
 %trace,
  %(once(member([[n, comment], 1, Comment_pred_ns3],Pred_numbers))->true;Comment_pred_ns3=[]),
@@ -529,9 +529,10 @@ pred_rest(Arity1,Rest) :-
  % group into old, new clauses, loops
 
 %trace,
- 
+ /*
    findall(LD1A,(member(Dependencies7d2,Dependencies7d3),
  (Dependencies7d2=[loop1,Loop1a]->LD1A=[loop1,Loop1a];LD1A=Dependencies7d2)),Dependencies7d5),
+ */
  %foldr(append,Dependencies7d51,Dependencies7d5),
 
  %trace,
