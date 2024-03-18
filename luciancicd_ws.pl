@@ -24,7 +24,7 @@ luciancicd_server(Port) :-
 	   */
 
 	   luciancicd_web_form(_Request) :-
-	   html_api_maker_or_terminal(HAMOT),
+	   %html_api_maker_or_terminal(HAMOT),
 retractall(html_api_maker_or_terminal(_)),
 assertz(html_api_maker_or_terminal(html
  %terminal
@@ -80,7 +80,7 @@ directory_files("./",F),
 format(Footer,[]),
 
 retractall(html_api_maker_or_terminal(_)),
-assertz(html_api_maker_or_terminal(HAMOT
+assertz(html_api_maker_or_terminal(terminal
  %terminal
  ))
 																						      .
