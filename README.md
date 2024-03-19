@@ -52,6 +52,8 @@ halt
 
 # Instructions and troubleshooting
 
+* Run Lucian CI/CD on "...one predicate with its dependencies at a time, or all at once, [make] changes on failure and [try] again".
+
 * In the folder `GitHub2` (specified in `settings.pl`, not to be confused with `GitHub` or the folder's name housing your GitHub repositories), store your repositories, e.g. `b`. These folders contain Prolog (`*.pl`) and other files.
 
 * Learn Prolog with <a href="https://lucianpedia.fandom.com/wiki/Prolog_Primer_with_family.pl">family.pl</a> and search for Prolog tutorials. Examine the examples in <a href="https://github.com/luciangreen/luciancicd/blob/main/luciancicdverify.pl">luciancicdverify.pl</a> and write examples to help test and debug algorithms. The following instructions will guide you to use Lucian CI/CD more easily.
