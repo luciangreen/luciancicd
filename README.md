@@ -52,7 +52,7 @@ halt
 
 # Instructions and troubleshooting
 
-* Run Lucian CI/CD on "...one predicate with its dependencies at a time, or all at once, [make] changes on failure and [try] again".
+* To correct failures, it's important to run Lucian CI/CD on algorithms all at once or one predicate at a time with dependencies, and then perform necessary changes and run it again.
 
 * In the folder `GitHub2` (specified in `settings.pl`, not to be confused with `GitHub` or the folder's name housing your GitHub repositories), store your repositories, e.g. `b`. These folders contain Prolog (`*.pl`) and other files.
 
