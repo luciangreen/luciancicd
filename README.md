@@ -54,6 +54,8 @@ halt
 
 * To correct failures, it's important to run Lucian CI/CD on algorithms all at once or one predicate at a time with dependencies, and then perform necessary changes and run it again.
 
+* Lucian CI/CD is a necessary way to refactor, debug and point to debugging. Lucian CI/CD builds the algorithm with only parts supported by the tests. This method requires checking the code before is as complete as possible, the tests, the code afterwards and the algorithm's result.
+
 * In the folder `GitHub2` (specified in `settings.pl`, not to be confused with `GitHub` or the folder's name housing your GitHub repositories), store your repositories, e.g. `b`. These folders contain Prolog (`*.pl`) and other files.
 
 * Learn Prolog with <a href="https://lucianpedia.fandom.com/wiki/Prolog_Primer_with_family.pl">family.pl</a> and search for Prolog tutorials. Examine the examples in <a href="https://github.com/luciangreen/luciancicd/blob/main/luciancicdverify.pl">luciancicdverify.pl</a> and write examples to help test and debug algorithms. The following instructions will guide you to use Lucian CI/CD more easily.
