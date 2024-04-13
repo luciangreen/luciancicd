@@ -990,9 +990,11 @@ split_string(Go_path1a,"/","/",Go_path3),
 
 %:-initialization(catch(call_with_time_limit(1,main),Err,handle_error(Err))).
 
+time_limit(Time_limit),
+
 foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../",Repository1b,"/",%Go_path5,
 File%File
-,"').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch(call_with_time_limit(1,(",Command1,")), Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
+,"').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch(call_with_time_limit(",Time_limit,",(",Command1,")), Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
 %trace,
 %working_directory1(_,A),
 foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path5,

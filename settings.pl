@@ -18,3 +18,5 @@ output_path1([
 fail_if_greater_than_n_changes1(%7
 20
 ).
+
+time_limit(1).

@@ -60,7 +60,7 @@ halt
 
 * Learn Prolog with <a href="https://lucianpedia.fandom.com/wiki/Prolog_Primer_with_family.pl">family.pl</a> and search for Prolog tutorials. Examine the examples in <a href="https://github.com/luciangreen/luciancicd/blob/main/luciancicdverify.pl">luciancicdverify.pl</a> and write examples to help test and debug algorithms. The following instructions will guide you to use Lucian CI/CD more easily.
 
-* Change the LPPM user (your GitHub username), the repositories, any omitted folders, the output folder and `fail_if_greater_than_n_changes1` (used to find more combinations of lines to test) in `settings.pl`.
+* Change the LPPM user (your GitHub username), the repositories, any omitted folders, the output folder, `fail_if_greater_than_n_changes1` (used to find more combinations of lines to test) and the time limit for running algorithms in `settings.pl`.
 
 * If necessary, modify tests in the Prolog files in the repositories, for example:
 
