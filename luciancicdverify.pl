@@ -124,6 +124,9 @@ lc_test0(8,true,7,i,
 ["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]]
 ).
 %/*
+
+% Finds A=2,B=1 from A=2,B=2 and A=1,B=1 (test 8).
+
 lc_test0(9,false,16,d,
 [["c/c.pl","%c(A).\n%A=3.\nc(C):-A=2,B=2,C is A+B."],
 ["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]],
