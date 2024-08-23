@@ -52,13 +52,13 @@ halt
 
 # Instructions and troubleshooting
 
-* To correct failures, it's important to run Lucian CI/CD on algorithms all at once or one predicate at a time with dependencies, and then perform necessary changes and run it again.
+* To correct failures, it's essential to run Lucian CI/CD on algorithms all at once or one predicate at a time with dependencies, then make the necessary changes and rerun the algorithm.
 
-* Lucian CI/CD is a necessary way to refactor, debug and point to debugging. Lucian CI/CD builds the algorithm with only parts supported by the tests. This method requires checking the code before is as complete as possible, the tests, the code afterwards and the algorithm's result.
+* Lucian CI/CD is a necessary way to refactor, debug, and point to debugging. Lucian CI/CD builds the algorithm with only parts supported by the tests. This method requires checking that the code is as complete as possible, the tests, the code afterwards, and the algorithm's result.
 
 * In the folder `GitHub2` (specified in `settings.pl`, not to be confused with `GitHub` or the folder's name housing your GitHub repositories), store your repositories, e.g. `b`. These folders contain Prolog (`*.pl`) and other files.
 
-* Learn Prolog with <a href="https://lucianpedia.fandom.com/wiki/Prolog_Primer_with_family.pl">family.pl</a> and search for Prolog tutorials. Examine the examples in <a href="https://github.com/luciangreen/luciancicd/blob/main/luciancicdverify.pl">luciancicdverify.pl</a> and write examples to help test and debug algorithms. The following instructions will guide you to use Lucian CI/CD more easily.
+* Learn Prolog with <a href="https://lucianpedia.fandom.com/wiki/Prolog_Primer_with_family.pl">family.pl</a> and search for Prolog tutorials. Examine the examples in <a href="https://github.com/luciangreen/luciancicd/blob/main/luciancicdverify.pl">luciancicdverify.pl</a> and write examples to help test and debug algorithms. The following instructions will guide you in using Lucian CI/CD more easily.
 
 * Change the LPPM user (your GitHub username), the repositories, any omitted folders, the output folder, `fail_if_greater_than_n_changes1` (used to find more combinations of lines to test) and the time limit for running algorithms in `settings.pl`.
 
@@ -100,7 +100,7 @@ halt
 ]]
 ```
 
-* Lucian CI/CD only returns an overall successful result if all dependencies connected to a repository, their main files and predicates and each level in the bottom-up order successfully pass all tests for each predicate.
+* Lucian CI/CD only returns an overall successful result if all dependencies connected to a repository, their main files and predicates, and each level in the bottom-up order successfully pass all tests for each predicate.
 
 * Lucian CI/CD works with:
     * Prolog files
@@ -118,7 +118,7 @@ halt
 
 * Note: Once all tests are successful, the files in the temporary folder `../private2/luciancicd-testing/` are moved into the repository. To undo this, enter `move_to_repository_or_back.`.
 
-* Once the files are in the repository, you can commit the changes.
+* You can commit the changes Once the files are in the repository.
 
 * Note: A notification such as `"Cannot find "../private2/luciancicd-cicd-tests/tests_a.txt"` means the repository `"a"` is connected with a changed file through dependencies, but Lucian CI/CD can't install it.
 
@@ -134,13 +134,13 @@ halt
 
 * Writeln and commands that don't produce checkable output are not kept unless they are in `keep1/1` in the `keep.pl` register.
 
-* Generated code currently loses (newline, etc.) formatting. Lucian CI/CD will pretty print the code later.
+* The generated code currently loses formatting (newline, etc.). Lucian CI/CD will print the code nicely later.
  
 * Increase N to a higher number in `fail_if_greater_than_n_changes1(N).` in `settings.pl` (or the `fail_if_greater_than_n_changes1 overrider` value in `luciancicdverify.pl` to N in `[Increase Max to,N]` in the log in tests) to improve performance.
 
 * Before testing, Lucian CI/CD backs up `GitHub2o` and `Github_lc` in `gh2_tmp2` and `GitHub2` in `gh2_tmp` (at the same level as `GitHub`, see `settings.pl`).
 
-* If there are problems with testing, remove the contents from `GitHub2`, `GitHub_lc` and `GitHub2o`.
+* If testing is problematic, remove the contents of `GitHub2`, `GitHub_lc`, and `GitHub2o`.
 
 # Compiling Lucian CI/CD for better performance
 
@@ -167,4 +167,3 @@ Lucian Green - Initial programmer - <a href="https://www.lucianacademy.com/">Luc
 # License
 
 I licensed this project under the BSD3 License - see the <a href="LICENSE">LICENSE.md</a> file for details
-
