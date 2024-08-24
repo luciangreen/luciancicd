@@ -134,7 +134,7 @@ halt
 
 * Writeln and commands that don't produce checkable output are not kept unless they are in `keep1/1` in the `keep.pl` register.
 
-* The generated code currently loses formatting (newline, etc.). Lucian CI/CD will print the code nicely later.
+* The generated code currently loses formatting (extra newlines, etc.). Lucian CI/CD will print the code nicely later.
  
 * Increase N to a higher number in `fail_if_greater_than_n_changes1(N).` in `settings.pl` (or the `fail_if_greater_than_n_changes1 overrider` value in `luciancicdverify.pl` to N in `[Increase Max to,N]` in the log in tests) to improve performance.
 
