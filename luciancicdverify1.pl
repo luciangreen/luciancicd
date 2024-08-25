@@ -19,7 +19,7 @@ output_path([OP_1]),
 
  (exists_directory_s(OP_1)->true;make_directory_s(OP_1)),
 
-(exists_directory_s("../private2/")->true;make_directory_recursive_s("./","../private2")),
+%(exists_directory_s("../private2/")->true;make_directory_recursive_s("./","../private2")),
 
 
 working_directory1(_,A1000).
@@ -30,7 +30,7 @@ working_directory1(A1000,A1000),
 	gh_init2,
 output_path([OP_1]),
 
- (exists_directory_s("../private2/luciancicd-cicd-tests")->true;make_directory_recursive_s("./","../private2/luciancicd-cicd-tests")),
+ (exists_directory_s("../luciancicd-cicd-tests")->true;make_directory_recursive_s("./","../luciancicd-cicd-tests")),
 
 working_directory1(_,A1000),
 

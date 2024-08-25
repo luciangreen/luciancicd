@@ -8,8 +8,8 @@ move_to_repository_or_back :-
 
  %retractall(home_dir(_)),assertz(home_dir(AAA)),
 
- LCTD="../private2/luciancicd-testing/",
- LCTD2="../private2/luciancicd-testing-tmp/",
+ LCTD="../luciancicd-testing/",
+ LCTD2="../luciancicd-testing-tmp/",
  repositories_paths(K),
  output_path([O]),
  %rm_lc(O),

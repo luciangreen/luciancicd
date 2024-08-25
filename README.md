@@ -116,11 +116,11 @@ halt
 
 * For more info, see a <a href="https://dev.to/luciangreen/an-open-source-cicd-for-prolog-29h2">Dev.to article about Lucian CI/CD</a>.
 
-* Note: Once all tests are successful, the files in the temporary folder `../private2/luciancicd-testing/` are moved into the repository. To undo this, enter `move_to_repository_or_back.`.
+* Note: Once all tests are successful, the files in the temporary folder `../luciancicd-testing/` are moved into the repository. To undo this, enter `move_to_repository_or_back.`.
 
 * You can commit the changes Once the files are in the repository.
 
-* Note: A notification such as `"Cannot find "../private2/luciancicd-cicd-tests/tests_a.txt"` means the repository `"a"` is connected with a changed file through dependencies, but Lucian CI/CD can't install it.
+* Note: A notification such as `"Cannot find "../luciancicd-cicd-tests/tests_a.txt"` means the repository `"a"` is connected with a changed file through dependencies, but Lucian CI/CD can't install it.
 
 * <a href="https://www.youtube.com/watch?v=MS240K8TXtM">Lucian Academy - Lucian CI/CD Demo</a>
 

@@ -61,7 +61,7 @@ findall(G3,(member(G2,G1),string_concat(G2,"/",G3)),G4)
 %foldr(append,K0,K01),
 
 working_directory1(Old_D,Old_D),
-
+%trace,
 findall(Tests1,(member([D,K31],K01),
 
 %trace,

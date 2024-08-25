@@ -150,7 +150,7 @@ luciancicd :-
 	%(retractall(lc_mode(_)),assertz(lc_mode("line")))),
 	
 	working_directory1(A1z,A1z),
-
+%trace,
 	find_tests_from_repos,
 	
 	working_directory1(_,A1z),
@@ -162,15 +162,15 @@ luciancicd :-
 	
 	lppm_get_registry_luciancicd(LPPM_registry_term1),
 
-(exists_directory('../private2')->true;make_directory('../private2')),
+%(exists_directory('../private2')->true;make_directory('../private2')),
 
-(exists_directory('../private2/luciancicd-data')->true;make_directory('../private2/luciancicd-data')),
+(exists_directory('../luciancicd-data')->true;make_directory('../luciancicd-data')),
 
-directory_files('../private2/luciancicd-data/',F),
+directory_files('../luciancicd-data/',F),
 	delete_invisibles_etc(F,G),
 
 findall([F1,Mod_times12],
-(member(F2,G),string_concat('../private2/luciancicd-data/',F2,F1),
+(member(F2,G),string_concat('../luciancicd-data/',F2,F1),
 open_file_s(F1,Mod_times1),
 term_to_atom(Mod_times1,Mod_times12)),Mod_times11),
 
@@ -201,7 +201,7 @@ writeln2("There are no modifications to repositories to test."));
 
 findall(Repository1,(member([Path,_],New),
 string_concat(Path1,".txt",Path),
-string_concat("../private2/luciancicd-data/mod_times_",Repository1,Path1)),Repositories),
+string_concat("../luciancicd-data/mod_times_",Repository1,Path1)),Repositories),
 %trace,
 findall([Repository1,Dependencies5],(member(Repository1,Repositories),
 %trace,
@@ -226,7 +226,7 @@ flatten(Dependencies8,Dependencies83),
 
 %working_directory1(BD,BD),
 
-LCTD="../private2/luciancicd-testing",
+LCTD="../luciancicd-testing",
 
 
 %trace,
@@ -239,7 +239,7 @@ working_directory1(_,A1),
  (success(1)->fail;true),
  %success_tmp(Tmp31),(forall(member(Tmp4,Tmp31),Tmp4=1)->true;fail),
 
-	foldr(string_concat,["rm -rf ../private2/luciancicd-testing/"],Command312),
+	foldr(string_concat,["rm -rf ../luciancicd-testing/"],Command312),
  	catch(bash_command(Command312,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],Text412),writeln1(Text412),abort
  	)),
@@ -383,7 +383,7 @@ get_order(AT333AD,AT333B),
  sort(H2,H3),
  %trace,
  findall(Tests_a,(member(Repository1b1,Dependencies99), 
-foldr(string_concat,["../private2/luciancicd-cicd-tests/tests_",Repository1b1,".txt"],Test_script_path),
+foldr(string_concat,["../luciancicd-cicd-tests/tests_",Repository1b1,".txt"],Test_script_path),
 (catch(open_file_s(Test_script_path,Tests_a),_,
 (writeln2(["Cannot find",Test_script_path]),fail%,abort
 )))),Tests_b),
@@ -752,22 +752,28 @@ writeln(here1a),
  working_directory1(_,Here2a),
  
  time((term_to_atom(T473,T4731a),
- foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((pp0_3(",T4731a,",T501),term_to_atom(T501,T50), write(T50)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String_pp0_3),
+ %foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((pp0_3(",T4731a,",T501),term_to_atom(T501,T50), write(T50)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String_pp0_3),
+ foldr(string_concat,["catch(pp0_3(",T4731a,",T50),_,false)"],String_pp0_3),
 
-foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path5,
-"tmp.pl"],GP_pp0_3),
+%foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path5,
+%"tmp.pl"],GP_pp0_3),
 %string_concat(Go_path,"testcicd.pl",GP),
-open_s(GP_pp0_3,write,S1_pp0_3),
-write(S1_pp0_3,String_pp0_3),close(S1_pp0_3),
-foldr(string_concat,["chmod +x ",GP_pp0_3,"\n","swipl -g main -q ./",GP_pp0_3],S3_pp0_3),%,
+%open_s(GP_pp0_3,write,S1_pp0_3),
+%write(S1_pp0_3,String_pp0_3),close(S1_pp0_3),
+%foldr(string_concat,["chmod +x ",GP_pp0_3,"\n","swipl -g main -q ./",GP_pp0_3],S3_pp0_3),%,
+term_to_atom(String_pp0_3_t,String_pp0_3),
 
-((catch(bash_command(S3_pp0_3,T502), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
-	],_),%writeln1(Text4),
-	fail%abort
- 	)),term_to_atom(T503,T502))%sd2(R110,Tests1,RTests,R1,To_m_1,Repository_root_path,Repository,Gitl_data_path1,N,R1,N_path,To,HTML)
- ->T50=T503;
- writeln("Couldn't run pp0_3."),fail),%HTML1="Identical"),
-delete_tmp
+((String_pp0_3_t,
+
+arg(1, String_pp0_3_t, Value),
+arg(2, Value, T50))
+%(catch(bash_command(S3_pp0_3,T502), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	%],_),%writeln1(Text4),
+	%fail%abort
+ 	%)),term_to_atom(T503,T502))%sd2(R110,Tests1,RTests,R1,To_m_1,Repository_root_path,Repository,Gitl_data_path1,N,R1,N_path,To,HTML)
+ ->true;%T50=T503;
+ writeln("Couldn't run pp0_3."),fail)%,%HTML1="Identical"),
+%delete_tmp
 )),
  working_directory1(_,Here2),
 
@@ -950,7 +956,7 @@ Repository1b=Go_path1,
 %foldr(string_concat,["../private2/luciancicd-testing/",%Repository1,
 %Go_path1],Go_path),
 
-foldr(string_concat,["../private2/luciancicd-testing/",Repository1b,"/"],_Go_path3),
+foldr(string_concat,["../luciancicd-testing/",Repository1b,"/"],_Go_path3),
 
 %foldr(string_concat,["../private2/luciancicd-testing/",%Repository1,
 %"/",
@@ -1271,7 +1277,7 @@ modification_dates(Mod_time) :-
 
 working_directory1(A,A),
 
-(exists_directory('../private2/luciancicd-data')->true;make_directory('../private2/luciancicd-data')),
+(exists_directory('../luciancicd-data')->true;make_directory('../luciancicd-data')),
 
 repositories_paths(K),
 
@@ -1358,7 +1364,7 @@ foldr(append,Mod_time5,Mod_time51),
 (
 term_to_atom(Mod_time51,Mod_time52),
 string_concat(K3,"/",K1),
-foldr(string_concat,["../private2/luciancicd-data/mod_times_",K3,".txt"],K2),
+foldr(string_concat,["../luciancicd-data/mod_times_",K3,".txt"],K2),
 K4=[K2,Mod_time52]
 %open_s(K2,write,S),
 %write(S,Mod_time52),close(S)
@@ -1470,7 +1476,7 @@ lines_to_comments(A,B) :-
 clear_mod_dates :-
 
 working_directory1(A1,A1),
-working_directory1(_,"../private2/luciancicd-data/"),
+working_directory1(_,"../luciancicd-data/"),
 
 foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
  "rm -f ../luciancicd-data/*"

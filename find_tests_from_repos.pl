@@ -39,7 +39,7 @@ find_tests_from_repos :-
 
 working_directory1(A,A),
 
-(exists_directory('../private2/luciancicd-cicd-tests')->true;make_directory('../private2/luciancicd-cicd-tests')),
+(exists_directory('../luciancicd-cicd-tests')->true;make_directory('../luciancicd-cicd-tests')),
 
 repositories_paths(K),
 
@@ -81,13 +81,13 @@ process_directory_tests(K31,%_G,
  
  working_directory1(_,A),
  
- (exists_directory('../private2/luciancicd-cicd-tests')->
+ (exists_directory('../luciancicd-cicd-tests')->
  
  (		time1(Time),
-	foldr(string_concat,["../private2/luciancicd-cicd-tests",Time,"/"],Folder1),
+	foldr(string_concat,["../luciancicd-cicd-tests",Time,"/"],Folder1),
 	%concat_list3(File1,[".txt"],File2),
 
-mv_lc("../private2/luciancicd-cicd-tests/",Folder1)
+mv_lc("../luciancicd-cicd-tests/",Folder1)
  %foldr(string_concat,["rsync -av --exclude=\".*\"  ../private2/luciancicd-cicd-tests/ ",Folder1],Command314),
  	%catch(bash_command(Command314,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."],Text41),writeln1(Text41),abort))
  	);
@@ -167,7 +167,7 @@ foldr(atom_concat,TT2,T21),
 foldr(string_concat,["[","\n",T4,"\n","]"],T6))),
 %term_to_atom(Tests51,Tests52),
 string_concat(K3,"/",K1),
-foldr(string_concat,["../private2/luciancicd-cicd-tests/tests_",K3,".txt"],K2),
+foldr(string_concat,["../luciancicd-cicd-tests/tests_",K3,".txt"],K2),
 K4=[K2,T6]
 %open_s(K2,write,S),
 %write(S,Tests52),close(S)
@@ -210,7 +210,7 @@ LP=[[[n, c], ["%r(NA)."]], [[n, c], ["%NA=2."]]%, [[n, c], ["% r([a],N2)."]], [[
 */
 
 find_tests(K1,H,H1,Tests) :-
-
+%trace,
 	string_concat(K11,"/",K1),
 
 
@@ -240,7 +240,8 @@ save_file_s(H1,F2)
 
 );true),
 
-foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter([file,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
+%foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter([file,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
+foldr(string_concat,["catch(p2lpconverter([file,\"",H1,"\"],LP),_,false)"],String),
 
 %trace,
 	fastp2lp1(String,LP1).
@@ -249,7 +250,8 @@ fastp2lp2(H1,LP1) :-
 
 %string_concat(H10,"\n%",H1),
 %pwd,
-foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter([string,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
+%foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter([string,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
+foldr(string_concat,["catch(p2lpconverter([string,\"",H1,"\"],LP),_,false)"],String),
 
 working_directory1(A,A),
 
@@ -262,21 +264,31 @@ working_directory1(_,"../"),
 	
 	working_directory1(_,A).
 
-fastp2lp1(String,LP1) :-
+fastp2lp1(String,LP) :-
 
 %trace,
 %working_directory1(_,A),
-foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path5,
-"tmp.pl"],GP),
+%foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path5,
+%"tmp.pl"],GP),
 %string_concat(Go_path,"testcicd.pl",GP),
-open_s(GP,write,S1),
-write(S1,String),close(S1),
-foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main -q ./",GP],S3),%,
+%open_s(GP,write,S1),
+%write(S1,String),close(S1),
+%foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main -q ./",GP],S3),%,
 
-(catch(bash_command(S3,LP), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
-	],_Text4),%writeln1(Text4),
-	fail%abort
- 	))->
+term_to_atom(String_t,String),
+
+
+%trace,
+%(
+String_t,
+arg(1, String_t, Value),
+arg(2, Value, LP)
+%,catch(bash_command(S3,LP), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	%],_Text4),%writeln1(Text4),
+	%fail%abort
+ 	%)
+ 	%)
+ 	/*->
  	(
 %trace,	working_directory1(A,A),
 %	writeln([*,A]),
@@ -284,8 +296,11 @@ foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main -q ./",GP],S3),%,
 delete_tmp,
 	term_to_atom(LP1,LP)
 	);(%writeln("Fatal error on converting Prolog to List Prolog."),
-	delete_tmp,fail)).
-	
+	%delete_tmp,
+	fail))*/
+	.
+
+%/*	
 delete_tmp:-
 foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
  "rm -f tmp.pl"
@@ -302,6 +317,7 @@ foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
  	catch(bash_command(Command316,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text42)%,writeln1(Text42)%,abort
  	)).
+ 	%*/
 	%,writeln1(Result2)
 
 /*	
