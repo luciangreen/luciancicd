@@ -27,6 +27,8 @@ Later:
 
 % - records modification date for each file
 
+:-set_prolog_flag(stack_limit, 50000000000).
+
 :-include('../SSI/ssi.pl').
 :-include('../listprologinterpreter/la_files.pl').
 :-include('../List-Prolog-Package-Manager/lppm.pl').
