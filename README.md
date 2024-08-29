@@ -142,6 +142,8 @@ halt
 
 * If testing is problematic, remove the contents of `GitHub2`, `GitHub_lc`, and `GitHub2o`.
 
+* Lucian CI/CD functions best with 40 GB of memory (free hard disk space).
+
 # Compiling Lucian CI/CD for better performance
 
 * Enter the command, e.g. `luciancicd` after `main:-` in `main.pl`.
