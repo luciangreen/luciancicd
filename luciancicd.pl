@@ -95,7 +95,7 @@ working_directory1(A1,A1),
 modification_dates(Mod_times),
 
 clear_mod_dates,
-findall(_,(member([K2,Mod_time52],Mod_times),
+findall1(_,(member([K2,Mod_time52],Mod_times),
 open_s(K2,write,S),
 write(S,Mod_time52),close(S)
 ),_),
@@ -173,7 +173,7 @@ luciancicd :-
 directory_files('../luciancicd-data/',F),
 	delete_invisibles_etc(F,G),
 
-findall([F1,Mod_times12],
+findall1([F1,Mod_times12],
 (member(F2,G),string_concat('../luciancicd-data/',F2,F1),
 open_file_s(F1,Mod_times1),
 term_to_atom(Mod_times1,Mod_times12)),Mod_times11),
@@ -203,18 +203,18 @@ writeln2("There are no modifications to repositories to test."));
 (
 %trace,
 
-findall(Repository1,(member([Path,_],New),
+findall1(Repository1,(member([Path,_],New),
 string_concat(Path1,".txt",Path),
 string_concat("../luciancicd-data/mod_times_",Repository1,Path1)),Repositories),
 %trace,
-findall([Repository1,Dependencies5],(member(Repository1,Repositories),
+findall1([Repository1,Dependencies5],(member(Repository1,Repositories),
 %trace,
 find_all_depending_luciancicd(LPPM_registry_term1,Repository1,[],Dependencies5)
 %flatten(Dependencies42,Dependencies41),
 %sort(Dependencies41,Dependencies5)
 ),Dependencies6),
 
-findall(Dependencies5,(member([Repository1,Dependencies5],Dependencies6)),Dependencies8),
+findall1(Dependencies5,(member([Repository1,Dependencies5],Dependencies6)),Dependencies8),
 flatten(Dependencies8,Dependencies83),
 
 
@@ -223,7 +223,7 @@ flatten(Dependencies8,Dependencies83),
 
 %trace,
  
-%(findall(Results%[Repository1,T4]
+%(findall1(Results%[Repository1,T4]
 
  %BD='../../Github_lc/build',
 %(exists_directory(BD)->true;make_directory(BD)),
@@ -234,7 +234,7 @@ LCTD="../luciancicd-testing",
 
 
 %trace,
-findall(Dependencies990%Results
+findall1(Dependencies990%Results
 ,(member(Repository1,Dependencies9),
 
 
@@ -264,7 +264,7 @@ find_all_dependencies(LPPM_registry_term1,%[[User1,Repository1]],%%,Description,
 	append([[User1,Repository1%%,Description,Dependencies1
 	]],Dependencies1a,Dependencies2),
 
-findall(D21,member([_,D21],Dependencies2),D22),
+findall1(D21,member([_,D21],Dependencies2),D22),
 append(Dependencies9,D22,D23),
   sort(D23,Dependencies990)
   
@@ -277,7 +277,7 @@ append(Dependencies9,D22,D23),
 
 %trace,
 %((
-findall([Tokens2,Tokens1]
+findall1([Tokens2,Tokens1]
 ,(member(Repository1a,Dependencies99),
  %trace,
  working_directory1(_,A1),
@@ -290,12 +290,12 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
  member(%file,
  [K211|File2A1],Lc_tests),
  %File2A1=[_,Content1],
- %findall(*,(member([P,Tokens_i,Tokens_f],File2A1),
+ %findall1(*,(member([P,Tokens_i,Tokens_f],File2A1),
  File2A1=[Tokens2,Tokens1]),Tokens3),
  
  %trace,
  
- findall(%[
+ findall1(%[
  AT2z%,",\n"]
  ,(member([AT2,_],Tokens3),foldr(string_concat,AT2,AT2z1),
  term_to_atom(AT2z,AT2z1%AT232
@@ -310,7 +310,7 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
  %trace,
 %trace,
 
- findall(%[
+ findall1(%[
  AT1z%,",\n"]
  ,(member([_,AT1],Tokens3),foldr(string_concat,AT1,AT1z1),
  term_to_atom(AT1z,AT1z1%AT132
@@ -334,10 +334,10 @@ foldr(string_concat,["../../Github_lc/tests_",Repository1a,".txt"],K211),
 
  %append(AT233,AT133,AT333),
 %trace, 
- findall(AT233C,(member(AT233A1,AT233),(AT233A1=[[n, comment], [["File delimiter", _, _]]]->AT233C=AT233A1;
+ findall1(AT233C,(member(AT233A1,AT233),(AT233A1=[[n, comment], [["File delimiter", _, _]]]->AT233C=AT233A1;
  ((AT233A1=[N, _],(N=[n, comment]->true;N=":-"))->fail;
  AT233C=[o,AT233A1]))),AT233A),
- findall(AT133C,(member(AT133A1,AT133),(AT133A1=[[n, comment], [["File delimiter", _, _]]]->AT133C=AT133A1;AT133C=[n,AT133A1])),AT133A),
+ findall1(AT133C,(member(AT133A1,AT133),(AT133A1=[[n, comment], [["File delimiter", _, _]]]->AT133C=AT133A1;AT133C=[n,AT133A1])),AT133A),
 %trace,
 %merge_files(AT233A,AT133A,AT333AF),
 %trace,
@@ -349,12 +349,12 @@ merge_files1a(AT233A,AT133A,AT333A),
 %AT133A=AT333A,
 
 %trace,
-findall(AT333C,(member(AT333A1,AT333A),(AT333A1=[[n, comment], [["File delimiter", _, _]]]->AT333C=AT333A1;
+findall1(AT333C,(member(AT333A1,AT333A),(AT333A1=[[n, comment], [["File delimiter", _, _]]]->AT333C=AT333A1;
 AT333A1=[_,AT333C])),AT333AD),
 
 
 %trace,
-%findall(AT333C,(member(AT333A1,AT333AF),(AT333A1=[[n, comment], [["File delimiter", _, _]]]->AT333C=AT333A1;
+%findall1(AT333C,(member(AT333A1,AT333AF),(AT333A1=[[n, comment], [["File delimiter", _, _]]]->AT333C=AT333A1;
 %AT333A1=[_,AT333C])),AT333AG),
 %trace,
 %trace,
@@ -371,7 +371,7 @@ get_order(AT333AD,AT333B),
  %trace,
  working_directory1(_,A1),
 
- findall(H,(
+ findall1(H,(
  
  member(Dep99,Dependencies99), %* make future depends 99s [dep99]
  
@@ -386,7 +386,7 @@ get_order(AT333AD,AT333B),
  foldr(append,H1,H2),
  sort(H2,H3),
  %trace,
- findall(Tests_a,(member(Repository1b1,Dependencies99), 
+ findall1(Tests_a,(member(Repository1b1,Dependencies99), 
 foldr(string_concat,["../luciancicd-cicd-tests/tests_",Repository1b1,".txt"],Test_script_path),
 (catch(open_file_s(Test_script_path,Tests_a),_,
 (writeln2(["Cannot find",Test_script_path]),fail%,abort
@@ -401,7 +401,7 @@ foldr(append,Tests_b,Tests),%->
  %assertz(dep99_na([])),
 
  %trace,
- findall(_,(
+ findall1(_,(
  member([Dep99,_,Dep99_name,Dep99_arity],H3),
 %trace,
 %writeln(member([*,Dep99,_,Dep99_name,Dep99_arity])),
@@ -439,7 +439,7 @@ find_dependencies(Dep99_name,Dep99_arity,AT333AE,AT333,Dependencies7d,Pred_numbe
 
 %trace,
  
- findall(AT233N1,(member(AT233N1,AT333N3),
+ findall1(AT233N1,(member(AT233N1,AT333N3),
  get_item_n(AT333AH,AT233N1,AT233N2),
  member(AT233N2,AT133A)),AT233N1a),
  %[1, 3, 4, 11, 12, 13, 14, 15, 16]
@@ -448,7 +448,7 @@ find_dependencies(Dep99_name,Dep99_arity,AT333AE,AT333,Dependencies7d,Pred_numbe
   %
  %trace,
 
- findall(AT233N1,(member(AT233N1,AT333N3),
+ findall1(AT233N1,(member(AT233N1,AT333N3),
  get_item_n(AT333AH,AT233N1,AT233N2),
  not(AT233N2=[[n, comment], [["File delimiter", _, _]]]),
  
@@ -499,9 +499,9 @@ pred_rest(Arity1,Rest) :-
 
  % assign old or new labels to deps
  %trace,
-  findall(LD1,(member(Dependencies7d2,Dependencies7d1),
+  findall1(LD1,(member(Dependencies7d2,Dependencies7d1),
  (Dependencies7d2=[loop1,Loop1a]->
- (findall([ON,CN,PN],(member(Loop1b,Loop1a),Loop1b=[CN,PN],(((member(PN,AT233N),member(PN,AT233N_old))->member(ON,[new,old]);(member(PN,AT233N)->ON=new;ON=old)))),Loop1c),LD1=[loop1,Loop1c]);
+ (findall1([ON,CN,PN],(member(Loop1b,Loop1a),Loop1b=[CN,PN],(((member(PN,AT233N),member(PN,AT233N_old))->member(ON,[new,old]);(member(PN,AT233N)->ON=new;ON=old)))),Loop1c),LD1=[loop1,Loop1c]);
  (Dependencies7d2=[CN,PN],(((member(PN,AT233N),member(PN,AT233N_old))->member(ON,[new,old]);(member(PN,AT233N))->ON=new;ON=old),LD1=[ON,CN,PN])))),Dependencies7d5),
  
 %trace,
@@ -515,10 +515,10 @@ pred_rest(Arity1,Rest) :-
 %(Test_n1=2->trace;true), 
 
 
-%findall(AT133N1,(member(AT133N1,AT333N3),
+%findall1(AT133N1,(member(AT133N1,AT333N3),
 %get_item_n(AT333,AT133N1,[[n,comment]|_])),Comment_pred_ns),
 %trace,
- findall(AT233N1,(member(AT233N1,AT333N3),
+ findall1(AT233N1,(member(AT233N1,AT333N3),
  get_item_n(AT333AH,AT233N1,AT233N2),
  member(AT233N2,AT133A),
  (AT233N2=[[n,comment]|_]->true;(AT233N2=[_,[[n,comment]|_]]%->true;
@@ -528,13 +528,13 @@ pred_rest(Arity1,Rest) :-
  sort(Comment_pred_ns1,Comment_pred_ns),
  
   append(Comment_pred_ns,Includes_pred_ns,Comment_pred_ns2),
-%findall(Comment_pred_n,(member(Comment_pred_n,Comment_pred_ns),(member(Comment_pred_n,AT233N))),Comment_pred_ns2),
+%findall1(Comment_pred_n,(member(Comment_pred_n,Comment_pred_ns),(member(Comment_pred_n,AT233N))),Comment_pred_ns2),
 
  % group into old, new clauses, loops
 
 %trace,
  /*
-   findall(LD1A,(member(Dependencies7d2,Dependencies7d3),
+   findall1(LD1A,(member(Dependencies7d2,Dependencies7d3),
  (Dependencies7d2=[loop1,Loop1a]->LD1A=[loop1,Loop1a];LD1A=Dependencies7d2)),Dependencies7d5),
  */
  %foldr(append,Dependencies7d51,Dependencies7d5),
@@ -545,9 +545,9 @@ pred_rest(Arity1,Rest) :-
 
 /*
  % delete(Dependencies7d1,Comment_pred_ns,LD2) - delete all comments
- findall(LD1,(member(Dependencies7d2,Dependencies7d4),*
+ findall1(LD1,(member(Dependencies7d2,Dependencies7d4),*
  (Dependencies7d2=[loop1,Loop1a]->
- (findall(Loop1b,(member(Loop1b,Loop1a),Loop1b=[ON,CN,PN],not(member(PN,Comment_pred_ns))),Loop1c),LD1=[loop1,Loop1c]);
+ (findall1(Loop1b,(member(Loop1b,Loop1a),Loop1b=[ON,CN,PN],not(member(PN,Comment_pred_ns))),Loop1c),LD1=[loop1,Loop1c]);
  (Dependencies7d2=[ON,CN,PN],not(member(PN,Comment_pred_ns))->LD1=Dependencies7d2)))),LD21),
 */
 
@@ -556,7 +556,7 @@ pred_rest(Arity1,Rest) :-
 
 (Dependencies7d4=[]->Dependencies7d6=[];
 append([[[old,Old_a],[new,New_a]]],Dependencies7d6,Dependencies7d4)),
- findall([new,_,Comment_pred_ns21],member(Comment_pred_ns21,Comment_pred_ns2),Comment_pred_ns22),%*
+ findall1([new,_,Comment_pred_ns21],member(Comment_pred_ns21,Comment_pred_ns2),Comment_pred_ns22),%*
  
  append(New_a,Comment_pred_ns22,Comment_pred_ns23),
 
@@ -566,7 +566,7 @@ append([[[old,Old_a],[new,New_a]]],Dependencies7d6,Dependencies7d4)),
 
 %trace,
 
- findall(_,(
+ findall1(_,(
  %trace,
 
  %success_tmp(Tmp32),(forall(member(Tmp4,Tmp32),Tmp4=1)->true;fail),
@@ -593,10 +593,10 @@ append([[[old,Old_a],[new,New_a]]],Dependencies7d6,Dependencies7d4)),
  %(Curr_preds_L=2->trace;true),
  /*
  %append(Curr_preds,Comment_pred_ns2,LD4) - append new comments ** ld4 has no loops xx
-findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)->LD31=LD3;
+findall1(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)->LD31=LD3;
 
  (LD3=[loop1,Loop1a]->
- (findall(Loop1b,(member(Loop1b,Loop1a),Loop1b=[ON,CN,PN],member(PN,Comment_pred_ns2)),Loop1c),LD31=[loop1,Loop1c]);
+ (findall1(Loop1b,(member(Loop1b,Loop1a),Loop1b=[ON,CN,PN],member(PN,Comment_pred_ns2)),Loop1c),LD31=[loop1,Loop1c]);
 (LD3=[ON,CN,PN],member(PN,Comment_pred_ns2)->LD31=LD3))
 
 )),LD4),
@@ -607,7 +607,7 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
  
 
 
- %findall(LD51,(member([[old,_],[new,New_a]],Curr_preds%LD4
+ %findall1(LD51,(member([[old,_],[new,New_a]],Curr_preds%LD4
  %),member(get_item_n(Dependencies7d,LD5,LD51)),AT1331),
 %loop* x
 %trace,
@@ -616,37 +616,37 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
 %trace, 
  %list_to_set(Old_a,Old_a1),
  %list_to_set(New_a,New_a1),
- findall([LD6,LD7,LD8],member([LD7,LD8,LD6],Old_a4),Old_a2),
+ findall1([LD6,LD7,LD8],member([LD7,LD8,LD6],Old_a4),Old_a2),
  sort(Old_a2,Old_a3),
- findall([LD7,LD8,LD6],member([LD6,LD7,LD8],Old_a3),Old_a1),
+ findall1([LD7,LD8,LD6],member([LD6,LD7,LD8],Old_a3),Old_a1),
 
- findall([LD6,LD7,LD8],member([LD7,LD8,LD6],New_a4),New_a2),
+ findall1([LD6,LD7,LD8],member([LD7,LD8,LD6],New_a4),New_a2),
  sort(New_a2,New_a3),
- findall([LD7,LD8,LD6],member([LD6,LD7,LD8],New_a3),New_a1),
+ findall1([LD7,LD8,LD6],member([LD6,LD7,LD8],New_a3),New_a1),
 
 
 %trace,
  (true%c(i)%false%false%true t1-8, false t-T9
  ->(
 
- findall(LD52,(%member(LD51,Old_a%LD4
+ findall1(LD52,(%member(LD51,Old_a%LD4
  %),
  member([_,LD5a,LD5],Old_a1),(true%var(LD5a)
  ->get_item_n_catch(AT333AD1,LD5,LD52b);get_item_n_catch(AT333AD2,LD5a,LD52b)),((LD52b=[[n,PName]|Rest_x]%,not(PName=comment)
  )->(foldr(string_concat,["a",LD5,"_",PName],PName2),LD52=[[n,PName2]|Rest_x]);LD52=LD52b)),AT2331c),
 %trace,
- findall(LD52,(%member(LD51,New_a%LD4
+ findall1(LD52,(%member(LD51,New_a%LD4
  %),
  member([_,LD5a,LD5],New_a1),(true%var(LD5a)
  ->get_item_n_catch(AT333AD1,LD5,LD52b);get_item_n_catch(AT333AD2,LD5a,LD52b)),((LD52b=[[n,PName]|Rest_x]%,not(PName=comment)
  )->(foldr(string_concat,["a",LD5,"_",PName],PName2),LD52=[[n,PName2]|Rest_x]);LD52=LD52b)),AT1331c)
  )
 ;(
-findall(LD52,(
+findall1(LD52,(
  %),
  member([_,_,LD5],Old_a1),get_item_n(AT333AD,LD5,LD52)),AT2331c),
 %trace,
- findall(LD52,(%member(LD51,New_a%LD4
+ findall1(LD52,(%member(LD51,New_a%LD4
  %),
  member([_,_,LD5],New_a1),get_item_n(AT333AD,LD5,LD52)),AT1331c)
  )),
@@ -657,11 +657,11 @@ findall(LD52,(
 %loop* x
 
 /*
- findall(LD52,(member(Old_a1,Curr_preds1),member(LD51,Old_a1%LD4
+ findall1(LD52,(member(Old_a1,Curr_preds1),member(LD51,Old_a1%LD4
  ),member([_,_,LD5],LD51),member(get_item_n(Dependencies7d,LD5,LD52)),AT2331),
 
 
- findall(LD52,(member(New_a1,Curr_preds1),member(LD51,New_a1%LD4
+ findall1(LD52,(member(New_a1,Curr_preds1),member(LD51,New_a1%LD4
  ),member([_,_,LD5],LD51),member(get_item_n(Dependencies7d,LD5,LD52)),AT1331),
 */
 
@@ -693,7 +693,7 @@ findall(LD52,(
 writeln(here1a),
  time(merge2(AT23,AT13,T4)),%),T5),
  
- %findall(XXX,(member(XXX1,T4),foldr(string_concat,XXX1,XXX2),catch(term_to_atom(XXX3,XXX4),_,fail),%pp0(XXX3,XXX4),
+ %findall1(XXX,(member(XXX1,T4),foldr(string_concat,XXX1,XXX2),catch(term_to_atom(XXX3,XXX4),_,fail),%pp0(XXX3,XXX4),
  %lp2p1(XXX4,XXX),nl),XXX3),
  %writeln(XXX3),
  %trace,
@@ -713,7 +713,7 @@ writeln(here1a),
  % find deps
  %trace,
 
- findall(_%Results%[PZ,FZ,T10]
+ findall1(_%Results%[PZ,FZ,T10]
  ,(
  %writeln(member(T44,T4)),
  member(T44,T4),
@@ -735,7 +735,7 @@ writeln(here1a),
 %trace,
  %put_in_nums(T49,AT333,T491), % leave exact comments, includes x
 %trace,
- findall([_,T4911],(member(T4911,T49)%,process_subtract([_,T4911],T49112)
+ findall1([_,T4911],(member(T4911,T49)%,process_subtract([_,T4911],T49112)
  ),T491),
 
  append(Pred_list2,T491,T4731),
@@ -743,10 +743,10 @@ writeln(here1a),
  put_in_order(T4731,AT333B,T47), % leave exact comments, includes x
 
  T47=T471,
- findall(XXX1,(member([XXX3,[[n,PName]|Rest_x]],T471),foldr(string_concat,["a",XXX3,"_",PName],PName2),XXX1=[_,[[n,PName2]|Rest_x]]),T471A),
+ findall1(XXX1,(member([XXX3,[[n,PName]|Rest_x]],T471),foldr(string_concat,["a",XXX3,"_",PName],PName2),XXX1=[_,[[n,PName2]|Rest_x]]),T471A),
  %writeln1([t471,T471]),
  %sort(T47,T471), % leave comments, includes x
- findall(T472,member([_,T472],T471),T473), % strip nums
+ findall1(T472,member([_,T472],T471),T473), % strip nums
  
  writeln(here2),
  %trace,
@@ -808,7 +808,7 @@ arg(2, Value, T50))
  notrace, % assuming T44 is a list of preds
  */
 
- findall([T51,"\n"],member(T51,T45),T522),%append(T522,[_],T52),
+ findall1([T51,"\n"],member(T51,T45),T522),%append(T522,[_],T52),
  %trace,
  flatten(T522,T53),
  foldr(string_concat,T53,T5),
@@ -831,7 +831,7 @@ writeln2(["Installing Combination"]),
 	
 	%(Test_n1=5->trace;true),
 	
- findall(_,(member([[[n, comment], [["File delimiter", PZ, FZ]]]|T10],T8),
+ findall1(_,(member([[[n, comment], [["File delimiter", PZ, FZ]]]|T10],T8),
 
   (success(1)->fail;true),
  %success_tmp(Tmp35),(forall(member(Tmp4,Tmp35),Tmp4=1)->true;fail),
@@ -871,7 +871,7 @@ writeln2(["Installing",PZ, FZ%Repository1
 %trace,
  lp2p1(T10,T11),
  %trace,
- %findall(_,(member([K2,Mod_time52],Mod_times),
+ %findall1(_,(member([K2,Mod_time52],Mod_times),
 open_s(FZ,write,S0),
 write(S0,T11),close(S0)
 %writeln([write(FZ,T11)])
@@ -888,12 +888,12 @@ write(S0,T11),close(S0)
  % delete build/rep afterwards
 
 %get needed reps
-%findall(Results,(member(Repository1,Dependencies9),
+%findall1(Results,(member(Repository1,Dependencies9),
 
 %(Repository1="b"->trace;true),
 
 %member([Repository1,Dependencies7],Dependencies6),
-%findall(_,(member(Repository1,Dependencies7),
+%findall1(_,(member(Repository1,Dependencies7),
 %writeln(["Installing required repository",Repository1]),
 
 %lppm_install_luciancicd(LPPM_registry_term1,"luciangreen",Repository1),%),_),
@@ -909,9 +909,9 @@ write(S0,T11),close(S0)
 
 writeln2(["Running tests"]),
 %trace,
-findall(H4,(member(Repository1b,Dependencies99),
+findall1(H4,(member(Repository1b,Dependencies99),
 
-findall([Repository1b,Main_file1],member([Repository1b,Main_file1,_,_],H3),H4)),H5),
+findall1([Repository1b,Main_file1],member([Repository1b,Main_file1,_,_],H3),H4)),H5),
 %writeln([member(Repository1b,Dependencies99)]),
 
 foldr(append,H5,H61),
@@ -919,13 +919,13 @@ sort(H61,H6),
 %trace,
 %Repository1b=Dep99,
 %trace,
-findall(Results2,(member([_,_Main_file],H6),%member(Repository1b,Dependencies99),
+findall1(Results2,(member([_,_Main_file],H6),%member(Repository1b,Dependencies99),
 
 (success(1)->fail;true),
 
 working_directory1(_,A1),
  
-/*findall(Tests_a,(member([Repository1b1,_],H6), 
+/*findall1(Tests_a,(member([Repository1b1,_],H6), 
 foldr(string_concat,["../private2/luciancicd-cicd-tests/tests_",Repository1b1,".txt"],Test_script_path),
 (catch(open_file_s(Test_script_path,Tests_a),_,
 (writeln2(["Cannot find",Test_script_path]),fail%,abort
@@ -951,7 +951,7 @@ sort1(Tests01,Tests0),
 %notrace
 %trace,
 
-findall(Result,(member([Go_path1,File,Command],Tests0),
+findall1(Result,(member([Go_path1,File,Command],Tests0),
 %trace,
 working_directory1(_,A),
 %trace,
@@ -1106,7 +1106,7 @@ length(Result4,Dependencies7d7L)
 %trace,
 %flatten(Results1,Results2),
 %Results2=Results21,
-%findall(Result4,(member(Result4,Results2),not(var(Result4))),Results21),
+%findall1(Result4,(member(Result4,Results2),not(var(Result4))),Results21),
 
 
  %success_tmp(_Tmp37),(true%forall(member(Tmp4,Tmp37),Tmp4=1)
@@ -1128,7 +1128,7 @@ length(Result5,H3L))
 
 (exists_directory('../private2/luciancicd-data')->true;make_directory('../private2/luciancicd-data')),
 */
-findall(_,(member([K21,Mod_time521],Mod_times2),
+findall1(_,(member([K21,Mod_time521],Mod_times2),
 open_s(K21,write,S21),
 write(S21,Mod_time521),close(S21)
 ),_),
@@ -1252,7 +1252,7 @@ foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
  	% The modified Prolog programs are saved
 % - reset dirs, make folders x files have been cleaned from folders
 %trace,
-findall(_,(member([K21|Tests521],Tests),
+findall1(_,(member([K21|Tests521],Tests),
 term_to_atom(Tests521,Tests522),
 open_s(K21,write,S21),
 write(S21,Tests522),close(S21)
@@ -1263,7 +1263,7 @@ modification_dates(Mod_times),
 
 clear_mod_dates,
 
-findall(_,(member([K2,Mod_time52],Mod_times),
+findall1(_,(member([K2,Mod_time52],Mod_times),
 open_s(K2,write,S),
 write(S,Mod_time52),close(S)
 ),_),
@@ -1276,20 +1276,20 @@ repositories_paths(Paths) :-
  output_path(Paths);
  (
  repositories_paths1(Paths1),
- findall(Paths2,(member(Paths3,Paths1),
+ findall1(Paths2,(member(Paths3,Paths1),
  ((string_concat(_Paths4,"/",Paths3),
  Paths2=Paths3)->true;
  string_concat(Paths3,"/",Paths2))),Paths))),!.
  
 omit_paths(Paths) :-
  omit_paths1(Paths1),
- findall(Paths2,(member(Paths3,Paths1),
+ findall1(Paths2,(member(Paths3,Paths1),
  ((string_concat(Paths2,"/",Paths3))->true;
  (Paths3=Paths2))),Paths),!.
 
 output_path(Paths) :-
  output_path1(Paths1),
- findall(Paths2,(member(Paths3,Paths1),
+ findall1(Paths2,(member(Paths3,Paths1),
  ((string_concat(_Paths4,"/",Paths3),
  Paths2=Paths3)->true;
  string_concat(Paths3,"/",Paths2))),Paths),!.
@@ -1304,15 +1304,15 @@ repositories_paths(K),
 
 omit_paths(Omit),
 
-%findall(Omit1,(member(Omit2,Omit),atom_string(Omit1,Omit2)),Omit3),
-findall([K1,G4],(member(K1,K), directory_files(K1,F),
+%findall1(Omit1,(member(Omit2,Omit),atom_string(Omit1,Omit2)),Omit3),
+findall1([K1,G4],(member(K1,K), directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 
-%findall(H,(member(H,G),not(string_concat("dot",_,H)),
+%findall1(H,(member(H,G),not(string_concat("dot",_,H)),
 
 subtract(G,Omit,G1),
 
-findall(G3,(member(G2,G1),string_concat(G2,"/",G3)),G4)
+findall1(G3,(member(G2,G1),string_concat(G2,"/",G3)),G4)
 %not(member(G,Omit))
 
 ),K01),
@@ -1321,7 +1321,7 @@ findall(G3,(member(G2,G1),string_concat(G2,"/",G3)),G4)
 
 working_directory1(Old_D,Old_D),
 
-findall(Mod_time1,(member([D,K31],K01),
+findall1(Mod_time1,(member([D,K31],K01),
 
 working_directory1(_,Old_D),
 
@@ -1348,10 +1348,10 @@ process_directory(K,%G,
 
 %G=K,
 %/*
-findall(K4,(member(K1,K), directory_files(K1,F),
+findall1(K4,(member(K1,K), directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 %*/
-findall(Mod_time3,(member(H,G),not(string_concat("dot",_,H)),
+findall1(Mod_time3,(member(H,G),not(string_concat("dot",_,H)),
 
 %not(member(H,Omit)),
 
@@ -1415,7 +1415,7 @@ foldr(append,Mod_time6,Mod_time61)),
 	find_all_depending_luciancicd(LPPM_registry_term1,Repository1,Dependencies7,D,Dependencies72) :-
 ((member([User1,Repository1,_Description1,_Dependencies1],LPPM_registry_term1),
 not(member(Repository1,D)))->
-(findall(Dependencies5,(member([User1,Repository2,_Description,Dependencies2],LPPM_registry_term1),
+(findall1(Dependencies5,(member([User1,Repository2,_Description,Dependencies2],LPPM_registry_term1),
 member([User1,Repository1],Dependencies2),
 append(D,[Repository1],D2),
 find_all_depending_luciancicd(LPPM_registry_term1,Repository2,[],D2,Dependencies4),
@@ -1492,7 +1492,7 @@ lines_to_comments(A,_) :- member([],A),writeln("Error in main_file.txt, or other
 lines_to_comments(A,B) :-
  %term_to_atom(A,A1),
  split_string(A,"\n\r","\n\r",C),
- findall([[n,comment],[D]],member(D,C),B).
+ findall1([[n,comment],[D]],member(D,C),B).
  
 clear_mod_dates :-
 
@@ -1538,18 +1538,18 @@ writeln12(A) :- log(B),term_to_atom(A,A1),foldr(string_concat,[B,A1,"\n"],C),
 group_clauses(Dependencies7,Pred_numbers,Clause_Ns3) :-
  length(Pred_numbers,Pred_numbers_L),
  numbers(Pred_numbers_L,1,[],Pred_numbers_Ns),
- findall([Pred_numbers_N,A,B,C],(member(Pred_numbers_N,Pred_numbers_Ns),get_item_n(Pred_numbers,Pred_numbers_N,[A,B,C])),Pred_numbers2),
+ findall1([Pred_numbers_N,A,B,C],(member(Pred_numbers_N,Pred_numbers_Ns),get_item_n(Pred_numbers,Pred_numbers_N,[A,B,C])),Pred_numbers2),
  
- findall(D3,(member(D,Dependencies7),
- (D=[loop1,D1]->(findall([N1,D2],(member(D2,D1),
+ findall1(D3,(member(D,Dependencies7),
+ (D=[loop1,D1]->(findall1([N1,D2],(member(D2,D1),
  member([N1,A,B,C],Pred_numbers2),member(D2,C)),ND1),D3=[loop1,ND1]);
  (member([N,A,B,C],Pred_numbers2),member(D,C),D3=[N,D]))),Clause_Ns),
  
  collect_clauses_in_loops(Clause_Ns,Clause_Ns1),
  move_non_loop_clauses_to_loop(Clause_Ns1,Clause_Ns3),!.
  
- %findall(M,(member(G,Clause_Ns2),
- %(G=[loop1,H]->(findall(J,member([_,J],H),L),M=[loop1,L]);G=[_,M])),Clause_Ns3),!.
+ %findall1(M,(member(G,Clause_Ns2),
+ %(G=[loop1,H]->(findall1(J,member([_,J],H),L),M=[loop1,L]);G=[_,M])),Clause_Ns3),!.
  
 collect_clauses_in_loops(C,B) :-
  sub_term_wa([loop1,_],C,A),
@@ -1579,7 +1579,7 @@ collect_clauses_in_loops2([N1,A],NDs1,NDs2) :-
 
 move_non_loop_clauses_to_loop(C,B) :-
  %sub_term_wa([loop1,_],C,A),
- %findall([loop1,D],(member([loop1,D],C)),A),
+ %findall1([loop1,D],(member([loop1,D],C)),A),
  move_non_loop_clauses_to_loop1(C,C,B1%,[],D%,[],NLC
  ),delete(B1,["&del"],B).
  % delete non loop clauses
@@ -1663,8 +1663,8 @@ NDs1,NDs2,NDs3,NDs4) :-
 
 
 group_into_old_new(H1,H) :-
- findall([old,A,B],member([old,A,B],H1),H2),
- findall([new,A,B],member([new,A,B],H1),H3),
+ findall1([old,A,B],member([old,A,B],H1),H2),
+ findall1([new,A,B],member([new,A,B],H1),H3),
  H=[[old,H2],[new,H3]].
 
 /*
@@ -1678,11 +1678,11 @@ tests_pred(AT1331c,Command) :-
 */
 
 tests_pred2(Tests,AT3331ca,Tests0) :-
- findall(X,(member(X1,AT3331ca),process_subtract([_,X1],[_,X])),AT3331c),
+ findall1(X,(member(X1,AT3331ca),process_subtract([_,X1],[_,X])),AT3331c),
  %writeln2(["Contains predicates: "]),
  retractall(tests_preds3(_)),
  assertz(tests_preds3([])),
-findall([Go_path1,File,Command1],(member([N|VE],AT3331c),
+findall1([Go_path1,File,Command1],(member([N|VE],AT3331c),
  N=[_,N1],
  ((VE=[V]->true;(VE=[V|_],not(V=":-")))->length(V,Arity);Arity=0),
  member([Go_path1,File,Command1],Tests),
@@ -1709,7 +1709,7 @@ findall([Go_path1,File,Command1],(member([N|VE],AT3331c),
 %find_first_pred(Dep99,H%File,Dep99_name,Dep99_arity
 %) :-
 %read_main_file(Dep99,G),
-%findall([B,C],member([_,B,C],G),H),!.
+%findall1([B,C],member([_,B,C],G),H),!.
 %[A,B,C]=[File,Dep99_name,Dep99_arity],!.
 
 read_main_file(Dep99,G) :-
@@ -1726,7 +1726,7 @@ foldr(string_concat,[Path,Dep99,
 (writeln2(["Cannot find",Go_path2]),(writeln(["Missing main_file.txt in " ,Dep99,"/"]),abort)%,abort
 ))),
 
-findall([Dep99,B,C,D],(member([B,E],A),member([C,D],E)),G),
+findall1([Dep99,B,C,D],(member([B,E],A),member([C,D],E)),G),
 %atom_string(Dep99_name1,Dep99_name),
 
 working_directory1(_,A1),
@@ -1788,7 +1788,7 @@ merge_files3(AT2331,AT1331,AT333%,AT3331
 %writeln1(merge_files3(AT2331,AT1331,AT333)),
  AT2331=[[_N0,[Pred_name1|Rest1]]|_AT2333],
  pred_rest(Arity1,Rest1,_Lines1),
- findall([_N,[Pred_name1|Rest3]],(member([_N2,[Pred_name1|Rest3]],AT2331),
+ findall1([_N,[Pred_name1|Rest3]],(member([_N2,[Pred_name1|Rest3]],AT2331),
  pred_rest(Arity1,Rest3,_Lines3)),Ps),
  subtract(AT2331,Ps,Ps2),
  %((%trace,
@@ -1805,7 +1805,7 @@ merge_files3(AT2331,AT1331,AT333%,AT3331
  merge_files3(Ps2,AT1334,AT333),!.%,AT3331) :-
 
 put_in_nums(T49,AT333,T491) :- % leave exact comments, includes x
- /*findall(*,(member([Pred_name1|Rest1],T49),
+ /*findall1(*,(member([Pred_name1|Rest1],T49),
  pred_rest(Arity1,Rest1,_Lines2),
  get_n_item(AT333,)
  )))
@@ -1813,14 +1813,14 @@ put_in_nums(T49,AT333,T491) :- % leave exact comments, includes x
 /* 
  length(AT333,AT333L),
  numbers(AT333L,1,[],AT333N),
- findall([AT333N1,AT333Item],(member(AT333N1,AT333N),
+ findall1([AT333N1,AT333Item],(member(AT333N1,AT333N),
  get_item_n(AT333,AT333N1,AT333Item),
  member(AT333Item,T49)),T491),!.
 */
 %/*
  %length(T49,T49L),
  %numbers(T49L,1,[],T49N),
- findall([T49N1,T49A],(member(T49A,T49),
+ findall1([T49N1,T49A],(member(T49A,T49),
  once(get_n_item(AT333,T49A,T49N1))
  %member(AT333Item,T49)
  ),T491),%sort(T492,T491),
@@ -1867,41 +1867,41 @@ process_put_in_order(B1,B,Num):-
 put_in_order(T4721,AT333B,T47) :-
 %trace,
 %writeln1(put_in_order(T4721,AT333B,T47)),
- findall([A, [N|C]],(member([A, [N|C]],AT333B),
+ findall1([A, [N|C]],(member([A, [N|C]],AT333B),
  (N=[n,comment]->true;N=":-")),AT333BA),
  subtract1(T4721,AT333BA,[],T472),
 
- findall(B1,(member([_, [[n,B12]|C]],T472),
+ findall1(B1,(member([_, [[n,B12]|C]],T472),
 
 process_put_in_order(B12,B,Num),
  (%false,B=comment,once(member([A,[[n,B]|C]],AT333B)))->B1=[A,[[n,B]|C]];
  ((once(member([Num,[[n,B]|_C1]],AT333B))%,append(C1,_,C)
  )->B1=[Num,[[n,B]|C]]))),D1),
  /*
- findall([n,B],member([_, [[n,B]|C]],T472),B2),
+ findall1([n,B],member([_, [[n,B]|C]],T472),B2),
  sort(B2,B3),%length(B3,B3L),
  %numbers(B3L,1,[],Ns),
- findall(X,(member(X2,B3),findall(X3,(member(X1,T472)))
- findall([N1,[[n,B]|C]],(member(N1,Ns),get_item_n(T472,N1,[_, [[n,B]|C]])),B5),
- %findall(B3,(member([_, [[n,B]|C]],T472),member([n,B])))
+ findall1(X,(member(X2,B3),findall1(X3,(member(X1,T472)))
+ findall1([N1,[[n,B]|C]],(member(N1,Ns),get_item_n(T472,N1,[_, [[n,B]|C]])),B5),
+ %findall1(B3,(member([_, [[n,B]|C]],T472),member([n,B])))
 
- %findall([A,[[n,B]|C]],member([A, [[n,B]|C]],AT333B),B21),
- findall([n,B],member([A, [[n,B]|C]],AT333B),B21),
+ %findall1([A,[[n,B]|C]],member([A, [[n,B]|C]],AT333B),B21),
+ findall1([n,B],member([A, [[n,B]|C]],AT333B),B21),
  sort(B21,B31),length(B31,B31L),
  numbers(B31L,1,[],Ns1),
- findall([N11,B41],(member(N11,Ns1),get_item_n(AT333B,N11,B41)),B51),
- %findall(B31,(member([_, [[n,B]|C]],T472),member([n,B])))
+ findall1([N11,B41],(member(N11,Ns1),get_item_n(AT333B,N11,B41)),B51),
+ %findall1(B31,(member([_, [[n,B]|C]],T472),member([n,B])))
  
- findall(B1,(member([N1, [[n,B]|C]],B5),
+ findall1(B1,(member([N1, [[n,B]|C]],B5),
 (%false,B=comment,once(member([A,[[n,B]|C]],AT333B)))->B1=[A,[[n,B]|C]];
  ((%trace,
  once(member([N1,[A,[[n,B]|_C1]]],B51))%,append(C1,_,C)
  )->B1=[A,[[n,B]|C]]))),D1),
  */
  append(AT333BA,D1,D),
- findall(E,member([E,_],D),F),
+ findall1(E,member([E,_],D),F),
  sort(F,G),
- findall([H,J],(member(H,G),member([H,J],D)),T471),
+ findall1([H,J],(member(H,G),member([H,J],D)),T471),
  sort(T471,T47),!.
 
 
@@ -1964,7 +1964,7 @@ sort1(A,B,C) :-
 get_order(AT333,AT333B) :-
 %trace,
 %writeln1(get_order(AT333,AT333B)),
- findall(AT333C,(member(AT333D,AT333),
+ findall1(AT333C,(member(AT333D,AT333),
  ((AT333D=[N|_],(N=[n, comment]->true;N=":-"))->
  AT333C=AT333D;
  (((%trace,
@@ -1976,7 +1976,7 @@ get_order(AT333,AT333B) :-
  AT333E=AT333F,
  length(AT333F,AT333FL),
  numbers(AT333FL,1,[],AT333FN),
- findall([N,AT333G],(member(N,AT333FN),
+ findall1([N,AT333G],(member(N,AT333FN),
  get_item_n(AT333F,N,AT333G)),AT333B),!.
  
 /*
@@ -2003,7 +2003,7 @@ delete_repeated_preds(AT333,AT333AB) :-
  pred_list(PL),
 
  (PL=[]->AT333=AT333AB;
- (findall(PL1,member([_,PL1],PL),PL2),
+ (findall1(PL1,member([_,PL1],PL),PL2),
  subtract(AT333,PL2,AT333A),
  delete_dep99_na(PL2,AT333A,AT333AB))),!.
 

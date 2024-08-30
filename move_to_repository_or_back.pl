@@ -21,14 +21,14 @@ move_to_repository_or_back :-
  (exists_directory_s(LCTD2)->true;make_directory_s(LCTD2)),
  
 
-findall([K1,G4],(member(K1,K), directory_files(K1,F),
+findall1([K1,G4],(member(K1,K), directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 
-%findall(H,(member(H,G),not(string_concat("dot",_,H)),
+%findall1(H,(member(H,G),not(string_concat("dot",_,H)),
 
 subtract(G,Omit,G1),
 
-findall([G3,G31],(member(G2,G1),foldr(string_concat,[LCTD,K1,G2,"/"],LCTDa),
+findall1([G3,G31],(member(G2,G1),foldr(string_concat,[LCTD,K1,G2,"/"],LCTDa),
 foldr(string_concat,[LCTD2,K1,G2,"/"],LCTD2a),
 foldr(string_concat,[K1,G2,"/"],K1a),
 */
@@ -37,7 +37,7 @@ foldr(string_concat,[K1,G2,"/"],K1a),
  %mv_lc(LCTD2a,K1a)
  mv_lc(LCTD,LCTD2),
 
-findall(_,(member(K1,K),
+findall1(_,(member(K1,K),
  %mv_lc(K1,LCTD),
  mv_lc(LCTD2,O),
  
@@ -47,7 +47,7 @@ findall(_,(member(K1,K),
  
  ),_),
 %),_G4)
-%findall(G3,(member(G2,G1),foldr(string_concat,[LCTD2,G2,"/"],G3)),LCTD2_G4),
+%findall1(G3,(member(G2,G1),foldr(string_concat,[LCTD2,G2,"/"],G3)),LCTD2_G4),
 
 
  %mv_lc(R,LCTD),

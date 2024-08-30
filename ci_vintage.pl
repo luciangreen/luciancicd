@@ -55,8 +55,8 @@ diff(Before,After,Insertions1,Deletions1,Insertions,Deletions,Permanent_insertio
  %save_diff_html(After3),
  fail_if_greater_than_n_changes(After3),
   %trace,
-  findall(Combos,find_combos1_vintage(Insertions,Deletions,Permanent_insertions,Combos),Combos2),
- findall(Combos1,(member(Combos3,Combos2),
+  findall1(Combos,find_combos1_vintage(Insertions,Deletions,Permanent_insertions,Combos),Combos2),
+ findall1(Combos1,(member(Combos3,Combos2),
  find_combos3_vintage(After3,Combos3,[],Combos1)),Combos41),
  sort(Combos41,Combos4),!.
  
@@ -111,7 +111,7 @@ replace12_vintage(Before,After,Deletions,After2,After3) :-
  (Before53=[]->After7=[];
  
  (is_list(Before55)->
- findall([d,B],member(B,Before55),After7);
+ findall1([d,B],member(B,Before55),After7);
  After7=[[d,Before55]])
  );
  
@@ -139,7 +139,7 @@ replace12_vintage(Before,After,Deletions,After2,After3) :-
  (Before53=[]->After7=[];
  
  (is_list(Before55)->
- findall([d,B],member(B,Before55),After7);
+ findall1([d,B],member(B,Before55),After7);
  After7=[[d,Before55]])
  );
  
@@ -165,7 +165,7 @@ find_insertions_and_deletions_vintage(Before,After,Insertions1,Deletions1,Perman
  %/*
  correspondences(Corr),
  keep1(Kept),
- findall(A1,(member(A1,After),get_base_token_number(A1,A10),member([Comm,A10],Corr),
+ findall1(A1,(member(A1,After),get_base_token_number(A1,A10),member([Comm,A10],Corr),
 %((
 (string_concat(Comm1,",",Comm)->true;Comm1=Comm),catch(term_to_atom(A2,Comm1),_,fail),A2=[[_,Name],Args],length(Args,Arity),member([Name,Arity],Kept)
 %)->true;Comm=",")
@@ -175,12 +175,12 @@ sort(Permanent_insertions1,Permanent_insertions),
  %()subtract(After,After1,After2),
  %*/
  
- findall([M21,M11],(member(M21,After),get_base_token_number(M21,M11)),After2),
- findall([M22,M12],(member(M22,Before),get_base_token_number(M22,M12)),Before2),
+ findall1([M21,M11],(member(M21,After),get_base_token_number(M21,M11)),After2),
+ findall1([M22,M12],(member(M22,Before),get_base_token_number(M22,M12)),Before2),
  
- %findall(P11,(member([P11,P12],M31),member([P13,P14],M32),not(P12=P14)),After11),
+ %findall1(P11,(member([P11,P12],M31),member([P13,P14],M32),not(P12=P14)),After11),
  %sort(After11,After1),
- %findall(P11,(member([P11,P12],M32),member([P13,P14],M31),not(P12=P14)),Before11),
+ %findall1(P11,(member([P11,P12],M32),member([P13,P14],M31),not(P12=P14)),Before11),
 % sort(Before11,Before1),
 %trace,
  %subtract(M31,M32,After1),
@@ -193,7 +193,7 @@ sort(Permanent_insertions1,Permanent_insertions),
  
  append(Before,After,Both),
  %trace,
- findall(A1,(member(A1,Both),%A1=A10,
+ findall1(A1,(member(A1,Both),%A1=A10,
  get_base_token_number(A1,A10),
  member([",",A10],Corr)),%)->A11=[A1];
  A11%=[]
@@ -221,9 +221,9 @@ subtract_civ(M31,M32,A1,A2) :-
 
 
 find_combos1_vintage(Insertions,Deletions,Permanent_insertions,Combos) :-
- findall([i,In],member(In,Insertions),In1),
- findall([d,De],member(De,Deletions),De1),
- findall([p,Pe],member(Pe,Permanent_insertions),Pe1),
+ findall1([i,In],member(In,Insertions),In1),
+ findall1([d,De],member(De,Deletions),De1),
+ findall1([p,Pe],member(Pe,Permanent_insertions),Pe1),
  foldr(append,[In1,De1,Pe1],Ops),
  find_combos2_vintage(Ops,[],Combos).
 
@@ -235,7 +235,7 @@ find_combos2_vintage(Ops,Combos1,Combos2) :-
  append(Combos1,[[Op,Switch]],Combos3),
  find_combos2_vintage(Ops1,Combos3,Combos2).
 
-%findall([Op,Switch],(member(Op,Ops),member(Switch,[on,off])),Switches).
+%findall1([Op,Switch],(member(Op,Ops),member(Switch,[on,off])),Switches).
 % ((member(In,Insertions)->true;In=[]),
 % (member(De,Deletions)->true;De=[]),
  

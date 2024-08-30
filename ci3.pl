@@ -37,8 +37,8 @@ repositories_paths(K),
 
 omit_paths(Omit),
 
-%findall(Omit1,(member(Omit2,Omit),atom_string(Omit1,Omit2)),Omit3),
-findall([K1,G4],(member(K1,K), directory_files(K1,F),
+%findall1(Omit1,(member(Omit2,Omit),atom_string(Omit1,Omit2)),Omit3),
+findall1([K1,G4],(member(K1,K), directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 
 %retractall(merges_files(_)),
@@ -49,11 +49,11 @@ findall([K1,G4],(member(K1,K), directory_files(K1,F),
 % Its predicates need to be updated and saved.
 
 % merges_preds contains the name and arity of updated preds x
-%findall(H,(member(H,G),not(string_concat("dot",_,H)),
+%findall1(H,(member(H,G),not(string_concat("dot",_,H)),
 
 subtract(G,Omit,G1),
 
-findall(G3,(member(G2,G1),string_concat(G2,"/",G3)),G4)
+findall1(G3,(member(G2,G1),string_concat(G2,"/",G3)),G4)
 %not(member(G,Omit))
 
 ),K01),
@@ -62,7 +62,7 @@ findall(G3,(member(G2,G1),string_concat(G2,"/",G3)),G4)
 
 working_directory1(Old_D,Old_D),
 %trace,
-findall(Tests1,(member([D,K31],K01),
+findall1(Tests1,(member([D,K31],K01),
 
 %trace,
 
@@ -111,16 +111,16 @@ prepare_repositories(Tests,T3%,Ordered_pred_nums
 %trace,
 
 
-findall([Tests12,Tokens2,Tokens1],
-%findall(Tests143,(
+findall1([Tests12,Tokens2,Tokens1],
+%findall1(Tests143,(
 (member([Tests12,C],Tests),
  %Tests=[[Tests12,C]],
  term_to_atom(Tests14,C),%),Tests142),
  %foldr(append,Tests142,Tests14),
  
- %findall([[[n,comment],["File delimiter",P,F]],O],=(
+ %findall1([[[n,comment],["File delimiter",P,F]],O],=(
  %trace,
- findall(O1,
+ findall1(O1,
  (
  member([P,F,O,N],Tests14),
  %member(A,[1,2]),
@@ -140,10 +140,10 @@ findall([Tests12,Tokens2,Tokens1],
  split_string(String2,"\n\r","\n\r",Tokens2),
  %),%;
  %(%A=2,
- %findall([[[n,comment],["File delimiter",P,F]],N],=(
+ %findall1([[[n,comment],["File delimiter",P,F]],N],=(
  %[P,F,_O,N]=Tests14,
  %member([P,F,O,N],Tests14),
- findall(N1,
+ findall1(N1,
  (
  member([P,F,O,N],Tests14),
  (N=[]->N1=N;
@@ -174,7 +174,7 @@ run pred tests on repo, and deps, and determine minimum version of pred, save in
 go to build
 */
 %A=[1],
-%findall(B,(member(Functions1,N2),%Debug=off,member(B,A),test(B,Q,F,R),query_box(Q,Query1,F,Functions1),
+%findall1(B,(member(Functions1,N2),%Debug=off,member(B,A),test(B,Q,F,R),query_box(Q,Query1,F,Functions1),
 /*convert_to_grammar_part1(Functions1,[],Functions2,_),add_line_numbers_to_algorithm1(Functions2,Functions2a),find_pred_numbers(Functions2a,[],Pred_numbers),find_state_machine1(Functions2a,Functions3,Pred_numbers),
 
 
@@ -191,13 +191,13 @@ working_directory1(A0,A0),
 
 %G=K,
 %/*
-findall(K4,(member(K1,K), 
+findall1(K4,(member(K1,K), 
 working_directory1(_,A0),
 %exists_directory(K1),
 directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 %*/
-findall(Tests3,(member(H,G),not(string_concat("dot",_,H)),
+findall1(Tests3,(member(H,G),not(string_concat("dot",_,H)),
 
 %not(member(H,Omit)),
 
@@ -243,7 +243,7 @@ foldr(append,Tests5,Tests51),
 Top_level=true%not(Omit=[]) % at top level
 ->
 ( % folder/file, pl
-findall([T1,',\n'],(member([T,TT,TTT,TTTT
+findall1([T1,',\n'],(member([T,TT,TTT,TTTT
 ],Tests51),term_to_atom(TTT,TTT1),term_to_atom(TTTT,TTTT1),
 foldr(atom_concat,["[","\"",T,"\"",",","\"",TT,"\"",",",TTT1,",",TTTT1,
 "]"],T1)%term_to_atom(T,T1)
@@ -317,10 +317,10 @@ find_merge(K1,H,H1,Tests) :-
 find_merge2(H,K11,LP,Tests) :-
 
 	%trace,
-	findall(N1,(member([[n,N]|_],LP),
+	findall1(N1,(member([[n,N]|_],LP),
 	string_strings(N,N1)),Ns),
 
-	findall([K11,H,F2],(member([[n,comment%c
+	findall1([K11,H,F2],(member([[n,comment%c
 	],[Comment]],LP),
 	string_strings(Comment,C),
 	member(N2,Ns),
@@ -383,7 +383,7 @@ find_merge2(H,K11,LP,Tests) :-
 /*
 process_merge_preds(Tests11,Ordered_pred_nums,Tests1) :-
  Tests11=[B,Tests12],term_to_atom(C,Tests12),
- findall(A,(member([P,F,O,N],C)
+ findall1(A,(member([P,F,O,N],C)
  
  ),_).
 */

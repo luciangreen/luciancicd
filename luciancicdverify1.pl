@@ -161,7 +161,7 @@ luciancicd(At_start,Max,CICD,Start_files,End_files) :-
  	))
  );true),
  
- findall(_,(member([File_name,Contents],Start_files),
+ findall1(_,(member([File_name,Contents],Start_files),
  truncate_path(File_name,P,F2),
  working_directory1(A1,A1),
  (exists_directory(P)->true;
@@ -181,12 +181,12 @@ luciancicd(At_start,Max,CICD,Start_files,End_files) :-
  working_directory1(_,O),
  find_files("./",F),
  
- findall([File_name,Contents1],(member([File_name,Contents],F),
+ findall1([File_name,Contents1],(member([File_name,Contents],F),
  remove_end_comments2(Contents,Contents1)),F0),
  
  %trace,
 
- findall([File_name1,Contents],(member([File_name,Contents],End_files),
+ findall1([File_name1,Contents],(member([File_name,Contents],End_files),
  (string_concat("./",_,File_name)->File_name1=File_name;
  (%trace,
  string_concat("./",File_name,File_name1)))),End_files1),

@@ -8,15 +8,15 @@ repositories_paths(K),
 
 omit_paths(Omit),
 
-%findall(Omit1,(member(Omit2,Omit),atom_string(Omit1,Omit2)),Omit3),
-findall([K1,G4],(member(K1,K), directory_files(K1,F),
+%findall1(Omit1,(member(Omit2,Omit),atom_string(Omit1,Omit2)),Omit3),
+findall1([K1,G4],(member(K1,K), directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 
-%findall(H,(member(H,G),not(string_concat("dot",_,H)),
+%findall1(H,(member(H,G),not(string_concat("dot",_,H)),
 
 subtract(G,Omit,G1),
 
-findall(G3,(member(G2,G1),string_concat(G2,"/",G3)),G4)
+findall1(G3,(member(G2,G1),string_concat(G2,"/",G3)),G4)
 %not(member(G,Omit))
 
 ),K01),
@@ -25,7 +25,7 @@ findall(G3,(member(G2,G1),string_concat(G2,"/",G3)),G4)
 
 working_directory1(Old_D,Old_D),
 
-findall(Mod_time1,(member([D,K31],K01),
+findall1(Mod_time1,(member([D,K31],K01),
 
 working_directory1(_,Old_D),
 
@@ -44,7 +44,7 @@ process_directory_remove_end_comment(K31,%_G,
  
  %/*
  %trace,
-findall(_,(member([_,Tests521],Mod_time),
+findall1(_,(member([_,Tests521],Mod_time),
 term_to_atom(Tests523,Tests521),
 member([K21,Tests522,T],Tests523),
 open_s(K21,write,S21),
@@ -64,7 +64,7 @@ sleep(2),
 %A=3.
 c(A,B,B4):-B4 is A+B."]]
 
-findall([F1,Mod_times12],
+findall1([F1,Mod_times12],
 (member(F2,G),string_concat('../private2/luciancicd-data/',F2,F1),
 open_file_s(F1,Mod_times1),
 term_to_atom(Mod_times1,Mod_times12)),Mod_times11),
@@ -81,10 +81,10 @@ process_directory_remove_end_comment(K,%G,
 
 %G=K,
 %/*
-findall(K4,(member(K1,K), directory_files(K1,F),
+findall1(K4,(member(K1,K), directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 %*/
-findall(Mod_time3,(member(H,G),%not(string_concat("dot",_,H)),
+findall1(Mod_time3,(member(H,G),%not(string_concat("dot",_,H)),
 
 %not(member(H,Omit)),
 

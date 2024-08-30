@@ -84,7 +84,7 @@ traverse%(%Object,
 %Items11%,All1
 %)
  :-
- findall(Items1,(object(Object,Items2,Items1),
+ findall1(Items1,(object(Object,Items2,Items1),
  %writeln1(dfs_post_order("white",Items2,[],Items1,[],All1)),
  dfs_post_order0(0,Items2,[],Items12,[],_All1),
  (Items1=Items12->S=success;S=fail),
@@ -109,13 +109,13 @@ reverse(Ordered_pred_nums14,Ordered_pred_nums141),
 remove_dups_from_loops(Ordered_pred_nums141,Ordered_pred_nums151),
 reverse(Ordered_pred_nums151,Ordered_pred_nums15),
 %trace,
-findall(Ordered_pred_nums19,(member(Ordered_pred_nums16,Ordered_pred_nums15),
+findall1(Ordered_pred_nums19,(member(Ordered_pred_nums16,Ordered_pred_nums15),
 (Ordered_pred_nums16=[loop1,Ordered_pred_nums17]->(list_to_set(Ordered_pred_nums17,Ordered_pred_nums18),Ordered_pred_nums19=[loop1,Ordered_pred_nums18]);Ordered_pred_nums19=Ordered_pred_nums16
 )),Ordered_pred_nums20),
 
 %delete(Ordered_pred_nums20,loop,Ordered_pred_nums21),
 
- findall(E,(member(F,Ordered_pred_nums20),
+ findall1(E,(member(F,Ordered_pred_nums20),
  (F=[loop1,[A1]]->E=A1;E=F)),Items31),
 
 !
@@ -137,8 +137,8 @@ dfs_post_order(Curr,Items_all,Items2,Items31,Items2_all1,Items3_all1) :-
  append(Items6_all1,[Curr],Items3_all1))),
  
  %trace,
- findall(C,(member(C,Items3),not(C=[loop1,_])),A1),
- findall([loop1,A],member([loop1,A],Items3),A2),
+ findall1(C,(member(C,Items3),not(C=[loop1,_])),A1),
+ findall1([loop1,A],member([loop1,A],Items3),A2),
  append(A1,A2,A3),
  append(Items2,A3,Items31),
  !.
@@ -169,14 +169,14 @@ dfs_post_order2(Curr,Item7,Items_all,Items2,Items8,Items2_all1,Items8_all1) :-
  %trace,
  
  sub_term_wa([loop1,_],Items2,A),
- findall(C,(member(C,A),C=[_Add,[loop1,B]],not(intersection(Items41,B)=[])),D),
+ findall1(C,(member(C,A),C=[_Add,[loop1,B]],not(intersection(Items41,B)=[])),D),
  
- findall(F,member([_,[_,F]],D),G),
+ findall1(F,member([_,[_,F]],D),G),
  append([Items41],G,J),
  foldr(append,J,J1),
  sort(J1,H),
 
- findall(K,member([K,_],D),M),
+ findall1(K,member([K,_],D),M),
  delete_sub_term_wa(M, Items2, E),
  
  append(E,[[loop1,H
@@ -215,7 +215,7 @@ contains_loop_dfs(Curr1,Curr,Items_all
  (member(Curr,Items2_all1)->
  (Items2_all1=Items7_all1,
  Not_on_line1=Not_on_line3);
- %findall(Items7_all1,
+ %findall1(Items7_all1,
  contains_loop_dfs2(Curr1,Items,Items_all%,Items2,Items6
  ,Items2_all1,Items7_all1,Not_on_line1,Not_on_line3)),
  %),Items71_all1),
@@ -275,7 +275,7 @@ contains_loop_dfs2(Curr,Item7,Items_all%,Items2,Items8
 %) :- 
 %writeln1(contains_loop_dfs2(Curr,Item7,Items_all%,Items2,Items8
 %,Items2_all1,Items8_all1)),
- %findall([Items4_all1,Items3],(
+ %findall1([Items4_all1,Items3],(
  %member(Item1,Item7),%
  (
   %(intersection(Items0,[Curr],[])->
@@ -298,7 +298,7 @@ contains_loop_dfs2(Curr,Item7,Items_all%,Items2,Items8
  ,Items6_all1,Not_on_line1,Not_on_line3),%->true;*)
  
  %append()%),Items5_all1),
- %findall(A,member([A,_],Items5_all1),Items51_all1), findall(A,member([_,A],Items5_all1),Items31),
+ %findall1(A,member([A,_],Items5_all1),Items51_all1), findall1(A,member([_,A],Items5_all1),Items31),
  %flatten(Items31,Items32),
  %append(Items2_all1,Items4_all1,Items6_all1),%->true;
  flatten(Items6_all1,Items61_all1),
@@ -336,7 +336,7 @@ lead_to_empty_list(Items,Items_all,A,B) :-
 
 % cycles
 path(Node, Node, Tree, Cycles1, A4) :-
-    findall(Cycles2,path00(Node, Node, Tree, Cycles1, Cycles2),Cycles3),
+    findall1(Cycles2,path00(Node, Node, Tree, Cycles1, Cycles2),Cycles3),
     flatten(Cycles3,A3),list_to_set(A3,A4),
     not(A4=[]),!.
 
@@ -371,7 +371,7 @@ cycle(Node, Tree,Cycles,Noncycles) :-
 % non-cycles
 path1(Cycles,First,Tree,A0,A5) :-
 %trace,
- findall(A1,path10(Cycles,First,Tree,A0,A1),A2),
+ findall1(A1,path10(Cycles,First,Tree,A0,A1),A2),
  flatten(A2,A3),list_to_set(A3,A4),
  subtract(A4,[First],A5)
  %A4=A5
@@ -399,7 +399,7 @@ path10(Stop,First,Tree,A0,A1) :-
 
 
 find_deps(Nodes,Tree,Deps) :-
- findall(Deps2,(member(Node,Nodes),
+ findall1(Deps2,(member(Node,Nodes),
  cycle1(Node,Tree,[],Deps2)),Deps1a),
  foldr(append,Deps1a,Deps1),
  
@@ -410,13 +410,13 @@ reverse(Ordered_pred_nums14,Ordered_pred_nums141),
 remove_dups_from_loops(Ordered_pred_nums141,Ordered_pred_nums151),
 reverse(Ordered_pred_nums151,Ordered_pred_nums15),
 %trace,
-findall(Ordered_pred_nums19,(member(Ordered_pred_nums16,Ordered_pred_nums15),
+findall1(Ordered_pred_nums19,(member(Ordered_pred_nums16,Ordered_pred_nums15),
 (Ordered_pred_nums16=[loop1,Ordered_pred_nums17]->(list_to_set(Ordered_pred_nums17,Ordered_pred_nums18),Ordered_pred_nums19=[loop1,Ordered_pred_nums18]);Ordered_pred_nums19=Ordered_pred_nums16
 )),Ordered_pred_nums20),
 
 %delete(Ordered_pred_nums20,loop,Ordered_pred_nums21),
 
- findall(E,(member(F,Ordered_pred_nums20),
+ findall1(E,(member(F,Ordered_pred_nums20),
  (F=[loop1,[A1]]->E=A1;E=F)),Deps2),
  delete(Deps2,[loop1,[]],Deps).
 
@@ -424,7 +424,7 @@ findall(Ordered_pred_nums19,(member(Ordered_pred_nums16,Ordered_pred_nums15),
 cycle1(Node,Tree,Deps1,Deps2) :-
  (cycle(Node, Tree,Cycles,Noncycles)->
  (%append(Deps1,[[loop1,Cycles]],Deps3),
- %findall(A,(member(A,Noncycles),
+ %findall1(A,(member(A,Noncycles),
  cycle2(Noncycles,Tree,% Cycles1,Noncycles1,
  Deps1,Deps3),
  (Cycles=[A]->
@@ -496,7 +496,7 @@ tests([
 ).
 tests :-
  tests(Tests),
- findall(_,(
+ findall1(_,(
  member([N,Tree,Ans],Tests),
  find_deps(0,Tree,Deps),
  (Deps=Ans->S=success;S=fail),

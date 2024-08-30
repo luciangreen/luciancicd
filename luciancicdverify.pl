@@ -20,9 +20,9 @@
 
 lc_test(NTotal,Score) :- 
  gh_init(false),
- findall(_,(lc_test0(_N,_At_start,_Max,_CICD,_Start_files,_End_files)),B),length(B,NTotal),
+ findall1(_,(lc_test0(_N,_At_start,_Max,_CICD,_Start_files,_End_files)),B),length(B,NTotal),
  lc_test(0,NTotal,0,Score,[],List),
- findall(_,(member(L,List),writeln(L),nl),_),
+ findall1(_,(member(L,List),writeln(L),nl),_),
  !.
 lc_test(NTotal,NTotal,Score,Score,List,List) :- !.
 lc_test(NTotal1,NTotal2,Score1,Score2,List1,List2) :-
@@ -241,15 +241,15 @@ lc_test0(21,true,7,i,
 %*/
 
 lc_test0(22,true,7,i,
-[["c/c.pl","%a(A).\n%A=[1].\na(A):-findall(B,b(B),A).\n%b(A).\n%A=1.\nb(1)."],
+[["c/c.pl","%a(A).\n%A=[1].\na(A):-findall1(B,b(B),A).\n%b(A).\n%A=1.\nb(1)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,1]]]]"]],
-[["c/c.pl","%a(A).\n%A=[1].\na(A):-findall(B,b(B),A).\n%b(A).\n%A=1.\nb(1)."],
+[["c/c.pl","%a(A).\n%A=[1].\na(A):-findall1(B,b(B),A).\n%b(A).\n%A=1.\nb(1)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,1]]]]"]]
 ).
 
 lc_test0(23,false,15,d,
-[["c/c.pl","%a(A).\n%A=[2,1].\na(A):-findall(B,b(B),A).\n%b(A).\n%A=1.\n%b(A).\n%A=2.\nb(2)."],
+[["c/c.pl","%a(A).\n%A=[2,1].\na(A):-findall1(B,b(B),A).\n%b(A).\n%A=1.\n%b(A).\n%A=2.\nb(2)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,1]]]]"]],
-[["c/c.pl","%a(A).\n%A=[2,1].\na(A):-findall(B,b(B),A).\n%b(A).\n%A=1.\n%b(A).\n%A=2.\nb(2).\nb(1)."],
+[["c/c.pl","%a(A).\n%A=[2,1].\na(A):-findall1(B,b(B),A).\n%b(A).\n%A=1.\n%b(A).\n%A=2.\nb(2).\nb(1)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,1]]]]"]]
 ).
