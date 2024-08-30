@@ -51,6 +51,8 @@ open_s(K21,write,S21),
 write(S21,Tests522),close(S21)
 ,set_time_file(K21,[],[modified(T)])
 ),_),
+sleep(2),
+
 %*/
 
 /*

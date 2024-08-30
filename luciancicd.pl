@@ -27,7 +27,7 @@ Later:
 
 % - records modification date for each file
 
-:-set_prolog_flag(stack_limit, 50000000000).
+:-set_prolog_flag(stack_limit, 160000000000).
 
 :-include('../SSI/ssi.pl').
 :-include('../listprologinterpreter/la_files.pl').
@@ -95,11 +95,13 @@ working_directory1(A1,A1),
 modification_dates(Mod_times),
 
 clear_mod_dates,
-
 findall(_,(member([K2,Mod_time52],Mod_times),
 open_s(K2,write,S),
 write(S,Mod_time52),close(S)
-),_),!,
+),_),
+sleep(2),
+!,
+
 
 
 
@@ -807,13 +809,14 @@ arg(2, Value, T50))
  */
 
  findall([T51,"\n"],member(T51,T45),T522),%append(T522,[_],T52),
+ %trace,
  flatten(T522,T53),
  foldr(string_concat,T53,T5),
  term_to_atom(T7,T5),split_into_lp_files(T7,T8),
  
    (success(1)->fail;true),
  %success_tmp(Tmp34),(forall(member(Tmp4,Tmp34),Tmp4=1)->true;fail),
-
+%trace,
  writeln2(""),writeln2("**********"),
 writeln2(["Installing Combination"]),
 
@@ -865,12 +868,14 @@ writeln2(["Installing",PZ, FZ%Repository1
 %=======
  %pp_lp2p0(T10,T11),
 %>>>>>>> Stashed changes
+%trace,
  lp2p1(T10,T11),
+ %trace,
  %findall(_,(member([K2,Mod_time52],Mod_times),
 open_s(FZ,write,S0),
 write(S0,T11),close(S0)
-
 %writeln([write(FZ,T11)])
+,sleep(2)
 
 %),_),!.
 
@@ -939,7 +944,7 @@ working_directory1(A,A),
 append(AT2331c,AT1331c,AT3331c),
 %trace,
 tests_pred2(Tests,AT3331c,Tests01),
-
+%trace,
 %Tests=Tests01,
 sort1(Tests01,Tests0),
 %writeln([tests0,Tests0]),
@@ -947,10 +952,16 @@ sort1(Tests01,Tests0),
 %trace,
 
 findall(Result,(member([Go_path1,File,Command],Tests0),
+%trace,
 working_directory1(_,A),
 %trace,
 check_non_var(Command,Command1),
+
+% concurrent from here
+
+%trace,
 Repository1b=Go_path1,
+%trace,
 %trace,
 (true->%tests_pred(AT1331c,Command)->
 (
@@ -1010,6 +1021,7 @@ foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path
 %string_concat(Go_path,"testcicd.pl",GP),
 open_s(GP,write,S1),
 write(S1,String),close(S1),
+sleep(2),
 foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main -q ./",GP],S3),%,
 
  %(Test_n0=5->trace;true),
@@ -1021,6 +1033,10 @@ catch(call_with_time_limit(7,bash_command(S3,_)),_,(foldr(string_concat,["Warnin
  	))
 */
 %/*
+%sleep(2),
+%test_n(Test_n2),
+%(0 is Test_n2 mod 10->(writeln12("Waiting 30 seconds."),sleep(30));true),
+
 catch(bash_command(S3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text4),%writeln1(Text4),
 	fail%abort
@@ -1116,7 +1132,7 @@ findall(_,(member([K21,Mod_time521],Mod_times2),
 open_s(K21,write,S21),
 write(S21,Mod_time521),close(S21)
 ),_),
-
+sleep(2),
 
 
 
@@ -1163,7 +1179,7 @@ term_to_atom(Log,Log1),
 time1(Time),foldr(string_concat,["../lc_logs/log",Time,".txt"],Log_file_name),
 open_s(Log_file_name,write,S21T),
 write(S21T,[S001,Log1]),close(S21T),
-
+sleep(2),
 
 
 	retractall(ci_end(_)),
@@ -1241,6 +1257,7 @@ term_to_atom(Tests521,Tests522),
 open_s(K21,write,S21),
 write(S21,Tests522),close(S21)
 ),_),
+sleep(2),
 
 modification_dates(Mod_times),
 
@@ -1249,7 +1266,9 @@ clear_mod_dates,
 findall(_,(member([K2,Mod_time52],Mod_times),
 open_s(K2,write,S),
 write(S,Mod_time52),close(S)
-),_),!.
+),_),
+sleep(2),
+!.
 
 
 repositories_paths(Paths) :-
