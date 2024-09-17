@@ -151,6 +151,8 @@ halt.
 
 * In bash, compile Lucian CI/CD with `swipl --goal=main --stand_alone=true -o luciancicd -c luciancicd.pl`.
 
+* The container predicate used to run predicates in containers to save memory assumes that `luciancicd` is installed at `/Users/username/Dropbox/GitHub/luciancicd/`, where `username` is the username.
+
 * In bash, run with `./luciancicd`.
 
 # Tests
