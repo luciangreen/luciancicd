@@ -11,7 +11,7 @@
 %:-include('../SSI/ssi.pl').
 %:-include('luciancicd1_pl.pl').
 
-%:- include('files/listprolog.pl').
+%:-include('../listprologinterpreter/listprolog.pl').
 
 :-dynamic num1/1.
 
