@@ -131,6 +131,8 @@ halt.
 
 # Caveats
 
+* The container predicate used to run predicates in containers to save memory assumes that `luciancicd` is installed at `/Users/username/Dropbox/GitHub/luciancicd/`, where `username` is the username.
+
 * Causes of the "1 or more tests failed." error include the first entered algorithm after deleting `Github_lc/tests_*x*.txt` not passing all tests. Programs with uninstantiated variables, etc, also cause the error.
 
 * Writeln and commands that don't produce checkable output are not kept unless they are in `keep1/1` in the `keep.pl` register.
@@ -150,8 +152,6 @@ halt.
 * Enter the command, e.g. `luciancicd` after `main:-` in `main.pl`.
 
 * In bash, compile Lucian CI/CD with `swipl --goal=main --stand_alone=true -o luciancicd -c luciancicd.pl`.
-
-* The container predicate used to run predicates in containers to save memory assumes that `luciancicd` is installed at `/Users/username/Dropbox/GitHub/luciancicd/`, where `username` is the username.
 
 * In bash, run with `./luciancicd`.
 
