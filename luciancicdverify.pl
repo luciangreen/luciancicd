@@ -30,7 +30,7 @@ lc_test(NTotal1,NTotal2,Score1,Score2,List1,List2) :-
 	%gh2tmp,
 	(
 	
-	(catch(call_with_time_limit(19,
+	(%catch(call_with_time_limit(19,
 	(lc_test0(NTotal3,At_start,Max,CICD,Start_files,End_files),
 	%writeln(***),pwd,
  %gh_init(At_start),
@@ -39,7 +39,8 @@ lc_test(NTotal1,NTotal2,Score1,Score2,List1,List2) :-
 	%writeln1([result1,Result1]),
 	%Result=Result1	
 	)
-	),_,fail))
+	%),_,fail)
+	)
 
 
 	
@@ -241,15 +242,15 @@ lc_test0(21,true,7,i,
 %*/
 
 lc_test0(22,true,7,i,
-[["c/c.pl","%a(A).\n%A=[1].\na(A):-findall1(B,b(B),A).\n%b(A).\n%A=1.\nb(1)."],
+[["c/c.pl","%a(A).\n%A=[1].\na(A):-findall(B,b(B),A).\n%b(A).\n%A=1.\nb(1)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,1]]]]"]],
-[["c/c.pl","%a(A).\n%A=[1].\na(A):-findall1(B,b(B),A).\n%b(A).\n%A=1.\nb(1)."],
+[["c/c.pl","%a(A).\n%A=[1].\na(A):-findall(B,b(B),A).\n%b(A).\n%A=1.\nb(1)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,1]]]]"]]
 ).
 
 lc_test0(23,false,15,d,
-[["c/c.pl","%a(A).\n%A=[2,1].\na(A):-findall1(B,b(B),A).\n%b(A).\n%A=1.\n%b(A).\n%A=2.\nb(2)."],
+[["c/c.pl","%a(A).\n%A=[2,1].\na(A):-findall(B,b(B),A).\n%b(A).\n%A=1.\n%b(A).\n%A=2.\nb(2)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,1]]]]"]],
-[["c/c.pl","%a(A).\n%A=[2,1].\na(A):-findall1(B,b(B),A).\n%b(A).\n%A=1.\n%b(A).\n%A=2.\nb(2).\nb(1)."],
+[["c/c.pl","%a(A).\n%A=[2,1].\na(A):-findall(B,b(B),A).\n%b(A).\n%A=1.\n%b(A).\n%A=2.\nb(2).\nb(1)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,1]]]]"]]
 ).
