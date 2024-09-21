@@ -101,7 +101,7 @@ open_s(K21,write,S21),
 write(S21,Tests521),close(S21)
 ),_),
 %writeln("All tests were successful."),
-sleep(2),
+sleep1(2),
 
 !.
 
@@ -139,7 +139,7 @@ process_directory_tests([H2],%[H],
 (
 
 find_tests(K1,H,H1,Tests3)
-%p2lpconverter([file,H1],LP),
+%p2lpconverter_lc([file,H1],LP),
 
 %time_file(H1,Tests4),
 %trace,
@@ -217,7 +217,7 @@ find_tests(K1,H,H1,Tests) :-
 
 %catch(call_with_time_limit(0.005,
 %trace,	
-%p2lpconverter([file,H1],LP),%),_,false),
+%p2lpconverter_lc([file,H1],LP),%),_,false),
 	fastp2lp(H1,LP1),
 %trace,
 	find_tests2(%H1,
@@ -241,8 +241,8 @@ save_file_s(H1,F2)
 
 );true),
 
-%foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter([file,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
-foldr(string_concat,["catch(p2lpconverter([file,\"",H1,"\"],LP),_,false)"],String),
+%foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter_lc.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter_lc([file,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
+foldr(string_concat,["catch(p2lpconverter_lc([file,\"",H1,"\"],LP),_,false)"],String),
 
 %trace,
 	fastp2lp1(String,LP1).
@@ -251,8 +251,8 @@ fastp2lp2(H1,LP1) :-
 
 %string_concat(H10,"\n%",H1),
 %pwd,
-%foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter([string,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
-foldr(string_concat,["catch(p2lpconverter([string,\"",H1,"\"],LP),_,false)"],String),
+%foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../GitHub/Prolog-to-List-Prolog/p2lpconverter_lc.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((p2lpconverter_lc([string,\"",H1,"\"],LP),term_to_atom(LP,LP1), write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
+foldr(string_concat,["catch(p2lpconverter_lc([string,\"",H1,"\"],LP),_,false)"],String),
 
 working_directory1(A,A),
 

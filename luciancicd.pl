@@ -30,7 +30,7 @@ Later:
 :-set_prolog_flag(stack_limit, 1000000000000).
 
 :-include('../SSI/ssi.pl').
-:-include('../listprologinterpreter/la_files.pl').
+%:-include('../listprologinterpreter/la_files.pl').
 :-include('../List-Prolog-Package-Manager/lppm.pl').
 %:-include('lppm_install_luciancicd.pl').
 :-include('find_tests_from_repos.pl').
@@ -99,7 +99,7 @@ findall1(_,(member([K2,Mod_time52],Mod_times),
 open_s(K2,write,S),
 write(S,Mod_time52),close(S)
 ),_),
-sleep(2),
+sleep1(2),
 !,
 
 
@@ -756,8 +756,8 @@ writeln(here1a),
  working_directory1(_,Here2a),
  
  time((term_to_atom(T473,T4731a),
- %foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../Prolog-to-List-Prolog/p2lpconverter.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((pp0_3(",T4731a,",T501),term_to_atom(T501,T50), write(T50)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String_pp0_3),
- foldr(string_concat,["catch(pp0_3(",T4731a,",T50),_,false)"],String_pp0_3),
+ %foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../Prolog-to-List-Prolog/p2lpconverter_lc.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((pp0_3_lc(",T4731a,",T501),term_to_atom(T501,T50), write(T50)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String_pp0_3),
+ foldr(string_concat,["catch(pp0_3_lc(",T4731a,",T50),_,false)"],String_pp0_3),
 
 %foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path5,
 %"tmp.pl"],GP_pp0_3),
@@ -776,12 +776,12 @@ arg(2, Value, T50))
 	%fail%abort
  	%)),term_to_atom(T503,T502))%sd2(R110,Tests1,RTests,R1,To_m_1,Repository_root_path,Repository,Gitl_data_path1,N,R1,N_path,To,HTML)
  ->true;%T50=T503;
- writeln("Couldn't run pp0_3."),fail)%,%HTML1="Identical"),
+ writeln("Couldn't run pp0_3_lc."),fail)%,%HTML1="Identical"),
 %delete_tmp
 )),
  working_directory1(_,Here2),
 
- %time(pp0_3(T473,T50)),
+ %time(pp0_3_lc(T473,T50)),
 
  
  %pp0_1(T46,T47),
@@ -875,7 +875,7 @@ writeln2(["Installing",PZ, FZ%Repository1
 open_s(FZ,write,S0),
 write(S0,T11),close(S0)
 %writeln([write(FZ,T11)])
-,sleep(2)
+,sleep1(2)
 
 %),_),!.
 
@@ -1021,7 +1021,7 @@ foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path
 %string_concat(Go_path,"testcicd.pl",GP),
 open_s(GP,write,S1),
 write(S1,String),close(S1),
-sleep(2),
+sleep1(2),
 foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main -q ./",GP],S3),%,
 
  %(Test_n0=5->trace;true),
@@ -1033,10 +1033,10 @@ catch(call_with_time_limit(7,bash_command(S3,_)),_,(foldr(string_concat,["Warnin
  	))
 */
 %/*
-%sleep(2),
+%sleep1(2),
 %test_n(Test_n2),
 %(0 is Test_n2 mod 10->(writeln12("Waiting 30 seconds."),sleep(30));true),
-
+%trace,
 catch(bash_command(S3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text4),%writeln1(Text4),
 	fail%abort
@@ -1132,7 +1132,7 @@ findall1(_,(member([K21,Mod_time521],Mod_times2),
 open_s(K21,write,S21),
 write(S21,Mod_time521),close(S21)
 ),_),
-sleep(2),
+sleep1(2),
 
 
 
@@ -1179,7 +1179,7 @@ term_to_atom(Log,Log1),
 time1(Time),foldr(string_concat,["../lc_logs/log",Time,".txt"],Log_file_name),
 open_s(Log_file_name,write,S21T),
 write(S21T,[S001,Log1]),close(S21T),
-sleep(2),
+sleep1(2),
 
 
 	retractall(ci_end(_)),
@@ -1257,7 +1257,7 @@ term_to_atom(Tests521,Tests522),
 open_s(K21,write,S21),
 write(S21,Tests522),close(S21)
 ),_),
-sleep(2),
+sleep1(2),
 
 modification_dates(Mod_times),
 
@@ -1267,7 +1267,7 @@ findall1(_,(member([K2,Mod_time52],Mod_times),
 open_s(K2,write,S),
 write(S,Mod_time52),close(S)
 ),_),
-sleep(2),
+sleep1(2),
 !.
 
 
@@ -2009,3 +2009,16 @@ delete_repeated_preds(AT333,AT333AB) :-
 
 get_item_n_catch(A,B,C) :-
  catch(get_item_n(A,B,C),_,(writeln1("Instantiation error."),abort)),!.
+
+p2lpconverter_lc(A,B) :-
+	term_to_atom(A,A1),
+	atom_length(A1,L),
+	(L>100->container(p2lpconverter(A,B));
+	p2lpconverter(A,B)),!.
+	
+pp0_3_lc(A,B) :-
+	%container
+	(pp0_3(A,B)).
+	
+sleep1(A) :- %!.
+	sleep(A).

@@ -63,7 +63,7 @@ directory_files("./",F),
 	%test_open_types_cases(4,Query,Types,Modes,Functions),
 
 %international_lucianpl([lang,"en"],Debug,Query,Types,Modes,Functions,_Result),
-%p2lpconverter([file,"../private/la_com_ssi1.pl"],List3),
+%p2lpconverter_lc([file,"../private/la_com_ssi1.pl"],List3),
 
 %testopen_cases(8,[[n,test]],List3),
 	%test(1,Query,Functions,Result),

@@ -46,7 +46,7 @@ foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path
 %string_concat(Go_path,"testcicd.pl",GP),
 open_s(GP,write,S1),
 write(S1,String),close(S1),
-sleep(2),
+sleep1(2),
 foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main -q ./",GP],S3),%,
 
 ((catch(bash_command(S3,HTML), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."

@@ -14,8 +14,8 @@ copy to build folder if passes
 
 */
 
-:-include('../Prolog-to-List-Prolog/p2lpconverter.pl').
-:-include('../List-Prolog-to-Prolog-Converter/lp2pconverter.pl').
+:-include('../Prolog-to-List-Prolog/p2lpconverter1.pl').
+:-include('../List-Prolog-to-Prolog-Converter/lp2pconverter1.pl').
 %:-include('luciancicd.pl').
 :-dynamic term_to_numbers1/1.
 %:-dynamic term_to_numbers2/1.
@@ -30,18 +30,18 @@ copy to build folder if passes
 get_file(Type,File1,S1) :-
  (Type=file->(exists_file_s(File1)->
  (fastp2lp(File1,S1)
- %p2lpconverter([Type,File1],S1)
+ %p2lpconverter_lc([Type,File1],S1)
  ->true;
  open_string_file_s(File1,S10),
  lines_to_comments(S10,S1)));
  fastp2lp(File1,S1)
- %p2lpconverter([Type,File1],S1)
+ %p2lpconverter_lc([Type,File1],S1)
  ),!.
 
 /*
 set_up_merge(Type,File1) :-
  get_file(Type,File1,S1),
- %p2lpconverter([Type,File1],S1),
+ %p2lpconverter_lc([Type,File1],S1),
  pp0(S1,S2),S2=S3,%term_to_atom(S2,S3),
  open_s("test.lp",write,S21),
  write(S21,S3),close(S21).
@@ -55,7 +55,7 @@ merge(K11,File1,Path1,Tests) :-
 %%%%%%%%%*****Change gh2 to gh
  %foldr(string_concat,["../../Github2/",K11,"/",File1],Path11),
  get_file(file,Path1,S1),
- %p2lpconverter([Type,File1],S1),
+ %p2lpconverter_lc([Type,File1],S1),
  %pp0(S1,S2),S2=S3,%term_to_atom(S2,S3)
  %trace,
  split_string(Path1,"/","/",P2),

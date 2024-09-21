@@ -19,7 +19,7 @@ or convert them to lp to see if they are comm, then keep them x they are with th
 :- use_module(library(date)).
 
 %:-include('luciancicd.pl').
-:-include('../Prolog-to-List-Prolog/pretty_print_lp2p.pl').
+%:-include('../Prolog-to-List-Prolog/pretty_print_lp2p.pl').
 %:-include('../Alg_to_Types/find_dependencies.pl').
 %:-dynamic merges_files/1.
 %:-dynamic merges_preds/1.
@@ -222,7 +222,7 @@ process_directory_merge([H2],%[H],
 (%trace,
 %trace,
 find_merge(K1,H,H1,Tests3)
-%p2lpconverter([file,H1],LP),
+%p2lpconverter_lc([file,H1],LP),
 
 %time_file(H1,Tests4),
 %trace,
@@ -308,7 +308,7 @@ find_merge(K1,H,H1,Tests) :-
 	merge(K11,H,H1,Tests).
 
 %catch(call_with_time_limit(0.005,
-	%p2lpconverter([file,H1],LP),%),_,false),
+	%p2lpconverter_lc([file,H1],LP),%),_,false),
 	%,writeln1(Result2)
 
 	%find_merge2(H,K11,LP,Tests).
