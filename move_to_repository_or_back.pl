@@ -73,7 +73,7 @@ mv_lc(From,To) :-
  " ",
  To,%," && \\","\n","rsync -av --delete `mktemp -d`/ ",From
  "\n","rm -rf ",From,"*"],Command314),
- 	catch(bash_command(Command314,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+ 	catch(bash_command1(Command314,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],Text41),writeln1(Text41),abort
  	)),!. 
 
@@ -83,6 +83,6 @@ foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
  "rm -rf ",Item
  %Folder1
  ],Command315),
- 	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+ 	catch(bash_command1(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text42)%,writeln1(Text42)%,abort
  	)),!.
