@@ -65,11 +65,11 @@ working_directory1(_,A1000),
  foldr(string_concat,["scp -r ","../Github_lc/"," ",O4,"","Github_lc/","."],PX2),
  %mv_lc(PX,O4),
  
- 	catch(bash_command(PX1,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+ 	catch(bash_command1(PX1,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text42)%,writeln1(Text42)%,abort
  	)),
 
- 	catch(bash_command(PX2,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+ 	catch(bash_command1(PX2,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text42)%,writeln1(Text42)%,abort
  	)),
  
@@ -77,7 +77,7 @@ foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
  "rm -rf ../",OP_2,"*"
  %Folder1
  ],Command315),
- 	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+ 	catch(bash_command1(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text42)%,writeln1(Text42)%,abort
  	)),
 
@@ -87,7 +87,7 @@ foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
  "rm -rf ../Github_lc/*"
  %Folder1
  ],Command316),
- 	catch(bash_command(Command316,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+ 	catch(bash_command1(Command316,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text42)%,writeln1(Text42)%,abort
  	)));true),
  working_directory1(_,A),
@@ -111,7 +111,7 @@ gh2tmp :-
  %trace,
  foldr(string_concat, ["scp -pr ./ ",O4,"."],O41),
  
- catch(bash_command(O41, O42), _, (foldr(string_concat, ["Warning."], _), writeln1("Couldn't back up repositories."), abort)),
+ catch(bash_command1(O41, O42), _, (foldr(string_concat, ["Warning."], _), writeln1("Couldn't back up repositories."), abort)),
 
 %trace,
 
@@ -121,12 +121,12 @@ gh2tmp :-
 
  foldr(string_concat, ["rm -rf ",Path2],O43),
  
- catch(bash_command(O43, O44), _, (foldr(string_concat, ["Warning."], _), writeln1("Couldn't back up repositories."), abort)),
+ catch(bash_command1(O43, O44), _, (foldr(string_concat, ["Warning."], _), writeln1("Couldn't back up repositories."), abort)),
 %trace,
 %pwd,
  foldr(string_concat, ["mkdir ",Path2],O45),
  
- catch(bash_command(O45, O46), _, (foldr(string_concat, ["Warning."], _), writeln1("Couldn't back up repositories."), abort)),
+ catch(bash_command1(O45, O46), _, (foldr(string_concat, ["Warning."], _), writeln1("Couldn't back up repositories."), abort)),
  %mv_lc("./",O4),
  %rm_lc("../gh2_tmp/*"),
  %trace,
@@ -156,7 +156,7 @@ luciancicd(At_start,Max,CICD,Start_files,End_files) :-
  "rm -f ../Github_lc/*"
  %Folder1
  ],Command315),
- 	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+ 	catch(bash_command1(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text42)%,writeln1(Text42)%,abort
  	))
  );true),

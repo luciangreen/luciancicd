@@ -244,7 +244,7 @@ working_directory1(_,A1),
  %success_tmp(Tmp31),(forall(member(Tmp4,Tmp31),Tmp4=1)->true;fail),
 
 	foldr(string_concat,["rm -rf ../luciancicd-testing/"],Command312),
- 	catch(bash_command(Command312,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+ 	catch(bash_command1(Command312,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],Text412),writeln1(Text412),abort
  	)),
 
@@ -1037,7 +1037,7 @@ catch(call_with_time_limit(7,bash_command(S3,_)),_,(foldr(string_concat,["Warnin
 %test_n(Test_n2),
 %(0 is Test_n2 mod 10->(writeln12("Waiting 30 seconds."),sleep(30));true),
 %trace,
-catch(bash_command(S3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+catch(bash_command1(S3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text4),%writeln1(Text4),
 	fail%abort
  	))
@@ -1243,7 +1243,7 @@ foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
  "rm -f ../Github_lc/* ../Github_lc/*/* ../Github_lc/*/*/* ../Github_lc/*/*/*/*"
  %Folder1
  ],Command315),
- 	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+ 	catch(bash_command1(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text42)%,writeln1(Text42)%,abort
  	)),
  	
@@ -1503,7 +1503,7 @@ foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
  "rm -f ../luciancicd-data/*"
  %Folder1
  ],Command315),
- 	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+ 	catch(bash_command1(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text42)%,writeln1(Text42)%,abort
  	)),
  	

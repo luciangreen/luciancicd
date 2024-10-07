@@ -307,7 +307,7 @@ foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
  "rm -f tmp.pl"
  %Folder1
  ],Command315),
- 	catch(bash_command(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+ 	catch(bash_command1(Command315,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text42)%,writeln1(Text42)%,abort
  	)),
 
@@ -315,7 +315,7 @@ foldr(string_concat,[%"scp -pr ../../Github_lc/ ",
  "rm -f luciancicd/tmp.pl"
  %Folder1
  ],Command316),
- 	catch(bash_command(Command316,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+ 	catch(bash_command1(Command316,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	],_Text42)%,writeln1(Text42)%,abort
  	)).
  	%*/
