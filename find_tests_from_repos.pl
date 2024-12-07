@@ -45,15 +45,15 @@ repositories_paths(K),
 
 omit_paths(Omit),
 
-%findall1(Omit1,(member(Omit2,Omit),atom_string(Omit1,Omit2)),Omit3),
-findall1([K1,G4],(member(K1,K), directory_files(K1,F),
+%findall(Omit1,(member(Omit2,Omit),atom_string(Omit1,Omit2)),Omit3),
+findall([K1,G4],(member(K1,K), directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 
-%findall1(H,(member(H,G),not(string_concat("dot",_,H)),
+%findall(H,(member(H,G),not(string_concat("dot",_,H)),
 
 subtract(G,Omit,G1),
 
-findall1(G3,(member(G2,G1),string_concat(G2,"/",G3)),G4)
+findall(G3,(member(G2,G1),string_concat(G2,"/",G3)),G4)
 %not(member(G,Omit))
 
 ),K01),
@@ -62,7 +62,7 @@ findall1(G3,(member(G2,G1),string_concat(G2,"/",G3)),G4)
 
 working_directory1(Old_D,Old_D),
 %trace,
-findall1(Tests1,(member([D,K31],K01),
+findall(Tests1,(member([D,K31],K01),
 
 working_directory1(_,Old_D),
 
@@ -96,7 +96,7 @@ mv_lc("../luciancicd-cicd-tests/",Folder1)
 %make_directory('../private2/luciancicd-cicd-tests')
 true)),
 
-findall1(_,(member([K21,Tests521],Tests),
+findall(_,(member([K21,Tests521],Tests),
 open_s(K21,write,S21),
 write(S21,Tests521),close(S21)
 ),_),
@@ -111,11 +111,11 @@ process_directory_tests(K,%G,
 
 %G=K,
 %/*
-findall1(K4,(member(K1,K), %exists_directory(K1),
+findall(K4,(member(K1,K), %exists_directory(K1),
 directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 %*/
-findall1(Tests3,(member(H,G),not(string_concat("dot",_,H)),
+findall(Tests3,(member(H,G),not(string_concat("dot",_,H)),
 
 %not(member(H,Omit)),
 
@@ -160,7 +160,7 @@ foldr(append,Tests5,Tests51),
 Top_level=true%not(Omit=[]) % at top level
 ->
 (
-findall1([T1,',\n'],(member([T,TT,TTT],Tests51),foldr(atom_concat,["[","\"",T,"\"",",","\"",TT,"\"",",",TTT,"]"],T1)%term_to_atom(T,T1)
+findall([T1,',\n'],(member([T,TT,TTT],Tests51),foldr(atom_concat,["[","\"",T,"\"",",","\"",TT,"\"",",",TTT,"]"],T1)%term_to_atom(T,T1)
 ),T2),
 flatten(T2,TT2),
 foldr(atom_concat,TT2,T21),
@@ -328,14 +328,14 @@ H,K11,LP,Tests) :-
 	%foldr(string_concat,[H1%,"/",K11
 	%],K12),
 	%trace,
-	findall1(N1,(member([[n,N]|_],LP),
+	findall(N1,(member([[n,N]|_],LP),
 	string_strings(N,N1)),Ns),
 
-	findall1([K11,H,F2],(append(_,LP1,LP),
+	findall([K11,H,F2],(append(_,LP1,LP),
 	append([[[n,comment%c
  	],[Comment]]],LP2,LP1),
 	
-	%findall1([K11,H,F2],(member([[n,comment%c
+	%findall([K11,H,F2],(member([[n,comment%c
 	%],[Comment]],LP),
 
 	
@@ -410,17 +410,17 @@ H,K11,LP,Tests) :-
 %/*
 find_tests2(H,K11,LP,Tests) :-
 
-	%findall1(N1,(member([[n,N]|_],LP),
+	%findall(N1,(member([[n,N]|_],LP),
 	%string_strings(N,N1)),Ns),
 	working_directory1(BHD,BHD),
 home_dir1(HD),
 	working_directory1(_,HD),
 
-	findall1([K11,H,F2],(append(_,LP1,LP),
+	findall([K11,H,F2],(append(_,LP1,LP),
 	append([[[n,comment%c
  	],[Comment]]],LP2,LP1),
 
-%findall1(Tests1,(member([[n,comment],[A]],LP),
+%findall(Tests1,(member([[n,comment],[A]],LP),
 string_strings(Comment,A12),
 not(member("=",A12)),
 truncate_comment(A12,A11),
@@ -459,7 +459,7 @@ F21,")"],F2)
 !.
 
 /*
-findall1(B,(member([[n,comment],[A]],LP),
+findall(B,(member([[n,comment],[A]],LP),
 string_strings(A,A12),
 truncate_comment(A12,A11),
 reverse(A11,A13),
@@ -469,9 +469,9 @@ foldr(string_concat,A15,A16),
 term_to_atom(A1,A16),
 
 ((functor(A1,(=),2),arg(1,A1,N),arg(2,A1,Ans),B=[ans,N,=,Ans])->true;
-(functor(A1,N,Ar),numbers(Ar,1,[],ArN),findall1(ArN2,(member(ArN1,ArN),arg(ArN1,A1,ArN2),var(ArN2)),ArN3),
+(functor(A1,N,Ar),numbers(Ar,1,[],ArN),findall(ArN2,(member(ArN1,ArN),arg(ArN1,A1,ArN2),var(ArN2)),ArN3),
 B=[A1,ArN3]))),C),
-findall1([K11,H,F2],(member([ans,N,=,Ans],C),
+findall([K11,H,F2],(member([ans,N,=,Ans],C),
 member([A1,Ans],C),
 F=A1,
 F1=(N=Ans),

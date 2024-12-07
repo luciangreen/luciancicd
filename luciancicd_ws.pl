@@ -45,7 +45,7 @@ writeln("<h1 id=\"#Top\">Lucian CI/CD</h1><br><br>"),
 directory_files("./",F),
 	delete_invisibles_etc(F,G),
 	
-	findall1([T,N,H,H1,F1],(member(H,G),once((open_string_file_s(H,F11),
+	findall([T,N,H,H1,F1],(member(H,G),once((open_string_file_s(H,F11),
 (string_concat("log",_,H)->(term_to_atom(F111,F11),F111=[Success,F12],(Success= 0->Success1="<font color=\"green\">PASSED</font>";Success1="<font color=\"red\">FAILED</font>"),foldr(string_concat,["<b>",Success1,"</b> - "],Success2));(F11=F12,Success2="")),	time_file(H,T),atomic_list_concat(A,"\n",F12),atomic_list_concat(A,"<br>",F1),
 	get_num(N),foldr(string_concat,[Success2,"<a href=\"#",N,"\">",
 	H,"</a>",
@@ -55,9 +55,9 @@ directory_files("./",F),
 	sort(J0,J1),
 	reverse(J1,J),
 	
-	findall1(_,(member([_,_,_,H1,_],J),writeln(H1)),_),
+	findall(_,(member([_,_,_,H1,_],J),writeln(H1)),_),
 	
-	findall1(_,(member([_,N,H,_,F1],J),foldr(string_concat,["<h2 id=\"",N,"\">",H,"</h2><a href=\"#Top\">Top</a><br>",F1,"<br><br>"],H2),writeln(H2)),_),
+	findall(_,(member([_,N,H,_,F1],J),foldr(string_concat,["<h2 id=\"",N,"\">",H,"</h2><a href=\"#Top\">Top</a><br>",F1,"<br><br>"],H2),writeln(H2)),_),
 %Debug=off,
 
 	%test_open_types_cases(4,Query,Types,Modes,Functions),

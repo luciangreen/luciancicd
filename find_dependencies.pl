@@ -17,7 +17,7 @@ find_dependencies(Dep99_name,Dep99_arity,F,F2
 /*
 A=[15
 ],
-findall1(%[B,
+findall(%[B,
 Functions2b%]
 ,(_Debug=off,member(B,A),
 */
@@ -32,7 +32,7 @@ length(Q4,Dep99_arity),
 (Q4=[]->Q5=[[n,Dep99_name]];
 Q5=[[n,Dep99_name],Q4|_]),
 
-findall1([v,V3],(member(V1,V2),atom_concat("a",V1,V3)),V),
+findall([v,V3],(member(V1,V2),atom_concat("a",V1,V3)),V),
 %trace,
 (V=[]->Q=[[n,Dep99_name]];
 Q=[[n,Dep99_name],V]),
@@ -40,9 +40,9 @@ query_box(Q,_Query1,F,Functions1),
 %trace,
 %get_n_item(Functions1,Q,N2), x
 %N2=1,%XXX
-findall1(N2,(((Q5=[NG],Q51=[NG|_])->true;Q51=Q5),%writeln([*,Q51,Q5]),
+findall(N2,(((Q5=[NG],Q51=[NG|_])->true;Q51=Q5),%writeln([*,Q51,Q5]),
 get_n_item(Functions1,Q51,N2)),N2s),
-findall1(N22,(member(N21,N2s),N22 is N21-1),N22s),%*N1 is N2-1,
+findall(N22,(member(N21,N2s),N22 is N21-1),N22s),%*N1 is N2-1,
 
 convert_to_grammar_part1(Functions1,[],Functions2,_),add_line_numbers_to_algorithm1(Functions2,Functions2a),find_pred_numbers_to_cut(Functions2a,[],Pred_numbers),find_state_machine1(Functions2a,Functions3,Pred_numbers),
 %trace,
@@ -52,7 +52,7 @@ Functions2b),
 
 %trace,
 %/*
-findall1([NF,Arity,PN2],(member(PN1,Functions2b),member([NF,Arity,PN2],Pred_numbers),%member(PN1%
+findall([NF,Arity,PN2],(member(PN1,Functions2b),member([NF,Arity,PN2],Pred_numbers),%member(PN1%
 (PN1=[loop1,PN11]->member(PN12,PN11);PN12=PN1),member(PN12
 ,PN2)),Pred_numbers21),%Pred_numbers21=Pred_numbers2,%
 sort(Pred_numbers21,Pred_numbers2),
@@ -61,7 +61,7 @@ sort(Pred_numbers21,Pred_numbers2),
 %Pred_numbers2=Pred_numbers,
 %trace,
 
-findall1(NFAR,(member([NF,Arity,_],Pred_numbers2),
+findall(NFAR,(member([NF,Arity,_],Pred_numbers2),
 length(Args,Arity),
 (Args=[]->NFAR=[NF|Rest];NFAR=[NF,Args|Rest]),
 member(NFAR,F)%,length(Args,Arity)
@@ -112,7 +112,7 @@ Ordered_pred_nums02=Ordered_pred_nums0,
 /*
 % find min, max
 
-findall1(L,member([L,_]),L1),
+findall(L,member([L,_]),L1),
 sort(L1,L2),
 append([Min_L],Rest,L2),
 append(_,[Max_L],Rest),
@@ -132,20 +132,20 @@ list_to_set(Ordered_pred_nums11,Ordered_pred_nums14),
 remove_dups_from_loops(Ordered_pred_nums14,Ordered_pred_nums15),
 
 %trace,
-findall1(Ordered_pred_nums19,(member(Ordered_pred_nums16,Ordered_pred_nums15),
+findall(Ordered_pred_nums19,(member(Ordered_pred_nums16,Ordered_pred_nums15),
 (Ordered_pred_nums16=[loop1,Ordered_pred_nums17]->(list_to_set(Ordered_pred_nums17,Ordered_pred_nums18),Ordered_pred_nums19=[loop1,Ordered_pred_nums18]);Ordered_pred_nums19=Ordered_pred_nums16
 )),Ordered_pred_nums20),
 
 delete(Ordered_pred_nums20,loop,Ordered_pred_nums21),
 
- findall1(E,(member(F,Ordered_pred_nums21),
+ findall(E,(member(F,Ordered_pred_nums21),
  (F=[loop1,[A1]]->E=A1;E=F)),Ordered_pred_nums1),
 %flatten(Ordered_pred_nums0,Ordered_pred_nums1),
 /* bfs:
 foldr(append,Ordered_pred_nums0,Ordered_pred_nums),
 sort(Ordered_pred_nums,Ordered_pred_nums2),
 reverse(Ordered_pred_nums2,Ordered_pred_nums3),
-findall1(B,member([_,B],Ordered_pred_nums3),Ordered_pred_nums4),
+findall(B,member([_,B],Ordered_pred_nums3),Ordered_pred_nums4),
 flatten(Ordered_pred_nums4,Ordered_pred_nums1),
 */
 !.
@@ -166,7 +166,7 @@ flatten(Ordered_pred_nums4,Ordered_pred_nums1),
 
 %find_pred_numbers_dependencies(Algorithm1,Algorithm2,Pred_numbers) :-
 
-%findall1(Pred_nums,member([_Name,_Arity,Pred_nums],Pred_numbers),Pred_numbers1),
+%findall(Pred_nums,member([_Name,_Arity,Pred_nums],Pred_numbers),Pred_numbers1),
 	%find_pred_numbers_dependencies(_Algorithm1,[],_Deps,_Pred_numbers),!.
 
 % * need p, clause number in deps
@@ -192,7 +192,7 @@ find_deps3(Body1,%Body2,Body3,
 Pred_numbers,
 Deps) :-
 
- findall1(Pred_nums,(member([_Number,[_Dbw_on_true,_Statements1_number],[_Dbw_go_after,_Statements2_number],[_Dbw_on_false,_Return_line_false],[_Dbw_go_to_predicates,_Predicates],[_Dbw_n_or_v1,F]|Arguments1],Body1),
+ findall(Pred_nums,(member([_Number,[_Dbw_on_true,_Statements1_number],[_Dbw_go_after,_Statements2_number],[_Dbw_on_false,_Return_line_false],[_Dbw_go_to_predicates,_Predicates],[_Dbw_n_or_v1,F]|Arguments1],Body1),
  foldr(append,Arguments1,Arguments),
  length(Arguments,Arity),
  get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
@@ -208,7 +208,7 @@ Functions=[[N,P]|F],
 append(Ordered_pred_nums1,[%[L,
 N%]
 ],Ordered_pred_nums3),
- findall1(Ordered_pred_nums21,order_preds_bottom_up1_post_order_dfs(_L1,P,F,Ordered_pred_nums3,Ordered_pred_nums21),Ordered_pred_nums2),!.
+ findall(Ordered_pred_nums21,order_preds_bottom_up1_post_order_dfs(_L1,P,F,Ordered_pred_nums3,Ordered_pred_nums21),Ordered_pred_nums2),!.
  */
 
 % program may have unconnected preds, causing a bug
@@ -223,12 +223,12 @@ order_preds_bottom_up1_post_order_dfs(_L,N,Functions,Ordered_pred_nums1,Ordered_
 %L3 is L+1,
 % assign a level, record min, max levels
 
-%findall1(Ordered_pred_nums8,(
+%findall(Ordered_pred_nums8,(
 %member(P4,P3),%),Ordered_pred_nums1a),
 
 %foldr(append,[Ordered_pred_nums1,Ordered_pred_nums1a],Ordered_pred_nums1b),
 
-%findall1(Ordered_pred_nums31,
+%findall(Ordered_pred_nums31,
 %(member([N2,P4],Functions),%L2 is L-1,
 (member(P2,N),member([P2,P3],Functions),
 
@@ -264,7 +264,7 @@ foldr(append,[P5,[[loop,P4]],Ordered_pred_nums31],Ordered_pred_nums3),!.
 %delete(Functions,[P2,P3],Functions2),%member(P1,P),
 
 order_preds_bottom_up1_post_order_dfs2(P3,_P2,Functions,_Ordered_pred_nums1,Ordered_pred_nums32,Pre_order1) :-
-findall1(Ordered_pred_nums31,
+findall(Ordered_pred_nums31,
 (member(P4,P3),append(Pre_order1,[P4],Pre_order2),order_preds_bottom_up1_post_order_dfs(_L3,[P4],Functions,[],Ordered_pred_nums3,Pre_order2),append([P4],Ordered_pred_nums3,Ordered_pred_nums31)),Ordered_pred_nums32).
 
 
@@ -280,7 +280,7 @@ find_groups(A,Ordered_pred_nums1,Ordered_pred_nums2,First) :-
 
 find_groups(Ordered_pred_nums0,Ordered_pred_nums1,Ordered_pred_nums22,_) :-
  Ordered_pred_nums0=[Ordered_pred_nums3|Ordered_pred_nums4],
- %findall1(Ordered_pred_nums2,(
+ %findall(Ordered_pred_nums2,(
  %member(Ordered_pred_nums41,Ordered_pred_nums4),
 %append([Ordered_pred_nums3],Ordered_pred_nums1,Ordered_pred_nums5),
 find_groups2(Ordered_pred_nums3,Ordered_pred_nums4,Ordered_pred_nums1,Ordered_pred_nums22).
@@ -371,7 +371,7 @@ find_groups2(Ordered_pred_nums3,Ordered_pred_nums42,Ordered_pred_nums23,Ordered_
 %append(Ordered_pred_nums1,[[loop1,Ordered_pred_nums3]],Ordered_pred_nums2));
  (%trace,
  %append([Ordered_pred_nums3],Ordered_pred_nums1,Ordered_pred_nums5),
-findall1(Ordered_pred_nums22,(member(Ordered_pred_nums412,Ordered_pred_nums4),
+findall(Ordered_pred_nums22,(member(Ordered_pred_nums412,Ordered_pred_nums4),
 find_groups(Ordered_pred_nums412,[]%Ordered_pred_nums5
 ,Ordered_pred_nums22)),Ordered_pred_nums21),
 %trace,
@@ -417,7 +417,7 @@ not_contains_loop1(Ordered_pred_nums1,Ordered_pred_nums2,P1,P21) :-
  ((Ordered_pred_nums2=A,number(A))->append(P1,[A],P21);
  (append(Ordered_pred_nums4,[Ordered_pred_nums3],Ordered_pred_nums2),
  %reverse(Ordered_pred_nums4,Ordered_pred_nums42),
- findall1(P3,(member(Ordered_pred_nums41,Ordered_pred_nums4),
+ findall(P3,(member(Ordered_pred_nums41,Ordered_pred_nums4),
  %reverse(Ordered_pred_nums41,Ordered_pred_nums42),
 
  not_contains_loop1(Ordered_pred_nums1,Ordered_pred_nums41,[],P3)),P31),
@@ -463,11 +463,11 @@ remove_dups_from_loops(A,B) :-
  remove_dups_in_loops_from_rest(A,C),
  remove_dups_in_loops(C,B).
  %trace,
- %findall1(E,(member(F,D),
+ %findall(E,(member(F,D),
  %(F=[loop1,[A1]]->E=A1;E=F)),B).
 
 remove_dups_in_loops_from_rest(A,C) :-
- findall1(D,member([loop1,D],A),E),
+ findall(D,member([loop1,D],A),E),
  flatten(E,F),
  subtract(A,F,C).
  
@@ -494,7 +494,7 @@ remove_dups_in_loops1(List1,D,F,E) :-
 resort(A,B) :-
  %length(A,C),numbers(C,1,[],N),
  resort_n(NDs),
- findall1(N-D,(member(D,A),
+ findall(N-D,(member(D,A),
  (member(N-D,NDs)->true;get_resort_n(N))),E),
  
  
@@ -513,7 +513,7 @@ not_contains_loop2a(Ordered_pred_nums1,Ordered_pred_nums2,P1,P23,First) :-
  ((Ordered_pred_nums2=[Ordered_pred_nums21]->true;
  Ordered_pred_nums2=Ordered_pred_nums21),
  Ordered_pred_nums21=[_Ordered_pred_nums3|Ordered_pred_nums4],
- findall1(P21,(member(Ordered_pred_nums41,Ordered_pred_nums4),
+ findall(P21,(member(Ordered_pred_nums41,Ordered_pred_nums4),
  (Ordered_pred_nums41=[loop,_]->fail;
 ((Ordered_pred_nums41=A,number(A),First=false
 )->P21=A; %(number(Ordered_pred_nums41)->Ordered_pred_nums43=[Ordered_pred_nums41];Ordered_pred_nums43=[]),
@@ -531,7 +531,7 @@ find_groups_replace_loops(A,%B,
  C) :-
  %trace,
  sub_term_wa([loop,_],A,D),
- findall1(E,member([E,_],D),F),
+ findall(E,member([E,_],D),F),
  foldl(delete_sub_term_wa,[F],A,C).
  
 %in_or_exiting_loop(_,[],In_loop,In_loop,Exiting_loop,Exiting_loop) :- !.
@@ -597,7 +597,7 @@ flatten_except_loops2(A,B,C,First) :-
  ->append(B,[C1],C);append(B,C1,C)))),!.
 
  /*
- findall1([E,Ad],member([Ad,[loop,E]],D),F),
+ findall([E,Ad],member([Ad,[loop,E]],D),F),
  foldr(put_sub_term_wa_ae,F,
    A, C1),
  (C1=A->C1=C;
@@ -625,12 +625,12 @@ order_preds_bottom_up1(L,N,Functions,Ordered_pred_nums1,Ordered_pred_nums2) :-
 L3 is L+1,
 append(Ordered_pred_nums1,[[L,N]],Ordered_pred_nums11),
 % assign a level, record min, max levels
-findall1(Ordered_pred_nums8,(member(P2,N),member([P2,P3],Functions),
+findall(Ordered_pred_nums8,(member(P2,N),member([P2,P3],Functions),
 %member(P4,P3),%),Ordered_pred_nums1a),
 
 %foldr(append,[Ordered_pred_nums1,Ordered_pred_nums1a],Ordered_pred_nums1b),
 
-%findall1(Ordered_pred_nums3,
+%findall(Ordered_pred_nums3,
 %(member([N2,P4],Functions),%L2 is L-1,
 delete(Functions,[P2,P3],Functions2),%member(P1,P),
 order_preds_bottom_up1(L3,P3,Functions2,[],Ordered_pred_nums3),
@@ -648,11 +648,11 @@ delete(Functions,[N,P],Functions2),
 %foldr(append,Ordered_pred_nums4,Ordered_pred_nums5),
 
 
-findall1(Ordered_pred_nums6,
+findall(Ordered_pred_nums6,
 (member([N2,P1],Functions),member(N,P1),L2 is L+1,delete(Functions2,[N2,P1],Functions3),
 order_preds_bottom_up1(L2,N2,Functions3,[],Ordered_pred_nums6)),Ordered_pred_nums7),
 
-findall1([N2,P1],(not(member([N2,P1],Functions2)),
+findall([N2,P1],(not(member([N2,P1],Functions2)),
 member(N,P1)),Functions3),
 
 foldr(append,[Ordered_pred_nums1b,Ordered_pred_nums7],Ordered_pred_nums2).

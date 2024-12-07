@@ -19,7 +19,7 @@ foldr(string_concat,[OP],R1),
 
  working_directory1(_,A),
  
-findall1([T1a,BA1],(member([T1,BA],RTests),remove_end_comments2(BA,BA1),string_concat(R1,T1a,T1)),R110),
+findall([T1a,BA1],(member([T1,BA],RTests),remove_end_comments2(BA,BA1),string_concat(R1,T1a,T1)),R110),
 
 
  To=R1,

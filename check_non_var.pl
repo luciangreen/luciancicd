@@ -1,6 +1,6 @@
 lp2p1_a(A,B) :-
  sub_term_wa([v,_],A,A1),
- findall1([A2,A3],(member([A2,A4],A1),
+ findall([A2,A3],(member([A2,A4],A1),
  ((not(A4=[v,'_']),
  A4=[v,A5],
  atom_concat('_',_,A5),
@@ -49,7 +49,7 @@ check_non_var(C1,C2) :-
  
  %functor(C1A,Name,Arity),
  %* needs to get from A not _
- findall1(CNV41,(%member(N,Ns),arg(N,C12,Arg),%copy_term(Arg,Arg1),
+ findall(CNV41,(%member(N,Ns),arg(N,C12,Arg),%copy_term(Arg,Arg1),
  member(Arg,Args),
  (Arg=[v,_]->
  (get_cnv(CNV4),
@@ -73,7 +73,7 @@ check_non_var(C1,C2) :-
  %assertz(cnv([])),
  cnv(CNV9),
  %trace,
- findall1([[n,not],[[[n,var],[[v,CNV8]]]]],(%member(N,Ns),arg(N,C12,Arg),%copy_term(Arg,Arg1),
+ findall([[n,not],[[[n,var],[[v,CNV8]]]]],(%member(N,Ns),arg(N,C12,Arg),%copy_term(Arg,Arg1),
  %var(Arg),%cnv(CNV1),
  member([Arg,CNV8],CNV9), %trace,
  not((%not(var(Arg)),
@@ -88,7 +88,7 @@ check_non_var(C1,C2) :-
  %foldr(string_concat,Ns11,CC5),
 
  %cnv(CNV3),
- findall1([[n, =],[[v,CNV10],Num1]],(%member(Arg,C13),%N,Ns),arg(N,C13,CNV11=Num),% 
+ findall([[n, =],[[v,CNV10],Num1]],(%member(Arg,C13),%N,Ns),arg(N,C13,CNV11=Num),% 
  (member([[n, =],[CNV11,Num]],C13)->true;
  member([[n, equals4],[CNV11,Num]],C13)),
 %copy_term(Arg,Arg1),

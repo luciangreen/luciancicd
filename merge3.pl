@@ -8,7 +8,7 @@
 merge3(A,B,Q) :-
  retractall(merge31(_)),
  assertz(merge31(A)),
- findall1([[Y],Z],(member(Y,B),Y=[_,[N|_]|_],Y1=[_,[N|_]|_],findall1(Y1,(merge31(A1),member(Y1,A1),delete(A1,Y1,A2),retractall(merge31(_)),
+ findall([[Y],Z],(member(Y,B),Y=[_,[N|_]|_],Y1=[_,[N|_]|_],findall(Y1,(merge31(A1),member(Y1,A1),delete(A1,Y1,A2),retractall(merge31(_)),
  assertz(merge31(A2))),Z)),Q1),
  foldr(append,Q1,Q2),
  foldr(append,Q2,Q3),

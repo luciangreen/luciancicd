@@ -88,7 +88,7 @@ foldr(string_concat,["../../Github_lc/tests_",K11,".txt"%"/",File1
  (once(member([[[n, comment], [["File delimiter", PZ, FZ]]]|Old_S1],Old_S113))->true;Old_S1=[]),
  
  %term_to_atom(Old_S114,Old_S1141),
- %findall1([AT1,",\n"],(member(AT1,Old_S11)),AT12),flatten(AT12,AT1x),%)),AT12),
+ %findall([AT1,",\n"],(member(AT1,Old_S11)),AT12),flatten(AT12,AT1x),%)),AT12),
  %append(AT14,[_],AT1x),
  %foldr(string_concat,Old_S1141,AT135),
  %foldr(string_concat,["[",AT135,"]"],AT132),
@@ -144,14 +144,14 @@ merge2(Old_S1,S1,T3) :-
  assertz(correspondences(Corr2)),
  %diff_group_combos(N1,N2,C),
  diff_combos_vintage(N1,N2,C),
- findall1(T,(member(C1,C),numbers_to_term(C1,Corr2,[],T0)%,lp2p1(T0,T)
+ findall(T,(member(C1,C),numbers_to_term(C1,Corr2,[],T0)%,lp2p1(T0,T)
  ,T=T0
  ),T1),
  delete(T1,[],T31),
  
  %subtract(Combos411,[[]],Combos412),
  /*
- findall1(Combos413,(member(Combos413,Combos412),
+ findall(Combos413,(member(Combos413,Combos412),
  sort(Combos413,Combos414),
  sort(Before,Before1),
  not(Combos414=Before1)),Combos41),
@@ -174,8 +174,8 @@ merge21(Old_S11,S11,T3) :-
  retractall(term_to_numbers1(_)),
  assertz(term_to_numbers1(1)),
 
- findall1(A,(member([_,A1],Old_S11),term_to_atom(A1,A)),Old_S1),
- findall1(A,(member([_,A1],S11),term_to_atom(A1,A)),S1),
+ findall(A,(member([_,A1],Old_S11),term_to_atom(A1,A)),Old_S1),
+ findall(A,(member([_,A1],S11),term_to_atom(A1,A)),S1),
  term_to_numbers(term_to_numbers1,Old_S1,[],Corr,[],N1),
  %trace,
  term_to_numbers(term_to_numbers1,S1,Corr,Corr2,[],N2),
@@ -184,14 +184,14 @@ merge21(Old_S11,S11,T3) :-
  length(Old_S11,Old_S11L),
  numbers(Old_S11L,1,[],Old_S11N),
  %trace,
- findall1([A,C],(member(Old_S11N1,Old_S11N),get_item_n(Old_S11,Old_S11N1,[A1,A1a]),
+ findall([A,C],(member(Old_S11N1,Old_S11N),get_item_n(Old_S11,Old_S11N1,[A1,A1a]),
  (kept([A1,A1a])%=[n, Command]
  ->A=_;A=A1),
  get_item_n(N1,Old_S11N1,C)),N11),
 
  length(S11,S11L),
  numbers(S11L,1,[],S11N),
- findall1([A,C],(member(S11N1,S11N),get_item_n(S11,S11N1,[A1,A1a]),
+ findall([A,C],(member(S11N1,S11N),get_item_n(S11,S11N1,[A1,A1a]),
   (kept([A1,A1a])->A=_;A=A1),get_item_n(N2,S11N1,C)),N21),
  append(N11,N21,N31),
  
@@ -202,7 +202,7 @@ merge21(Old_S11,S11,T3) :-
  %trace,
  (C000=[C]->true;C000=C),
  %trace,
- findall1(T2,(member(C1,C),
+ findall(T2,(member(C1,C),
  (string(C1)->
  (numbers_to_term(C1,Corr2,T),
  member([N32,C1],N31),
@@ -210,12 +210,12 @@ merge21(Old_S11,S11,T3) :-
  );
  (C1=[[c,_],O,N]->
  (
- findall1([N32,T],(member(C2,O),
+ findall([N32,T],(member(C2,O),
  numbers_to_term(C2,Corr2,T),
  member([N32,C2],N31),
  not(T=[])),O111),
 
- findall1([N32,T],(member(C2,N),
+ findall([N32,T],(member(C2,N),
  numbers_to_term(C2,Corr2,T),
  member([N32,C2],N31),
  not(T=[])),N111),
@@ -245,7 +245,7 @@ merge2a(Old_S1,S1,T3) :-
  term_to_numbers(Old_S1,[],Corr,[],N1),
  term_to_numbers(S1,Corr,Corr2,[],N2),
  diff_group_combos(N1,N2,C),
- findall1(T,(member(C1,C),numbers_to_term(C1,Corr2,[],T)%,
+ findall(T,(member(C1,C),numbers_to_term(C1,Corr2,[],T)%,
  %lp2p1(T0,T)
  ),T1),
  delete(T1,[],T3),!.
@@ -254,17 +254,17 @@ merge2a(Old_S1,S1,T3) :-
 get_token_number(_N1,S1,C1,_N,N2) :-
 %writeln(get_token_number(N1,S1,N,N2)),
  %trace,
- %findall1(*,(member(AAA,N1),))
- findall1([SI,N3],member([S1,N3],C1),B),
+ %findall(*,(member(AAA,N1),))
+ findall([SI,N3],member([S1,N3],C1),B),
  (catch((append(_,[[_S2,N4]],B),
  get_base_token_number(N4,N)),_,false)->true;N="0"),%)),S2),
 
 /*
-findall1(S1xx,(member(S1x,N1),(number(S1x)->number_string(S1x,S1xx);%S1x=S1xx),
+findall(S1xx,(member(S1x,N1),(number(S1x)->number_string(S1x,S1xx);%S1x=S1xx),
  get_base_token_number(S1x,S1xx))),S2),
  (number(S1)->number_string(S1,S1xxx);%S1x=S1xx),
  (trace,get_base_token_number(S1,S1xxx))),
- findall1(S2,member(S1xxx,S2),S3),
+ findall(S2,member(S1xxx,S2),S3),
  */
  length(B,L),
  %N=N2,!.
@@ -412,7 +412,7 @@ differentiate(A,B) :-
 differentiate([],Corrs,Corrs,Diffs,Diffs) :- !.
 differentiate(List,Corrs1,Corrs2,Diffs1,Diffs2) :-
  List=[A|B],
- findall1([N,A],member([N,A],Corrs1),C),
+ findall([N,A],member([N,A],Corrs1),C),
  (C=[]->(N1=1,append(Corrs1,[[N1,A]],Corrs3));
  (sort(C,C1),append(_,[[N2,_]],C1),
  N1 is N2+1,append(Corrs1,[[N1,A]],Corrs3))),
@@ -430,7 +430,7 @@ fail_if_greater_than_n_changes(After3) :-
 (fail_if_greater_than_n_changes2(N1)->N=N1;
 fail_if_greater_than_n_changes1(N)),
 %trace,
- findall1(A,(member(A,After3),not(string(A))),B),
+ findall(A,(member(A,After3),not(string(A))),B),
  length(B,L),(L=<N->true;(writeln2(["Increase Max to",L]),fail)).
 
  
@@ -446,7 +446,7 @@ diff_group_combos(Before,After,Combos4) :-
  term_to_numbers(term_to_numbers2,Old_S1,[],Corr,[],N1),
  term_to_numbers(term_to_numbers1,S1,Corr,Corr2,[],N2),
  diff_group_combos(N1,N2,C),
- findall1(T,(member(C1,C),numbers_to_term(C1,Corr2,[],T0),
+ findall(T,(member(C1,C),numbers_to_term(C1,Corr2,[],T0),
 */
 
  retractall(changes(_)),
@@ -465,19 +465,19 @@ diff_group_combos(Before,After,Combos4) :-
  %save_diff_html(After3),
  fail_if_greater_than_n_changes(After3),
  %length(After3,L)
- findall1([[i,_],I],(member([[i,_NA],I],After3)%,not(number(NA))
+ findall([[i,_],I],(member([[i,_NA],I],After3)%,not(number(NA))
  ),Insertions1),
- findall1([[d,_],D],(member([[d,_NB],D],After3)%,not(number(NB))
+ findall([[d,_],D],(member([[d,_NB],D],After3)%,not(number(NB))
  ),Deletions1),
- %findall1([c,C],(member([[c,_],C],After3)),Changes1),
- findall1(Combos,find_combos1(Insertions1,Deletions1,%Changes1,
+ %findall([c,C],(member([[c,_],C],After3)),Changes1),
+ findall(Combos,find_combos1(Insertions1,Deletions1,%Changes1,
  Combos),Combos2),
- findall1(Combos10,(member(Combos3,Combos2),
+ findall(Combos10,(member(Combos3,Combos2),
  find_combos3(After3,Combos3,[],Combos1),
  flatten(Combos1,Combos10)),Combos4),
  %subtract(Combos411,[[]],Combos412),
  /*
- findall1(Combos413,(member(Combos413,Combos412),
+ findall(Combos413,(member(Combos413,Combos412),
  sort(Combos413,Combos414),
  sort(Before,Before1),
  not(Combos414=Before1)),Combos41),
@@ -514,7 +514,7 @@ diff_group_combos1(Before,After,Combos4) :-
  fail_if_greater_than_n_changes(After3),
  %trace,
 
- findall1(A1,(member(A,After3),
+ findall(A1,(member(A,After3),
  (string(A)->A1=A;
  (A=[[c,_],O,N]->
  A1=A;%[O,N];
@@ -522,13 +522,13 @@ diff_group_combos1(Before,After,Combos4) :-
  A1=E))),Combos4),%A2),
  %flatten(A2,Combos4),
 
- %findall1(A,member([[_,_NA],A],After3),Combos4),
+ %findall(A,member([[_,_NA],A],After3),Combos4),
  !.
 %diff_group_combos(_Before,_After,[]).
 diff_group_combos1(_Before,After,[After]).
 
 sort_by_length(A,F) :-
- findall1([L,B],(member(B,A),length(B,L)),C),sort(C,D),findall1(E,member([_,E],D),F).
+ findall([L,B],(member(B,A),length(B,L)),C),sort(C,D),findall(E,member([_,E],D),F).
  
 %join_and_change(After31,After3) :-
  
@@ -537,7 +537,7 @@ i_or_d([d,_]).
  
 %group(-,After4,After4) :- !.
 group(L,After4,After41) :-
- findall1(A,(member([L,A],After4)),After42),
+ findall(A,(member([L,A],After4)),After42),
  (not(After42=[])->
  After41=[[[L,-]
  ,After42]];
@@ -622,8 +622,8 @@ diff_combos(Before,After,Combos4) :-
  find_insertions_and_deletions(Before,After,Insertions,Deletions),
  replace11(After,Insertions,[],After2),
  replace12(Before,After2,Deletions,[],After3),
- findall1(Combos,find_combos1(Insertions,Deletions,Combos),Combos2),
- findall1(Combos1,(member(Combos3,Combos2),
+ findall(Combos,find_combos1(Insertions,Deletions,Combos),Combos2),
+ findall(Combos1,(member(Combos3,Combos2),
  find_combos3(After3,Combos3,[],Combos1)),Combos41),
  sort(Combos41,Combos4),!.
 */
@@ -670,7 +670,7 @@ replace12(Before,After,Deletions,After2,After3) :-
  (Before53=[]->After7=[];
  
  (is_list(Before55)->
- findall1([d,B],member(B,Before55),After7);
+ findall([d,B],member(B,Before55),After7);
  After7=[[d,Before55]])
  );
  
@@ -698,7 +698,7 @@ replace12(Before,After,Deletions,After2,After3) :-
  (Before53=[]->After7=[];
  
  (is_list(Before55)->
- findall1([d,B],member(B,Before55),After7);
+ findall([d,B],member(B,Before55),After7);
  After7=[[d,Before55]])
  );
  
@@ -727,9 +727,9 @@ find_insertions_and_deletions(Before,After,Insertions,Deletions) :-
 
 find_combos1(Insertions,Deletions,%Changes,
 Combos) :-
- %findall1([i,In],member(In,Insertions),In1),
- %findall1([d,De],member(De,Deletions),De1),
- %findall1([c,Ch],member(Ch,Changes),Ch1),
+ %findall([i,In],member(In,Insertions),In1),
+ %findall([d,De],member(De,Deletions),De1),
+ %findall([c,Ch],member(Ch,Changes),Ch1),
  foldr(append,[Insertions,Deletions%,Changes
  ],Ops),
  find_combos2(Ops,[],Combos).
@@ -748,7 +748,7 @@ find_combos2(Ops,Combos1,Combos2) :-
  append(Combos1,[[Op,Switch]],Combos3),
  find_combos2(Ops1,Combos3,Combos2).
 
-%findall1([Op,Switch],(member(Op,Ops),member(Switch,[on,off])),Switches).
+%findall([Op,Switch],(member(Op,Ops),member(Switch,[on,off])),Switches).
 % ((member(In,Insertions)->true;In=[]),
 % (member(De,Deletions)->true;De=[]),
 
@@ -798,7 +798,7 @@ find_combos2(Ops,Combos1,Combos2) :-
  append(Combos1,[[[[Op,S2],A],Switch]],Combos3),
  find_combos2(Ops1,Combos3,Combos2).
 
-%findall1([Op,Switch],(member(Op,Ops),member(Switch,[on,off])),Switches).
+%findall([Op,Switch],(member(Op,Ops),member(Switch,[on,off])),Switches).
 % ((member(In,Insertions)->true;In=[]),
 % (member(De,Deletions)->true;De=[]),
  

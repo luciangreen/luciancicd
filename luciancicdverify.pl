@@ -20,9 +20,9 @@
 
 lc_test(NTotal,Score) :- 
  gh_init(false),
- findall1(_,(lc_test0(_N,_At_start,_Max,_CICD,_Start_files,_End_files)),B),length(B,NTotal),
+ findall(_,(lc_test0(_N,_At_start,_Max,_CICD,_Start_files,_End_files)),B),length(B,NTotal),
  lc_test(0,NTotal,0,Score,[],List),
- findall1(_,(member(L,List),writeln(L),nl),_),
+ findall(_,(member(L,List),writeln(L),nl),_),
  !.
 lc_test(NTotal,NTotal,Score,Score,List,List) :- !.
 lc_test(NTotal1,NTotal2,Score1,Score2,List1,List2) :-
@@ -53,6 +53,10 @@ lc_test(NTotal1,NTotal2,Score1,Score2,List1,List2) :-
 %% lc_test individual cases, Debug=trace=on or off, N=case number, Passed=output=result
 
 lc_test1(N,Passed) :-
+
+dynamic(test_nn/1),
+retractall(test_nn(_)),
+assertz(test_nn(N)),
  %gh2tmp,
 	((lc_test0(N,At_start,Max,CICD,Start_files,End_files),
 	gh_init(At_start),
