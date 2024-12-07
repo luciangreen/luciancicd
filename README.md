@@ -1,5 +1,7 @@
 # Lucian CI/CD
 
+* CI (verification) works, but CD (modification) only works with a non-M2 or later (neural) processor on Apple. It may need backdating to when I bought an M2 MacBook Air on 1 May 2024.
+
 ![761B2A85-6DA4-4EA7-9F20-8CCB2DC60D28](https://user-images.githubusercontent.com/15845542/234572372-8446f119-6151-4ea8-844b-4df89f605143.jpeg)
 
 * Image of different coloured pipelines
