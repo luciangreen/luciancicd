@@ -2,7 +2,7 @@
 
 /*
 
-CI/CD for LPPM repositories
+CI/CD for GitHub (LPPM) repositories
 
 - records modification date for each file
 - command that resets modification dates to that of files x
@@ -76,6 +76,7 @@ Later:
 :-dynamic fail_if_greater_than_n_changes2/1.
 :-dynamic c/1.
 :-dynamic ci_end/1.
+%:-dynamic term_pred_corr/1.
 
 %:-dynamic dep99_na/1.
 
@@ -273,6 +274,8 @@ append(Dependencies9,D22,D23),
   flatten(Dependencies991,Dependencies992),
   sort(Dependencies992,Dependencies99),
   %trace,
+   %(test_nn(9)->trace;true),
+
    lc_tests(Lc_tests),
 
 %trace,
@@ -747,6 +750,8 @@ convlist(f,T4,T41),
 
  append(Pred_list2,T491,T4731),
 %trace,
+ %(test_nn(9)->trace;true),
+
  put_in_order(T4731,AT333B,T47),%->true;
  %(writeln1(put_in_order(T4731,AT333B,T47)),abort)), % leave exact comments, includes x
 
@@ -838,6 +843,10 @@ writeln2(["Installing Combination"]),
 	retractall(test_n(_)),
 	assertz(test_n(Test_n1)),
 	%writeln([test_n1,Test_n1]),
+	
+	%retractall(term_pred_corr(_)),
+	%assertz(term_pred_corr([])),
+
 
  %test_n(Test_n0),
  %(Test_n0=1->trace;true),
