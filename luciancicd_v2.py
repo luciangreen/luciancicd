@@ -30,6 +30,9 @@ import subprocess
 import fnmatch
 from datetime import datetime
 
+# Import enhanced dependency management
+from dependency_manager import DependencyResolver, AdvancedTestRunner
+
 
 @dataclass
 class Repository:
@@ -63,6 +66,10 @@ class LucianCICD:
         self.repositories: Dict[str, Repository] = {}
         self.file_tracker: Dict[str, FileChangeInfo] = {}
         self.dependency_graph: Dict[str, Set[str]] = {}
+        
+        # Initialize enhanced dependency management
+        self.dependency_resolver = DependencyResolver(self.config)
+        self.advanced_test_runner = AdvancedTestRunner(self.config, self.dependency_resolver)
         
     def _load_config(self) -> Dict[str, Any]:
         """Load configuration with sensible defaults"""
@@ -328,29 +335,17 @@ class LucianCICD:
         """Build dependency graph between repositories"""
         self.logger.info("Building dependency graph...")
         
-        # For now, implement basic dependency detection
-        # In the original system, this was done through LPPM registry
+        # Load LPPM registry if available
+        self.dependency_resolver.load_lppm_registry()
         
-        # Initialize graph
-        for repo_name in self.repositories:
-            self.dependency_graph[repo_name] = set()
-            
-        # TODO: Implement proper dependency detection from LPPM registry
-        # For now, assume no dependencies for simplicity
+        # Build comprehensive dependency graph
+        self.dependency_graph = self.dependency_resolver.build_dependency_graph(self.repositories)
         
-        self.logger.info("Dependency graph built")
+        self.logger.info("Enhanced dependency graph built")
         
     def get_affected_repositories(self, changed_repos: List[str]) -> List[str]:
         """Get all repositories affected by changes (including dependents)"""
-        affected = set(changed_repos)
-        
-        # Add dependent repositories
-        for repo_name in self.repositories:
-            for dep in self.dependency_graph.get(repo_name, set()):
-                if dep in affected:
-                    affected.add(repo_name)
-                    
-        return list(affected)
+        return self.dependency_resolver.get_affected_repositories(changed_repos, self.repositories)
         
     def run_tests_for_repository(self, repo_name: str) -> Dict[str, Any]:
         """Run tests for a specific repository"""
@@ -466,9 +461,93 @@ main :-
         results["duration"] = time.time() - start_time
         return results
         
+    def run_tests_for_repository_enhanced(self, repo_name: str) -> Dict[str, Any]:
+        """Run enhanced tests for a specific repository with dependency support"""
+        repo = self.repositories[repo_name]
+        self.logger.info(f"Running enhanced tests for repository: {repo_name}")
+        
+        results = {
+            "repository": repo_name,
+            "success": True,
+            "tests_run": 0,
+            "tests_passed": 0,
+            "tests_failed": 0,
+            "errors": [],
+            "duration": 0.0,
+            "dependencies": list(self.dependency_resolver.get_all_dependencies(repo_name))
+        }
+        
+        start_time = time.time()
+        
+        try:
+            # Create comprehensive test environment with dependencies
+            test_path = self.advanced_test_runner.create_test_environment(repo_name, self.repositories)
+            
+            # Run test commands if available
+            if repo.test_commands:
+                # Use comprehensive test script
+                test_script = self.advanced_test_runner.generate_comprehensive_test(repo_name, repo, test_path)
+                
+                results["tests_run"] = 1  # One comprehensive test
+                
+                try:
+                    # Run the comprehensive test
+                    abs_test_script = test_script.resolve()
+                    self.logger.debug(f"Running comprehensive test: {abs_test_script}")
+                    
+                    result = subprocess.run([
+                        'swipl', '-g', 'main', '-t', 'halt', str(abs_test_script)
+                    ], 
+                    capture_output=True, 
+                    text=True,
+                    timeout=self.config["test_timeout"] * 2,  # Longer timeout for comprehensive tests
+                    cwd=test_path
+                    )
+                    
+                    if result.returncode == 0:
+                        results["tests_passed"] = 1
+                        self.logger.debug(f"Comprehensive test passed for {repo_name}")
+                        self.logger.debug(f"Test output: {result.stdout}")
+                    else:
+                        results["tests_failed"] = 1
+                        results["success"] = False
+                        error_msg = f"Comprehensive test failed for {repo_name}: {result.stderr}"
+                        results["errors"].append(error_msg)
+                        self.logger.warning(error_msg)
+                        
+                except subprocess.TimeoutExpired:
+                    results["tests_failed"] = 1
+                    results["success"] = False
+                    error_msg = f"Comprehensive test timeout for {repo_name}"
+                    results["errors"].append(error_msg)
+                    self.logger.warning(error_msg)
+                    
+                except Exception as e:
+                    results["tests_failed"] = 1
+                    results["success"] = False
+                    error_msg = f"Comprehensive test error for {repo_name}: {str(e)}"
+                    results["errors"].append(error_msg)
+                    self.logger.warning(error_msg)
+            else:
+                # Fall back to basic test for repositories without test commands
+                results = self.run_tests_for_repository(repo_name)
+                
+        except Exception as e:
+            results["success"] = False
+            error_msg = f"Enhanced test setup error for {repo_name}: {str(e)}"
+            results["errors"].append(error_msg)
+            self.logger.error(error_msg)
+            
+        results["duration"] = time.time() - start_time
+        return results
+        
     def run_tests(self, repositories: List[str]) -> Dict[str, Any]:
         """Run tests for multiple repositories in parallel"""
         self.logger.info(f"Running tests for {len(repositories)} repositories")
+        
+        # Get optimal test order (dependencies first)
+        test_order = self.dependency_resolver.get_test_order(repositories)
+        self.logger.info(f"Test order: {' -> '.join(test_order)}")
         
         overall_results = {
             "success": True,
@@ -479,18 +558,19 @@ main :-
             "total_passed": 0,
             "total_failed": 0,
             "duration": 0.0,
+            "test_order": test_order,
             "results": {}
         }
         
         start_time = time.time()
         
-        # Run tests in parallel
+        # Run tests in parallel (respecting dependency order when possible)
         max_workers = min(self.config["max_parallel_tests"], len(repositories))
         
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
             future_to_repo = {
-                executor.submit(self.run_tests_for_repository, repo_name): repo_name
-                for repo_name in repositories
+                executor.submit(self.run_tests_for_repository_enhanced, repo_name): repo_name
+                for repo_name in test_order
             }
             
             for future in as_completed(future_to_repo):
@@ -570,6 +650,28 @@ main :-
                 
             # Get all affected repositories
             affected_repos = self.get_affected_repositories(changed_repos)
+            
+            # Perform change impact analysis
+            changed_file_paths = []
+            for repo_name in changed_repos:
+                repo = self.repositories[repo_name]
+                for file_path in repo.path.rglob("*"):
+                    if file_path.is_file() and self._should_include_file(file_path):
+                        str_path = str(file_path)
+                        if str_path in self.file_tracker:
+                            old_info = self.file_tracker[str_path]
+                            current_hash = self._get_file_hash(file_path)
+                            if current_hash != old_info.content_hash:
+                                changed_file_paths.append(file_path)
+                                
+            impact_analysis = self.dependency_resolver.analyze_change_impact(changed_file_paths, self.repositories)
+            
+            self.logger.info(f"Change impact analysis:")
+            self.logger.info(f"  Risk level: {impact_analysis['risk_level']}")
+            self.logger.info(f"  Changed repositories: {impact_analysis['changed_repositories']}")
+            self.logger.info(f"  Affected repositories: {impact_analysis['affected_repositories']}")
+            if impact_analysis['recommendations']:
+                self.logger.info(f"  Recommendations: {'; '.join(impact_analysis['recommendations'])}")
             
             self.logger.info(f"Running tests for affected repositories: {affected_repos}")
             
