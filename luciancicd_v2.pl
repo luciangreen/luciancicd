@@ -38,7 +38,11 @@ luciancicd_v2 :-
     detect_changes_v2(Repos, ChangedRepos),
     (   ChangedRepos = []
     ->  write('✓ No changes detected - CI/CD cycle complete'), nl
-    ;   process_changes_v2(ChangedRepos)
+    ;   (   process_changes_v2(ChangedRepos)
+        ->  write('🎉 CI/CD cycle completed successfully'), nl
+        ;   write('💥 CI/CD cycle failed - check test results'), nl,
+            fail
+        )
     ).
 
 % Set up initial state - saves current repository versions
@@ -322,8 +326,8 @@ process_changes_v2(ChangedRepos) :-
     write('⚙️  Processing changes...'), nl,
     find_combinations_between_versions(ChangedRepos, Combinations),
     generate_and_save_changes(Combinations),
-    run_tests_for_changed_repositories(ChangedRepos),
-    move_successful_changes_to_repositories(ChangedRepos).
+    run_tests_for_changed_repositories(ChangedRepos, TestResults),
+    check_test_results_and_integrate(TestResults, ChangedRepos).
 
 % Find combinations between old and new repository versions
 find_combinations_between_versions(ChangedRepos, Combinations) :-
@@ -452,15 +456,61 @@ save_combination_changes(combination(Repo, OldVersion, NewVersion, Changes), Cha
 % Generate detailed diff for a specific change
 generate_detailed_diff(added(File, _Hash), Repo, ChangeDir) :-
     format('+ Added file: ~w in ~w~n', [File, Repo]),
-    save_change_record(ChangeDir, File, added).
+    save_change_record(ChangeDir, File, added),
+    copy_changed_file(File, Repo, ChangeDir, added).
 
 generate_detailed_diff(deleted(File, _Hash), Repo, ChangeDir) :-
     format('- Deleted file: ~w in ~w~n', [File, Repo]),
-    save_change_record(ChangeDir, File, deleted).
+    save_change_record(ChangeDir, File, deleted),
+    copy_changed_file(File, Repo, ChangeDir, deleted).
 
 generate_detailed_diff(modified(File, _OldHash, _NewHash), Repo, ChangeDir) :-
     format('~ Modified file: ~w in ~w~n', [File, Repo]),
-    save_change_record(ChangeDir, File, modified).
+    save_change_record(ChangeDir, File, modified),
+    copy_changed_file(File, Repo, ChangeDir, modified).
+
+% Copy the actual changed file to the changes directory
+copy_changed_file(File, Repo, ChangeDir, ChangeType) :-
+    repositories_paths1([RepoPath]),
+    atom_concat(RepoPath, Repo, FullRepoPath),
+    atom_concat(FullRepoPath, '/', FRP1),
+    atom_concat(FRP1, File, SourceFile),
+    
+    % Create subdirectory for file type
+    atom_concat(ChangeDir, '/', CD1),
+    atom_concat(CD1, ChangeType, TypeDir),
+    make_directory_path(TypeDir),
+    
+    % Copy file if it exists (for added/modified files)
+    (   (ChangeType = added; ChangeType = modified),
+        exists_file(SourceFile)
+    ->  atom_concat(TypeDir, '/', TD1),
+        atom_concat(TD1, File, DestFile),
+        copy_file(SourceFile, DestFile),
+        format('  → Copied ~w to changes directory~n', [File])
+    ;   ChangeType = deleted
+    ->  % For deleted files, try to get from previous snapshot
+        copy_deleted_file_from_snapshot(File, Repo, TypeDir),
+        format('  → Copied deleted ~w from snapshot~n', [File])
+    ;   format('  → Could not copy ~w (file not found)~n', [File])
+    ).
+
+% Copy deleted file from the most recent snapshot
+copy_deleted_file_from_snapshot(File, Repo, TypeDir) :-
+    get_previous_snapshot_dir(PreviousSnapshotDir),
+    (   PreviousSnapshotDir \= none
+    ->  atom_concat(PreviousSnapshotDir, '/', PS1),
+        atom_concat(PS1, Repo, PreviousRepoPath),
+        atom_concat(PreviousRepoPath, '/', PRP1),
+        atom_concat(PRP1, File, PreviousFile),
+        (   exists_file(PreviousFile)
+        ->  atom_concat(TypeDir, '/', TD1),
+            atom_concat(TD1, File, DestFile),
+            copy_file(PreviousFile, DestFile)
+        ;   true
+        )
+    ;   true
+    ).
 
 % Save individual change record
 save_change_record(ChangeDir, File, ChangeType) :-
@@ -473,12 +523,24 @@ save_change_record(ChangeDir, File, ChangeType) :-
 % TESTING WITH ENHANCED CAPABILITIES
 % ==============================================================================
 
-% Run tests for changed repositories
-run_tests_for_changed_repositories(ChangedRepos) :-
+% Run tests for changed repositories and return results
+run_tests_for_changed_repositories(ChangedRepos, Results) :-
     write('🧪 Running tests for changed repositories...'), nl,
     get_all_affected_repositories(ChangedRepos, AllAffectedRepos),
     run_tests_v2(AllAffectedRepos, Results),
     save_test_results_v2(Results).
+
+% Check test results and integrate only if tests pass
+check_test_results_and_integrate(Results, ChangedRepos) :-
+    Results = test_results(_, passed(PassedCount), failed(FailedCount), success(SuccessCondition), _),
+    % Evaluate the success condition (e.g., PassedCount = TotalRepos)
+    (   SuccessCondition
+    ->  write('✓ All tests passed - integrating changes'), nl,
+        move_successful_changes_to_repositories(ChangedRepos)
+    ;   format('✗ Tests failed (~w failures) - CI/CD cycle aborted~n', [FailedCount]),
+        write('❌ Changes not integrated due to test failures'), nl,
+        fail
+    ).
 
 % Get all repositories affected by changes (including dependents)
 get_all_affected_repositories(ChangedRepos, AllAffectedRepos) :-
@@ -538,13 +600,43 @@ test_main_file(RepoPath, MainFile, Error) :-
     atom_concat(RepoPath, '/', RP1),
     atom_concat(RP1, MainFile, FullFilePath),
     (   exists_file(FullFilePath)
-    ->  catch(
-            (consult(FullFilePath), true),
-            ConsultError,
-            (Error = consult_error(MainFile, ConsultError), fail)
-        )
+    ->  validate_prolog_syntax(FullFilePath, MainFile, Error)
     ;   Error = file_not_found(MainFile),
         fail
+    ).
+
+% Validate Prolog syntax by attempting to compile the file
+validate_prolog_syntax(FilePath, MainFile, Error) :-
+    % First try to load the file and capture any compilation errors
+    catch(
+        (   % Try to consult the file in a clean environment
+            open(FilePath, read, Stream),
+            repeat,
+            (   at_end_of_stream(Stream)
+            ->  !
+            ;   catch(
+                    read_term(Stream, Term, []),
+                    ReadError,
+                    (   close(Stream),
+                        Error = syntax_error(MainFile, ReadError),
+                        fail
+                    )
+                ),
+                (   Term == end_of_file
+                ->  !
+                ;   fail  % Continue reading
+                )
+            ),
+            close(Stream),
+            % If we got here, syntax is valid, now try to consult
+            catch(
+                consult(FilePath),
+                ConsultError,
+                (Error = consult_error(MainFile, ConsultError), fail)
+            )
+        ),
+        LoadError,
+        (Error = load_error(MainFile, LoadError), fail)
     ).
 
 % Aggregate test results
