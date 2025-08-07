@@ -207,7 +207,7 @@ where TestNumber is the test number from <a href="luciancicdverify.pl">luciancic
 
 # Python and Prolog Version 2
 
-<a href="https://github.com/luciangreen/luciancicd/blob/main/REWRITE_SUMMARY.md">Python version 2</a> supports dependencies and is faster and the <a href="https://github.com/luciangreen/luciancicd/blob/main/LUCIANCICD_V2_GUIDE.md">Prolog version 2</a> support versions.
+<a href="https://github.com/luciangreen/luciancicd/blob/main/REWRITE_SUMMARY.md">Python version 2</a> supports dependencies and is faster and <a href="https://github.com/luciangreen/luciancicd/blob/main/LUCIANCICD_V2_GUIDE.md">Prolog version 2</a> supports versions.
 
 # Authors
 
