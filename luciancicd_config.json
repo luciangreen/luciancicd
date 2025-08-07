@@ -1,0 +1,25 @@
+{
+  "repositories_path": "../GitHub2/",
+  "output_path": "../GitHub2o/",
+  "testing_path": "../luciancicd-testing/",
+  "data_path": "../luciancicd-data/",
+  "log_path": "../lc_logs/",
+  "omit_paths": [
+    "private2",
+    ".git",
+    "__pycache__",
+    ".DS_Store"
+  ],
+  "max_parallel_tests": 4,
+  "test_timeout": 60,
+  "max_changes_threshold": 20,
+  "file_extensions": [
+    ".pl",
+    ".py",
+    ".txt",
+    ".md",
+    ".json"
+  ],
+  "user": "luciangreen",
+  "prolog_command": "swipl"
+}
