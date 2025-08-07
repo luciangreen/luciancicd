@@ -205,6 +205,10 @@ To run a specific test:
 `lc_test1(TestNumber,Passed).`
 where TestNumber is the test number from <a href="luciancicdverify.pl">luciancicdverify.pl</a>.
 
+# Python and Prolog Version 2
+
+The <a href="https://github.com/luciangreen/luciancicd/blob/main/REWRITE_SUMMARY.md">Python version 2</a> supports dependencies and is faster and the <a href="https://github.com/luciangreen/luciancicd/blob/main/LUCIANCICD_V2_GUIDE.md">Prolog version 2</a> support versions.
+
 # Authors
 
 Lucian Green - Initial programmer - <a href="https://www.lucianacademy.com/">Lucian Academy</a>
