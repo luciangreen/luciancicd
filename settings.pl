@@ -3,7 +3,7 @@ user("luciangreen").
 % Note: the following may or may not end in "/".
 
 repositories_paths1([
-"../GitHub2/"
+"../../GitHub2/"
 ]).
 
 omit_paths1([

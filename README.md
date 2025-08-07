@@ -40,19 +40,7 @@ nano ~/.bashrc
 export PATH="$PATH:/opt/homebrew/bin/"
 ```
 
-* Check if `usr/local/bin` exists
-
-```
-ls -ld /usr/local/bin
-```
-
-* Create the directory if missing
-
-```
-sudo mkdir -p /usr/local/bin
-```
-
-* Link to swipl in Terminal
+* Link to swipl in Terminal:
 
 ```
 sudo ln -s /opt/homebrew/bin/swipl /usr/local/bin/swipl
@@ -204,10 +192,6 @@ To run all tests, enter:
 To run a specific test:
 `lc_test1(TestNumber,Passed).`
 where TestNumber is the test number from <a href="luciancicdverify.pl">luciancicdverify.pl</a>.
-
-# Python and Prolog Version 2
-
-<a href="https://github.com/luciangreen/luciancicd/blob/main/REWRITE_SUMMARY.md">Python version 2</a> supports dependencies and is faster and <a href="https://github.com/luciangreen/luciancicd/blob/main/LUCIANCICD_V2_GUIDE.md">Prolog version 2</a> supports versions.
 
 # Authors
 
