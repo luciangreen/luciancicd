@@ -105,7 +105,7 @@ lc_test0(4,true,7,i,
 ["c/main_file.txt","[[\"a.pl\",[[a,1]]],[\"b.pl\",[[b,1]]],[\"c.pl\",[[c,1]]]]"]]
 ).
 
-%/*
+%*
 lc_test0(5,true,7,i,
 [["d/d.pl",":-include('../e/e.pl').\n%d(A).\n%A=1.\nd(A):-e(A)."],
 ["e/e.pl","%e(A).\n%A=1.\ne(1)."],
@@ -116,14 +116,14 @@ lc_test0(5,true,7,i,
 ["d/main_file.txt","[[\"d.pl\",[[d,1]]]]"],
 ["e/main_file.txt","[]"]]
 ).
-%*/
+%*
 lc_test0(6,true,7,i,
 [["c/c.pl","%a(0,A).\n%A=1.\n%a(1,A).\n%A=1.\na(1,1):-!.\na(A,B):-b(A,B).\n%b(0,A).\n%A=1.\nb(A,B):-c(A,B).\n%c(0,A).\n%A=1.\nc(A,B):-C is A+1,a(C,B)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,2]]]]"]],
 [["c/c.pl","%a(0,A).\n%A=1.\n%a(1,A).\n%A=1.\na(1,1):-!.\na(A,B):-b(A,B).\n%b(0,A).\n%A=1.\nb(A,B):-c(A,B).\n%c(0,A).\n%A=1.\nc(A,B):-C is A+1,a(C,B)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,2]]]]"]]
 ).
-%*/
+%*
 lc_test0(7,true,7,i,
 [["c/c.pl","%c(A).\n%A=1.\nc(1).\nc(2)."],
 ["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]],
@@ -137,7 +137,7 @@ lc_test0(8,true,7,i,
 [["c/c.pl","%c(A).\n%A=2.\nc(C):-A=1,B=1,C is A+B."],
 ["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]]
 ).
-%/*
+%*
 
 % Finds A=2,B=1 from A=2,B=2 and A=1,B=1 (test 8).
 

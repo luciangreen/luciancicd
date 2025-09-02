@@ -2,7 +2,7 @@
 
 /*
 
-CI/CD for GitHub (LPPM) repositories
+CI/CD for LPPM repositories
 
 - records modification date for each file
 - command that resets modification dates to that of files x
@@ -76,7 +76,6 @@ Later:
 :-dynamic fail_if_greater_than_n_changes2/1.
 :-dynamic c/1.
 :-dynamic ci_end/1.
-%:-dynamic term_pred_corr/1.
 
 %:-dynamic dep99_na/1.
 
@@ -274,8 +273,6 @@ append(Dependencies9,D22,D23),
   flatten(Dependencies991,Dependencies992),
   sort(Dependencies992,Dependencies99),
   %trace,
-   %(test_nn(9)->trace;true),
-
    lc_tests(Lc_tests),
 
 %trace,
@@ -715,28 +712,21 @@ writeln(here1a),
 */
  % find deps
  %trace,
-%trace,
-convlist(f,T4,T41),
-
 
  findall(_%Results%[PZ,FZ,T10]
  ,(
  %writeln(member(T44,T4)),
- member(T49,T41),
-
- %(test_nn(9)->trace;true),
-
+ member(T44,T4),
 %trace,writeln([*,T44]),
  (success(1)->fail;true),
 %trace,
-(
  % (Curr_preds_L=2->trace;true),
  %foldr(string_concat,T44,T48),
  pred_list(Pred_list2),
 
- %foldr(string_concat,T44,T451),
+ foldr(string_concat,T44,T451),
 
- %catch(term_to_atom(T49,T451),_,fail),%not(T49=[]),
+ catch(term_to_atom(T49,T451),_,fail),%not(T49=[]),
  %writeln([*,T49]),
  %trace,
  %not((forall(member(XY,T49),(XY=[[n,comment]|_]->true;XY=[":-"|_])))),
@@ -750,10 +740,7 @@ convlist(f,T4,T41),
 
  append(Pred_list2,T491,T4731),
 %trace,
- %(test_nn(9)->trace;true),
-
- put_in_order(T4731,AT333B,T47),%->true;
- %(writeln1(put_in_order(T4731,AT333B,T47)),abort)), % leave exact comments, includes x
+ put_in_order(T4731,AT333B,T47), % leave exact comments, includes x
 
  T47=T471,
  findall(XXX1,(member([XXX3,[[n,PName]|Rest_x]],T471),foldr(string_concat,["a",XXX3,"_",PName],PName2),XXX1=[_,[[n,PName2]|Rest_x]]),T471A),
@@ -828,9 +815,7 @@ arg(2, Value, T50))
  %trace,
  flatten(T522,T53),
  foldr(string_concat,T53,T5),
- term_to_atom(T7,T5),split_into_lp_files(T7,T8)
- 
- )=A0,(A0->true;(writeln1(A0),abort)),
+ term_to_atom(T7,T5),split_into_lp_files(T7,T8),
  
    (success(1)->fail;true),
  %success_tmp(Tmp34),(forall(member(Tmp4,Tmp34),Tmp4=1)->true;fail),
@@ -843,10 +828,6 @@ writeln2(["Installing Combination"]),
 	retractall(test_n(_)),
 	assertz(test_n(Test_n1)),
 	%writeln([test_n1,Test_n1]),
-	
-	%retractall(term_pred_corr(_)),
-	%assertz(term_pred_corr([])),
-
 
  %test_n(Test_n0),
  %(Test_n0=1->trace;true),
@@ -891,7 +872,7 @@ writeln2(["Installing",PZ, FZ%Repository1
  %pp_lp2p0(T10,T11),
 %>>>>>>> Stashed changes
 %trace,
- (lp2p1(T10,T11)->true;(writeln1(lp2p1(T10,T11)),abort)),
+ lp2p1(T10,T11),
  %trace,
  %findall(_,(member([K2,Mod_time52],Mod_times),
 open_s(FZ,write,S0),
@@ -965,12 +946,10 @@ working_directory1(A,A),
 %T473=AT3331c,
 append(AT2331c,AT1331c,AT3331c),
 %trace,
-(
 tests_pred2(Tests,AT3331c,Tests01),
 %(test_nn(9)->trace;true),
 %Tests=Tests01,
-sort1(Tests01,Tests0))=A01,
-(A01->true;(writeln1(A01),abort)),
+sort1(Tests01,Tests0),
 %writeln([tests0,Tests0]),
 %notrace
 %trace,
@@ -979,7 +958,7 @@ findall(Result,(member([Go_path1,File,Command],Tests0),
 %trace,
 working_directory1(_,A),
 %trace,
-(check_non_var(Command,Command1)->true;(writeln1(check_non_var(Command,Command1),abort))),
+check_non_var(Command,Command1),
 
 % concurrent from here
 
@@ -1864,15 +1843,14 @@ subtract1(A,A1,B,C) :-
  subtract1(E,F,G,C).
  
 process_subtract(D,D4) :-
- ((D=[N1, [[n, D0]|D01]],
+ D=[N1, [[n, D0]|D01]],
  string_strings(D0,D3),
  append(["a"],D5,D3),
  append(_D6,D7,D5
  ),
  append(["_"],D2,D7),
- foldr(atom_concat,D2,D41))->
- D4=[N1, [[n, D41]|D01]];
- D4=(*)),!.
+ foldr(atom_concat,D2,D41),
+ D4=[N1, [[n, D41]|D01]],!.
  %*/
 
 
@@ -2051,5 +2029,3 @@ pp0_3_lc(A,B) :-
 	%container
 	(pp0_3(A,B)).
 	
-f(T44,C%,D
-) :- foldr(string_concat,T44,D),catch(term_to_atom(C,D),_,fail).%,append(C,[T451],D).
