@@ -1,3 +1,7 @@
+% finds dependencies in the graph
+% - with recursive loops
+% - with both two parts going well together and two uses in the graph
+
 % O=cube,traverse1(O,A,B),object(O,_,A).
 
 
