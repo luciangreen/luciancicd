@@ -58,6 +58,7 @@ Later:
 %:-include('../gitl/diff.pl').
 :-include('main.pl').
 :-include('check_non_var0.pl').
+:-include('../Prolog_Virtual_File_System/vfs.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
@@ -76,6 +77,9 @@ Later:
 :-dynamic fail_if_greater_than_n_changes2/1.
 :-dynamic c/1.
 :-dynamic ci_end/1.
+:-dynamic vfs/1.
+%:-dynamic lctd/1.
+%:-dynamic go_path/1.
 
 %:-dynamic dep99_na/1.
 
@@ -137,6 +141,15 @@ luciancicd :-
 	retractall(success1(_)),assertz(success1(_)),
 	
 	gh_init2,
+
+	%retractall(lctd(_)),
+	%assertz(lctd([])),
+	
+	%retractall(go_path(_)),
+	%assertz(go_path([])),
+
+	retractall(vfs(_)),
+	assertz(vfs([])),
 
 	retractall(diff_html_n(_)),
 	assertz(diff_html_n(1)),
@@ -693,6 +706,7 @@ findall(LD52,(
 writeln(here1a),
  time(merge2(AT23,AT13,T4)),%),T5),
  
+ %remove_dups(T41,T4),
  %findall(XXX,(member(XXX1,T4),foldr(string_concat,XXX1,XXX2),catch(term_to_atom(XXX3,XXX4),_,fail),%pp0(XXX3,XXX4),
  %lp2p1(XXX4,XXX),nl),XXX3),
  %writeln(XXX3),
@@ -716,9 +730,11 @@ writeln(here1a),
  findall(_%Results%[PZ,FZ,T10]
  ,(
  %writeln(member(T44,T4)),
- member(T44,T4),
+member_cut(T44,T4),
+
+ %member(T44,T4),
 %trace,writeln([*,T44]),
- (success(1)->fail;true),
+ %(success(1)->fail;true),
 %trace,
  % (Curr_preds_L=2->trace;true),
  %foldr(string_concat,T44,T48),
@@ -758,7 +774,9 @@ writeln(here1a),
  
  time((term_to_atom(T473,T4731a),
  %foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('../Prolog-to-List-Prolog/p2lpconverter_lc.pl').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((pp0_3_lc(",T4731a,",T501),term_to_atom(T501,T50), write(T50)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String_pp0_3),
- foldr(string_concat,["catch(pp0_3_lc(",T4731a,",T50),_,false)"],String_pp0_3),
+ 
+ 
+foldr(string_concat,["catch(call_with_time_limit(0.1,pp0_3_lc(",T4731a,",T50)), _, fail)"],String_pp0_3),
  
  writeln(String_pp0_3),
 
@@ -772,7 +790,8 @@ term_to_atom(String_pp0_3_t,String_pp0_3),
 
 ((String_pp0_3_t,
 
-arg(1, String_pp0_3_t, Value),
+arg(1, String_pp0_3_t, Value1),
+arg(2, Value1, Value),
 arg(2, Value, T50))
 %(catch(bash_command(S3_pp0_3,T502), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
 	%],_),%writeln1(Text4),
@@ -827,12 +846,11 @@ writeln2(["Installing Combination"]),
 	Test_n1 is Test_n+1,
 	retractall(test_n(_)),
 	assertz(test_n(Test_n1)),
-	%writeln([test_n1,Test_n1]),
+	writeln([test_n1,Test_n1]),
 
  %test_n(Test_n0),
- %(Test_n0=1->trace;true),
 	
-	%(Test_n1=5->trace;true),
+	%((TTT is Test_n1 mod 50, TTT=0)->(writeln("Pausing..."),sleep(2));true),
 	
  findall(_,(member([[[n, comment], [["File delimiter", PZ, FZ]]]|T10],T8),
 
@@ -875,10 +893,9 @@ writeln2(["Installing",PZ, FZ%Repository1
  lp2p1(T10,T11),
  %trace,
  %findall(_,(member([K2,Mod_time52],Mod_times),
-open_s(FZ,write,S0),
-write(S0,T11),close(S0)
+write_vfs_s(FZ,write,T11)
 %writeln([write(FZ,T11)])
-,sleep1(2)
+%sleep1(2)
 
 %),_),!.
 
@@ -947,6 +964,9 @@ working_directory1(A,A),
 append(AT2331c,AT1331c,AT3331c),
 %trace,
 tests_pred2(Tests,AT3331c,Tests01),
+ 
+ %(Test_n1=7->trace;true),
+
 %(test_nn(9)->trace;true),
 %Tests=Tests01,
 sort1(Tests01,Tests0),
@@ -955,6 +975,10 @@ sort1(Tests01,Tests0),
 %trace,
 
 findall(Result,(member([Go_path1,File,Command],Tests0),
+
+%trace,
+%vfs21(Command0,Command),
+%vfs2(Command0,Command),
 %trace,
 working_directory1(_,A),
 %trace,
@@ -988,16 +1012,22 @@ foldr(string_concat,["../luciancicd-testing/",Repository1b,"/"],_Go_path3),
 
 %atom_string(Main_file1,Main_file),
 
-((working_directory1(_,A),
+((%%%DELworking_directory1(_,A),
 
 %trace, %***
  %(exists_directory_s(LCTD)->true;make_directory_s(LCTD)),
 
- make_directory_recursive_s(LCTD,Go_path1),
+ %%%DELmake_directory_recursive_s(LCTD,Go_path1),
 
-working_directory1(_,LCTD),
+%%%DELworking_directory1(_,LCTD),
 %working_directory1(_,Go_path),
-working_directory1(_,Go_path1),
+%%%DELworking_directory1(_,Go_path1),
+
+%retractall(lctd(_)),
+%assertz(lctd(LCTD)),
+
+%retractall(go_path(_)),
+%assertz(go_path(Go_path1)),
 
 % *** Change path to swipl if necessary
 %trace,
@@ -1022,9 +1052,9 @@ File%File
 foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path5,
 "testcicd.pl"],GP),
 %string_concat(Go_path,"testcicd.pl",GP),
-open_s(GP,write,S1),
-write(S1,String),close(S1),
-sleep1(2),
+%%%DELopen_s(GP,write,S1),
+%%%DELwrite(S1,String),close(S1),
+%%%DELsleep1(2),
 foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main -q ./",GP],S3),%,
 
  %(Test_n0=5->trace;true),
@@ -1040,11 +1070,63 @@ catch(call_with_time_limit(7,bash_command(S3,_)),_,(foldr(string_concat,["Warnin
 %test_n(Test_n2),
 %(0 is Test_n2 mod 10->(writeln12("Waiting 30 seconds."),sleep(30));true),
 %trace,
-catch(bash_command1(S3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
-	],_Text4),%writeln1(Text4),
-	fail%abort
- 	))
+%%%DELcatch(bash_command1(S3,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	%%%DEL],_Text4),%writeln1(Text4),
+	%%%DELfail%abort
+ 	%%%DEL))
  	%*/
+
+	catch(call_with_time_limit(1,(
+
+ 	vfs(VFS3),
+ 	findall([X2,"\n"],member([_,X2],VFS3),X21),
+ 	foldr(append,X21,X22),
+ 	foldr(string_concat,X22,X23),
+ 	%term_to_atom(X24,X23),
+
+ 	split_on_substring117a(X23,"\n",X24),
+ 	findall(X26,(member(X25,X24),
+ 	remove_trailing_white_space(X25,X26)),X27),
+%trace,
+	findall([X27a,"\n"],member(X27a,X27),X27b),
+	flatten(X27b,X27c),
+
+ 	foldr(string_concat,X27c,X28),
+ 	split_on_substring117a(X28,".\n",X29),
+%trace,
+ 	split_into_assertable_predicates(X29,X30),
+%trace,
+findall(D81,(member(D8,X30),atom_string(D8,D83),term_to_atom(D81,D83),(D81=(_:-_)->true;D81=.._)),D82),
+	delete(D82,end_of_file,D84),
+ 	findall(_,(member(X31,D84),retractall(X31),
+ 	assertz(X31)),_),
+%trace,	
+ 	term_to_atom(Command1a,Command1),
+ 	
+  	%trace,	Command1a,
+ 	
+
+	(catch(call_with_time_limit(Time_limit,(Command1a)), _,
+	fail)->
+	
+	findall(_,(member(X31,D84),retractall(X31)),_);
+	(findall(_,(member(X31,D84),retractall(X31)),_),fail)),
+
+	%lctd(LCTD),
+	%go_path(Go_path1),
+	%trace,
+	working_directory1(_,A),
+ 	make_directory_recursive_s(LCTD,Go_path1),
+ 	working_directory1(_,LCTD),
+ 	working_directory1(_,Go_path1),
+ 	
+ 	findall(_,(member([FZ,T11],VFS3),
+ 	open_s(FZ,write,S0),
+	write(S0,T11),close(S0)),_)
+	
+	)), _,
+	fail)
+
 %Command
 )->((Result=success,
 %trace,
@@ -1054,7 +1136,8 @@ retractall(pred_list(_)),
 assertz(pred_list(T471A))
 %)
 
-));(Result=fail%,(test_nn(9)->trace;true)
+)
+);(Result=fail%,(test_nn(9)->trace;true)
 )),%trace,
 writeln12([Go_path1,File,Command1,Result])
 %);Result=fail)
@@ -1135,7 +1218,7 @@ findall(_,(member([K21,Mod_time521],Mod_times2),
 open_s(K21,write,S21),
 write(S21,Mod_time521),close(S21)
 ),_),
-sleep1(2),
+%sleep1(2),
 
 
 
@@ -1182,7 +1265,7 @@ term_to_atom(Log,Log1),
 time1(Time),foldr(string_concat,["../lc_logs/log",Time,".txt"],Log_file_name),
 open_s(Log_file_name,write,S21T),
 write(S21T,[S001,Log1]),close(S21T),
-sleep1(2),
+%sleep1(2),
 
 
 	retractall(ci_end(_)),
@@ -2029,3 +2112,16 @@ pp0_3_lc(A,B) :-
 	%container
 	(pp0_3(A,B)).
 	
+
+member_cut(T44,T4) :-
+ member(T44,T4),
+%trace,writeln([*,T44]),
+ (success(1)->(!,fail);true).
+
+vfs21((A, B=D),(A1,B=D)) :-
+	%functor(A, C, Arity)
+	A=..[C,B],
+	%arg(?Arg, C, ?Value)
+	atom_concat(C,'_vfs',C1),
+	A1=..[C1,B],!.
+	%A=c_vfs(_155022)

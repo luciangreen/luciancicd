@@ -156,7 +156,13 @@ merge2(Old_S1,S1,T3) :-
  sort(Before,Before1),
  not(Combos414=Before1)),Combos41),
  */
- sort(T31,Combos41),
+ 
+ % A hack - normally find where "]]" disappeared and put it back
+findall([A3,A34,A35],(member(A3,T31),foldr(append,[A3,["]"]],A34),foldr(append,[A3,["]","]"]],A35)),A36),  
+foldr(append,A36,A37),  
+
+%trace,                                           
+ sort(A37,Combos41),
  %subtract(Combos413,[Old_S1],Combos41),
  sort_by_length(Combos41,T3),
  

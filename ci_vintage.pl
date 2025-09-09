@@ -167,7 +167,8 @@ find_insertions_and_deletions_vintage(Before,After,Insertions1,Deletions1,Perman
  keep1(Kept),
  findall(A1,(member(A1,After),get_base_token_number(A1,A10),member([Comm,A10],Corr),
 %((
-(string_concat(Comm1,",",Comm)->true;Comm1=Comm),catch(term_to_atom(A2,Comm1),_,fail),A2=[[_,Name],Args],length(Args,Arity),member([Name,Arity],Kept)
+(string_concat(Comm1,",",% was ",",
+Comm)->true;Comm1=Comm),catch(term_to_atom(A2,Comm1),_,fail),A2=[[_,Name],Args],length(Args,Arity),member([Name,Arity],Kept)
 %)->true;Comm=",")
 ),Permanent_insertions1),
 sort(Permanent_insertions1,Permanent_insertions),
