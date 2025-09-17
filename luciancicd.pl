@@ -726,6 +726,8 @@ writeln(here1a),
 */
  % find deps
  %trace,
+%trace,
+%writeln(T4),
 
  findall(_%Results%[PZ,FZ,T10]
  ,(
