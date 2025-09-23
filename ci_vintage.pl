@@ -42,9 +42,12 @@ diff_combos_vintage(A,A,[A]) :- !.
 
 diff_combos_vintage(Before,After,Combos4) :-
  %trace,
- find_insertions_and_deletions_vintage(Before,After,Insertions1,Deletions1,Permanent_insertions),
+ %find_insertions_and_deletions_vintage(Before,After,Insertions1,Deletions1,Permanent_insertions),
+ Permanent_insertions=[],
+ diff_new(Before,After,Insertions,Deletions,Permanent_insertions, [], After3),
+
  %trace,
-diff(Before,After,Insertions1,Deletions1,Insertions,Deletions,Permanent_insertions,[],After3),
+%diff(Before,After,Insertions1,Deletions1,Insertions,Deletions,Permanent_insertions,[],After3),
 
  %replace11_vintage(After,Insertions,Permanent_insertions,[],After2),
  %trace,
@@ -244,10 +247,13 @@ find_combos3_vintage([],_Combos,Combos,Combos) :- !.
 find_combos3_vintage(After,Combos,Combos1,Combos2) :-
  After=[Item1|After2],
  ((Item1=[Type,N],
- (catch(get_base_token_number(N,N1),_,false)->true;true),
+ (%catch(get_base_token_number(N,N1),_,false)->true;true),
+ N=N1),
  (member([[Type,N1],Switch],Combos)->N2=N1;
  (member([[Type,N],Switch],Combos),N2=N)),
  ((%Type=i,
- Switch=on)->Item=[N2];Item=[]))->true;Item=[Item1]),
+ %true%
+ Switch=on
+ )->Item=[N2];Item=[]))->true;Item=[Item1]),
  append(Combos1,Item,Combos3),
  find_combos3_vintage(After2,Combos,Combos3,Combos2),!.

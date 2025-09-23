@@ -140,8 +140,8 @@ tmp2gh :- !.
 % rm after
 luciancicd(At_start,Max,CICD,Start_files,End_files) :-
 %trace,
- retractall(c(_)),
- assertz(c(CICD)),
+ %retractall(cicd(_)),
+ %assertz(cicd(CICD)),
  retractall(fail_if_greater_than_n_changes2(_)),
  assertz(fail_if_greater_than_n_changes2(Max)),
  (At_start=true->

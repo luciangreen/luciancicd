@@ -90,4 +90,3 @@ diff_a([X2|Xs], Ys, Insertions1,Deletions1,Ins, [X1|Del], PI, List1, List2) :-
     !.
 
 
-

@@ -131,41 +131,45 @@ foldr(string_concat,["../../Github_lc/tests_",K11,".txt"%"/",File1
  Tests=[[K12,File1,Old_S10,S10]],!.
  
 merge2(Old_S1,S1,T3) :-
+%best_merges(Old_S1,S1, T3),
+%/*
+%writeln(['old_S1',Old_S1]),
+%writeln(['s1,S1']),
+%trace,
+
+
 %trace,
  %open_s("test.lp",write,S21),
  %write(S21,S3),close(S21),
- retractall(term_to_numbers1(_)),
- assertz(term_to_numbers1(1)),
+ %retractall(term_to_numbers1(_)),
+ %assertz(term_to_numbers1(1)),
  %trace,
- term_to_numbers(term_to_numbers1,Old_S1,[],Corr,[],N1),
- term_to_numbers(term_to_numbers1,S1,Corr,Corr2,[],N2),
- retractall(correspondences(_)),
+ %term_to_numbers(term_to_numbers1,Old_S1,[],Corr,[],N1),
+ %term_to_numbers(term_to_numbers1,S1,Corr,Corr2,[],N2),
+ %retractall(correspondences(_)),
  %trace,
- assertz(correspondences(Corr2)),
+ %assertz(correspondences(Corr2)),
  %diff_group_combos(N1,N2,C),
- diff_combos_vintage(N1,N2,C),
- findall(T,(member(C1,C),numbers_to_term(C1,Corr2,[],T0)%,lp2p1(T0,T)
- ,T=T0
- ),T1),
+ diff_combos_vintage(Old_S1,S1,T1),
+ %findall(T,(member(C1,C),numbers_to_term(C1,Corr2,[],T0)%,lp2p1(T0,T)
+ %,T=T0
+ %),T1),
  delete(T1,[],T31),
  
  %subtract(Combos411,[[]],Combos412),
- /*
- findall(Combos413,(member(Combos413,Combos412),
- sort(Combos413,Combos414),
- sort(Before,Before1),
- not(Combos414=Before1)),Combos41),
- */
  
  % A hack - normally find where "]]" disappeared and put it back
-findall([A3,A34,A35],(member(A3,T31),foldr(append,[A3,["]"]],A34),foldr(append,[A3,["]","]"]],A35)),A36),  
-foldr(append,A36,A37),  
+%findall([A3,A34,A35],(member(A3,T31),foldr(append,[A3,["]"]],A34),foldr(append,[A3,["]","]"]],A35)),A36),  
 
+%foldr(append,A36,A37),  
+T31=A37,
 %trace,                                           
  sort(A37,Combos41),
  %subtract(Combos413,[Old_S1],Combos41),
  sort_by_length(Combos41,T3),
- 
+ %writeln(['t3',T3]),
+ %trace,
+ %*/
  !.
 
 kept([[n,A1],A1a]) :-

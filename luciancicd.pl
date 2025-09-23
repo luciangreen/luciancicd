@@ -59,6 +59,9 @@ Later:
 :-include('main.pl').
 :-include('check_non_var0.pl').
 :-include('../Prolog_Virtual_File_System/vfs.pl').
+%:-include('best_merges.pl').
+%:-include('normalize_ld5_same_pname.pl').
+:-include('diff_new.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
@@ -637,8 +640,11 @@ findall(LD31,(member(LD3,Dependencies7d4),LD3=[ON,CN,PN],(member(PN,Curr_preds)-
  sort(New_a2,New_a3),
  findall([LD7,LD8,LD6],member([LD6,LD7,LD8],New_a3),New_a1),
 
+% if old a1 and new a1 have the same PName in [[n,PName]|Rest_x] then make the same LD5
 
 %trace,
+%normalize_ld5_same_pname(Old_a11,New_a11,Old_a1,New_a1),%trace,
+
  (true%c(i)%false%false%true t1-8, false t-T9
  ->(
 
@@ -1077,9 +1083,9 @@ catch(call_with_time_limit(7,bash_command(S3,_)),_,(foldr(string_concat,["Warnin
 	%%%DELfail%abort
  	%%%DEL))
  	%*/
-
+%trace,
 	catch(call_with_time_limit(1,(
-
+%trace,
  	vfs(VFS3),
  	findall([X2,"\n"],member([_,X2],VFS3),X21),
  	foldr(append,X21,X22),
@@ -1098,21 +1104,40 @@ catch(call_with_time_limit(7,bash_command(S3,_)),_,(foldr(string_concat,["Warnin
 %trace,
  	split_into_assertable_predicates(X29,X30),
 %trace,
-findall(D81,(member(D8,X30),atom_string(D8,D83),term_to_atom(D81,D83),(D81=(_:-_)->true;D81=.._)),D82),
-	delete(D82,end_of_file,D84),
- 	findall(_,(member(X31,D84),retractall(X31),
- 	assertz(X31)),_),
+%findall(D81,(member(D8,X30),atom_string(D8,D83),term_to_atom(D81,D83),(D81=(_:-_)->true;D81=.._)),D82),
+	%delete(D82,end_of_file,D84),
+	X30=X84,
+	%trace,
+ 	findall(_,(member(X31,X84),
+ 	
+ 	(catch((atom_string(X32,X31),term_to_atom(X33,X32),retractall(X33),assertz(X33),writeln(assertz(X33))),_,false)->true;true)
+
+ 	),_),
 %trace,	
  	term_to_atom(Command1a,Command1),
  	
   	%trace,	Command1a,
  	
-
+writeln(catch(call_with_time_limit(Time_limit,(Command1a)), _,
+	fail)),
+	%trace,
 	(catch(call_with_time_limit(Time_limit,(Command1a)), _,
 	fail)->
 	
-	findall(_,(member(X31,D84),retractall(X31)),_);
-	(findall(_,(member(X31,D84),retractall(X31)),_),fail)),
+	 	findall(_,(member(X31,X84),
+ 	
+ 	(catch((atom_string(X32,X31),term_to_atom(X33,X32),retractall(X33)),_,false)->true;true)
+
+ 	),_);
+ 	findall(_,(member(X31,X84),
+ 	
+ 	(catch((atom_string(X32,X31),term_to_atom(X33,X32),retractall(X33)),_,false)->true;true)
+
+ 	),_),fail),
+
+	%findall(_,(member(X31,X84),retractall(X31)),_);
+	%(findall(_,(member(X31,X84),retractall(X31)),_),fail)
+	%),
 
 	%lctd(LCTD),
 	%go_path(Go_path1),
@@ -1126,8 +1151,7 @@ findall(D81,(member(D8,X30),atom_string(D8,D83),term_to_atom(D81,D83),(D81=(_:-_
  	open_s(FZ,write,S0),
 	write(S0,T11),close(S0)),_)
 	
-	)), _,
-	fail)
+	)), _,fail)
 
 %Command
 )->((Result=success,
