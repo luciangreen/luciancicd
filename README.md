@@ -1,7 +1,5 @@
 # Lucian CI/CD
 
-* CI (verification) works, but CD (modification) only works with a non-M2 or later (neural) processor on Apple. It may need backdating to when I bought an M2 MacBook Air on 1 May 2024. Note: I tested the latest version on an M1 machine, and it still didn't work (either because it's not the M1, it's the algorithm, neurooperating system changes or something else like the interpreter). I will further examine the converters, etc.
-
 ![761B2A85-6DA4-4EA7-9F20-8CCB2DC60D28](https://user-images.githubusercontent.com/15845542/234572372-8446f119-6151-4ea8-844b-4df89f605143.jpeg)
 
 * Image of different coloured pipelines
@@ -172,10 +170,6 @@ halt.
 * Before testing, Lucian CI/CD backs up `GitHub2o` and `Github_lc` in `gh2_tmp2` and `GitHub2` in `gh2_tmp` (at the same level as `GitHub`, see `settings.pl`).
 
 * If testing is problematic, remove the contents of `GitHub2`, `GitHub_lc`, and `GitHub2o`.
-
-* Lucian CI/CD functions best with 40 GB of memory (free hard disk space).
-
-* Test 9 continues to malfunction (i.e., Lucian CI/CD's ability to do "CD" or change files). I will fix this soon.
 
 * The new Virtual File System used to speed up testing and get around the Apple post-M1 problem of hard disk pauses and hangs means that tested predicates need to have different names from those in Lucian CI/CD. (I haven't changed asserted predicates to the new format.) Please find all built-ins (in normal interpreter mode), your predicates and Lucian CI/CD's predicates with, for example, `current_predicate(_, Predicate_Call).` and subtract the built-ins from the other two lists, to find their unique predicates. Then, rename any recurring instances between the lists of unique predicates with intersection in your code to a non-current predicate name. The `vfs` predicate and `vfs2` predicate, for List Prolog, currently convert all current predicates, not just intersecting, unique predicates, so you need to change back built-ins to the first format.
 
