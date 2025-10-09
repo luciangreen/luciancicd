@@ -61,7 +61,7 @@ Later:
 :-include('../Prolog_Virtual_File_System/vfs.pl').
 %:-include('best_merges.pl').
 %:-include('normalize_ld5_same_pname.pl').
-:-include('diff_new.pl').
+%:-include('diff_new.pl').
 %:-include('id_to_e.pl').
 
 :-dynamic lc_tests/1.
