@@ -1135,7 +1135,7 @@ writeln(catch(call_with_time_limit(Time_limit,(Command1a)), _,
 	
 	 	findall(_,(member(X31,X84),
  	
- 	(catch((atom_string(X32,X31),term_to_atom(X33,X32),X33=(Term_za:-_),
+ 	(catch((atom_string(X32,X31),term_to_atom(X33,X32),(X33=(Term_za:-_)->true;X33=Term_za),
  	functor(Term_za, Name_za, Arity_za),
     PI_za = Name_za/Arity_za,
 abolish(PI_za)),_,false)->true;true)
@@ -1144,7 +1144,7 @@ abolish(PI_za)),_,false)->true;true)
  	%trace,
  	findall(_,(member(X31,X84),
  	
- 	(catch((atom_string(X32,X31),term_to_atom(X33,X32),X33=(Term_za:-_),
+ 	(catch((atom_string(X32,X31),term_to_atom(X33,X32),(X33=(Term_za:-_)->true;X33=Term_za),
  	functor(Term_za, Name_za, Arity_za),
     PI_za = Name_za/Arity_za,
 abolish(PI_za)),_,false)->true;true)
