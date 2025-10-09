@@ -44,8 +44,13 @@ diff_combos_vintage(Before,After,Combos4) :-
  %trace,
  %find_insertions_and_deletions_vintage(Before,After,Insertions1,Deletions1,Permanent_insertions),
  Permanent_insertions=[],
- diff_new(Before,After,Insertions,Deletions,Permanent_insertions, [], After3),
+  diff_lists(Before,After,%Insertions,Deletions,Permanent_insertions, [], 
+ After3),
+ 
+ findall(Insertions2,member([i,Insertions2],After3),Insertions),
+ findall(Deletions2,member([d,Deletions2],After3),Deletions),
 
+%id_to_e(After31,After3),
  %trace,
 %diff(Before,After,Insertions1,Deletions1,Insertions,Deletions,Permanent_insertions,[],After3),
 
@@ -247,9 +252,11 @@ find_combos3_vintage([],_Combos,Combos,Combos) :- !.
 find_combos3_vintage(After,Combos,Combos1,Combos2) :-
  After=[Item1|After2],
  ((Item1=[Type,N],
- (%catch(get_base_token_number(N,N1),_,false)->true;true),
- N=N1),
- (member([[Type,N1],Switch],Combos)->N2=N1;
+ %(%catch(get_base_token_number(N,N1),_,false)->true;true),
+ %trace,
+ %[]=N1),
+ %trace,
+ (%member([[Type,N1],Switch],Combos)->N2=N1;
  (member([[Type,N],Switch],Combos),N2=N)),
  ((%Type=i,
  %true%

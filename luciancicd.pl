@@ -62,6 +62,7 @@ Later:
 %:-include('best_merges.pl').
 %:-include('normalize_ld5_same_pname.pl').
 :-include('diff_new.pl').
+%:-include('id_to_e.pl').
 
 :-dynamic lc_tests/1.
 :-dynamic home_dir/1.
@@ -859,7 +860,9 @@ writeln2(["Installing Combination"]),
  %test_n(Test_n0),
 	
 	%((TTT is Test_n1 mod 50, TTT=0)->(writeln("Pausing..."),sleep(2));true),
-	
+	retractall(vfs(_)),
+	assertz(vfs([])),
+
  findall(_,(member([[[n, comment], [["File delimiter", PZ, FZ]]]|T10],T8),
 
   (success(1)->fail;true),
@@ -901,7 +904,10 @@ writeln2(["Installing",PZ, FZ%Repository1
  lp2p1(T10,T11),
  %trace,
  %findall(_,(member([K2,Mod_time52],Mod_times),
+
+%trace,
 write_vfs_s(FZ,write,T11)
+%,vfs(A)
 %writeln([write(FZ,T11)])
 %sleep1(2)
 
@@ -1086,6 +1092,8 @@ catch(call_with_time_limit(7,bash_command(S3,_)),_,(foldr(string_concat,["Warnin
 %trace,
 	catch(call_with_time_limit(1,(
 %trace,
+%(Test_n1=19->trace;true),
+%trace,
  	vfs(VFS3),
  	findall([X2,"\n"],member([_,X2],VFS3),X21),
  	foldr(append,X21,X22),
@@ -1116,7 +1124,8 @@ catch(call_with_time_limit(7,bash_command(S3,_)),_,(foldr(string_concat,["Warnin
 %trace,	
  	term_to_atom(Command1a,Command1),
  	
-  	%trace,	Command1a,
+%(Test_n1=19->(trace,Command1a);true),
+  	
  	
 writeln(catch(call_with_time_limit(Time_limit,(Command1a)), _,
 	fail)),
@@ -1126,12 +1135,19 @@ writeln(catch(call_with_time_limit(Time_limit,(Command1a)), _,
 	
 	 	findall(_,(member(X31,X84),
  	
- 	(catch((atom_string(X32,X31),term_to_atom(X33,X32),retractall(X33)),_,false)->true;true)
+ 	(catch((atom_string(X32,X31),term_to_atom(X33,X32),X33=(Term_za:-_),
+ 	functor(Term_za, Name_za, Arity_za),
+    PI_za = Name_za/Arity_za,
+abolish(PI_za)),_,false)->true;true)
 
  	),_);
+ 	%trace,
  	findall(_,(member(X31,X84),
  	
- 	(catch((atom_string(X32,X31),term_to_atom(X33,X32),retractall(X33)),_,false)->true;true)
+ 	(catch((atom_string(X32,X31),term_to_atom(X33,X32),X33=(Term_za:-_),
+ 	functor(Term_za, Name_za, Arity_za),
+    PI_za = Name_za/Arity_za,
+abolish(PI_za)),_,false)->true;true)
 
  	),_),fail),
 

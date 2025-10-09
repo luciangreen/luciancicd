@@ -150,6 +150,7 @@ merge2(Old_S1,S1,T3) :-
  %trace,
  %assertz(correspondences(Corr2)),
  %diff_group_combos(N1,N2,C),
+ %trace,
  diff_combos_vintage(Old_S1,S1,T1),
  %findall(T,(member(C1,C),numbers_to_term(C1,Corr2,[],T0)%,lp2p1(T0,T)
  %,T=T0
