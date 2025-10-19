@@ -540,7 +540,6 @@ diff_group_combos1(Before,After,Combos4) :-
 diff_group_combos1(_Before,After,[After]).
 
 sort_by_length(A,F) :-
-%trace,
  
   findall([L,B],(member(B,A),length(B,L)),C),sort(C,D),findall(E,member([_,E],D),F).
 /*findall([L,B],(member(B,A),length(B,L)),C),sort(C,D),%reverse(D,D1),
@@ -548,7 +547,8 @@ sort_by_length(A,F) :-
  sort(L2,L3),
  %trace,
  %trace,
- findall([L4,D6],(member(L4,L3),findall(D8,member([L4,D8],D),D2),sort(D2,D5),D5=D6%reverse(D5,D6)
+ trace,
+findall([L4,D6],(member(L4,L3),findall(D8,member([L4,D8],D),D2),sort(D2,D5),D5=D6%reverse(D5,D6)
  ),D3),
  %trace,
  sort(D3,D7),
