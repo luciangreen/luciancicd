@@ -43,12 +43,39 @@ diff_combos_vintage(A,A,[A]) :- !.
 diff_combos_vintage(Before,After,Combos4) :-
  %trace,
  %find_insertions_and_deletions_vintage(Before,After,Insertions1,Deletions1,Permanent_insertions),
- Permanent_insertions=[],
+ 
+
+
+ %Permanent_insertions=[],
   diff_lists(Before,After,%Insertions,Deletions,Permanent_insertions, [], 
- After3),
+ After31),
+ 
+ 
+keep1(Kept),
+ %trace,
+ 
+ findall(A1,(member(A0,%[_,A1],
+ After31),%get_base_token_number(A1,A10),member([Comm,A10],Corr),
+%((
+(A0=[_,A00],((catch(((string_concat(Comm2,",",% was ",",
+A00)->true;Comm2=A00),(string_concat(",",Comm1,% was ",",
+Comm2)->true;Comm2=Comm1),term_to_atom(A2,Comm1)),_,fail),A2=[[_,Name],Args],length(Args,Arity),member([Name,Arity],Kept),A1=[p,A00])->true;
+(A0=[i,_]->A1=A0;
+(A0=[d,_]->A1=A0)))->true;
+A0=A1
+)
+%)->true;Comm=",")
+),After3),
+%sort(Permanent_insertions1,Permanent_insertions),
+
  
  findall(Insertions2,member([i,Insertions2],After3),Insertions),
  findall(Deletions2,member([d,Deletions2],After3),Deletions),
+ findall(Permanent_insertions2,member([p,Permanent_insertions2],After3),Permanent_insertions),
+ 
+ %delete(Insertions1,Permanent_insertions,Insertions),
+ %delete(Deletions1,Permanent_insertions,Deletions),
+ 
 
 %id_to_e(After31,After3),
  %trace,

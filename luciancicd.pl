@@ -905,8 +905,11 @@ writeln2(["Installing",PZ, FZ%Repository1
  %trace,
  %findall(_,(member([K2,Mod_time52],Mod_times),
 
-%trace,
-write_vfs_s(FZ,write,T11)
+ %trace,
+ foldr(string_concat,[PZ1,"/",FZ%,"/"
+ ],PFZ),
+
+write_vfs_s(PFZ,write,T11)
 %,vfs(A)
 %writeln([write(FZ,T11)])
 %sleep1(2)
@@ -1159,10 +1162,11 @@ abolish(PI_za)),_,false)->true;true)
 	%go_path(Go_path1),
 	%trace,
 	working_directory1(_,A),
- 	make_directory_recursive_s(LCTD,Go_path1),
- 	working_directory1(_,LCTD),
- 	working_directory1(_,Go_path1),
+ 	%make_directory_recursive_s(LCTD,Go_path1),
  	
+ 	working_directory1(_,LCTD),
+ 	%working_directory1(_,Go_path1),
+ 	%trace,
  	findall(_,(member([FZ,T11],VFS3),
  	open_s(FZ,write,S0),
 	write(S0,T11),close(S0)),_)

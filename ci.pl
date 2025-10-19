@@ -168,6 +168,7 @@ T31=A37,
  sort(A37,Combos41),
  %subtract(Combos413,[Old_S1],Combos41),
  sort_by_length(Combos41,T3),
+ %reverse(T33,T3),
  %writeln(['t3',T3]),
  %trace,
  %*/

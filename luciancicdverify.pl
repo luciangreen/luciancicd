@@ -127,7 +127,7 @@ lc_test0(6,true,7,i,
 lc_test0(7,true,7,i,
 [["c/c.pl","%c(A).\n%A=1.\nc(1).\nc(2)."],
 ["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]],
-[["c/c.pl","%c(A).\n%A=1.\nc(1)."],
+[["c/c.pl","%c(A).\n%A=1.\nc(1).\nc(2)."],
 ["c/main_file.txt","[[\"c.pl\",[[c,1]]]]"]]
 ).
 
