@@ -59,7 +59,8 @@ keep1(Kept),
 %((
 (A0=[_,A00],((catch(((string_concat(Comm2,",",% was ",",
 A00)->true;Comm2=A00),(string_concat(",",Comm1,% was ",",
-Comm2)->true;Comm2=Comm1),term_to_atom(A2,Comm1)),_,fail),A2=[[_,Name],Args],length(Args,Arity),member([Name,Arity],Kept),A1=[p,A00])->true;
+Comm2)->true;Comm2=Comm1),term_to_atom(A2,Comm1)),_,fail),A2=[[_,Name],Args],length(Args,Arity),member([Name,Arity],Kept),A1=A00%A1=[p,A00]
+)->true;
 (A0=[i,_]->A1=A0;
 (A0=[d,_]->A1=A0)))->true;
 A0=A1
