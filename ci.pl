@@ -467,7 +467,8 @@ diff_group_combos(Before,After,Combos4) :-
  %differentiate(After,After0),
  %find_insertions_and_deletions(Before,After,Insertions,Deletions),
  %trace,
- diff(Before,After,_,_,[],[],After31),
+ %diff(Before,After,_,_,[],[],After31),
+ diff_lists(Before,After,After31),
 
  
  %replace11(After,Insertions,[],After2),
@@ -516,8 +517,8 @@ diff_group_combos1(Before,After,Combos4) :-
  %differentiate(After,After0),
  %find_insertions_and_deletions(Before,After,Insertions,Deletions),
  
- diff(Before,After,_,_,[],[],After31),
-
+ %diff(Before,After,_,_,[],[],After31),
+ diff_lists(Before,After,After31),
 
  %replace11(After,Insertions,[],After2),
  %replace12(Before,After2,Deletions,[],After31),

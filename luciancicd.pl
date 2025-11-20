@@ -51,7 +51,7 @@ Later:
 :-include('luciancicdverify1.pl').
 :-include('../gitl/find_files.pl').
 %:-include('../gitl/gitl.pl').
-:-include('diff-cgpt.pl').
+%:-include('diff-cgpt.pl').
 :-include('merge3.pl').
 :-include('luciancicd_ws1.pl').
 :-include('../gitl/gitl_ws1.pl').
