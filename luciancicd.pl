@@ -771,7 +771,9 @@ member_cut(T44,T4),
  findall(XXX1,(member([XXX3,[[n,PName]|Rest_x]],T471),foldr(string_concat,["a",XXX3,"_",PName],PName2),XXX1=[_,[[n,PName2]|Rest_x]]),T471A),
  %writeln1([t471,T471]),
  %sort(T47,T471), % leave comments, includes x
- findall(T472,member([_,T472],T471),T473), % strip nums
+
+ findall(T472,member([_,T472],T471),T4731b), % strip nums
+ findall(T4731c,(member(T4731d,T4731b),(((append(T4731f,[":-"|T4731e],T4731d),(T4731e=[]->true;T4731e=[[]])))->(T4731c=T4731f);T4731c=T4731d)),T473), % Replaces ():-. and ():-[]. with ().
  
  writeln(here2),
  %trace,
