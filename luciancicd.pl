@@ -693,7 +693,7 @@ findall(LD52,(
  %pwd,
  %trace,
  %trace,
- writeln(here1),
+ %writeln(here1),
  time(pp0_1(AT2331c,AT234)),
  %term_to_atom(AT234,AT2341),
  split_string(AT234,"\n","\n",AT23),
@@ -710,7 +710,7 @@ findall(LD52,(
 % 
 %writeln(merge2(AT23,AT13,T4)),
 %trace,
-writeln(here1a),
+%writeln(here1a),
  time(merge2(AT23,AT13,T4)),%),T5),
  
  %remove_dups(T41,T4),
@@ -775,7 +775,7 @@ member_cut(T44,T4),
  findall(T472,member([_,T472],T471),T4731b), % strip nums
  findall(T4731c,(member(T4731d,T4731b),(((append(T4731f,[":-"|T4731e],T4731d),(T4731e=[]->true;T4731e=[[]])))->(T4731c=T4731f);T4731c=T4731d)),T473), % Replaces ():-. and ():-[]. with ().
  
- writeln(here2),
+ %writeln(here2),
  %trace,
  %(test_nn(9)->trace;true),
  working_directory1(Here2,Here2),
