@@ -904,14 +904,15 @@ writeln2(["Installing",PZ, FZ%Repository1
 %>>>>>>> Stashed changes
 %trace,
  lp2p1(T10,T11),
- %trace,
- %findall(_,(member([K2,Mod_time52],Mod_times),
+ vfs_prefix_file_commands_in_text(T11,T11_vfs),
+  %trace,
+  %findall(_,(member([K2,Mod_time52],Mod_times),
 
- %trace,
- foldr(string_concat,[PZ1,"/",FZ%,"/"
- ],PFZ),
+  %trace,
+  foldr(string_concat,[PZ1,"/",FZ%,"/"
+  ],PFZ),
 
-write_vfs_s(PFZ,write,T11)
+write_vfs_s(PFZ,write,T11_vfs)
 %,vfs(A)
 %writeln([write(FZ,T11)])
 %sleep1(2)
@@ -1001,7 +1002,8 @@ findall(Result,(member([Go_path1,File,Command],Tests0),
 %trace,
 working_directory1(_,A),
 %trace,
-check_non_var(Command,Command1),
+vfs_prefix_file_commands_in_term(Command,Command_vfs),
+check_non_var(Command_vfs,Command1),
 
 % concurrent from here
 
@@ -1170,8 +1172,9 @@ abolish(PI_za)),_,false)->true;true)
  	%working_directory1(_,Go_path1),
  	%trace,
  	findall(_,(member([FZ,T11],VFS3),
+ 	vfs_unprefix_file_commands_in_text(T11,T11_disk),
  	open_s(FZ,write,S0),
-	write(S0,T11),close(S0)),_)
+	write(S0,T11_disk),close(S0)),_)
 	
 	)), _,fail)
 
@@ -2173,3 +2176,78 @@ vfs21((A, B=D),(A1,B=D)) :-
 	atom_concat(C,'_vfs',C1),
 	A1=..[C1,B],!.
 	%A=c_vfs(_155022)
+
+vfs_file_command_pairs([
+["read_file", "vfs_read_file"],
+["read_file_s", "vfs_read_file_s"],
+["save_file", "vfs_save_file"],
+["save_file_s", "vfs_save_file_s"],
+["open_file_s", "vfs_open_file_s"],
+["open_string_file_s", "vfs_open_string_file_s"],
+["open_s", "vfs_open_s"],
+["exists_file_s", "vfs_exists_file_s"],
+["exists_directory_s", "vfs_exists_directory_s"],
+["make_directory_s", "vfs_make_directory_s"],
+["make_directory_recursive_s", "vfs_make_directory_recursive_s"],
+["phrase_from_file_s", "vfs_phrase_from_file_s"]
+]).
+
+vfs_prefix_file_commands_in_text(Text0,Text1) :-
+ vfs_rewrite_file_commands_in_text(add,Text0,Text1),!.
+
+vfs_unprefix_file_commands_in_text(Text0,Text1) :-
+ vfs_rewrite_file_commands_in_text(remove,Text0,Text1),!.
+
+vfs_rewrite_file_commands_in_text(Mode,Text0,Text1) :-
+ vfs_file_command_pairs(Pairs),
+ vfs_rewrite_file_commands_in_text(Pairs,Mode,Text0,Text1),!.
+
+vfs_rewrite_file_commands_in_text([],_,Text,Text) :- !.
+vfs_rewrite_file_commands_in_text([Pair|Pairs],Mode,Text0,Text2) :-
+ vfs_rewrite_file_command_pair_in_text(Mode,Pair,Text0,Text1),
+ vfs_rewrite_file_commands_in_text(Pairs,Mode,Text1,Text2),!.
+
+vfs_rewrite_file_command_pair_in_text(add,[Source,Target],Text0,Text1) :-
+ foldr(string_concat,[Source,"("],Needle),
+ foldr(string_concat,[Target,"("],Replacement),
+ replace_in_string_all(Text0,Needle,Replacement,Text1),!.
+vfs_rewrite_file_command_pair_in_text(remove,[Source,Target],Text0,Text1) :-
+ foldr(string_concat,[Target,"("],Needle),
+ foldr(string_concat,[Source,"("],Replacement),
+ replace_in_string_all(Text0,Needle,Replacement,Text1),!.
+
+replace_in_string_all(Text0,Needle,Replacement,Text1) :-
+ split_on_substring117a(Text0,Needle,Parts),
+ intersperse_string(Parts,Replacement,Parts2),
+ foldr(string_concat,Parts2,Text1),!.
+
+intersperse_string([],_,[]) :- !.
+intersperse_string([A],_,[A]) :- !.
+intersperse_string([A|B],Sep,[A,Sep|C]) :-
+ intersperse_string(B,Sep,C),!.
+
+vfs_prefix_file_commands_in_term(Term0,Term1) :-
+ vfs_file_command_pairs(Pairs),
+ vfs_rewrite_file_commands_in_term(add,Pairs,Term0,Term1),!.
+
+vfs_rewrite_file_commands_in_term(_,_,Term,Term) :-
+ var(Term),!.
+vfs_rewrite_file_commands_in_term(_,_,Term,Term) :-
+ atomic(Term),!.
+vfs_rewrite_file_commands_in_term(Mode,Pairs,Term0,Term1) :-
+ Term0=..[Functor0|Args0],
+ vfs_rewrite_file_command_functor(Mode,Pairs,Functor0,Functor1),
+ findall(Arg1,(member(Arg0,Args0),
+ vfs_rewrite_file_commands_in_term(Mode,Pairs,Arg0,Arg1)),Args1),
+ Term1=..[Functor1|Args1],!.
+
+vfs_rewrite_file_command_functor(add,Pairs,Functor0,Functor1) :-
+ atom_string(Functor0,Functor0_string),
+ (member([Functor0_string,Functor1_string],Pairs)->
+ atom_string(Functor1,Functor1_string);
+ Functor1=Functor0),!.
+vfs_rewrite_file_command_functor(remove,Pairs,Functor0,Functor1) :-
+ atom_string(Functor0,Functor0_string),
+ (member([Functor1_string,Functor0_string],Pairs)->
+ atom_string(Functor1,Functor1_string);
+ Functor1=Functor0),!.
