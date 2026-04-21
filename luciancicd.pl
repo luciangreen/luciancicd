@@ -2246,3 +2246,8 @@ vfs_rewrite_file_command_functor(add,Pairs,Functor0,Functor1) :-
  (member([Functor0_string,Functor1_string],Pairs)->
  atom_string(Functor1,Functor1_string);
  Functor1=Functor0),!.
+vfs_rewrite_file_command_functor(remove,Pairs,Functor0,Functor1) :-
+ atom_string(Functor0,Functor0_string),
+ (member([Functor1_string,Functor0_string],Pairs)->
+ atom_string(Functor1,Functor1_string);
+ Functor1=Functor0),!.
