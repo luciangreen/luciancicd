@@ -1016,10 +1016,10 @@ findall(Result,(member([Go_path1,File,Command],Tests0),
 %trace,
 working_directory1(_,A),
 %trace,
-writeln([wwwcommand,Command]),
+%writeln([wwwcommand,Command]),
 %Command=Command_vfs,
 vfs_prefix_file_commands_in_text(Command,Command_vfs),
-writeln([wwwcommand_vfs,Command_vfs]),
+%writeln([wwwcommand_vfs,Command_vfs]),
 
 check_non_var(Command_vfs,Command1),
 
@@ -1191,8 +1191,9 @@ abolish(PI_za)),_,false)->true;true)
  	%trace,
  	findall(_,(member([FZ,T11],VFS3),
  	
- 	writeln([wwwt11,T11]),vfs_unprefix_file_commands_in_text(T11,T11_disk),
- 	writeln([wwwt11_disk,T11_disk]),
+ 	%writeln([wwwt11,T11]),
+ 	vfs_unprefix_file_commands_in_text(T11,T11_disk),
+ 	%writeln([wwwt11_disk,T11_disk]),
  	%T11=T11_disk,
  	open_s(FZ,write,S0),
 	write(S0,T11_disk),close(S0)),_)
