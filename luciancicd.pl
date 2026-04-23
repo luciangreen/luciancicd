@@ -1484,7 +1484,9 @@ process_directory(K,%G,
 
 %G=K,
 %/*
-findall(K4,(member(K1,K), directory_files(K1,F),
+findall(K4,(member(K1,K),
+ (exists_directory(K1)->
+ (directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 %*/
 findall(Mod_time3,(member(H,G),not(string_concat("dot",_,H)),
@@ -1520,7 +1522,7 @@ foldr(append,Mod_time5,Mod_time51),
 ->
 (
 term_to_atom(Mod_time51,Mod_time52),
-string_concat(K3,"/",K1),
+((string_concat(K3,"/",K1)->true;K3=K1)),
 foldr(string_concat,["../luciancicd-data/mod_times_",K3,".txt"],K2),
 K4=[K2,Mod_time52]
 %open_s(K2,write,S),
@@ -1532,6 +1534,16 @@ K4=[K2,Mod_time52]
 );
 K4=Mod_time51
 )
+ );
+ (
+ ((string_concat(K1a,"/",K1)->true;K1a=K1)),
+ (exists_file(K1a)->
+ (Top_level=true->
+ K4=[];
+ (time_file(K1a,Mod_time4),
+ K4=[[K1a,Mod_time4]]));
+ K4=[])
+ ))
 
 
 
