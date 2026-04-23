@@ -194,7 +194,7 @@ working_directory1(A0,A0),
 findall(K4,(member(K1,K), 
 working_directory1(_,A0),
 %exists_directory(K1),
- (exists_directory(K1)->
+ %(exists_directory(K1)->
  directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 %*/
@@ -270,8 +270,9 @@ K4=[K2,T6]
 %
 );
 (%trace,
-K4=Tests51));
-K4=[])
+K4=Tests51)%)%;
+%K4=[]
+)
 
 
 

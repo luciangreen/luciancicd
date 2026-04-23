@@ -903,15 +903,30 @@ writeln2(["Installing",PZ, FZ%Repository1
  %pp_lp2p0(T10,T11),
 %>>>>>>> Stashed changes
 %trace,
-  once(lp2p1(T10,T11)),
+  (lp2p1(T10,T11)),
+  
+  %working_directory1(K213,K213),
+ %writeln([t11,T11]),
+
   once(vfs_prefix_file_commands_in_text(T11,T11_vfs)),
+   %writeln([t11_vfs,T11_vfs]),
+
+  %working_directory1(_,K212),
+
   %trace,
   %findall(_,(member([K2,Mod_time52],Mod_times),
-
+  foldr(string_concat,[PZ1,"/",FZ%,"/"
+  ],PFZ),
   %trace,
-  PFZ=FZ,
+%writeln([t11_vfs,T11_vfs]),
 
  once(write_vfs_s(PFZ,write,T11_vfs))
+
+
+
+%   working_directory1(_,K213)
+
+  %working_directory1(_,A1)
 %,vfs(A)
 %writeln([write(FZ,T11)])
 %sleep1(2)
@@ -1001,7 +1016,11 @@ findall(Result,(member([Go_path1,File,Command],Tests0),
 %trace,
 working_directory1(_,A),
 %trace,
-vfs_prefix_file_commands_in_term(Command,Command_vfs),
+writeln([wwwcommand,Command]),
+%Command=Command_vfs,
+vfs_prefix_file_commands_in_text(Command,Command_vfs),
+writeln([wwwcommand_vfs,Command_vfs]),
+
 check_non_var(Command_vfs,Command1),
 
 % concurrent from here
@@ -1171,7 +1190,10 @@ abolish(PI_za)),_,false)->true;true)
  	%working_directory1(_,Go_path1),
  	%trace,
  	findall(_,(member([FZ,T11],VFS3),
- 	vfs_unprefix_file_commands_in_text(T11,T11_disk),
+ 	
+ 	writeln([wwwt11,T11]),vfs_unprefix_file_commands_in_text(T11,T11_disk),
+ 	writeln([wwwt11_disk,T11_disk]),
+ 	%T11=T11_disk,
  	open_s(FZ,write,S0),
 	write(S0,T11_disk),close(S0)),_)
 	
@@ -1485,8 +1507,8 @@ process_directory(K,%G,
 %G=K,
 %/*
 findall(K4,(member(K1,K),
- (exists_directory(K1)->
- (directory_files(K1,F),
+ %(true->%exists_directory(K1)->
+ directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 %*/
 findall(Mod_time3,(member(H,G),not(string_concat("dot",_,H)),
@@ -1522,7 +1544,8 @@ foldr(append,Mod_time5,Mod_time51),
 ->
 (
 term_to_atom(Mod_time51,Mod_time52),
-((string_concat(K3,"/",K1)->true;K3=K1)),
+string_concat(K3,"/",K1),
+%((string_concat(K3,"/",K1)->true;fail)),
 foldr(string_concat,["../luciancicd-data/mod_times_",K3,".txt"],K2),
 K4=[K2,Mod_time52]
 %open_s(K2,write,S),
@@ -1531,9 +1554,11 @@ K4=[K2,Mod_time52]
 %writeln(["*",K2,
 %Mod_time52]
 %)
+
 );
 K4=Mod_time51
 )
+/*
  );
  (
  ((string_concat(K1a,"/",K1)->true;K1a=K1)),
@@ -1544,6 +1569,7 @@ K4=Mod_time51
  K4=[[K1a,Mod_time4]]));
  K4=[])
  ))
+ */
 
 
 
@@ -2203,11 +2229,11 @@ vfs_file_command_pairs([
 ["phrase_from_file_s", "vfs_phrase_from_file_s"]
 ]).
 
-vfs_prefix_file_commands_in_text(Text0,Text1) :-
- vfs_rewrite_file_commands_in_text(add,Text0,Text1),!.
+%vfs_prefix_file_commands_in_text(Text0,Text1) :-
+% vfs_rewrite_file_commands_in_text(add,Text0,Text1),!.
 
-vfs_unprefix_file_commands_in_text(Text0,Text1) :-
- vfs_rewrite_file_commands_in_text(remove,Text0,Text1),!.
+%vfs_unprefix_file_commands_in_text(Text0,Text1) :-
+% vfs_rewrite_file_commands_in_text(remove,Text0,Text1),!.
 
 vfs_rewrite_file_commands_in_text(Mode,Text0,Text1) :-
  vfs_file_command_pairs(Pairs),
@@ -2243,11 +2269,44 @@ intersperse_string([A],_,[A]) :- !.
 intersperse_string([A|B],Sep,[A,Sep|C]) :-
  intersperse_string(B,Sep,C),!.
 
-vfs_prefix_file_commands_in_term(Term0,Term1) :-
- vfs_file_command_pairs(Pairs),
- vfs_rewrite_file_commands_in_term(add,Pairs,Term0,Term1),!.
+vfs_prefix_file_commands_in_text(Term0,Term1) :-
+pref_unpref(prefix,Term0,Term1).
 
-vfs_rewrite_file_commands_in_term(_,_,Term,Term) :-
+pref_unpref(PU,Term0,Term1) :-
+ term_to_atom(Term0,Atom),
+ vfs_file_command_pairs(Pairs),
+ findall([[P1,A],[A,P2]],(member([P1,P2],Pairs),random(A1),string_concat("V",A1,A)),Pairs1),
+ findall(B,member([B,_],Pairs1),Pairs2a),
+ findall(B,member([_,B],Pairs1),Pairs2b),
+ 
+ (PU=prefix->
+ (replace_new1(Pairs2a,Atom,Atom3),
+ replace_new1(Pairs2b,Atom3,Atom2));
+ (replace_new2(Pairs2b,Atom,Atom3),
+ replace_new2(Pairs2a,Atom3,Atom2))), %foldr(replace_new1,Pairs,Atom,%nth1(Pairs,1),nth1(Pairs,2),
+ %"",Atom2),
+ term_to_atom(Term1,Atom2).
+ %vfs_rewrite_file_commands_in_term(add,Pairs,Term0,Term1),!.
+
+
+%replace_new1([P1,P2],Atom,Atom1,Atom2) :-
+ %replace_new(Atom,P1,P2,Atom3),string_concat(Atom1,Atom3,Atom2).
+replace_new1([],A,A) :- !.
+replace_new1(P,A,A2) :-
+P=[[P1,P2]|P3],atom_replace(A,P1,P2,A3),
+replace_new1(P3,A3,A2).
+
+
+vfs_unprefix_file_commands_in_text(Term0,Term1) :-
+pref_unpref(unprefix,Term0,Term1).
+
+replace_new2([],A,A) :- !.
+replace_new2(P,A,A2) :-
+P=[[P1,P2]|P3],atom_replace(A,P2,P1,A3),
+replace_new2(P3,A3,A2).
+
+ 
+/*vfs_rewrite_file_commands_in_term(_,_,Term,Term) :-
  var(Term),!.
 vfs_rewrite_file_commands_in_term(_,_,Term,Term) :-
  atomic(Term),!.
@@ -2268,3 +2327,4 @@ vfs_rewrite_file_command_functor(remove,Pairs,Functor0,Functor1) :-
  (member([Functor1_string,Functor0_string],Pairs)->
  atom_string(Functor1,Functor1_string);
  Functor1=Functor0),!.
+ */

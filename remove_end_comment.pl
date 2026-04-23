@@ -81,7 +81,8 @@ process_directory_remove_end_comment(K,%G,
 
 %G=K,
 %/*
-findall(K4,(member(K1,K), (exists_directory(K1)->
+findall(K4,(member(K1,K), %(true%exists_directory(K1)
+%->
 directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 %*/
@@ -132,8 +133,9 @@ K4=[K2,Mod_time52]
 %)
 );
 K4=Mod_time51
-);
-K4=[])
+%);
+%K4=[]
+)
 
 
 

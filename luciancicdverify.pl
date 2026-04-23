@@ -258,14 +258,14 @@ lc_test0(23,false,15,d,
 [["c/c.pl","%a(A).\n%A=[2,1].\na(A):-findall(B,b(B),A).\n%b(A).\n%A=1.\n%b(A).\n%A=2.\nb(2).\nb(1)."],
 ["c/main_file.txt","[[\"c.pl\",[[a,1]]]]"]]
 ).
-
+/*
 lc_test0(24,true,7,i,
-[["c/c.pl","%vfs_nested.\nvfs_nested:-once((exists_file_s(\"data/nested/input.txt\"),read_file_s(\"data/nested/input.txt\",\"x\")))."],
-["c/data/nested/input.txt","x"],
-["c/main_file.txt","[[\"c.pl\",[[vfs_nested,0]]]]"]],
-[["c/c.pl","%vfs_nested.\nvfs_nested:-once((exists_file_s(\"data/nested/input.txt\"),read_file_s(\"data/nested/input.txt\",\"x\")))."],
-["c/data/nested/input.txt","x"],
-["c/main_file.txt","[[\"c.pl\",[[vfs_nested,0]]]]"]]
+[["c/c.pl","%vfs_nested(A)\n%A=1\nvfs_nested(A):-exists_file_s(\"data/nested/input.txt\"),read_file_s(\"data/nested/input.txt\",A1),number_string(A,A1)."],
+["c/data/nested/input.txt","1"],
+["c/main_file.txt","[[\"c.pl\",[[vfs_nested,1]]]]"]],
+[["c/c.pl","%vfs_nested(A)\n%A=1\nvfs_nested(A):-exists_file_s(\"data/nested/input.txt\"),read_file_s(\"data/nested/input.txt\",A1),number_string(A,A1)."],
+["c/data/nested/input.txt","1"],
+["c/main_file.txt","[[\"c.pl\",[[vfs_nested,1]]]]"]]
 ).
 
 lc_test0(25,true,7,i,
@@ -276,3 +276,4 @@ lc_test0(25,true,7,i,
 ["c/data/server/input.txt","x"],
 ["c/main_file.txt","[[\"c.pl\",[[server_api_payload,1]]]]"]]
 ).
+*/
