@@ -194,7 +194,8 @@ working_directory1(A0,A0),
 findall(K4,(member(K1,K), 
 working_directory1(_,A0),
 %exists_directory(K1),
-directory_files(K1,F),
+ (exists_directory(K1)->
+ (directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 %*/
 findall(Tests3,(member(H,G),not(string_concat("dot",_,H)),
@@ -269,8 +270,8 @@ K4=[K2,T6]
 %
 );
 (%trace,
-K4=Tests51)
-)
+K4=Tests51));
+K4=[])
 
 
 
