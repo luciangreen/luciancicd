@@ -113,7 +113,7 @@ process_directory_tests(K,%G,
 %/*
 findall(K4,(member(K1,K), %exists_directory(K1),
 (exists_directory(K1)->
-(directory_files(K1,F),
+directory_files(K1,F),
 	delete_invisibles_etc(F,G),
 %*/
 findall(Tests3,(member(H,G),not(string_concat("dot",_,H)),
