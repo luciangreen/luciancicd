@@ -909,8 +909,7 @@ writeln2(["Installing",PZ, FZ%Repository1
   %findall(_,(member([K2,Mod_time52],Mod_times),
 
   %trace,
-  foldr(string_concat,[PZ1,"/",FZ%,"/"
-  ],PFZ),
+  PFZ=FZ,
 
 write_vfs_s(PFZ,write,T11_vfs)
 %,vfs(A)
