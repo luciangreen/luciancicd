@@ -903,15 +903,15 @@ writeln2(["Installing",PZ, FZ%Repository1
  %pp_lp2p0(T10,T11),
 %>>>>>>> Stashed changes
 %trace,
- lp2p1(T10,T11),
- vfs_prefix_file_commands_in_text(T11,T11_vfs),
+  once(lp2p1(T10,T11)),
+  once(vfs_prefix_file_commands_in_text(T11,T11_vfs)),
   %trace,
   %findall(_,(member([K2,Mod_time52],Mod_times),
 
   %trace,
   PFZ=FZ,
 
-write_vfs_s(PFZ,write,T11_vfs)
+ once(write_vfs_s(PFZ,write,T11_vfs))
 %,vfs(A)
 %writeln([write(FZ,T11)])
 %sleep1(2)
