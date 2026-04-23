@@ -2215,10 +2215,16 @@ vfs_rewrite_file_command_pair_in_text(remove,[Source,Target],Text0,Text1) :-
  foldr(string_concat,[Source,"("],Replacement),
  replace_in_string_all(Text0,Needle,Replacement,Text1),!.
 
+replace_in_string_all(Text0,"",_,Text0) :- !.
 replace_in_string_all(Text0,Needle,Replacement,Text1) :-
- split_on_substring117a(Text0,Needle,Parts),
- intersperse_string(Parts,Replacement,Parts2),
- foldr(string_concat,Parts2,Text1),!.
+ string_length(Needle,Needle_length),
+ (sub_string(Text0,Before,Needle_length,After,Needle)->
+  sub_string(Text0,0,Before,_,Prefix),
+  Start is Before+Needle_length,
+  sub_string(Text0,Start,After,0,Suffix0),
+  replace_in_string_all(Suffix0,Needle,Replacement,Suffix1),
+  foldr(string_concat,[Prefix,Replacement,Suffix1],Text1);
+  Text1=Text0),!.
 
 intersperse_string([],_,[]) :- !.
 intersperse_string([A],_,[A]) :- !.
